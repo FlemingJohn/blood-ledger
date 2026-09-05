@@ -3,7 +3,6 @@ import type { PurseKeeper, PurseReading } from '../types/purse'
 import { buildDoor } from '../parts/door'
 import { buildScroll } from '../parts/scroll'
 import { dressTheHall } from '../parts/hallDressing'
-import { lightTorch } from '../parts/torch'
 import { homeRealm, realmWherePatronsPay } from '../chain/realms'
 import '../styles/landing.css'
 
@@ -86,9 +85,6 @@ export function buildLanding(order: LandingOrder): Part {
   const hall = document.createElement('div')
   hall.className = 'hall'
 
-  const leftTorch = document.createElement('div')
-  const rightTorch = document.createElement('div')
-
   const centre = document.createElement('div')
   centre.className = 'centre'
 
@@ -101,20 +97,8 @@ export function buildLanding(order: LandingOrder): Part {
   scrolls.append(firstScroll.element, secondScroll.element)
 
   centre.append(makeTitle(), makePromise(), door.element, scrolls)
-  hall.append(leftTorch, centre, rightTorch)
+  hall.append(centre)
   landing.append(dressing.element, hall, makeFooting())
-
-  const torches: Part[] = []
-
-  void lightTorch().then((torch) => {
-    leftTorch.replaceWith(torch.element)
-    torches.push(torch)
-  })
-
-  void lightTorch().then((torch) => {
-    rightTorch.replaceWith(torch.element)
-    torches.push(torch)
-  })
 
   const stopWatching = order.purse.watch((reading) => {
     door.showStanding(reading.standing)
@@ -145,7 +129,6 @@ export function buildLanding(order: LandingOrder): Part {
     element: landing,
     teardown(): void {
       stopWatching()
-      torches.forEach((torch) => torch.teardown())
       firstScroll.teardown()
       secondScroll.teardown()
       door.teardown()
