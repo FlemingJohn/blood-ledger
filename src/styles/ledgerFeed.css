@@ -1,0 +1,103 @@
+.feed {
+  border-top: 1px solid var(--emberwood);
+  background: rgba(10, 3, 7, 0.8);
+  padding: var(--pause) var(--rest) var(--rest);
+}
+
+.feed .panel__label {
+  width: min(1180px, 100%);
+  margin: 0 auto 10px;
+}
+
+.feed__rows {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  width: min(1180px, 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+.feed__row {
+  display: grid;
+  grid-template-columns: 20px 96px minmax(0, 1fr) 150px 78px;
+  gap: var(--pause);
+  align-items: baseline;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(44, 13, 22, 0.7);
+  font-family: var(--counted);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--ash);
+  font-variant-numeric: tabular-nums;
+}
+
+.feed__row:last-child {
+  border-bottom: 0;
+}
+
+.feed__mark {
+  text-align: center;
+  font-weight: 600;
+}
+
+.feed__row--fell .feed__mark {
+  color: var(--blood);
+}
+
+.feed__row--lived .feed__mark {
+  color: var(--gold);
+}
+
+.feed__who {
+  color: var(--bone);
+}
+
+.feed__what {
+  color: var(--ash);
+}
+
+.feed__row--lived .feed__what {
+  color: var(--bone);
+}
+
+.feed__patron {
+  text-align: right;
+}
+
+.feed__row--fell .feed__patron {
+  color: var(--blood);
+}
+
+.feed__row--lived .feed__patron {
+  color: var(--gold);
+}
+
+.feed__when {
+  text-align: right;
+  opacity: 0.72;
+}
+
+@media (max-width: 940px) {
+  .feed {
+    padding: var(--pause);
+  }
+
+  .feed__row {
+    grid-template-columns: 18px minmax(0, 1fr) auto;
+    row-gap: 2px;
+  }
+
+  .feed__what {
+    grid-column: 2 / -1;
+  }
+
+  .feed__patron {
+    grid-column: 2 / 3;
+    text-align: left;
+  }
+
+  .feed__when {
+    grid-column: 3 / 4;
+  }
+}
