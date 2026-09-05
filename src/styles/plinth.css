@@ -1,11 +1,10 @@
 .plinth {
   border: 1px solid var(--emberwood);
   background: rgba(22, 6, 12, 0.62);
-  padding: var(--pause);
+  padding: 12px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .plinth__stage {
@@ -14,17 +13,17 @@
   align-items: flex-end;
   justify-content: center;
   width: 100%;
-  height: 184px;
-  padding-bottom: 30px;
+  height: 140px;
+  padding-bottom: 8px;
 }
 
 .plinth__ring {
   position: absolute;
   left: 50%;
-  bottom: 12px;
-  width: 190px;
+  bottom: 0;
+  width: 168px;
   transform: translateX(-50%);
-  opacity: 0.55;
+  opacity: 0.5;
   image-rendering: pixelated;
   pointer-events: none;
   animation: plinth-breathe 3.4s ease-in-out infinite;
@@ -43,11 +42,11 @@
   content: '';
   position: absolute;
   left: 50%;
-  bottom: -6px;
-  width: 116px;
-  height: 26px;
+  bottom: -4px;
+  width: 104px;
+  height: 20px;
   transform: translateX(-50%);
-  background: radial-gradient(ellipse at center, rgba(4, 0, 2, 0.85), transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(4, 0, 2, 0.8), transparent 70%);
   pointer-events: none;
 }
 
@@ -57,52 +56,43 @@
   image-rendering: pixelated;
 }
 
+.plinth__chooser {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 34px;
+  align-items: center;
+  border-top: 1px solid var(--emberwood);
+  padding-top: 8px;
+}
+
 .plinth__name {
   margin: 0;
+  text-align: center;
   font-family: var(--chiselled);
-  font-size: 1.02rem;
+  font-size: 0.86rem;
   font-weight: 700;
   letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--bone);
 }
 
-.plinth__chooser {
-  display: flex;
-  gap: 1px;
-  background: var(--emberwood);
-  width: 100%;
-}
-
-.plinth__pick {
-  flex: 1;
-  padding: 9px 6px;
-  background: rgba(10, 3, 7, 0.7);
-  font-family: var(--counted);
-  font-size: 0.62rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+.plinth__step {
+  padding: 4px 0;
+  font-size: 0.9rem;
+  line-height: 1;
   color: var(--ash);
-  transition: color 160ms ease, background-color 160ms ease;
+  transition: color 150ms ease;
 }
 
-.plinth__pick:hover {
-  color: var(--bone);
-  background: var(--emberwood);
-}
-
-.plinth__pick[aria-pressed='true'] {
-  color: var(--void);
-  background: var(--ember);
-  font-weight: 600;
+.plinth__step:hover {
+  color: var(--ember);
 }
 
 @keyframes plinth-breathe {
   0%,
   100% {
-    opacity: 0.45;
+    opacity: 0.4;
   }
   50% {
-    opacity: 0.72;
+    opacity: 0.66;
   }
 }
