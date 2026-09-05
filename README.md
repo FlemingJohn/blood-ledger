@@ -98,6 +98,19 @@ LORDS_OF_PAIN_PACK="/path/to/the/pack" npm run gather-art
 npm start
 ```
 
+**Trimming, for the dungeon.** Every sprite in the pack sits on a 256 by 256 frame and
+most of that frame is empty, so the dungeon ships a trimmed copy instead:
+
+```
+npm run trim-art
+```
+
+That reads `public/art`, crops each animation to the union of its solid pixels across all
+frames, and writes the result plus the original offsets to `public/art/trimmed`. Around 86
+percent of the bytes go, and the offsets are kept so sprites still line up with each other
+in the world. Ground textures and the vignette are copied whole on purpose. Pages one and
+two read the untrimmed originals and are not affected by this step.
+
 ---
 
 ## How the code is named
