@@ -68,7 +68,7 @@ export function buildHall(order: HallOrder): Part {
 
   body.append(left, board.element)
 
-  const ledger = unrollTheLedger(readLedger())
+  const ledger = unrollTheLedger(readLedger().slice(0, 3))
 
   hall.append(dressing.element, tally.element, body, ledger.element, rite.element)
 
