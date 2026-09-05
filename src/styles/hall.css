@@ -101,7 +101,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr);
   gap: var(--pause);
-  align-items: start;
+  align-items: stretch;
   width: min(1180px, 100%);
   margin: 0 auto;
   padding: 12px var(--rest);
@@ -199,7 +199,8 @@
   flex-direction: column;
   align-items: stretch;
   gap: 6px;
-  margin-top: 2px;
+  margin-top: auto;
+  padding-top: 2px;
 }
 
 .door--descent {
@@ -294,5 +295,9 @@
 
   .board__list {
     flex: none;
+  }
+
+  .descent {
+    margin-top: 2px;
   }
 }
