@@ -10,47 +10,43 @@ export function pinUpThePact(): PactSlipPart {
   const slip = document.createElement('section')
   slip.className = 'panel'
 
+  const head = document.createElement('div')
+  head.className = 'panel__head'
+
   const label = document.createElement('p')
   label.className = 'panel__label'
-  label.textContent = 'Your Pact'
+  label.textContent = 'Pact'
 
-  const body = document.createElement('div')
-  body.className = 'panel__body'
+  const who = document.createElement('p')
+  who.className = 'panel__reading'
 
-  slip.append(label, body)
+  head.append(label, who)
+
+  const body = document.createElement('p')
+  body.className = 'panel__tally'
+
+  slip.append(head, body)
 
   function showNone(): void {
-    const empty = document.createElement('p')
-    empty.className = 'panel__empty'
-    empty.textContent = 'None. Accept an offer to go down.'
-    body.replaceChildren(empty)
+    who.replaceChildren()
+    body.replaceChildren(document.createTextNode('None yet. Take an offer to go down.'))
+    body.className = 'panel__empty'
   }
 
   function showSealed(pact: Pact): void {
-    const patron = document.createElement('p')
-    patron.className = 'panel__reading'
-
-    const who = document.createElement('b')
-    who.textContent = shortAddress(pact.patronAddress)
-
-    const owed = document.createElement('span')
-    owed.textContent = `owes ${countCoins(pact.coinsStaked)}`
-
-    patron.append(who, owed)
-
-    const share = document.createElement('p')
-    share.className = 'panel__tally'
-
-    const cut = document.createElement('span')
-    cut.textContent = `they keep ${pact.patronShare} percent`
+    const patron = document.createElement('b')
+    patron.textContent = shortAddress(pact.patronAddress)
+    who.replaceChildren(patron)
 
     const debt = document.createElement('span')
     debt.className = 'panel__bad'
     debt.textContent = `debt ${countCoins(pact.coinsStaked)}`
 
-    share.append(cut, debt)
+    const cut = document.createElement('span')
+    cut.textContent = `they keep ${pact.patronShare}%`
 
-    body.replaceChildren(patron, share)
+    body.className = 'panel__tally'
+    body.replaceChildren(debt, cut)
   }
 
   showNone()
