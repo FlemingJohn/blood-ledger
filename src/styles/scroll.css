@@ -1,0 +1,90 @@
+.scroll {
+  flex: 1 1 240px;
+  min-width: 0;
+  border: 1px solid transparent;
+  border-top-color: var(--emberwood);
+  transition: border-color 200ms ease, background-color 200ms ease;
+}
+
+.scroll[open] {
+  border-color: var(--emberwood);
+  background: rgba(26, 18, 16, 0.66);
+}
+
+.scroll__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  cursor: pointer;
+  font-family: var(--counted);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ash);
+  list-style: none;
+  transition: color 160ms ease;
+}
+
+.scroll__title::-webkit-details-marker {
+  display: none;
+}
+
+.scroll__title:hover,
+.scroll[open] .scroll__title {
+  color: var(--ember);
+}
+
+.scroll__mark {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.scroll[open] .scroll__mark {
+  transform: rotate(45deg);
+}
+
+.scroll__body {
+  padding: 0 14px 16px;
+  text-align: left;
+  font-size: 0.95rem;
+  color: var(--bone);
+}
+
+.scroll__steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  counter-reset: step;
+}
+
+.scroll__step {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.scroll__step::before {
+  counter-increment: step;
+  content: counter(step);
+  font-family: var(--counted);
+  font-size: 0.72rem;
+  color: var(--ember);
+  padding-top: 3px;
+  font-variant-numeric: tabular-nums;
+}
+
+.scroll__note {
+  margin: 12px 0 0;
+  font-size: 0.86rem;
+  color: var(--ash);
+}
