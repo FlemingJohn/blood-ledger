@@ -91,6 +91,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--pause);
+  position: sticky;
+  top: var(--pause);
 }
 
 .panel {
@@ -234,8 +236,6 @@
   flex-direction: column;
   gap: 1px;
   background: var(--emberwood);
-  max-height: 62vh;
-  overflow-y: auto;
 }
 
 @media (max-width: 940px) {
@@ -250,7 +250,7 @@
     padding-right: var(--pause);
   }
 
-  .board__list {
-    max-height: none;
+  .hallpage__left {
+    position: static;
   }
 }
