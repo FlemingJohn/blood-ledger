@@ -1,4 +1,4 @@
-import { access, copyFile, mkdir } from 'node:fs/promises'
+import { access, copyFile, mkdir, readdir } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -37,6 +37,92 @@ for (let step = 0; step < 8; step += 1) {
     ])
   }
 }
+
+const facings = [
+  ['N', '90.0'],
+  ['NE', '45.0'],
+  ['E', '0.0'],
+  ['SE', '315.0'],
+  ['S', '270.0'],
+  ['SW', '225.0'],
+  ['W', '180.0'],
+  ['NW', '135.0']
+]
+
+const fighters = [
+  ['playable character/warrior', 'warrior', 'you', ['armed_walk', 'armed_attack', 'special_death']],
+  ['enemy/skeleton', 'skeleton', 'skeleton', ['default_walk', 'default_attack', 'special_death']],
+  ['enemy/slime', 'slime', 'slime', ['default_walk', 'special_death']],
+  ['boss/demonlord', 'demonlord', 'demonlord', ['default_walk', 'default_attack1', 'special_death']]
+]
+
+const shorterName = {
+  armed_walk: 'walk',
+  armed_attack: 'attack',
+  default_walk: 'walk',
+  default_attack: 'attack',
+  default_attack1: 'attack',
+  special_death: 'death'
+}
+
+const framesInMove = {}
+
+for (const [inPack, actor, calledHere, moves] of fighters) {
+  for (const move of moves) {
+    const oneDirection = join(packFolder, inPack, `${actor}_${move}`, 'S')
+    let howMany = 8
+
+    try {
+      howMany = (await readdir(oneDirection)).filter((name) => name.endsWith('.png')).length
+    } catch {
+      howMany = 0
+    }
+
+    framesInMove[`${calledHere}/${shorterName[move]}`] = howMany
+
+    for (const [facing, yaw] of facings) {
+      for (let step = 0; step < howMany; step += 1) {
+        wanted.push([
+          `${inPack}/${actor}_${move}/${facing}/${actor}_${move}_${facing}_${yaw}_${step}.png`,
+          `dungeon/${calledHere}/${shorterName[move]}-${facing}-${step}.png`
+        ])
+      }
+    }
+  }
+}
+
+const standingProps = [
+  ['prop/wall1', 'wall1'],
+  ['prop/wall2', 'wall2'],
+  ['prop/column1', 'column'],
+  ['prop/barrel', 'barrel'],
+  ['prop/crate', 'crate'],
+  ['prop/bones1', 'bones'],
+  ['prop/rocks', 'rubble'],
+  ['prop/mushrooms', 'mushrooms']
+]
+
+for (const [inPack, calledHere] of standingProps) {
+  const shortName = inPack.split('/')[1]
+  wanted.push([
+    `${inPack}/S/${shortName}_S_270.0_0.png`,
+    `dungeon/prop/${calledHere}.png`
+  ])
+}
+
+for (let step = 0; step < 8; step += 1) {
+  wanted.push([
+    `prop/gemstones_red/S/gemstones_red_S_270.0_${step}.png`,
+    `dungeon/loot/gem-${step}.png`
+  ])
+  wanted.push([
+    `prop/gold_drop/S/gold_drop_S_270.0_${step}.png`,
+    `dungeon/loot/coins-${step}.png`
+  ])
+}
+
+wanted.push(['environment/ground_variation1.png', 'dungeon/ground/floor.png'])
+wanted.push(['environment/ground_darken.png', 'dungeon/ground/dark.png'])
 
 async function exists(path) {
   try {
