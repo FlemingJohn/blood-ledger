@@ -62,7 +62,12 @@ export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
 
     const frames = raiderPoses[showing]
     try {
-      const next = await startFlipbook({ frames, framesPerSecond: 8 })
+      const next = await startFlipbook({
+        frames,
+        framesPerSecond: 8,
+        trimToContent: true,
+        faintestKept: 24
+      })
       running?.stop()
       running = next
       figure.replaceChildren(next.canvas)
