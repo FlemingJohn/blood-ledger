@@ -101,6 +101,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr);
   gap: var(--pause);
+  align-content: center;
   align-items: stretch;
   width: min(1180px, 100%);
   margin: 0 auto;
@@ -112,6 +113,12 @@
   flex-direction: column;
   gap: 12px;
   min-height: 0;
+}
+
+.hallpage__left > .plinth {
+  flex: 1 1 auto;
+  min-height: 190px;
+  max-height: 310px;
 }
 
 .panel {
