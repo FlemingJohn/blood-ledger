@@ -85,7 +85,7 @@ npm install
 npm run gather-art
 ```
 
-That copies thirty pieces of art out of the pack and into `public/art`, which is ignored by
+That copies sixty five pieces of art out of the pack and into `public/art`, which is ignored by
 git. If you unzipped the pack somewhere else, point at it:
 
 ```
@@ -110,7 +110,6 @@ names, and nothing is called a manager or a handler.
 | `purse` | The player's wallet |
 | `realm` | A chain |
 | `homeRealm` | Creditcoin, where the game lives |
-| `standing` | A raider's credit rating, or the state of a purse |
 | `door` | The button that opens the purse |
 | `scroll` | A panel that unrolls in place |
 | `torch` | A burning brazier |
@@ -148,8 +147,9 @@ reads is the only change the pages need.
 Phaser for the dungeon, TypeScript and Vite for everything else, ethers for talking to
 purses, Foundry for the contracts, and `@gluwa/usc-sdk` for the proofs.
 
-Type is set in Cinzel, Crimson Pro and JetBrains Mono. The art pack ships no font, so all
-three come from Google Fonts.
+Type is set in Nosifer for the wordmark, Cinzel for anything you click, Crimson Pro for
+reading and JetBrains Mono for numbers. The art pack ships no font, so all four come from
+Google Fonts.
 
 ---
 
