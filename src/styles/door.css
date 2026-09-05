@@ -6,7 +6,7 @@
   min-width: 288px;
   padding: 18px 40px;
   border: 1px solid var(--ember);
-  background: rgba(26, 18, 16, 0.6);
+  background: rgba(22, 6, 12, 0.62);
   color: var(--ember);
   font-family: var(--carved);
   font-weight: 700;
@@ -44,6 +44,7 @@
   opacity: 0;
   pointer-events: none;
   mix-blend-mode: screen;
+  filter: hue-rotate(-42deg) saturate(1.6);
   image-rendering: pixelated;
 }
 
@@ -55,7 +56,7 @@
 .door:hover:not(:disabled),
 .door:focus-visible:not(:disabled) {
   color: var(--void);
-  box-shadow: 0 0 38px rgba(196, 64, 42, 0.36);
+  box-shadow: 0 0 40px rgba(214, 21, 78, 0.42);
 }
 
 .door:hover:not(:disabled) .door__sweep {
