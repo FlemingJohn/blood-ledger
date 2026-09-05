@@ -1,0 +1,97 @@
+.reckoning {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: var(--pause);
+  background: rgba(4, 0, 2, 0.9);
+  backdrop-filter: blur(4px);
+}
+
+.reckoning__slab {
+  width: min(420px, 100%);
+  border: 1px solid var(--emberwood);
+  background: rgba(22, 6, 12, 0.97);
+  padding: var(--rest);
+}
+
+.reckoning--lived .reckoning__slab {
+  box-shadow: 0 0 90px rgba(201, 162, 39, 0.28);
+}
+
+.reckoning--fell .reckoning__slab {
+  box-shadow: 0 0 90px rgba(139, 11, 46, 0.42);
+}
+
+.reckoning__title {
+  margin: 0 0 4px;
+  font-family: var(--chiselled);
+  font-size: 1.32rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.reckoning--lived .reckoning__title {
+  color: var(--gold);
+}
+
+.reckoning--fell .reckoning__title {
+  color: var(--blood);
+}
+
+.reckoning__where {
+  margin: 0 0 var(--pause);
+  text-align: center;
+  font-family: var(--counted);
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ash);
+}
+
+.reckoning__sums {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: var(--pause) 0;
+  border-top: 1px solid var(--emberwood);
+  border-bottom: 1px solid var(--emberwood);
+}
+
+.reckoning__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--pause);
+  margin: 0;
+  font-family: var(--counted);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ash);
+  font-variant-numeric: tabular-nums;
+}
+
+.reckoning__row b {
+  font-weight: 600;
+  color: var(--bone);
+}
+
+.reckoning__row--good b {
+  color: var(--gold);
+}
+
+.reckoning__row--bad b {
+  color: var(--blood);
+}
+
+.reckoning__aside {
+  margin: var(--pause) 0;
+  text-align: center;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--ash);
+}
