@@ -1,13 +1,16 @@
 import './styles/theme.css'
 import type { Part } from './types/parts'
+import type { Pact } from './types/pact'
 import { keepPurse } from './chain/purse'
 import { buildLanding } from './pages/landing'
 import { buildHall } from './pages/hall'
+import { buildDescent } from './pages/descent'
 import { armThePointer } from './parts/pointer'
 import { everyPieceOfArt } from './art/paths'
 import { loadWhatYouCan } from './art/pictures'
+import { madeUpSeed } from './dungeon/seed'
 
-type PageName = 'landing' | 'hall'
+type PageName = 'landing' | 'hall' | 'descent'
 
 function findStage(): HTMLDivElement {
   const found = document.querySelector<HTMLDivElement>('#game')
@@ -23,6 +26,7 @@ const purse = keepPurse()
 
 let showing: Part | null = null
 let showingName: PageName = 'landing'
+let heldAddress: string | null = null
 
 function show(name: PageName, built: Part): void {
   showing?.teardown()
@@ -40,6 +44,7 @@ function showLanding(): void {
       purse,
       whenHallOpens(reading) {
         if (reading.address) {
+          heldAddress = reading.address
           showHall(reading.address)
         }
       }
@@ -53,7 +58,25 @@ function showHall(address: string): void {
     buildHall({
       address,
       whenDescending(pact) {
-        window.console.info('the dungeon is not built yet', pact.offerId)
+        showDescent(pact)
+      }
+    })
+  )
+}
+
+function showDescent(pact: Pact): void {
+  show(
+    'descent',
+    buildDescent({
+      pact,
+      standing: 720,
+      seed: madeUpSeed(),
+      whenSettled() {
+        if (heldAddress) {
+          showHall(heldAddress)
+        } else {
+          showLanding()
+        }
       }
     })
   )
@@ -62,7 +85,7 @@ function showHall(address: string): void {
 showLanding()
 
 purse.watch((reading) => {
-  if (showingName === 'hall' && reading.standing !== 'opened') {
+  if (showingName !== 'landing' && reading.standing !== 'opened') {
     showLanding()
   }
 })
