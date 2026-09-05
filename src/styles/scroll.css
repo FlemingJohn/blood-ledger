@@ -8,7 +8,7 @@
 
 .scroll[open] {
   border-color: var(--emberwood);
-  background: rgba(26, 18, 16, 0.66);
+  background: rgba(22, 6, 12, 0.66);
 }
 
 .scroll__title {
