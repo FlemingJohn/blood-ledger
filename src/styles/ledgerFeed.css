@@ -1,12 +1,12 @@
 .feed {
   border-top: 1px solid var(--emberwood);
   background: rgba(10, 3, 7, 0.8);
-  padding: var(--pause) var(--rest) var(--rest);
+  padding: 10px var(--rest) 12px;
 }
 
 .feed .panel__label {
   width: min(1180px, 100%);
-  margin: 0 auto 10px;
+  margin: 0 auto 6px;
 }
 
 .feed__rows {
@@ -23,7 +23,7 @@
   grid-template-columns: 20px 96px minmax(0, 1fr) 150px 78px;
   gap: var(--pause);
   align-items: baseline;
-  padding: 9px 0;
+  padding: 6px 0;
   border-bottom: 1px solid rgba(44, 13, 22, 0.7);
   font-family: var(--counted);
   font-size: 0.72rem;
