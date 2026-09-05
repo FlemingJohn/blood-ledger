@@ -1,36 +1,15 @@
 import type { Part } from '../types/parts'
-import {
-  darkenedEdges,
-  scatteredBones,
-  scatteredRocks,
-  sleepingWatcher,
-  stoneFloor
-} from '../art/paths'
-
-function makeLayer(className: string): HTMLDivElement {
-  const layer = document.createElement('div')
-  layer.className = className
-  layer.setAttribute('aria-hidden', 'true')
-  return layer
-}
-
-function makeScatter(path: string, place: string): HTMLImageElement {
-  const litter = document.createElement('img')
-  litter.className = `scatter ${place}`
-  litter.src = path
-  litter.alt = ''
-  litter.setAttribute('aria-hidden', 'true')
-  return litter
-}
+import { darkenedEdges, sleepingWatcher } from '../art/paths'
+import { lightTheBackdrop } from './flames'
 
 export function dressTheHall(): Part {
-  const dressing = document.createDocumentFragment()
+  const holder = document.createElement('div')
 
-  const floor = makeLayer('floor')
-  floor.style.backgroundImage = `url(${stoneFloor})`
+  const backdrop = lightTheBackdrop()
 
-  const edges = makeLayer('edges')
-  edges.style.backgroundImage = `url(${darkenedEdges})`
+  const fallback = document.createElement('div')
+  fallback.className = 'backdrop backdrop--still'
+  fallback.setAttribute('aria-hidden', 'true')
 
   const watcher = document.createElement('img')
   watcher.className = 'watcher'
@@ -38,22 +17,20 @@ export function dressTheHall(): Part {
   watcher.alt = ''
   watcher.setAttribute('aria-hidden', 'true')
 
-  const bones = makeScatter(scatteredBones, 'scatter--bones')
-  const rocks = makeScatter(scatteredRocks, 'scatter--rocks')
+  const edges = document.createElement('div')
+  edges.className = 'edges'
+  edges.setAttribute('aria-hidden', 'true')
+  edges.style.backgroundImage = `url(${darkenedEdges})`
 
-  dressing.append(floor, watcher, bones, rocks, edges)
-
-  const holder = document.createElement('div')
-  holder.append(dressing)
+  holder.append(backdrop ? backdrop.canvas : fallback, watcher, edges)
 
   return {
     element: holder,
     teardown(): void {
-      floor.remove()
-      edges.remove()
+      backdrop?.stop()
+      fallback.remove()
       watcher.remove()
-      bones.remove()
-      rocks.remove()
+      edges.remove()
     }
   }
 }
