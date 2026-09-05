@@ -27,12 +27,18 @@ export async function startFlipbook(order: FlipbookOrder): Promise<RunningFlipbo
   const takeHeight = edges.bottom - edges.top + 1
 
   const magnify = Math.max(1, Math.round(order.magnify ?? 1))
-  const drawWidth = takeWidth * magnify
-  const drawHeight = takeHeight * magnify
+  const screenSteps = Math.max(1, Math.round(window.devicePixelRatio || 1))
+
+  const shownWidth = takeWidth * magnify
+  const shownHeight = takeHeight * magnify
+  const drawWidth = shownWidth * screenSteps
+  const drawHeight = shownHeight * screenSteps
 
   const canvas = document.createElement('canvas')
   canvas.width = drawWidth
   canvas.height = drawHeight
+  canvas.style.width = `${shownWidth}px`
+  canvas.style.height = `${shownHeight}px`
 
   const surface = canvas.getContext('2d')
   if (!surface) {
