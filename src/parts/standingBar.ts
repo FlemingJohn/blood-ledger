@@ -7,17 +7,12 @@ export function showStanding(standing: Standing): Part {
   const block = document.createElement('section')
   block.className = 'panel'
 
+  const head = document.createElement('div')
+  head.className = 'panel__head'
+
   const label = document.createElement('p')
   label.className = 'panel__label'
   label.textContent = 'Standing'
-
-  const bar = document.createElement('div')
-  bar.className = 'meter'
-
-  const filled = document.createElement('div')
-  filled.className = 'meter__filled'
-  filled.style.width = `${Math.min(100, (standing.score / highestScore) * 100)}%`
-  bar.append(filled)
 
   const reading = document.createElement('p')
   reading.className = 'panel__reading'
@@ -26,9 +21,18 @@ export function showStanding(standing: Standing): Part {
   grade.textContent = standing.grade
 
   const score = document.createElement('span')
-  score.textContent = `${standing.score} of ${highestScore}`
+  score.textContent = String(standing.score)
 
   reading.append(grade, score)
+  head.append(label, reading)
+
+  const bar = document.createElement('div')
+  bar.className = 'meter'
+
+  const filled = document.createElement('div')
+  filled.className = 'meter__filled'
+  filled.style.width = `${Math.min(100, (standing.score / highestScore) * 100)}%`
+  bar.append(filled)
 
   const tally = document.createElement('p')
   tally.className = 'panel__tally'
@@ -46,7 +50,7 @@ export function showStanding(standing: Standing): Part {
 
   tally.append(raids, repaid, lost)
 
-  block.append(label, bar, reading, tally)
+  block.append(head, bar, tally)
 
   return {
     element: block,
