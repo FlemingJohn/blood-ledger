@@ -1,0 +1,98 @@
+.rite {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  padding: var(--pause);
+  background: rgba(4, 0, 2, 0.86);
+  backdrop-filter: blur(3px);
+}
+
+.rite__slab {
+  width: min(460px, 100%);
+  border: 1px solid var(--emberwood);
+  background: rgba(22, 6, 12, 0.96);
+  padding: var(--rest);
+  box-shadow: 0 0 80px rgba(139, 11, 46, 0.35);
+}
+
+.rite__title {
+  margin: 0 0 var(--pause);
+  font-family: var(--chiselled);
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ember);
+  text-align: center;
+}
+
+.rite__steps {
+  list-style: none;
+  margin: 0 0 var(--pause);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.rite__step {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 12px;
+  align-items: baseline;
+  font-size: 0.95rem;
+  color: var(--ash);
+  transition: color 220ms ease;
+}
+
+.rite__mark {
+  font-family: var(--counted);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.rite__step--done {
+  color: var(--bone);
+}
+
+.rite__step--done .rite__mark {
+  color: var(--gold);
+}
+
+.rite__step--working {
+  color: var(--ember);
+}
+
+.rite__step--working .rite__mark {
+  color: var(--ember);
+  animation: rite-tick 1.1s steps(4, end) infinite;
+}
+
+.rite__step--failed {
+  color: var(--blood);
+}
+
+.rite__counted {
+  margin: 10px 0 0;
+  font-family: var(--counted);
+  font-size: 0.64rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ash);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes rite-tick {
+  0% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.35;
+  }
+}
