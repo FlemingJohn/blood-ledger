@@ -116,6 +116,12 @@ names, and nothing is called a manager or a handler.
 | `torch` | A burning brazier |
 | `flipbook` | A sprite animation, one frame at a time |
 | `watcher` | The Demonlord, waiting in the dark |
+| `standing` | What a raider is worth, F through A |
+| `plinth` | Where your raider stands and turns |
+| `offer` | A patron's terms, before you take them |
+| `pact` | An offer you accepted, and the debt it carries |
+| `rite` | The four steps that seal a pact across the chains |
+| `tally` | The bar across the top: purse, coins, standing |
 
 ---
 
@@ -124,11 +130,16 @@ names, and nothing is called a manager or a handler.
 | | |
 | --- | --- |
 | Page one, the landing | Built |
-| Page two, the hall of patrons | Next |
-| Page three, the dungeon | After that |
+| Page two, the hall of patrons | Built, reading worked examples |
+| Page three, the dungeon | Next |
 | The contract on Ethereum | Not started |
 | The contract on Creditcoin | Not started |
 | The worker that carries proofs | Not started |
+
+The hall reads its patrons, standing and ledger from stand-in data while the contracts are
+still to come, and says so on the page itself. The four step sealing rite runs on a
+rehearsal clock rather than real block times. Swapping `src/chain/theLedger.ts` for real
+reads is the only change the pages need.
 
 ---
 
