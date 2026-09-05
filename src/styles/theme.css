@@ -34,6 +34,30 @@
 html,
 body {
   height: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: var(--emberwood) var(--void);
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--void);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--emberwood);
+  border: 3px solid var(--void);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--blood);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--void);
 }
 
 body {
