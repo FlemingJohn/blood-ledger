@@ -23,8 +23,12 @@ export async function startFlipbook(order: FlipbookOrder): Promise<RunningFlipbo
     ? edgesAround(pictures, order.faintestKept ?? 24) ?? wholeFrame
     : wholeFrame
 
-  const drawWidth = edges.right - edges.left + 1
-  const drawHeight = edges.bottom - edges.top + 1
+  const takeWidth = edges.right - edges.left + 1
+  const takeHeight = edges.bottom - edges.top + 1
+
+  const magnify = Math.max(1, Math.round(order.magnify ?? 1))
+  const drawWidth = takeWidth * magnify
+  const drawHeight = takeHeight * magnify
 
   const canvas = document.createElement('canvas')
   canvas.width = drawWidth
@@ -50,12 +54,13 @@ export async function startFlipbook(order: FlipbookOrder): Promise<RunningFlipbo
       return
     }
     surface.clearRect(0, 0, drawWidth, drawHeight)
+    surface.imageSmoothingEnabled = false
     surface.drawImage(
       picture,
       edges.left,
       edges.top,
-      drawWidth,
-      drawHeight,
+      takeWidth,
+      takeHeight,
       0,
       0,
       drawWidth,
