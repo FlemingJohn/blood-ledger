@@ -4,11 +4,6 @@ import { coinMark, offerMarker } from '../art/paths'
 import { countCoins, shortAddress } from '../chain/addresses'
 import '../styles/offerCard.css'
 
-const shutWords: Record<string, string> = {
-  shut: 'standing too low',
-  claimed: 'already taken'
-}
-
 export function layOutOffer(offer: Offer): OfferCardPart {
   const card = document.createElement('article')
   card.className = 'offer'
@@ -19,8 +14,8 @@ export function layOutOffer(offer: Offer): OfferCardPart {
   marker.alt = ''
   marker.setAttribute('aria-hidden', 'true')
 
-  const head = document.createElement('header')
-  head.className = 'offer__head'
+  const line = document.createElement('div')
+  line.className = 'offer__line'
 
   const who = document.createElement('span')
   who.className = 'offer__who'
@@ -39,28 +34,30 @@ export function layOutOffer(offer: Offer): OfferCardPart {
   amount.textContent = countCoins(offer.coinsStaked)
 
   stake.append(coin, amount)
-  head.append(who, stake)
 
-  const terms = document.createElement('p')
-  terms.className = 'offer__terms'
-  terms.textContent = `keeps ${offer.patronShare} percent of what you carry out`
-
-  const words = document.createElement('p')
-  words.className = 'offer__words'
-  words.textContent = offer.words
+  const share = document.createElement('span')
+  share.className = 'offer__share'
+  share.textContent = `${offer.patronShare}%`
+  share.title = `the patron keeps ${offer.patronShare} percent of what you carry out`
 
   const accept = document.createElement('button')
   accept.type = 'button'
   accept.className = 'offer__accept'
 
   const acceptWord = document.createElement('span')
-  acceptWord.textContent = 'Accept'
+  acceptWord.textContent = 'Take'
   accept.append(acceptWord)
 
   const barred = document.createElement('p')
   barred.className = 'offer__barred'
 
-  card.append(marker, head, terms, words, accept, barred)
+  line.append(who, stake, share, accept, barred)
+
+  const words = document.createElement('p')
+  words.className = 'offer__words'
+  words.textContent = offer.words
+
+  card.append(marker, line, words)
 
   const listeners = new Set<(offer: Offer) => void>()
   accept.addEventListener('click', () => listeners.forEach((listener) => listener(offer)))
@@ -70,18 +67,19 @@ export function layOutOffer(offer: Offer): OfferCardPart {
     offer,
 
     showState(state: OfferState): void {
-      card.classList.toggle('offer--rich', state === 'rich')
-      card.classList.toggle('offer--closed', state === 'shut' || state === 'claimed')
-
       const closed = state === 'shut' || state === 'claimed'
+
+      card.classList.toggle('offer--rich', state === 'rich')
+      card.classList.toggle('offer--closed', closed)
+
       accept.hidden = closed
       barred.hidden = !closed
 
       if (state === 'shut') {
-        barred.textContent = `${shutWords.shut} — needs ${offer.needsGrade}`
+        barred.textContent = `needs ${offer.needsGrade}`
       }
       if (state === 'claimed') {
-        barred.textContent = shutWords.claimed ?? ''
+        barred.textContent = 'taken'
       }
     },
 
