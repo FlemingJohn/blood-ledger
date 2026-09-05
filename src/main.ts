@@ -28,6 +28,7 @@ function show(name: PageName, built: Part): void {
   showing?.teardown()
   showing = built
   showingName = name
+  document.body.dataset.showing = name
   stage.replaceChildren(built.element)
   window.scrollTo({ top: 0 })
 }
