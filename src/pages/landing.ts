@@ -80,7 +80,7 @@ export function buildLanding(order: LandingOrder): Part {
   const landing = document.createElement('main')
   landing.className = 'landing'
 
-  const dressing = dressTheHall()
+  const dressing = dressTheHall('landing')
 
   const hall = document.createElement('div')
   hall.className = 'hall'
