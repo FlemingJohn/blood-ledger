@@ -9,11 +9,12 @@
 
 .plinth__stage {
   position: relative;
+  flex: 1 1 auto;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   width: 100%;
-  height: 140px;
+  min-height: 140px;
   padding-bottom: 8px;
 }
 
