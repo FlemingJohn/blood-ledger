@@ -128,6 +128,10 @@ names, and nothing is called a manager or a handler.
 | `torch` | A burning brazier |
 | `flipbook` | A sprite animation, one frame at a time |
 | `watcher` | The Demonlord, waiting in the dark |
+| `facing` | Which of eight ways a fighter is turned |
+| `move` | Walk, attack or death |
+| `blow` | One swing landing on frame four |
+| `takings` | What a raid was worth once it was reckoned |
 | `standing` | What a raider is worth, F through A |
 | `plinth` | Where your raider stands and turns |
 | `offer` | A patron's terms, before you take them |
@@ -143,7 +147,7 @@ names, and nothing is called a manager or a handler.
 | --- | --- |
 | Page one, the landing | Built |
 | Page two, the hall of patrons | Built, reading worked examples |
-| Page three, the dungeon | Next |
+| Page three, the dungeon | Built, one floor loop |
 | The contract on Ethereum | Not started |
 | The contract on Creditcoin | Not started |
 | The worker that carries proofs | Not started |
@@ -153,12 +157,19 @@ still to come, and says so on the page itself. The four step sealing rite runs o
 rehearsal clock rather than real block times. Swapping `src/chain/theLedger.ts` for real
 reads is the only change the pages need.
 
+The dungeon runs its whole loop: the floor is rolled from a seed, you fight skeletons and
+slimes, gold and gems go into your purse, and walking out or falling settles the pact and
+moves your standing. The seed is a made up hash for now, and becomes an attested Ethereum
+block once the contracts land.
+
 ---
 
 ## Built with
 
-Phaser for the dungeon, TypeScript and Vite for everything else, ethers for talking to
-purses, Foundry for the contracts, and `@gluwa/usc-sdk` for the proofs.
+TypeScript and Vite throughout, ethers for talking to purses, Foundry for the contracts,
+and `@gluwa/usc-sdk` for the proofs. The dungeon draws straight onto a canvas rather than
+through a game engine, because the whole of its rendering is one line, `sort by y`, and a
+framework would have cost more than it returned.
 
 Type is set in Nosifer for the wordmark, Cinzel for anything you click, Crimson Pro for
 reading and JetBrains Mono for numbers. The art pack ships no font, so all four come from
