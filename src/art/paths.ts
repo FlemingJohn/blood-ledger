@@ -22,7 +22,5 @@ export const everyPieceOfArt = [
   sleepingWatcher,
   scatteredBones,
   scatteredRocks,
-  ...burningTorch,
-  ...risingFlame,
   ...bladeSweep
 ]
