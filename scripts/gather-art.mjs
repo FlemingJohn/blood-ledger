@@ -14,15 +14,28 @@ const wanted = [
   ['environment/ground_stone1.png', 'ground/stone.png'],
   ['user interface/filter/filter_vignette.png', 'ui/vignette.png'],
   ['user interface/cursor/cursor_gauntlet_red.png', 'ui/pointer-red.png'],
+  ['user interface/highlight/highlight_red.png', 'ui/ring-red.png'],
+  ['user interface/loot-indicator/loot_indicator_red.png', 'ui/marker-red.png'],
   ['boss/demonlord/demonlord_default_idle/S/demonlord_default_idle_S_270.0_0.png', 'watcher/idle.png'],
   ['prop/bones1/S/bones1_S_270.0_0.png', 'scatter/bones.png'],
-  ['prop/rocks/S/rocks_S_270.0_0.png', 'scatter/rocks.png']
+  ['prop/rocks/S/rocks_S_270.0_0.png', 'scatter/rocks.png'],
+  ['prop/gold_drop/S/gold_drop_S_270.0_0.png', 'prop/coins.png']
 ]
+
+const raiderClasses = ['warrior', 'knight', 'fighter']
 
 for (let step = 0; step < 8; step += 1) {
   wanted.push([`prop/brazier_lit/S/brazier_lit_S_270.0_${step}.png`, `torch/lit-${step}.png`])
   wanted.push([`vfx/flame/flame_${step}.png`, `flame/flame-${step}.png`])
   wanted.push([`vfx/swoosh/swoosh_${step}.png`, `sweep/sweep-${step}.png`])
+  wanted.push([`vfx/glint/glint_${step}.png`, `sparkle/glint-${step}.png`])
+
+  for (const fighterName of raiderClasses) {
+    wanted.push([
+      `playable character/${fighterName}/${fighterName}_special_select/S/${fighterName}_special_select_S_270.0_${step}.png`,
+      `raider/${fighterName}-${step}.png`
+    ])
+  }
 }
 
 async function exists(path) {
