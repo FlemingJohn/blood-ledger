@@ -1,0 +1,91 @@
+.plinth {
+  border: 1px solid var(--emberwood);
+  background: rgba(22, 6, 12, 0.62);
+  padding: var(--pause);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.plinth__stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 210px;
+}
+
+.plinth__ring {
+  position: absolute;
+  bottom: 26px;
+  width: 172px;
+  opacity: 0.6;
+  image-rendering: pixelated;
+  pointer-events: none;
+  animation: plinth-breathe 3.4s ease-in-out infinite;
+}
+
+.plinth__figure {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+}
+
+.plinth__figure canvas {
+  width: 200px;
+  height: auto;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 6px 18px rgba(4, 0, 2, 0.75));
+}
+
+.plinth__name {
+  margin: 0;
+  font-family: var(--chiselled);
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--bone);
+}
+
+.plinth__chooser {
+  display: flex;
+  gap: 1px;
+  background: var(--emberwood);
+  width: 100%;
+}
+
+.plinth__pick {
+  flex: 1;
+  padding: 9px 6px;
+  background: rgba(10, 3, 7, 0.7);
+  font-family: var(--counted);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ash);
+  transition: color 160ms ease, background-color 160ms ease;
+}
+
+.plinth__pick:hover {
+  color: var(--bone);
+  background: var(--emberwood);
+}
+
+.plinth__pick[aria-pressed='true'] {
+  color: var(--void);
+  background: var(--ember);
+  font-weight: 600;
+}
+
+@keyframes plinth-breathe {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.72;
+  }
+}
