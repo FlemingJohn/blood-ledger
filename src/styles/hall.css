@@ -43,7 +43,7 @@
   gap: var(--pause);
   width: min(1180px, 100%);
   margin: 0 auto;
-  padding: 14px var(--rest);
+  padding: 11px var(--rest);
 }
 
 .tally__mark {
@@ -59,9 +59,9 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--rest);
+  gap: 22px;
   font-family: var(--counted);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ash);
@@ -87,13 +87,12 @@
 }
 
 .tally__rehearsal {
-  width: min(1180px, 100%);
-  margin: 0 auto;
-  padding: 0 var(--rest) 12px;
-  font-family: var(--counted);
-  font-size: 0.64rem;
-  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  border: 1px dashed var(--emberwood);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
   color: var(--ash);
+  cursor: help;
 }
 
 .hallpage__body {
@@ -101,29 +100,36 @@
   min-height: 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr);
-  gap: var(--rest);
-  align-items: stretch;
+  gap: var(--pause);
+  align-items: start;
   width: min(1180px, 100%);
   margin: 0 auto;
-  padding: var(--pause) var(--rest);
+  padding: 12px var(--rest);
 }
 
 .hallpage__left {
   display: flex;
   flex-direction: column;
-  gap: var(--pause);
+  gap: 12px;
   min-height: 0;
-  overflow-y: auto;
 }
 
 .panel {
   border: 1px solid var(--emberwood);
   background: rgba(22, 6, 12, 0.62);
-  padding: 16px 18px;
+  padding: 11px 14px 13px;
+}
+
+.panel__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--pause);
+  margin-bottom: 9px;
 }
 
 .panel__label {
-  margin: 0 0 12px;
+  margin: 0;
   font-family: var(--counted);
   font-size: 0.62rem;
   letter-spacing: 0.2em;
@@ -134,9 +140,8 @@
 .panel__reading {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
-  gap: var(--pause);
-  margin: 10px 0 0;
+  gap: 10px;
+  margin: 0;
   font-family: var(--counted);
   font-size: 0.76rem;
   color: var(--ash);
@@ -144,7 +149,7 @@
 }
 
 .panel__reading b {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: var(--ember);
 }
@@ -152,8 +157,8 @@
 .panel__tally {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--pause);
-  margin: 10px 0 0;
+  gap: 12px;
+  margin: 8px 0 0;
   font-family: var(--counted);
   font-size: 0.66rem;
   letter-spacing: 0.08em;
@@ -171,8 +176,8 @@
 }
 
 .panel__empty {
-  margin: 0;
-  font-size: 0.94rem;
+  margin: 8px 0 0;
+  font-size: 0.88rem;
   color: var(--ash);
 }
 
@@ -193,8 +198,8 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: var(--breath);
-  margin-top: var(--breath);
+  gap: 6px;
+  margin-top: 2px;
 }
 
 .door--descent {
@@ -234,7 +239,7 @@
   align-items: baseline;
   justify-content: space-between;
   gap: var(--pause);
-  padding: 15px 18px;
+  padding: 11px 16px;
   border-bottom: 1px solid var(--emberwood);
 }
 
@@ -257,9 +262,6 @@
 }
 
 .board__list {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 1px;
@@ -279,8 +281,7 @@
     padding: var(--pause) var(--pause) var(--rest);
   }
 
-  .tally__line,
-  .tally__rehearsal {
+  .tally__line {
     padding-left: var(--pause);
     padding-right: var(--pause);
   }
