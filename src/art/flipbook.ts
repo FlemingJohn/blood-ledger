@@ -1,5 +1,7 @@
 import type { FlipbookOrder, RunningFlipbook } from '../types/flipbook'
+import type { Edges } from '../types/trimming'
 import { loadEveryPicture } from './pictures'
+import { edgesAround } from './trimming'
 
 const stillnessAsked = window.matchMedia('(prefers-reduced-motion: reduce)')
 
@@ -10,9 +12,23 @@ export async function startFlipbook(order: FlipbookOrder): Promise<RunningFlipbo
     throw new Error('a flipbook needs at least one frame')
   }
 
+  const wholeFrame: Edges = {
+    left: 0,
+    top: 0,
+    right: first.naturalWidth - 1,
+    bottom: first.naturalHeight - 1
+  }
+
+  const edges = order.trimToContent
+    ? edgesAround(pictures, order.faintestKept ?? 24) ?? wholeFrame
+    : wholeFrame
+
+  const drawWidth = edges.right - edges.left + 1
+  const drawHeight = edges.bottom - edges.top + 1
+
   const canvas = document.createElement('canvas')
-  canvas.width = first.naturalWidth
-  canvas.height = first.naturalHeight
+  canvas.width = drawWidth
+  canvas.height = drawHeight
 
   const surface = canvas.getContext('2d')
   if (!surface) {
@@ -33,8 +49,18 @@ export async function startFlipbook(order: FlipbookOrder): Promise<RunningFlipbo
     if (!picture || !surface) {
       return
     }
-    surface.clearRect(0, 0, canvas.width, canvas.height)
-    surface.drawImage(picture, 0, 0)
+    surface.clearRect(0, 0, drawWidth, drawHeight)
+    surface.drawImage(
+      picture,
+      edges.left,
+      edges.top,
+      drawWidth,
+      drawHeight,
+      0,
+      0,
+      drawWidth,
+      drawHeight
+    )
   }
 
   function beat(now: number): void {
