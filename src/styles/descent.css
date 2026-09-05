@@ -1,0 +1,234 @@
+.descent {
+  position: relative;
+  flex: 1;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--void);
+  cursor: crosshair;
+}
+
+.descent__board {
+  position: absolute;
+  inset: 0;
+  display: block;
+  image-rendering: pixelated;
+}
+
+.pressure {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--pause);
+  padding: 12px var(--rest);
+  background: linear-gradient(180deg, rgba(4, 0, 2, 0.9), transparent);
+  font-family: var(--counted);
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ash);
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
+.pressure__floor {
+  color: var(--bone);
+}
+
+.pressure__purse {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.pressure__purse b {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.pressure__short {
+  color: var(--gold);
+}
+
+.pressure__clear {
+  color: var(--flare);
+}
+
+.pressure__owed {
+  color: var(--blood);
+}
+
+.pressure__seed {
+  color: var(--ash);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--emberwood);
+  pointer-events: auto;
+}
+
+.pressure__seed:hover {
+  color: var(--ember);
+}
+
+.life {
+  position: absolute;
+  left: var(--rest);
+  bottom: var(--rest);
+  z-index: 2;
+  width: 168px;
+  padding: 10px 12px;
+  border: 1px solid var(--emberwood);
+  background: rgba(10, 3, 7, 0.78);
+  pointer-events: none;
+}
+
+.life__reading {
+  margin: 0 0 7px;
+  font-family: var(--counted);
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--bone);
+  font-variant-numeric: tabular-nums;
+}
+
+.life--hurt .life__reading {
+  color: var(--ember);
+}
+
+.life--dying .life__reading {
+  color: var(--blood);
+}
+
+.life--dying {
+  animation: life-panic 900ms ease-in-out infinite;
+}
+
+.body--dying .descent::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  box-shadow: inset 0 0 160px rgba(139, 11, 46, 0.6);
+  animation: life-panic 900ms ease-in-out infinite;
+}
+
+.wayout {
+  position: absolute;
+  right: var(--rest);
+  bottom: var(--rest);
+  z-index: 2;
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 1px solid var(--emberwood);
+  background: rgba(10, 3, 7, 0.82);
+}
+
+.wayout__sum {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.wayout__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--pause);
+  margin: 0;
+  font-family: var(--counted);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ash);
+  font-variant-numeric: tabular-nums;
+}
+
+.wayout__row b {
+  font-weight: 600;
+  color: var(--bone);
+}
+
+.wayout__row--good b {
+  color: var(--gold);
+}
+
+.wayout__row--bad b {
+  color: var(--blood);
+}
+
+.door--leave,
+.door--deeper,
+.door--back {
+  width: 100%;
+  min-width: 0;
+  padding: 11px 14px;
+  font-size: 0.76rem;
+  letter-spacing: 0.2em;
+}
+
+.door--deeper {
+  border-color: var(--blood);
+  color: var(--flare);
+}
+
+.door--deeper::before {
+  background: var(--blood);
+}
+
+.descent__hint {
+  position: absolute;
+  left: 50%;
+  bottom: var(--pause);
+  z-index: 2;
+  margin: 0;
+  transform: translateX(-50%);
+  font-family: var(--counted);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ash);
+  opacity: 0.6;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+@keyframes life-panic {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@media (max-width: 720px) {
+  .life,
+  .wayout {
+    left: var(--pause);
+    right: var(--pause);
+    bottom: var(--pause);
+  }
+
+  .life {
+    width: auto;
+    bottom: 190px;
+  }
+
+  .wayout {
+    width: auto;
+  }
+
+  .descent__hint {
+    display: none;
+  }
+}
