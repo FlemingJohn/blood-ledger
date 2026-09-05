@@ -1,0 +1,256 @@
+.hallpage {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+}
+
+.backdrop--dimmed {
+  opacity: 0.45;
+}
+
+.tally {
+  border-bottom: 1px solid var(--emberwood);
+  background: rgba(10, 3, 7, 0.82);
+}
+
+.tally__line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--pause);
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: 14px var(--rest);
+}
+
+.tally__mark {
+  font-family: var(--chiselled);
+  font-weight: 700;
+  font-size: 0.94rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ember);
+}
+
+.tally__facts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--rest);
+  font-family: var(--counted);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ash);
+  font-variant-numeric: tabular-nums;
+}
+
+.tally__coins {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--gold);
+}
+
+.tally__coin {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.tally__standing {
+  color: var(--ember);
+}
+
+.tally__rehearsal {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: 0 var(--rest) 12px;
+  font-family: var(--counted);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  color: var(--ash);
+}
+
+.hallpage__body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr);
+  gap: var(--rest);
+  align-items: start;
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: var(--rest) var(--rest) var(--chapter);
+}
+
+.hallpage__left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pause);
+}
+
+.panel {
+  border: 1px solid var(--emberwood);
+  background: rgba(22, 6, 12, 0.62);
+  padding: 16px 18px;
+}
+
+.panel__label {
+  margin: 0 0 12px;
+  font-family: var(--counted);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ash);
+}
+
+.panel__reading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--pause);
+  margin: 10px 0 0;
+  font-family: var(--counted);
+  font-size: 0.76rem;
+  color: var(--ash);
+  font-variant-numeric: tabular-nums;
+}
+
+.panel__reading b {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ember);
+}
+
+.panel__tally {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pause);
+  margin: 10px 0 0;
+  font-family: var(--counted);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ash);
+  font-variant-numeric: tabular-nums;
+}
+
+.panel__good {
+  color: var(--gold);
+}
+
+.panel__bad {
+  color: var(--blood);
+}
+
+.panel__empty {
+  margin: 0;
+  font-size: 0.94rem;
+  color: var(--ash);
+}
+
+.meter {
+  height: 10px;
+  background: var(--void);
+  border: 1px solid var(--emberwood);
+  overflow: hidden;
+}
+
+.meter__filled {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blood), var(--ember) 70%, var(--flare));
+  transition: width 420ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.descent {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--breath);
+  margin-top: var(--breath);
+}
+
+.door--descent {
+  width: 100%;
+  min-width: 0;
+  border-color: var(--blood);
+  color: var(--bone);
+}
+
+.door--descent::before {
+  background: var(--blood);
+}
+
+.door--descent:hover:not(:disabled),
+.door--descent:focus-visible:not(:disabled) {
+  color: var(--bone);
+  box-shadow: 0 0 44px rgba(139, 11, 46, 0.55);
+}
+
+.door--barred {
+  border-color: var(--emberwood);
+  color: var(--ash);
+  animation: none;
+}
+
+.board {
+  border: 1px solid var(--emberwood);
+  background: rgba(16, 6, 12, 0.5);
+}
+
+.board__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--pause);
+  padding: 15px 18px;
+  border-bottom: 1px solid var(--emberwood);
+}
+
+.board__title {
+  margin: 0;
+  font-family: var(--chiselled);
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bone);
+}
+
+.board__count {
+  font-family: var(--counted);
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ash);
+}
+
+.board__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--emberwood);
+  max-height: 62vh;
+  overflow-y: auto;
+}
+
+@media (max-width: 940px) {
+  .hallpage__body {
+    grid-template-columns: 1fr;
+    padding: var(--pause) var(--pause) var(--chapter);
+  }
+
+  .tally__line,
+  .tally__rehearsal {
+    padding-left: var(--pause);
+    padding-right: var(--pause);
+  }
+
+  .board__list {
+    max-height: none;
+  }
+}
