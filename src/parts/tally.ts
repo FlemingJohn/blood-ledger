@@ -42,16 +42,17 @@ export function hangTheTally(raider: Raider): Part {
   standing.textContent = `Standing ${raider.standing.grade} ${raider.standing.score}`
 
   facts.append(who, purse, standing)
-  line.append(mark, facts)
-  tally.append(line)
 
   if (!contractsAreLive) {
-    const warning = document.createElement('p')
+    const warning = document.createElement('span')
     warning.className = 'tally__rehearsal'
-    warning.textContent =
-      'Rehearsal hall — patrons, standing and ledger below are worked examples until the contracts are deployed.'
-    tally.append(warning)
+    warning.title = 'Patrons, standing and ledger are worked examples until the contracts are deployed.'
+    warning.textContent = 'rehearsal'
+    facts.append(warning)
   }
+
+  line.append(mark, facts)
+  tally.append(line)
 
   return {
     element: tally,
