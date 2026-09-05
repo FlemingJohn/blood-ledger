@@ -25,40 +25,33 @@ export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
 
   stage.append(ring, figure)
 
-  const name = document.createElement('p')
-  name.className = 'plinth__name'
-
   const chooser = document.createElement('div')
   chooser.className = 'plinth__chooser'
 
-  plinth.append(stage, name, chooser)
+  const back = document.createElement('button')
+  back.type = 'button'
+  back.className = 'plinth__step'
+  back.textContent = '◂'
+  back.setAttribute('aria-label', 'previous class')
+
+  const name = document.createElement('p')
+  name.className = 'plinth__name'
+
+  const on = document.createElement('button')
+  on.type = 'button'
+  on.className = 'plinth__step'
+  on.textContent = '▸'
+  on.setAttribute('aria-label', 'next class')
+
+  chooser.append(back, name, on)
+  plinth.append(stage, chooser)
 
   const listeners = new Set<(chosen: RaiderClass) => void>()
   let showing = startingClass
   let running: RunningFlipbook | null = null
 
-  const buttons = everyClass.map((chosen) => {
-    const pick = document.createElement('button')
-    pick.type = 'button'
-    pick.className = 'plinth__pick'
-    pick.textContent = chosen
-    pick.addEventListener('click', () => {
-      if (chosen === showing) {
-        return
-      }
-      showing = chosen
-      void paint()
-      listeners.forEach((listener) => listener(chosen))
-    })
-    chooser.append(pick)
-    return { chosen, pick }
-  })
-
   async function paint(): Promise<void> {
     name.textContent = showing
-    buttons.forEach((entry) => {
-      entry.pick.setAttribute('aria-pressed', entry.chosen === showing ? 'true' : 'false')
-    })
 
     const frames = raiderPoses[showing]
     try {
@@ -76,6 +69,20 @@ export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
       figure.replaceChildren()
     }
   }
+
+  function stepBy(move: number): void {
+    const at = everyClass.indexOf(showing)
+    const next = everyClass[(at + move + everyClass.length) % everyClass.length]
+    if (!next || next === showing) {
+      return
+    }
+    showing = next
+    void paint()
+    listeners.forEach((listener) => listener(next))
+  }
+
+  back.addEventListener('click', () => stepBy(-1))
+  on.addEventListener('click', () => stepBy(1))
 
   void paint()
 
