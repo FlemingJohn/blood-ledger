@@ -13,7 +13,20 @@
   background-color: var(--void);
   background-repeat: repeat;
   background-size: 190px;
-  opacity: 0.55;
+  opacity: 0.5;
+}
+
+.floor::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      ellipse 62% 46% at 50% 28%,
+      rgba(214, 21, 78, 0.34) 0%,
+      rgba(139, 11, 46, 0.16) 42%,
+      transparent 74%
+    ),
+    linear-gradient(180deg, rgba(44, 13, 22, 0.7) 0%, rgba(10, 3, 7, 0.9) 100%);
 }
 
 .edges {
@@ -31,7 +44,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 42%, transparent 30%, rgba(0, 0, 0, 0.82) 100%);
+  background: radial-gradient(ellipse at 50% 42%, transparent 30%, rgba(4, 0, 2, 0.86) 100%);
 }
 
 .watcher {
@@ -41,8 +54,8 @@
   z-index: -2;
   width: min(560px, 74vw);
   transform: translateX(-50%);
-  opacity: 0.09;
-  filter: sepia(1) saturate(4) hue-rotate(-32deg);
+  opacity: 0.11;
+  filter: sepia(1) saturate(6) hue-rotate(-58deg);
   pointer-events: none;
 }
 
@@ -87,7 +100,7 @@
   width: 118px;
   height: auto;
   image-rendering: pixelated;
-  filter: drop-shadow(0 0 26px rgba(196, 64, 42, 0.42));
+  filter: hue-rotate(-38deg) saturate(1.5) drop-shadow(0 0 30px rgba(214, 21, 78, 0.5));
 }
 
 .centre {
@@ -99,6 +112,7 @@
 }
 
 .title {
+  position: relative;
   font-family: var(--carved);
   font-weight: 700;
   font-size: clamp(2.4rem, 8vw, 4.6rem);
@@ -107,7 +121,22 @@
   margin: 0;
   color: var(--ember);
   text-wrap: balance;
-  text-shadow: 0 0 34px rgba(139, 26, 14, 0.55);
+}
+
+@supports (background-clip: text) {
+  .title {
+    background: linear-gradient(
+      175deg,
+      var(--molten) 0%,
+      var(--gold) 18%,
+      var(--ember) 58%,
+      var(--blood) 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 30px rgba(214, 21, 78, 0.42));
+  }
 }
 
 .promise {
@@ -141,7 +170,7 @@
 
 .footing {
   border-top: 1px solid var(--emberwood);
-  background: rgba(15, 12, 11, 0.72);
+  background: rgba(10, 3, 7, 0.76);
   padding: var(--pause) var(--rest);
 }
 
