@@ -1,14 +1,16 @@
 :root {
   color-scheme: dark;
 
-  --void: #0f0c0b;
-  --crypt: #1a1210;
-  --emberwood: #2a1a16;
-  --blood: #8b1a0e;
-  --ember: #c4402a;
+  --void: #0a0307;
+  --crypt: #16060c;
+  --emberwood: #2c0d16;
+  --blood: #8b0b2e;
+  --ember: #d6154e;
+  --flare: #ff3d78;
   --gold: #c9a227;
-  --bone: #ddd3be;
-  --ash: #6e6152;
+  --molten: #f0a030;
+  --bone: #e0d5c4;
+  --ash: #7d6a70;
 
   --carved: Cinzel, 'Trajan Pro', Georgia, serif;
   --spoken: 'Crimson Pro', Georgia, 'Times New Roman', serif;
@@ -58,7 +60,7 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--ember);
+  outline: 2px solid var(--flare);
   outline-offset: 3px;
 }
 
