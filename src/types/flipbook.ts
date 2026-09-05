@@ -4,6 +4,7 @@ export interface FlipbookOrder {
   startAtRandomFrame?: boolean
   trimToContent?: boolean
   faintestKept?: number
+  magnify?: number
 }
 
 export interface RunningFlipbook {
