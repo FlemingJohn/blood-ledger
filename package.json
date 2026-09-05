@@ -7,13 +7,15 @@
     "gather-art": "node scripts/gather-art.mjs",
     "start": "vite",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "trim-art": "node scripts/trim-art.mjs"
   },
   "dependencies": {
     "ethers": "^6.13.4",
     "phaser": "^3.87.0"
   },
   "devDependencies": {
+    "pngjs": "^7.0.0",
     "typescript": "^5.6.3",
     "vite": "^5.4.11"
   }
