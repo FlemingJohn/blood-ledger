@@ -92,6 +92,10 @@ git. If you unzipped the pack somewhere else, point at it:
 LORDS_OF_PAIN_PACK="/path/to/the/pack" npm run gather-art
 ```
 
+**How to play.** W A S D to move, click or space to swing, Q and E for your two powers.
+Walk over coin and gems to take them, swing at barrels to break them open, and press
+Extract before something kills you.
+
 **3. Open the door.**
 
 ```
@@ -132,6 +136,10 @@ names, and nothing is called a manager or a handler.
 | `move` | Walk, attack or death |
 | `blow` | One swing landing on frame four |
 | `takings` | What a raid was worth once it was reckoned |
+| `breed` | What kind of enemy, and how it is tinted and sized |
+| `chamber` | One carved room on a floor |
+| `power` | A thing a class can do beyond swinging |
+| `belt` | Where your powers sit and rest |
 | `standing` | What a raider is worth, F through A |
 | `plinth` | Where your raider stands and turns |
 | `offer` | A patron's terms, before you take them |
@@ -147,7 +155,7 @@ names, and nothing is called a manager or a handler.
 | --- | --- |
 | Page one, the landing | Built |
 | Page two, the hall of patrons | Built, reading worked examples |
-| Page three, the dungeon | Built, one floor loop |
+| Page three, the dungeon | Built, playable |
 | The contract on Ethereum | Not started |
 | The contract on Creditcoin | Not started |
 | The worker that carries proofs | Not started |
@@ -157,10 +165,16 @@ still to come, and says so on the page itself. The four step sealing rite runs o
 rehearsal clock rather than real block times. Swapping `src/chain/theLedger.ts` for real
 reads is the only change the pages need.
 
-The dungeon runs its whole loop: the floor is rolled from a seed, you fight skeletons and
-slimes, gold and gems go into your purse, and walking out or falling settles the pact and
-moves your standing. The seed is a made up hash for now, and becomes an attested Ethereum
-block once the contracts land.
+The dungeon runs its whole loop. Each floor takes one of five shapes, carved into rooms
+and joined by corridors from the seed. Nine breeds of enemy come out of three sprites,
+tinted and scaled and given their own stats, and they arrive deeper as you go. Barrels
+break open. Gems are graded by colour so you can read what one is worth from across a
+room. Braziers light the corners. You play whichever of the three classes you chose in the
+hall, each with two powers on Q and E. Walking out or falling settles the pact and moves
+your standing.
+
+The seed is a made up hash for now, and becomes an attested Ethereum block once the
+contracts land.
 
 ---
 
