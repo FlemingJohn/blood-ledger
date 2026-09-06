@@ -1,5 +1,5 @@
 import type { RaidOutcome } from './ledger'
-import type { Standing } from './raider'
+import type { RaiderClass, Standing } from './raider'
 
 export interface RaiderRecord {
   deepestFloor: number
@@ -28,6 +28,7 @@ export interface Deed {
 
 export interface Profile {
   address: string
+  chosenClass: RaiderClass
   standing: Standing
   asRaider: RaiderRecord
   asPatron: PatronRecord
