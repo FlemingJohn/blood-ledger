@@ -2,11 +2,12 @@ import type { Offer, OfferState } from '../types/pact'
 import type { OfferCardPart } from '../types/parts'
 import { coinMark, offerMarker } from '../art/paths'
 import { countCoins, shortAddress } from '../chain/addresses'
+import { drawMark } from './marks'
 import '../styles/offerCard.css'
 
 export function layOutOffer(offer: Offer): OfferCardPart {
   const card = document.createElement('article')
-  card.className = 'offer'
+  card.className = `offer${offer.reckoned ? ' offer--reckoned' : ''}`
 
   const marker = document.createElement('img')
   marker.className = 'offer__marker'
@@ -19,7 +20,15 @@ export function layOutOffer(offer: Offer): OfferCardPart {
 
   const who = document.createElement('span')
   who.className = 'offer__who'
-  who.textContent = shortAddress(offer.patronAddress)
+
+  if (offer.patronName) {
+    who.append(drawMark({ name: 'seal', size: 13 }))
+    const named = document.createElement('b')
+    named.textContent = offer.patronName
+    who.append(named)
+  } else {
+    who.textContent = shortAddress(offer.patronAddress)
+  }
 
   const stake = document.createElement('span')
   stake.className = 'offer__stake'
