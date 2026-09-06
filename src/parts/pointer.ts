@@ -1,4 +1,5 @@
-import { gauntletPointer } from '../art/paths'
+import type { PointerHand, PointerMood } from '../types/pointer'
+import { gauntlets } from '../art/paths'
 import { loadPicture } from '../art/pictures'
 import { edgesAround } from '../art/trimming'
 
@@ -6,12 +7,19 @@ const biggestCursorBrowsersAllow = 88
 const gripFromLeft = 7
 const gripFromTop = 4
 
-export async function armThePointer(): Promise<void> {
+const cut = new Map<PointerMood, string>()
+
+async function carveGauntlet(mood: PointerMood): Promise<string | null> {
+  const already = cut.get(mood)
+  if (already) {
+    return already
+  }
+
   try {
-    const picture = await loadPicture(gauntletPointer)
+    const picture = await loadPicture(gauntlets[mood])
     const edges = edgesAround([picture], 8)
     if (!edges) {
-      return
+      return null
     }
 
     const trimmedWidth = edges.right - edges.left + 1
@@ -24,7 +32,7 @@ export async function armThePointer(): Promise<void> {
 
     const surface = cutting.getContext('2d')
     if (!surface) {
-      return
+      return null
     }
 
     surface.imageSmoothingEnabled = false
@@ -40,8 +48,39 @@ export async function armThePointer(): Promise<void> {
       cutting.height
     )
 
-    document.body.style.cursor = `url(${cutting.toDataURL('image/png')}) ${gripFromLeft} ${gripFromTop}, auto`
+    const carved = `url(${cutting.toDataURL('image/png')}) ${gripFromLeft} ${gripFromTop}, auto`
+    cut.set(mood, carved)
+    return carved
   } catch {
-    document.body.style.cursor = 'auto'
+    return null
+  }
+}
+
+export function armThePointer(): PointerHand {
+  let wearing: PointerMood = 'resting'
+
+  function show(mood: PointerMood): void {
+    const carved = cut.get(mood)
+    if (carved) {
+      document.body.style.setProperty('--gauntlet', carved)
+    }
+  }
+
+  void Promise.all(
+    (['resting', 'enemy', 'loot', 'wayOut', 'patron'] as PointerMood[]).map(carveGauntlet)
+  ).then(() => show(wearing))
+
+  return {
+    wear(mood: PointerMood): void {
+      if (mood === wearing) {
+        return
+      }
+      wearing = mood
+      show(mood)
+    },
+
+    teardown(): void {
+      document.body.style.removeProperty('--gauntlet')
+    }
   }
 }
