@@ -4,6 +4,7 @@ import type { LeftBehind } from '../types/leftBehind'
 import { drawMark } from './marks'
 import { countCoins } from '../chain/addresses'
 import { shortAddress } from '../chain/addresses'
+import '../styles/door.css'
 import '../styles/reckoning.css'
 
 export interface ReckoningPart extends Part {
