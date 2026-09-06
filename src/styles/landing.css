@@ -16,6 +16,22 @@
   pointer-events: none;
 }
 
+.backdrop--room {
+  background-color: var(--void);
+  background-repeat: repeat;
+  background-size: 168px;
+  opacity: 0.34;
+}
+
+.backdrop--room::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 34%, rgba(139, 11, 46, 0.18), transparent 74%),
+    linear-gradient(180deg, rgba(26, 8, 14, 0.5) 0%, rgba(4, 0, 2, 0.86) 100%);
+}
+
 .backdrop--still {
   background: radial-gradient(ellipse 26% 78% at 0% 52%, rgba(214, 21, 78, 0.55), transparent 72%),
     radial-gradient(ellipse 26% 78% at 100% 52%, rgba(214, 21, 78, 0.55), transparent 72%),
