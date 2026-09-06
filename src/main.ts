@@ -149,6 +149,9 @@ async function showDescent(pact: Pact, chosenClass: RaiderClass): Promise<void> 
       chosenClass,
       standing: 720,
       seed,
+      whenWayOutOpens(open: boolean) {
+        hand.wear(open ? 'wayOut' : 'enemy')
+      },
       whenSettled() {
         if (heldAddress) {
           showHall(heldAddress)
