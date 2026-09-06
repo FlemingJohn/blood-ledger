@@ -5,12 +5,12 @@ import type { StakeYouMade, WhatYouOffer } from '../types/patron'
 import { fillOutAStake } from '../parts/stakeSlip'
 import { layOutSeeker } from '../parts/seekerCard'
 import { hangTheRoleSwitch } from '../parts/roleSwitch'
+import { hangTheTally } from '../parts/tally'
 import { dressTheHall } from '../parts/hallDressing'
-import { drawMark } from '../parts/marks'
+
 import { readSeekers } from '../chain/seekers'
-import { stakeOnARaider, vaultIsDeployed } from '../chain/patronVault'
-import { shortAddress } from '../chain/addresses'
-import { realmWherePatronsPay } from '../chain/realms'
+import { stakeOnARaider } from '../chain/patronVault'
+import { readRaider } from '../chain/theLedger'
 import '../styles/patron.css'
 
 export interface PatronTableOrder {
@@ -25,44 +25,13 @@ export function buildPatronTable(order: PatronTableOrder): Part {
 
   const dressing = dressTheHall('working')
 
-  const tally = document.createElement('header')
-  tally.className = 'tally'
-
-  const tallyLine = document.createElement('div')
-  tallyLine.className = 'tally__line'
-
-  const mark = document.createElement('span')
-  mark.className = 'tally__mark'
-  mark.textContent = 'Blood Ledger'
+  const tally = hangTheTally(readRaider(order.address))
 
   const roleSwitch = hangTheRoleSwitch()
   roleSwitch.showRole('patron')
   roleSwitch.whenAsked(order.whenRoleAsked)
 
-  const facts = document.createElement('div')
-  facts.className = 'tally__facts'
-
-  const who = document.createElement('span')
-  who.className = 'tally__who'
-  who.textContent = shortAddress(order.address)
-
-  const realm = document.createElement('span')
-  realm.className = 'tally__realm'
-  realm.append(drawMark({ name: 'scales', size: 14 }))
-  realm.append(document.createTextNode(` ${realmWherePatronsPay.name}`))
-
-  facts.append(who, realm)
-  tallyLine.append(mark, roleSwitch.element, facts)
-  tally.append(tallyLine)
-
-  if (!vaultIsDeployed) {
-    const warned = document.createElement('p')
-    warned.className = 'tally__rehearsal'
-    warned.title =
-      'Set VITE_PATRON_VAULT_ADDRESS once the vault is deployed and this table starts moving real coin.'
-    warned.textContent = 'no vault deployed — nothing here can be staked yet'
-    tally.append(warned)
-  }
+  tally.middleSeat.append(roleSwitch.element)
 
   const body = document.createElement('div')
   body.className = 'patronpage__body'
@@ -111,7 +80,7 @@ export function buildPatronTable(order: PatronTableOrder): Part {
   boardCount.textContent = `${openToYou} you may back of ${seekers.length}`
 
   body.append(slip.element, board)
-  page.append(dressing.element, tally, body)
+  page.append(dressing.element, tally.element, body)
 
   let staking = false
 
@@ -150,6 +119,7 @@ export function buildPatronTable(order: PatronTableOrder): Part {
       cards.forEach((card) => card.teardown())
       slip.teardown()
       roleSwitch.teardown()
+      tally.teardown()
       dressing.teardown()
       page.remove()
     }
