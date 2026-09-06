@@ -15,9 +15,17 @@ export interface TallyPart extends Part {
 export function hangTheTally(raider: Raider): TallyPart {
   const tally = document.createElement('header')
   tally.className = 'tally'
+  tally.style.position = 'relative'
 
   const plate = document.createElement('div')
   plate.className = 'tally__plate'
+
+  const corners: ('tl' | 'tr' | 'bl' | 'br')[] = ['tl', 'tr', 'bl', 'br']
+  corners.forEach((where) => {
+    const piece = drawMark({ name: 'corner', size: 22 })
+    piece.classList.add('plate__corner', `plate__corner--${where}`)
+    tally.append(piece)
+  })
 
   const sigilSeat = document.createElement('div')
   sigilSeat.className = 'tally__sigil'
