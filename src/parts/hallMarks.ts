@@ -177,3 +177,70 @@ export function drawCoinStack(): SVGSVGElement {
 
   return stack
 }
+
+export function drawRankNotches(): HTMLElement {
+  const track = document.createElement('div')
+  track.className = 'meter__notches'
+  track.setAttribute('aria-hidden', 'true')
+  return track
+}
+
+export function drawEmptyHook(): SVGSVGElement {
+  const hook = openCanvas(60, 54, 'hook')
+
+  lay(hook, 'M28.8 4 L31.2 4 L31.2 16 L28.8 16 Z', '#4a3f44')
+
+  const eye = document.createElementNS(drawnIn, 'ellipse')
+  eye.setAttribute('cx', '30')
+  eye.setAttribute('cy', '21')
+  eye.setAttribute('rx', '5.5')
+  eye.setAttribute('ry', '8')
+  eye.setAttribute('fill', 'none')
+  eye.setAttribute('stroke', '#5c5056')
+  eye.setAttribute('stroke-width', '2.5')
+  hook.append(eye)
+
+  const curl = document.createElementNS(drawnIn, 'path')
+  curl.setAttribute('d', 'M30 29 q0 12 -9 14 q-4 1 -6 -2')
+  curl.setAttribute('fill', 'none')
+  curl.setAttribute('stroke', '#4a3f44')
+  curl.setAttribute('stroke-width', '2.5')
+  curl.setAttribute('stroke-linecap', 'round')
+  hook.append(curl)
+
+  lay(hook, 'M14 45 L46 45 L46 47 L14 47 Z', '#2c0d16')
+
+  return hook
+}
+
+export function drawCrest(seed: string, size: number): SVGSVGElement {
+  let sum = 0
+  for (let at = 0; at < seed.length; at += 1) {
+    sum = (sum * 31 + seed.charCodeAt(at)) >>> 0
+  }
+
+  const hue = sum % 360
+  const shape = sum % 4
+
+  const crest = openCanvas(32, 32, 'crest')
+  crest.setAttribute('width', String(size))
+  crest.setAttribute('height', String(size))
+
+  const shield = document.createElementNS(drawnIn, 'path')
+  shield.setAttribute('d', 'M16 2 L29 6 L29 17 Q29 26 16 30 Q3 26 3 17 L3 6 Z')
+  shield.setAttribute('fill', `hsl(${hue} 42% 15%)`)
+  shield.setAttribute('stroke', `hsl(${hue} 48% 38%)`)
+  shield.setAttribute('stroke-width', '1.4')
+  crest.append(shield)
+
+  const charges = [
+    'M16 9 L21 20 L11 20 Z',
+    'M16 8 L22 16 L16 24 L10 16 Z',
+    'M11 11 L21 11 L21 21 L11 21 Z',
+    'M16 9 a6 6 0 1 0 0.1 0 z'
+  ]
+
+  lay(crest, charges[shape] ?? charges[0] ?? '', `hsl(${hue} 60% 58%)`)
+
+  return crest
+}
