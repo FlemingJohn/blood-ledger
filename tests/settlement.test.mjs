@@ -26,7 +26,6 @@ function is(what, got, want) {
   return same
 }
 
-/** The same reckoning TheLedger.sol does, so the two can be held against each other. */
 function reckonLikeSolidity(pact, ending, coinsCarried, standingBefore, rules) {
   const lived = ending === 'WalkedOut'
   const carried = lived ? coinsCarried : 0n
