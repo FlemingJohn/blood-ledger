@@ -15,13 +15,6 @@ function standing(score: number, raids: number, repaid: number, lost: number) {
   return { score, grade: gradeFromScore(score), raids, repaid, lost }
 }
 
-/**
- * Raiders looking for coin.
- *
- * These come from TheLedger once it is deployed, every standing proved. The
- * notes say what the underwriter would flag, so a human patron sees the same
- * warnings the machine does rather than having to take its word.
- */
 const waiting: Seeker[] = [
   {
     raider: {
