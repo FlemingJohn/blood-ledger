@@ -11,6 +11,8 @@ import { hangTheLifeGlobe } from '../parts/lifeGlobe'
 import { openTheWayOut } from '../parts/wayOut'
 import { prepareTheReckoning } from '../parts/reckoning'
 import { pinTheMinimap } from '../parts/minimap'
+import { buckleThePowerBelt } from '../parts/powerBelt'
+import { powersFor } from '../dungeon/powers'
 import { reckonTheRaid } from '../chain/settling'
 import '../styles/descent.css'
 
@@ -77,12 +79,22 @@ export function buildDescent(order: DescentOrder): Part {
   const wayOut = openTheWayOut()
   const reckoning = prepareTheReckoning()
   const minimap = pinTheMinimap()
+  const belt = buckleThePowerBelt(powersFor(order.chosenClass))
 
   const hint = document.createElement('p')
   hint.className = 'descent__hint'
-  hint.textContent = 'W A S D to move · click or space to swing'
+  hint.textContent = 'W A S D to move · click or space to swing · Q and E for powers'
 
-  page.append(board, pressure.element, minimap.element, life.element, hint, wayOut.element, reckoning.element)
+  page.append(
+    board,
+    pressure.element,
+    minimap.element,
+    life.element,
+    belt.element,
+    hint,
+    wayOut.element,
+    reckoning.element
+  )
 
   const hands = takeTheHands(board)
   const eye: Eye = { atX: 0, atY: 0 }
@@ -169,6 +181,7 @@ export function buildDescent(order: DescentOrder): Part {
     minimap.redraw(world, now)
     life.showLife(Math.max(0, world.you.life), world.you.fullLife)
     pressure.showSlain(world.slain)
+    belt.showRest(world, now)
     pressure.showCoins(world.coinsCarried, order.pact.coinsStaked)
     wayOut.showSum(world.coinsCarried, order.pact.patronShare, order.pact.coinsStaked)
     wayOut.showDeeperReady(everyoneStanding(world))
@@ -204,6 +217,7 @@ export function buildDescent(order: DescentOrder): Part {
       window.cancelAnimationFrame(heartbeat)
       window.removeEventListener('resize', fitBoard)
       hands.letGo()
+      belt.teardown()
       minimap.teardown()
       reckoning.teardown()
       wayOut.teardown()
