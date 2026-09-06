@@ -8,7 +8,7 @@ export interface PactSlipPart extends Part {
 
 export function pinUpThePact(): PactSlipPart {
   const slip = document.createElement('section')
-  slip.className = 'panel'
+  slip.className = 'panel framed'
 
   const head = document.createElement('div')
   head.className = 'panel__head'
