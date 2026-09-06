@@ -32,6 +32,12 @@ contract TheLedger is ASCBase {
     /// @notice A pair this familiar earns nothing further from each other.
     uint32 public constant PAIR_IS_SPENT_AFTER = 5;
 
+    /// @notice What an unproven raider must lock up before they may descend.
+    /// @dev Standing buys this down to nothing. A raider everyone trusts posts no coin,
+    ///      because their name is already the collateral. A fresh wallet posts the lot,
+    ///      so throwing a raid to spite a rival patron costs something real.
+    uint256 public constant FULL_BOND = 0.1 ether;
+
     address public immutable KEEPER;
 
     /// @notice The Ethereum vault whose events this ledger will believe.
@@ -51,6 +57,9 @@ contract TheLedger is ASCBase {
     ///      cannot mint reputation out of it.
     mapping(address => mapping(address => uint32)) public pactsBetween;
 
+    /// @notice Coin a raider locked up to be allowed down.
+    mapping(uint256 => uint256) public bondOnPact;
+
     event VaultNamed(address indexed vault, uint64 chainKey);
     event PactSealed(
         uint256 indexed pactId,
@@ -60,6 +69,9 @@ contract TheLedger is ASCBase {
         uint16 patronShare,
         bytes32 queryId
     );
+    event BondPosted(uint256 indexed pactId, address indexed raider, uint256 bond);
+    event BondReturned(uint256 indexed pactId, address indexed raider, uint256 bond);
+    event BondForfeited(uint256 indexed pactId, address indexed patron, uint256 bond);
     event StandingMoved(
         address indexed raider,
         uint32 was,
@@ -89,6 +101,10 @@ contract TheLedger is ASCBase {
     error NoSuchPact(uint256 pactId);
     error PactAlreadySettled(uint256 pactId);
     error NotYourPact();
+    error BondIsWrong(uint256 sent, uint256 wanted);
+    error BondAlreadyPosted(uint256 pactId);
+    error NoBondPosted(uint256 pactId);
+    error CouldNotMoveTheBond();
 
     constructor(address keeper) {
         KEEPER = keeper;
@@ -126,6 +142,66 @@ contract TheLedger is ASCBase {
             held.score = STANDING_STARTS_AT;
         }
         return held;
+    }
+
+    /**
+     * @notice What share of the full bond this raider must post, out of 100.
+     * @dev Falls as standing rises. A raider at the top posts nothing at all.
+     */
+    function bondShareFor(address raider) public view returns (uint16) {
+        uint32 score = standingOf(raider).score;
+
+        if (score >= 900) {
+            return 0;
+        }
+        if (score >= 750) {
+            return 10;
+        }
+        if (score >= 600) {
+            return 30;
+        }
+        if (score >= 450) {
+            return 60;
+        }
+        if (score >= 300) {
+            return 80;
+        }
+        return 100;
+    }
+
+    /// @notice The coin this raider must lock up before they may go down.
+    function bondFor(address raider) public view returns (uint256) {
+        return (FULL_BOND * bondShareFor(raider)) / 100;
+    }
+
+    /**
+     * @notice Lock up your bond and take the stair.
+     * @dev Walk out and it comes back. Fall and it goes to the patron you cost.
+     */
+    function postBond(uint256 pactId) external payable {
+        Pact storage pact = pacts[pactId];
+
+        if (pact.raider == address(0)) {
+            revert NoSuchPact(pactId);
+        }
+        if (pact.raider != msg.sender) {
+            revert NotYourPact();
+        }
+        if (pact.settled) {
+            revert PactAlreadySettled(pactId);
+        }
+        if (bondOnPact[pactId] != 0) {
+            revert BondAlreadyPosted(pactId);
+        }
+
+        uint256 wanted = bondFor(msg.sender);
+        if (msg.value != wanted) {
+            revert BondIsWrong(msg.value, wanted);
+        }
+
+        bondOnPact[pactId] = msg.value;
+
+        emit BondPosted(pactId, msg.sender, msg.value);
     }
 
     /// @inheritdoc ASCBase
@@ -257,6 +333,10 @@ contract TheLedger is ASCBase {
             revert NotYourPact();
         }
 
+        if (bondOnPact[pactId] == 0 && bondFor(pact.raider) != 0) {
+            revert NoBondPosted(pactId);
+        }
+
         pact.settled = true;
         openPactOf[pact.raider] = 0;
 
@@ -275,6 +355,8 @@ contract TheLedger is ASCBase {
             standing.repaid += 1;
         }
 
+        _handTheBondBack(pactId, pact, ending);
+
         emit StandingMoved(
             pact.raider,
             takings.standingBefore,
@@ -292,6 +374,33 @@ contract TheLedger is ASCBase {
             takings.debtCleared,
             takings.standingAfter
         );
+    }
+
+    /**
+     * @notice Give the bond back, or give it to the patron who was let down.
+     * @dev Walked out, it returns whole. Fell, the patron takes it, which is the
+     *      only thing that makes throwing a raid cost the raider anything.
+     */
+    function _handTheBondBack(uint256 pactId, Pact storage pact, Ending ending) internal {
+        uint256 bond = bondOnPact[pactId];
+        if (bond == 0) {
+            return;
+        }
+
+        bondOnPact[pactId] = 0;
+
+        address goesTo = ending == Ending.WalkedOut ? pact.raider : pact.patron;
+
+        (bool moved, ) = goesTo.call{value: bond}("");
+        if (!moved) {
+            revert CouldNotMoveTheBond();
+        }
+
+        if (ending == Ending.WalkedOut) {
+            emit BondReturned(pactId, pact.raider, bond);
+        } else {
+            emit BondForfeited(pactId, pact.patron, bond);
+        }
     }
 
     /**
