@@ -59,9 +59,12 @@ const deedsSoFar: Deed[] = [
 ]
 
 export function readProfile(address: string): Profile {
+  const you = readRaider(address)
+
   return {
     address,
-    standing: readRaider(address).standing,
+    chosenClass: you.chosenClass,
+    standing: you.standing,
     asRaider: { ...raiderSoFar },
     asPatron: { ...patronSoFar },
     deeds: deedsSoFar.map((deed) => ({ ...deed }))
