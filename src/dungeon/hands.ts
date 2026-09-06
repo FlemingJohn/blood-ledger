@@ -11,14 +11,21 @@ const walkKeys: Record<string, { alongX: number; alongY: number }> = {
   ArrowRight: { alongX: 1, alongY: 0 }
 }
 
+export interface Wanted extends WhatYouWant {
+  firstPower: boolean
+  secondPower: boolean
+}
+
 export interface Hands {
-  read(): WhatYouWant
+  read(): Wanted
   letGo(): void
 }
 
 export function takeTheHands(watching: HTMLElement): Hands {
   const held = new Set<string>()
   let swinging = false
+  let firstPower = false
+  let secondPower = false
 
   function keyDown(event: KeyboardEvent): void {
     if (walkKeys[event.code]) {
@@ -27,6 +34,14 @@ export function takeTheHands(watching: HTMLElement): Hands {
     }
     if (event.code === 'Space') {
       swinging = true
+      event.preventDefault()
+    }
+    if (event.code === 'KeyQ' || event.code === 'Digit1') {
+      firstPower = true
+      event.preventDefault()
+    }
+    if (event.code === 'KeyE' || event.code === 'Digit2') {
+      secondPower = true
       event.preventDefault()
     }
   }
@@ -39,6 +54,13 @@ export function takeTheHands(watching: HTMLElement): Hands {
     if (event.button === 0) {
       swinging = true
     }
+    if (event.button === 2) {
+      firstPower = true
+    }
+  }
+
+  function noMenu(event: Event): void {
+    event.preventDefault()
   }
 
   function lostFocus(): void {
@@ -49,9 +71,10 @@ export function takeTheHands(watching: HTMLElement): Hands {
   window.addEventListener('keyup', keyUp)
   window.addEventListener('blur', lostFocus)
   watching.addEventListener('mousedown', pressed)
+  watching.addEventListener('contextmenu', noMenu)
 
   return {
-    read(): WhatYouWant {
+    read(): Wanted {
       let alongX = 0
       let alongY = 0
 
@@ -63,8 +86,10 @@ export function takeTheHands(watching: HTMLElement): Hands {
         }
       })
 
-      const wanted = { alongX, alongY, swinging }
+      const wanted = { alongX, alongY, swinging, firstPower, secondPower }
       swinging = false
+      firstPower = false
+      secondPower = false
       return wanted
     },
 
@@ -74,6 +99,7 @@ export function takeTheHands(watching: HTMLElement): Hands {
       window.removeEventListener('keyup', keyUp)
       window.removeEventListener('blur', lostFocus)
       watching.removeEventListener('mousedown', pressed)
+      watching.removeEventListener('contextmenu', noMenu)
     }
   }
 }
