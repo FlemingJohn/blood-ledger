@@ -1,5 +1,6 @@
 import './styles/theme.css'
 import './styles/marks.css'
+import './styles/frame.css'
 import type { Part } from './types/parts'
 import type { Pact } from './types/pact'
 import type { RaiderClass } from './types/raider'
