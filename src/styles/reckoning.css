@@ -95,3 +95,35 @@
   font-style: italic;
   color: var(--ash);
 }
+
+.reckoning__missed {
+  margin: var(--pause) 0 0;
+  padding-top: var(--pause);
+  border-top: 1px solid var(--emberwood);
+}
+
+.reckoning__missedLabel {
+  margin: 0 0 8px;
+  font-family: var(--counted);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ash);
+}
+
+.reckoning__left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 5px;
+  font-size: 0.86rem;
+  color: var(--ash);
+}
+
+.reckoning__left:last-child {
+  margin-bottom: 0;
+}
+
+.reckoning__left .mark {
+  color: var(--emberwood);
+}
