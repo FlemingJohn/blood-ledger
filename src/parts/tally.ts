@@ -3,28 +3,57 @@ import type { Raider } from '../types/raider'
 import { coinMark } from '../art/paths'
 import { contractsAreLive } from '../chain/theLedger'
 import { countCoins, shortAddress } from '../chain/addresses'
+import { titleFor } from '../chain/ranks'
 import { homeRealm } from '../chain/realms'
+import { drawMark, drawSigil } from './marks'
+import '../styles/tally.css'
 
-export function hangTheTally(raider: Raider): Part {
+export interface TallyPart extends Part {
+  middleSeat: HTMLElement
+}
+
+export function hangTheTally(raider: Raider): TallyPart {
   const tally = document.createElement('header')
   tally.className = 'tally'
 
-  const line = document.createElement('div')
-  line.className = 'tally__line'
+  const plate = document.createElement('div')
+  plate.className = 'tally__plate'
 
-  const mark = document.createElement('span')
-  mark.className = 'tally__mark'
-  mark.textContent = 'Blood Ledger'
+  const sigilSeat = document.createElement('div')
+  sigilSeat.className = 'tally__sigil'
 
-  const facts = document.createElement('div')
-  facts.className = 'tally__facts'
+  sigilSeat.append(drawSigil({ score: raider.standing.score }))
 
-  const who = document.createElement('span')
-  who.className = 'tally__who'
-  who.textContent = shortAddress(raider.address)
+  const rank = document.createElement('p')
+  rank.className = 'tally__rank'
+  rank.textContent = titleFor(raider.standing.grade)
 
-  const purse = document.createElement('span')
-  purse.className = 'tally__coins'
+  sigilSeat.append(rank)
+
+  const middle = document.createElement('div')
+  middle.className = 'tally__middle'
+
+  const wordmark = document.createElement('p')
+  wordmark.className = 'tally__wordmark'
+
+  wordmark.append(drawMark({ name: 'blade', size: 17, className: 'mark--blood' }))
+
+  const name = document.createElement('span')
+  name.textContent = 'Blood Ledger'
+  wordmark.append(name)
+
+  wordmark.append(drawMark({ name: 'blade', size: 17, className: 'mark--blood' }))
+
+  const middleSeat = document.createElement('div')
+  middleSeat.className = 'tally__seat'
+
+  middle.append(wordmark, middleSeat)
+
+  const purseSeat = document.createElement('div')
+  purseSeat.className = 'tally__purse'
+
+  const socket = document.createElement('div')
+  socket.className = 'tally__socket'
 
   const coin = document.createElement('img')
   coin.className = 'tally__coin'
@@ -32,30 +61,37 @@ export function hangTheTally(raider: Raider): Part {
   coin.alt = ''
   coin.setAttribute('aria-hidden', 'true')
 
-  const amount = document.createElement('b')
-  amount.textContent = `${countCoins(raider.coins)} ${homeRealm.coinSymbol}`
+  const held = document.createElement('b')
+  held.textContent = countCoins(raider.coins)
 
-  purse.append(coin, amount)
+  const named = document.createElement('span')
+  named.className = 'tally__coinName'
+  named.textContent = homeRealm.coinSymbol
 
-  const standing = document.createElement('span')
-  standing.className = 'tally__standing'
-  standing.textContent = `Standing ${raider.standing.grade} ${raider.standing.score}`
+  socket.append(coin, held, named)
 
-  facts.append(who, purse, standing)
+  const who = document.createElement('p')
+  who.className = 'tally__who'
+  who.textContent = shortAddress(raider.address)
+
+  purseSeat.append(socket, who)
 
   if (!contractsAreLive) {
-    const warning = document.createElement('span')
-    warning.className = 'tally__rehearsal'
-    warning.title = 'Patrons, standing and ledger are worked examples until the contracts are deployed.'
-    warning.textContent = 'rehearsal'
-    facts.append(warning)
+    const warned = document.createElement('p')
+    warned.className = 'tally__rehearsal'
+    warned.title =
+      'Patrons, standing and ledger are worked examples until the contracts are deployed.'
+    warned.append(drawMark({ name: 'warning', size: 11 }))
+    warned.append(document.createTextNode(' rehearsal'))
+    purseSeat.append(warned)
   }
 
-  line.append(mark, facts)
-  tally.append(line)
+  plate.append(sigilSeat, middle, purseSeat)
+  tally.append(plate)
 
   return {
     element: tally,
+    middleSeat,
     teardown(): void {
       tally.remove()
     }
