@@ -29,6 +29,9 @@ contract TheLedger is ASCBase {
     uint32 public constant LOST_BY_DEFAULT = 86;
     uint16 public constant SHARE_IS_OUT_OF = 100;
 
+    /// @notice A pair this familiar earns nothing further from each other.
+    uint32 public constant PAIR_IS_SPENT_AFTER = 5;
+
     address public immutable KEEPER;
 
     /// @notice The Ethereum vault whose events this ledger will believe.
@@ -41,6 +44,13 @@ contract TheLedger is ASCBase {
     mapping(uint256 => Pact) public pacts;
     mapping(address => uint256) public openPactOf;
 
+    /// @notice How many pacts this ledger has already sealed between this pair.
+    /// @dev Counted here rather than read from the vault, because every pact that
+    ///      reaches this mapping arrived through a proof. Standing earned from a pair
+    ///      halves each time, so two wallets passing the same coin back and forth
+    ///      cannot mint reputation out of it.
+    mapping(address => mapping(address => uint32)) public pactsBetween;
+
     event VaultNamed(address indexed vault, uint64 chainKey);
     event PactSealed(
         uint256 indexed pactId,
@@ -49,6 +59,12 @@ contract TheLedger is ASCBase {
         uint256 coinsStaked,
         uint16 patronShare,
         bytes32 queryId
+    );
+    event StandingMoved(
+        address indexed raider,
+        uint32 was,
+        uint32 now_,
+        uint32 timesThisPair
     );
     event RaidSettled(
         uint256 indexed pactId,
@@ -152,6 +168,7 @@ contract TheLedger is ASCBase {
         });
 
         openPactOf[funding.raider] = funding.pactId;
+        pactsBetween[funding.patron][funding.raider] += 1;
 
         Standing storage standing = standings[funding.raider];
         if (!standing.known) {
@@ -258,6 +275,13 @@ contract TheLedger is ASCBase {
             standing.repaid += 1;
         }
 
+        emit StandingMoved(
+            pact.raider,
+            takings.standingBefore,
+            takings.standingAfter,
+            pactsBetween[pact.patron][pact.raider]
+        );
+
         emit RaidSettled(
             pactId,
             pact.raider,
@@ -268,6 +292,27 @@ contract TheLedger is ASCBase {
             takings.debtCleared,
             takings.standingAfter
         );
+    }
+
+    /**
+     * @notice What a raider earns for clearing a debt to this particular patron.
+     * @dev Full the first time, then halved for every pact this pair has already had,
+     *      and nothing at all once they are too familiar. Losses are never softened
+     *      this way: a default costs the same however well the two know each other.
+     */
+    function earnedFromThisPair(address patron, address raider) public view returns (uint32) {
+        uint32 between = pactsBetween[patron][raider];
+
+        if (between > PAIR_IS_SPENT_AFTER) {
+            return 0;
+        }
+
+        uint32 earned = EARNED_BY_CLEARING;
+        for (uint32 already = 1; already < between; already += 1) {
+            earned = earned / 2;
+        }
+
+        return earned;
     }
 
     function _reckon(
@@ -289,7 +334,7 @@ contract TheLedger is ASCBase {
         if (!lived) {
             standingAfter = standingBefore > LOST_BY_DEFAULT ? standingBefore - LOST_BY_DEFAULT : 0;
         } else if (debtCleared) {
-            uint32 raised = standingBefore + EARNED_BY_CLEARING;
+            uint32 raised = standingBefore + earnedFromThisPair(pact.patron, pact.raider);
             standingAfter = raised > STANDING_TOPS_OUT_AT ? STANDING_TOPS_OUT_AT : raised;
         } else {
             standingAfter = standingBefore > LOST_BY_LEAVING_SHORT
