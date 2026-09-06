@@ -253,6 +253,92 @@ export function paintWorld(
     )
   })
 
+  world.inFlight.forEach((flight) => {
+    const age = (now - flight.bornAt) / flight.power.lastsFor
+    if (age > 1) {
+      return
+    }
+    const atX = toScreenX(flight.from.x)
+    const atY = toScreenY(flight.from.y) - 18
+    const name = flight.power.name
+
+    surface.save()
+
+    if (name === 'cleave' || name === 'flurry') {
+      const facing = Math.atan2(flight.facingY, flight.facingX)
+      const sweep = name === 'cleave' ? Math.PI * 0.9 : Math.PI * 0.5
+      const reach = (name === 'cleave' ? 132 : 96) * worldMagnify * 0.5
+
+      for (let step = 0; step < 24; step += 1) {
+        const along = step / 23
+        if (along > Math.min(1, age * 2.2)) {
+          break
+        }
+        const fade = 1 - Math.abs(along - Math.min(1, age * 2.2)) * 2.4
+        if (fade <= 0) {
+          continue
+        }
+        const at = facing - sweep / 2 + sweep * along
+        surface.beginPath()
+        surface.arc(
+          atX + Math.cos(at) * reach,
+          atY + Math.sin(at) * reach * 0.62,
+          5 - along * 2,
+          0,
+          7
+        )
+        surface.fillStyle = `rgba(255,61,120,${fade * 0.85})`
+        surface.fill()
+      }
+    }
+
+    if (name === 'groundSlam') {
+      for (let ring = 0; ring < 3; ring += 1) {
+        const along = age - ring * 0.16
+        if (along < 0 || along > 1) {
+          continue
+        }
+        const reach = along * 168 * worldMagnify * 0.6
+        surface.beginPath()
+        surface.ellipse(atX, atY + 18, reach, reach * 0.46, 0, 0, 7)
+        surface.strokeStyle = `rgba(240,160,48,${(1 - along) * 0.85})`
+        surface.lineWidth = 4 - along * 2.6
+        surface.stroke()
+      }
+    }
+
+    if (name === 'dash') {
+      const gl = surface.createLinearGradient(atX, atY, atX + flight.facingX * 120, atY + flight.facingY * 120)
+      gl.addColorStop(0, `rgba(255,61,120,${(1 - age) * 0.5})`)
+      gl.addColorStop(1, 'rgba(255,61,120,0)')
+      surface.strokeStyle = gl
+      surface.lineWidth = 14 * (1 - age)
+      surface.beginPath()
+      surface.moveTo(atX, atY + 18)
+      surface.lineTo(atX + flight.facingX * 190 * worldMagnify * 0.5, atY + 18 + flight.facingY * 190 * worldMagnify * 0.5)
+      surface.stroke()
+    }
+
+    if (name === 'bulwark' || name === 'shieldWall') {
+      const you = world.you
+      const onX = toScreenX(you.spot.x)
+      const onY = toScreenY(you.spot.y)
+      const beat = 0.5 + Math.sin(now / 160) * 0.3
+      const tone = name === 'bulwark' ? '201,162,39' : '120,170,230'
+
+      for (let ring = 0; ring < 3; ring += 1) {
+        const reach = 46 + ring * 12 + Math.sin(now / 200 + ring) * 4
+        surface.beginPath()
+        surface.ellipse(onX, onY + 6, reach, reach * 0.46, 0, 0, 7)
+        surface.strokeStyle = `rgba(${tone},${beat * (1 - ring * 0.28) * (1 - age)})`
+        surface.lineWidth = 2
+        surface.stroke()
+      }
+    }
+
+    surface.restore()
+  })
+
   surface.globalAlpha = 1
 
   const edge = surface.createRadialGradient(
