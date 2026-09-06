@@ -36,7 +36,7 @@
   display: grid;
   grid-template-columns: 320px minmax(0, 1fr) 268px;
   gap: var(--pause);
-  align-content: stretch;
+  grid-auto-rows: minmax(0, 1fr);
   align-items: stretch;
   width: min(1280px, 100%);
   margin: 0 auto;
@@ -44,6 +44,7 @@
 }
 
 .hallpage__middle {
+  height: 100%;
   display: flex;
   flex-direction: column;
   min-height: 0;
@@ -58,6 +59,7 @@
 }
 
 .hallpage__rail {
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -186,6 +188,7 @@
 }
 
 .board {
+  height: 100%;
   display: flex;
   flex-direction: column;
   min-height: 0;
