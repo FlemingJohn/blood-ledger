@@ -16,6 +16,7 @@ export interface Fighter {
   pace: number
   blowLanded: boolean
   restingUntil: number
+  struckAt: number
   gone: boolean
 }
 
