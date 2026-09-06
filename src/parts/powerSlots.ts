@@ -12,7 +12,7 @@ export interface PowerSlotsPart extends Part {
 
 export function layOutPowers(startingClass: RaiderClass): PowerSlotsPart {
   const block = document.createElement('section')
-  block.className = 'rail__block'
+  block.className = 'rail__block framed'
 
   const label = document.createElement('p')
   label.className = 'panel__label'
@@ -29,7 +29,7 @@ export function layOutPowers(startingClass: RaiderClass): PowerSlotsPart {
 
     powersFor(chosen).forEach((power, place) => {
       const slot = document.createElement('div')
-      slot.className = 'powers__slot'
+      slot.className = 'powers__slot framed framed--sunk'
 
       const key = document.createElement('span')
       key.className = 'powers__key'
