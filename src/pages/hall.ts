@@ -11,6 +11,7 @@ import { pinUpThePact } from '../parts/pactSlip'
 import { buildDescent } from '../parts/descentDoor'
 import { openThePatronBoard } from '../parts/patronBoard'
 import { openTheProfile } from '../parts/profileCard'
+import { drawChain } from '../parts/hallMarks'
 import { prepareTheRite } from '../parts/sealingRite'
 import { unrollTheLedger } from '../parts/ledgerFeed'
 import { layOutPowers } from '../parts/powerSlots'
@@ -20,6 +21,7 @@ import { readProfile } from '../chain/profiles'
 import { everyPieceOfHallArt } from '../art/paths'
 import { loadWhatYouCan } from '../art/pictures'
 import '../styles/hall.css'
+import '../styles/hallMarks.css'
 
 export interface HallOrder {
   address: string
@@ -58,7 +60,10 @@ export function buildHall(order: HallOrder): Part {
 
   const rail = document.createElement('aside')
   rail.className = 'hallpage__rail'
-  rail.append(pactSlip.element, powers.element, bond.element, standing.element)
+  const hanging = drawChain()
+  hanging.classList.add('hallpage__chain')
+
+  rail.append(hanging, pactSlip.element, powers.element, bond.element, standing.element)
 
   const rite = prepareTheRite()
   const profile = openTheProfile()
