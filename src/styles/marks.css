@@ -1,0 +1,20 @@
+.mark {
+  flex: none;
+  vertical-align: -0.18em;
+}
+
+.mark--gold {
+  color: var(--gold);
+}
+
+.mark--blood {
+  color: var(--blood);
+}
+
+.mark--ember {
+  color: var(--ember);
+}
+
+.mark--ash {
+  color: var(--ash);
+}
