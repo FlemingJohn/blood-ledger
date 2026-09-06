@@ -1,5 +1,6 @@
 import type { Part } from '../types/parts'
 import { countCoins } from '../chain/addresses'
+import '../styles/door.css'
 
 export interface WayOutPart extends Part {
   showSum(carried: number, patronShare: number, owed: number): void
