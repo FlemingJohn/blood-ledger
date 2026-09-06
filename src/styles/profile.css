@@ -55,7 +55,7 @@
 .profile__shut {
   align-self: start;
   padding: 6px 14px;
-  border: 1px solid var(--emberwood);
+  border: 1px solid var(--rule);
   background: none;
   color: var(--ash);
   font-family: var(--counted);
@@ -92,7 +92,7 @@
   flex-direction: column;
   gap: 4px;
   padding: 10px 12px 12px;
-  border: 1px solid var(--emberwood);
+  border: 1px solid var(--ruleDeep);
   background: rgba(10, 3, 7, 0.6);
 }
 
