@@ -54,7 +54,9 @@ const facings = [
 ]
 
 const fighters = [
-  ['playable character/warrior', 'warrior', 'you', ['armed_walk', 'armed_attack', 'special_death']],
+  ['playable character/warrior', 'warrior', 'warrior', ['armed_walk', 'armed_attack', 'special_death']],
+  ['playable character/knight', 'knight', 'knight', ['armed_walk', 'armed_attack', 'special_death']],
+  ['playable character/fighter', 'fighter', 'fighter', ['armed_walk', 'armed_attack', 'special_death']],
   ['enemy/skeleton', 'skeleton', 'skeleton', ['default_walk', 'default_attack', 'special_death']],
   ['enemy/slime', 'slime', 'slime', ['default_walk', 'special_death']],
   ['boss/demonlord', 'demonlord', 'demonlord', ['default_walk', 'default_attack1', 'special_death']]
