@@ -3,6 +3,7 @@ import type { OfferCardPart } from '../types/parts'
 import { coinMark, offerMarker } from '../art/paths'
 import { countCoins, shortAddress } from '../chain/addresses'
 import { drawMark } from './marks'
+import { drawCrest } from './hallMarks'
 import '../styles/offerCard.css'
 
 export function layOutOffer(offer: Offer): OfferCardPart {
@@ -27,7 +28,13 @@ export function layOutOffer(offer: Offer): OfferCardPart {
     named.textContent = offer.patronName
     who.append(named)
   } else {
-    who.textContent = shortAddress(offer.patronAddress)
+    const crest = drawCrest(offer.patronAddress, 15)
+    crest.classList.add('offer__crest')
+    who.append(crest)
+
+    const named = document.createElement('span')
+    named.textContent = shortAddress(offer.patronAddress)
+    who.append(named)
   }
 
   const stake = document.createElement('span')
