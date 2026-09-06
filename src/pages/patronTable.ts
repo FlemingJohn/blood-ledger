@@ -1,6 +1,6 @@
 import type { Part } from '../types/parts'
 import type { PurseKeeper } from '../types/purse'
-import type { Role } from '../types/role'
+import type { Role, RoleAnswer } from '../types/role'
 import type { StakeYouMade, WhatYouOffer } from '../types/patron'
 import { fillOutAStake } from '../parts/stakeSlip'
 import { layOutSeeker } from '../parts/seekerCard'
@@ -16,7 +16,7 @@ import '../styles/patron.css'
 export interface PatronTableOrder {
   purse: PurseKeeper
   address: string
-  whenRoleAsked(role: Role): void
+  whenRoleAsked(role: Role): Promise<RoleAnswer> | RoleAnswer
 }
 
 export function buildPatronTable(order: PatronTableOrder): Part {
