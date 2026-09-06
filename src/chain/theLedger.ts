@@ -1,6 +1,8 @@
 import type { LedgerEntry } from '../types/ledger'
 import type { Offer, Pact, SealingProgress, SealingStep, SealingWatcher } from '../types/pact'
 import type { Raider, Standing, StandingGrade } from '../types/raider'
+import type { RaiderFacts } from '../types/underwriting'
+import { judge } from './underwriting'
 
 export const contractsAreLive = false
 
@@ -45,7 +47,9 @@ const standInOffers: Offer[] = [
     patronShare: 40,
     words: 'Bring me the Demonlord.',
     needsGrade: 'C',
-    claimed: false
+    claimed: false,
+    patronName: null,
+    reckoned: false
   },
   {
     id: 'offer-44ab',
@@ -54,7 +58,9 @@ const standInOffers: Offer[] = [
     patronShare: 25,
     words: 'Small stake. Come back and we will talk again.',
     needsGrade: 'F',
-    claimed: false
+    claimed: false,
+    patronName: null,
+    reckoned: false
   },
   {
     id: 'offer-d00d',
@@ -63,7 +69,9 @@ const standInOffers: Offer[] = [
     patronShare: 70,
     words: 'I do not fund the unproven.',
     needsGrade: 'A',
-    claimed: false
+    claimed: false,
+    patronName: null,
+    reckoned: false
   },
   {
     id: 'offer-7e11',
@@ -72,7 +80,9 @@ const standInOffers: Offer[] = [
     patronShare: 50,
     words: 'Floor four or do not bother returning.',
     needsGrade: 'B',
-    claimed: false
+    claimed: false,
+    patronName: null,
+    reckoned: false
   },
   {
     id: 'offer-c0de',
@@ -81,7 +91,9 @@ const standInOffers: Offer[] = [
     patronShare: 35,
     words: 'Someone already took this one.',
     needsGrade: 'F',
-    claimed: true
+    claimed: true,
+    patronName: null,
+    reckoned: false
   }
 ]
 
@@ -129,8 +141,56 @@ export function readRaider(address: string): Raider {
   }
 }
 
-export function readOffers(): Offer[] {
-  return standInOffers.map((offer) => ({ ...offer }))
+export const underwriterAddress = madeUpAddress('01A1', 'AE')
+
+/**
+ * What the Underwriter would put up for this raider, worked out the same way
+ * the standalone one does. It sits on the board as one more patron, and its
+ * terms move with the standing it can see rather than being written down.
+ */
+function offerFromTheUnderwriter(raider: Raider): Offer | null {
+  const facts: RaiderFacts = {
+    handle: 'this raider',
+    standing: raider.standing.score,
+    grade: raider.standing.grade,
+    raids: raider.standing.raids,
+    repaid: raider.standing.repaid,
+    lost: raider.standing.lost,
+    deepestFloor: 3,
+    distinctPatrons: 4,
+    timesFundedByUs: 0,
+    fundedInACircle: false,
+    youngestFunderAgeDays: 90
+  }
+
+  const decision = judge(facts, { mostPerRaider: 900 })
+
+  if (decision.verdict === 'refuse') {
+    return null
+  }
+
+  return {
+    id: 'offer-underwriter',
+    patronAddress: underwriterAddress,
+    patronName: 'The Underwriter',
+    coinsStaked: Math.round(Number(decision.coinsOffered)),
+    patronShare: decision.patronShare,
+    words: `Risk of default read at ${Math.round(decision.riskOfDefault * 100)} percent. The terms follow from that, and nothing else.`,
+    needsGrade: 'F',
+    claimed: false,
+    reckoned: true
+  }
+}
+
+export function readOffers(forRaider?: Raider): Offer[] {
+  const written = standInOffers.map((offer) => ({ ...offer }))
+
+  if (!forRaider) {
+    return written
+  }
+
+  const reckoned = offerFromTheUnderwriter(forRaider)
+  return reckoned ? [reckoned, ...written] : written
 }
 
 export function readLedger(): LedgerEntry[] {
