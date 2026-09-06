@@ -10,11 +10,13 @@ import { showStanding } from '../parts/standingBar'
 import { pinUpThePact } from '../parts/pactSlip'
 import { buildDescent } from '../parts/descentDoor'
 import { openThePatronBoard } from '../parts/patronBoard'
+import { openTheProfile } from '../parts/profileCard'
 import { prepareTheRite } from '../parts/sealingRite'
 import { unrollTheLedger } from '../parts/ledgerFeed'
 import { layOutPowers } from '../parts/powerSlots'
 import { showTheBond } from '../parts/bondSlip'
 import { readLedger, readOffers, readRaider, sealPact } from '../chain/theLedger'
+import { readProfile } from '../chain/profiles'
 import { everyPieceOfHallArt } from '../art/paths'
 import { loadWhatYouCan } from '../art/pictures'
 import '../styles/hall.css'
@@ -59,6 +61,9 @@ export function buildHall(order: HallOrder): Part {
   rail.append(pactSlip.element, powers.element, bond.element, standing.element)
 
   const rite = prepareTheRite()
+  const profile = openTheProfile()
+
+  tally.whenNameAsked(() => profile.showProfile(readProfile(order.address)))
 
   let heldPact: Pact | null = null
   let sealing = false
@@ -93,7 +98,7 @@ export function buildHall(order: HallOrder): Part {
   foot.className = 'hallpage__foot'
   foot.append(ledger.element, descent.element)
 
-  hall.append(dressing.element, tally.element, body, foot, rite.element)
+  hall.append(dressing.element, tally.element, body, foot, rite.element, profile.element)
 
   descent.showBarred(true)
   descent.whenPushed(() => {
@@ -116,6 +121,7 @@ export function buildHall(order: HallOrder): Part {
       bond.teardown()
       powers.teardown()
       ledger.teardown()
+      profile.teardown()
       rite.teardown()
       descent.teardown()
       pactSlip.teardown()
