@@ -34,54 +34,93 @@ export const inks: Record<ChampionInk, string> = {
   molten: '#f0a030'
 }
 
+export const inkBands: Record<ChampionInk, [string, string]> = {
+  cloak: ['#5a1a26', '#240a10'],
+  cloakDark: ['#2a0a10', '#120407'],
+  plate: ['#7b828d', '#3a3f47'],
+  plateLit: ['#a8b0bb', '#5c636d'],
+  leather: ['#6b4a33', '#33221a'],
+  leatherLit: ['#86603f', '#4a3324'],
+  belt: ['#3a251c', '#180e0a'],
+  gold: ['#f0d878', '#8a6c1a'],
+  steel: ['#8f97a2', '#454b53'],
+  steelLit: ['#c6cdd6', '#6b727c'],
+  shadow: ['#0d0407', '#050103'],
+  ember: ['#ff5a8c', '#c00f3e'],
+  blood: ['#a01238', '#5a0620'],
+  molten: ['#ffc463', '#d07510']
+}
+
 export const champions: Record<RaiderClass, Champion> = {
   warrior: {
     said: 'Warrior',
     line: 'Balanced. Cleaves wide and holds the ground.',
     parts: [
-      { d: 'M100 306 L52 300 L64 196 L78 84 L122 84 L136 196 L148 300 Z', fill: 'cloakDark' },
-      { d: 'M100 306 L64 302 L74 200 L86 96 L114 96 L126 200 L136 302 Z', fill: 'cloak' },
+      { d: 'M72 62 L128 62 L152 172 L170 294 Q128 306 100 297 Q72 306 30 294 L48 172 Z', fill: 'cloakDark' },
+      { d: 'M80 66 L120 66 L136 176 L150 288 Q100 299 50 288 L64 176 Z', fill: 'cloak' },
 
-      { d: 'M100 78 q-26 3 -32 20 l-6 34 q19 9 38 9 q19 0 38 -9 l-6 -34 q-6 -17 -32 -20 z', fill: 'plate' },
-      { d: 'M100 78 q-26 3 -32 20 l-3 17 q17 8 35 8 q18 0 35 -8 l-3 -17 q-6 -17 -32 -20 z', fill: 'plateLit' },
-      { d: 'M76 108 h48 v4 h-48 z', fill: 'shadow' },
+      { d: 'M80 166 L100 166 L101 236 L99 292 L81 292 L78 236 Z', fill: 'plate' },
+      { d: 'M104 166 L124 166 L127 236 L127 288 L109 290 L105 236 Z', fill: 'plate' },
+      { d: 'M80 166 L88 166 L86 236 L82 292 L81 292 L78 236 Z', fill: 'plateLit' },
+      { d: 'M104 166 L112 166 L111 236 L110 289 L109 290 L105 236 Z', fill: 'plateLit' },
 
-      { d: 'M68 92 q-24 3 -29 22 q-3 15 5 24 q15 -12 33 -14 z', fill: 'plate' },
-      { d: 'M132 92 q24 3 29 22 q3 15 -5 24 q-15 -12 -33 -14 z', fill: 'plate' },
-      { d: 'M68 92 q-24 3 -29 22 q11 -8 26 -8 z', fill: 'plateLit' },
-      { d: 'M132 92 q24 3 29 22 q-11 -8 -26 -8 z', fill: 'plateLit' },
+      { d: 'M77 226 L102 226 L103 245 L76 245 Z', fill: 'plateLit' },
+      { d: 'M104 226 L129 226 L129 245 L103 245 Z', fill: 'plateLit' },
+      { d: 'M77 243 L103 243 L103 248 L76 248 Z', fill: 'shadow' },
+      { d: 'M104 243 L129 243 L129 248 L103 248 Z', fill: 'shadow' },
 
-      { d: 'M62 132 l-6 44 q7 5 15 2 l6 -42 z', fill: 'leather' },
-      { d: 'M138 132 l6 44 q-7 5 -15 2 l-6 -42 z', fill: 'leather' },
-      { d: 'M56 176 l-3 18 q8 4 16 1 l2 -17 z', fill: 'plate' },
-      { d: 'M144 176 l3 18 q-8 4 -16 1 l-2 -17 z', fill: 'plate' },
+      { d: 'M74 286 L103 286 L105 306 L71 306 Z', fill: 'plate' },
+      { d: 'M103 282 L130 282 L133 302 L103 304 Z', fill: 'plate' },
+      { d: 'M71 300 L105 300 L105 306 L71 306 Z', fill: 'shadow' },
+      { d: 'M103 297 L133 296 L133 302 L103 304 Z', fill: 'shadow' },
 
-      { d: 'M70 140 h60 l4 20 h-68 z', fill: 'belt' },
-      { d: 'M93 145 h14 v12 h-14 z', fill: 'gold' },
+      { d: 'M78 130 L122 130 L128 176 L100 184 L72 176 Z', fill: 'leather' },
+      { d: 'M86 130 L114 130 L116 170 L100 176 L84 170 Z', fill: 'leatherLit' },
+      { d: 'M72 176 L128 176 L128 181 L72 181 Z', fill: 'shadow' },
 
-      { d: 'M74 160 l-6 88 q9 6 18 2 l5 -88 z', fill: 'leather' },
-      { d: 'M126 160 l6 88 q-9 6 -18 2 l-5 -88 z', fill: 'leather' },
-      { d: 'M74 160 l-3 40 q8 4 16 1 l2 -40 z', fill: 'leatherLit' },
-      { d: 'M126 160 l3 40 q-8 4 -16 1 l-2 -40 z', fill: 'leatherLit' },
+      { d: 'M70 66 Q100 57 130 66 L134 102 Q100 115 66 102 Z', fill: 'plate' },
+      { d: 'M70 66 Q100 57 130 66 L132 83 Q100 93 68 83 Z', fill: 'plateLit' },
+      { d: 'M72 99 L128 99 L130 122 L70 122 Z', fill: 'plate' },
+      { d: 'M72 99 L128 99 L129 108 L71 108 Z', fill: 'plateLit' },
+      { d: 'M66 100 L134 100 L134 105 L66 105 Z', fill: 'shadow' },
 
-      { d: 'M67 248 q12 7 25 3 l3 44 h-30 z', fill: 'plate' },
-      { d: 'M133 248 q-12 7 -25 3 l-3 44 h30 z', fill: 'plate' },
-      { d: 'M62 292 h38 v14 h-42 z', fill: 'shadow' },
-      { d: 'M138 292 h-38 v14 h42 z', fill: 'shadow' },
+      { d: 'M71 119 L129 119 L130 133 L70 133 Z', fill: 'belt' },
+      { d: 'M93 119 L107 119 L108 133 L92 133 Z', fill: 'gold' },
 
-      { d: 'M100 26 q-22 2 -25 20 l0 24 q10 11 25 11 q15 0 25 -11 l0 -24 q-3 -18 -25 -20 z', fill: 'plate' },
-      { d: 'M100 26 q-22 2 -25 20 l0 9 q11 7 25 7 q14 0 25 -7 l0 -9 q-3 -18 -25 -20 z', fill: 'plateLit' },
-      { d: 'M78 54 h44 v11 h-44 z', fill: 'shadow' },
-      { d: 'M84 57 h12 v6 h-12 z M104 57 h12 v6 h-12 z', fill: 'ember' },
-      { d: 'M96 66 h8 v9 h-8 z', fill: 'shadow' },
-      { d: 'M100 24 l-6 -22 q6 -5 12 0 z', fill: 'gold' },
-      { d: 'M100 2 q-2 -2 0 -2 q2 0 0 2 z', fill: 'molten' },
+      { d: 'M48 92 L72 90 L74 138 L54 142 Z', fill: 'plate' },
+      { d: 'M128 90 L152 92 L146 142 L126 138 Z', fill: 'plate' },
+      { d: 'M48 92 L58 91 L60 140 L54 142 Z', fill: 'plateLit' },
+      { d: 'M142 91 L152 92 L146 142 L140 140 Z', fill: 'plateLit' },
 
-      { d: 'M95 96 h10 v26 h-10 z', fill: 'leather' },
-      { d: 'M100 92 l-7 0 l0 -7 l14 0 l0 7 z', fill: 'gold' },
-      { d: 'M76 122 h48 v11 h-48 z', fill: 'gold' },
-      { d: 'M100 133 l-9 0 l0 110 l9 22 l9 -22 l0 -110 z', fill: 'steelLit' },
-      { d: 'M100 133 l-9 0 l0 110 l9 22 z', fill: 'steel' }
+      { d: 'M52 136 L74 134 L76 166 L56 168 Z', fill: 'plate' },
+      { d: 'M126 134 L148 136 L144 168 L124 166 Z', fill: 'plate' },
+      { d: 'M52 136 L60 135 L62 167 L56 168 Z', fill: 'plateLit' },
+      { d: 'M140 135 L148 136 L144 168 L138 167 Z', fill: 'plateLit' },
+
+      { d: 'M54 164 L78 162 L80 181 L56 183 Z', fill: 'plate' },
+      { d: 'M122 162 L146 164 L144 183 L120 181 Z', fill: 'plate' },
+
+      { d: 'M56 64 Q41 73 43 96 Q56 88 77 88 L77 64 Z', fill: 'plate' },
+      { d: 'M144 64 Q159 73 157 96 Q144 88 123 88 L123 64 Z', fill: 'plate' },
+      { d: 'M56 64 Q41 73 43 96 Q50 82 67 79 Z', fill: 'plateLit' },
+      { d: 'M144 64 Q159 73 157 96 Q150 82 133 79 Z', fill: 'plateLit' },
+
+      { d: 'M87 52 L113 52 L117 67 L83 67 Z', fill: 'plate' },
+      { d: 'M87 52 L113 52 L114 58 L86 58 Z', fill: 'plateLit' },
+
+      { d: 'M80 34 Q100 18 120 34 L122 46 L78 46 Z', fill: 'plate' },
+      { d: 'M80 34 Q100 18 120 34 L121 39 Q100 30 79 39 Z', fill: 'plateLit' },
+      { d: 'M78 46 L122 46 L119 57 Q100 61 81 57 Z', fill: 'plate' },
+      { d: 'M78 45 L122 45 L122 49 L78 49 Z', fill: 'shadow' },
+      { d: 'M85 48 L96 48 L96 54 L85 54 Z M104 48 L115 48 L115 54 L104 54 Z', fill: 'ember' },
+      { d: 'M100 32 L94 12 Q100 8 106 12 Z', fill: 'gold' },
+      { d: 'M100 10 q-2 -3 0 -3 q2 0 0 3 z', fill: 'molten' },
+
+      { d: 'M128 106 L140 106 L140 116 L128 116 Z', fill: 'gold' },
+      { d: 'M130 116 L138 116 L138 144 L130 144 Z', fill: 'belt' },
+      { d: 'M116 143 L152 143 L152 152 L116 152 Z', fill: 'gold' },
+      { d: 'M127 152 L141 152 L137 266 L134 273 L131 266 Z', fill: 'steelLit' },
+      { d: 'M134 152 L141 152 L137 266 L134 273 Z', fill: 'steel' }
     ]
   },
 
