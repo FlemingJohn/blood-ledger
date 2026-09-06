@@ -10,7 +10,9 @@ interface Build {
 }
 
 const builds: Record<FighterKind, Build> = {
-  you: { life: 100, hurts: 26, reach: 78, pace: 168 },
+  warrior: { life: 100, hurts: 26, reach: 78, pace: 168 },
+  knight: { life: 140, hurts: 30, reach: 84, pace: 128 },
+  fighter: { life: 80, hurts: 20, reach: 72, pace: 210 },
   skeleton: { life: 40, hurts: 9, reach: 62, pace: 74 },
   slime: { life: 26, hurts: 6, reach: 52, pace: 46 },
   demonlord: { life: 320, hurts: 22, reach: 104, pace: 92 }
