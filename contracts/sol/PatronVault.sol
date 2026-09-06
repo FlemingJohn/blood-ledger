@@ -34,13 +34,23 @@ contract PatronVault {
     uint16 public constant MOST_A_PATRON_MAY_KEEP = 80;
     uint64 public constant WAIT_BEFORE_RECLAIM = 7 days;
 
+    /// @notice Below this a stake buys no standing, so farming it costs real coin.
+    uint256 public constant SMALLEST_STAKE_WORTH_ANYTHING = 0.001 ether;
+
     uint256 public nextPactId = 1;
 
     mapping(uint256 => Stake) public stakes;
     mapping(address => uint256[]) public pactsOfRaider;
 
+    /// @notice How many times this patron has already funded this raider.
+    /// @dev The ledger reads it to give less standing for a pair that keeps repeating,
+    ///      so two wallets cannot pass the same coin back and forth for reputation.
+    mapping(address => mapping(address => uint32)) public timesFunded;
+
     error StakeIsEmpty();
+    error StakeTooSmall(uint256 asked, uint256 smallest);
     error RaiderIsNobody();
+    error CannotFundYourself();
     error ShareTooGreedy(uint16 asked);
     error NotYourStake();
     error AlreadyReclaimed();
@@ -56,8 +66,14 @@ contract PatronVault {
         if (msg.value == 0) {
             revert StakeIsEmpty();
         }
+        if (msg.value < SMALLEST_STAKE_WORTH_ANYTHING) {
+            revert StakeTooSmall(msg.value, SMALLEST_STAKE_WORTH_ANYTHING);
+        }
         if (raider == address(0)) {
             revert RaiderIsNobody();
+        }
+        if (raider == msg.sender) {
+            revert CannotFundYourself();
         }
         if (patronShare > MOST_A_PATRON_MAY_KEEP) {
             revert ShareTooGreedy(patronShare);
@@ -76,6 +92,7 @@ contract PatronVault {
         });
 
         pactsOfRaider[raider].push(pactId);
+        timesFunded[msg.sender][raider] += 1;
 
         emit RaidFunded(raider, msg.sender, pactId, msg.value, patronShare);
     }
