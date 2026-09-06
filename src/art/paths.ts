@@ -8,7 +8,13 @@ function countUp(count: number): number[] {
 
 export const stoneFloor = `${artRoot}/ground/stone.png`
 export const darkenedEdges = `${artRoot}/ui/vignette.png`
-export const gauntletPointer = `${artRoot}/ui/pointer-red.png`
+export const gauntlets = {
+  resting: `${artRoot}/ui/pointer-white.png`,
+  enemy: `${artRoot}/ui/pointer-red.png`,
+  loot: `${artRoot}/ui/pointer-yellow.png`,
+  wayOut: `${artRoot}/ui/pointer-green.png`,
+  patron: `${artRoot}/ui/pointer-blue.png`
+}
 export const sleepingWatcher = `${artRoot}/watcher/idle.png`
 export const scatteredBones = `${artRoot}/scatter/bones.png`
 export const scatteredRocks = `${artRoot}/scatter/rocks.png`
@@ -31,7 +37,7 @@ export const raiderPoses: Record<RaiderClass, string[]> = {
 export const everyPieceOfArt = [
   stoneFloor,
   darkenedEdges,
-  gauntletPointer,
+  ...Object.values(gauntlets),
   sleepingWatcher,
   scatteredBones,
   scatteredRocks,
