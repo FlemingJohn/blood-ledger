@@ -6,7 +6,6 @@ import { dressTheHall } from '../parts/hallDressing'
 import { hangTheTally } from '../parts/tally'
 import { hangTheRoleSwitch } from '../parts/roleSwitch'
 import { raiseThePlinth } from '../parts/plinth'
-import { showStanding } from '../parts/standingBar'
 import { pinUpThePact } from '../parts/pactSlip'
 import { buildDescent } from '../parts/descentDoor'
 import { openThePatronBoard } from '../parts/patronBoard'
@@ -80,7 +79,6 @@ export function buildHall(order: HallOrder): Part {
   body.className = 'hallpage__body'
 
   const plinth = raiseThePlinth(raider.chosenClass)
-  const standing = showStanding(raider.standing)
   const pactSlip = pinUpThePact()
   const descent = buildDescent()
   const powers = layOutPowers(raider.chosenClass)
@@ -95,7 +93,7 @@ export function buildHall(order: HallOrder): Part {
   const hanging = drawChain()
   hanging.classList.add('hallpage__chain')
 
-  rail.append(hanging, pactSlip.element, powers.element, bond.element, standing.element)
+  rail.append(hanging, pactSlip.element, powers.element, bond.element)
 
   const rite = prepareTheRite()
   const profile = openTheProfile()
@@ -164,7 +162,6 @@ export function buildHall(order: HallOrder): Part {
       rite.teardown()
       descent.teardown()
       pactSlip.teardown()
-      standing.teardown()
       plinth.teardown()
       roleSwitch.teardown()
       tally.teardown()
