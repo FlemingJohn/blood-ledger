@@ -317,4 +317,9 @@
   .hallpage__rail {
     gap: 6px;
   }
+
+  .panel,
+  .rail__block {
+    padding: 9px 13px 10px;
+  }
 }
