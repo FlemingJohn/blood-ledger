@@ -10,6 +10,7 @@ import '../styles/tally.css'
 
 export interface TallyPart extends Part {
   middleSeat: HTMLElement
+  whenNameAsked(listener: () => void): void
 }
 
 export function hangTheTally(raider: Raider): TallyPart {
@@ -78,9 +79,14 @@ export function hangTheTally(raider: Raider): TallyPart {
 
   socket.append(coin, held, named)
 
-  const who = document.createElement('p')
+  const who = document.createElement('button')
+  who.type = 'button'
   who.className = 'tally__who'
   who.textContent = shortAddress(raider.address)
+  who.title = 'Open your record'
+
+  const asking = new Set<() => void>()
+  who.addEventListener('click', () => asking.forEach((listener) => listener()))
 
   purseSeat.append(socket, who)
 
@@ -100,7 +106,13 @@ export function hangTheTally(raider: Raider): TallyPart {
   return {
     element: tally,
     middleSeat,
+
+    whenNameAsked(listener: () => void): void {
+      asking.add(listener)
+    },
+
     teardown(): void {
+      asking.clear()
       tally.remove()
     }
   }
