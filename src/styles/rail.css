@@ -32,6 +32,10 @@
 }
 
 .powers__said {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.2em;
   font-family: var(--chiselled);
   font-size: 0.74rem;
   font-weight: 700;
