@@ -221,7 +221,7 @@ export function paintWorld(
 
         surface.restore()
 
-        if (!down && fighter.kind !== 'you' && fighter.life < fighter.fullLife) {
+        if (!down && fighter !== world.you && fighter.life < fighter.fullLife) {
           const barWide = barWidthFor(fighter) * swell
           drawLifeBar(
             surface,
