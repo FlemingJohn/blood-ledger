@@ -1,0 +1,219 @@
+.tally {
+  flex: none;
+  position: relative;
+  background: linear-gradient(180deg, rgba(22, 6, 12, 0.94), rgba(10, 3, 7, 0.9));
+  border-bottom: 1px solid var(--emberwood);
+}
+
+.tally::before,
+.tally::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: repeating-linear-gradient(
+    135deg,
+    var(--emberwood) 0 3px,
+    transparent 3px 7px
+  );
+  opacity: 0.8;
+}
+
+.tally::before {
+  top: 0;
+}
+
+.tally::after {
+  bottom: 0;
+}
+
+.tally__plate {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr) 132px;
+  align-items: center;
+  gap: var(--pause);
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: 14px var(--rest) 12px;
+}
+
+.tally__sigil {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.sigil {
+  display: block;
+  color: var(--ember);
+}
+
+.sigil__behind {
+  color: var(--emberwood);
+  opacity: 1;
+  stroke: var(--emberwood);
+}
+
+.sigil__ahead {
+  stroke: var(--ember);
+  transition: stroke-dasharray 500ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.sigil__notches {
+  color: var(--emberwood);
+}
+
+.sigil__score {
+  fill: var(--bone);
+  font-family: var(--counted);
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.tally__rank {
+  margin: 0;
+  font-family: var(--chiselled);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.tally__middle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.tally__wordmark {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+  font-family: var(--chiselled);
+  font-weight: 700;
+  font-size: 1.16rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--ember);
+  text-shadow: 0 0 26px rgba(214, 21, 78, 0.4);
+  white-space: nowrap;
+}
+
+.tally__seat {
+  display: flex;
+  justify-content: center;
+}
+
+.tally__purse {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.tally__socket {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 11px;
+  border: 1px solid var(--emberwood);
+  background: rgba(10, 3, 7, 0.7);
+  font-family: var(--counted);
+  font-variant-numeric: tabular-nums;
+}
+
+.tally__socket b {
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--gold);
+}
+
+.tally__coinName {
+  font-size: 0.56rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ash);
+}
+
+.tally__coin {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.tally__who {
+  margin: 0;
+  font-family: var(--counted);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  color: var(--ash);
+}
+
+.tally__realm {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--counted);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ash);
+}
+
+.tally__rehearsal {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
+  padding: 2px 7px;
+  border: 1px dashed var(--emberwood);
+  font-family: var(--counted);
+  font-size: 0.55rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ash);
+  cursor: help;
+}
+
+@media (max-width: 820px) {
+  .tally__plate {
+    grid-template-columns: 96px minmax(0, 1fr);
+    grid-template-areas:
+      'sigil middle'
+      'purse purse';
+    padding: 12px var(--pause) 10px;
+  }
+
+  .tally__sigil {
+    grid-area: sigil;
+  }
+
+  .tally__middle {
+    grid-area: middle;
+  }
+
+  .tally__purse {
+    grid-area: purse;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .tally__wordmark {
+    font-size: 0.92rem;
+    letter-spacing: 0.22em;
+  }
+
+  .sigil {
+    width: 60px;
+    height: 60px;
+  }
+}
