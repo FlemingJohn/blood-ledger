@@ -1,4 +1,5 @@
-import type { FloorPlan, Loot, Spot, StandingProp } from '../types/dungeon'
+import type { FloorPlan, GemGrade, Loot, Spot, StandingProp } from '../types/dungeon'
+import type { LeftBehind } from '../types/leftBehind'
 import type { Fighter, Wound } from '../types/fighter'
 import type { RaiderClass } from '../types/raider'
 import type { Power, PowerInFlight } from '../types/power'
@@ -43,6 +44,9 @@ export interface World {
   slain: number
   smashed: number
   powers: Power[]
+  powersUsed: Set<string>
+  breedsMet: Set<string>
+  deepestFloor: number
   restedAt: Record<string, number>
   inFlight: PowerInFlight[]
   guardedUntil: number
@@ -75,6 +79,9 @@ export function openWorld(order: WorldOrder): World {
     slain: 0,
     smashed: 0,
     powers: powersFor(order.chosenClass),
+    powersUsed: new Set<string>(),
+    breedsMet: new Set<string>(),
+    deepestFloor: order.floor,
     restedAt: {},
     inFlight: [],
     guardedUntil: 0,
@@ -275,6 +282,7 @@ function loosePower(world: World, power: Power, now: number): void {
   const way = facingOf(you)
 
   world.restedAt[power.name] = now
+  world.powersUsed.add(power.name)
   world.inFlight.push({
     power,
     bornAt: now,
@@ -422,6 +430,12 @@ export function turnTheWorld(world: World, wanted: WhatYouWant, seconds: number,
     }
   })
 
+  world.enemies.forEach((enemy) => {
+    if (enemy.breed && apart(enemy.spot, you.spot) < enemyWakesWithin) {
+      world.breedsMet.add(enemy.breed.said)
+    }
+  })
+
   world.plan.lights.forEach((light) => {
     light.frame = Math.floor(now / 110) % 8
   })
@@ -442,4 +456,46 @@ export function turnTheWorld(world: World, wanted: WhatYouWant, seconds: number,
 
 export function everyoneStanding(world: World): boolean {
   return world.enemies.every((enemy) => isDown(enemy))
+}
+
+const gemsWorstFirst: GemGrade[] = ['white', 'green', 'blue', 'red']
+
+/** What the raid held that this raider never touched. */
+export function whatWasLeftBehind(world: World): LeftBehind {
+  const untaken = world.loot.filter((drop) => !drop.taken)
+
+  const gemsLeft = untaken.filter((drop) => drop.kind === 'gem')
+  const bestGemLeft = gemsLeft.reduce<GemGrade | null>((best, drop) => {
+    if (!drop.grade) {
+      return best
+    }
+    if (!best) {
+      return drop.grade
+    }
+    return gemsWorstFirst.indexOf(drop.grade) > gemsWorstFirst.indexOf(best) ? drop.grade : best
+  }, null)
+
+  const barrelsWhole = world.plan.props.filter(
+    (prop) => prop.breakable && !prop.broken
+  ).length
+
+  const powersUnused = world.powers
+    .filter((power) => !world.powersUsed.has(power.name))
+    .map((power) => ({ name: power.name, said: power.said }))
+
+  const everyBreed = Object.values(breeds).map((breed) => breed.said)
+  const breedsUnmet = everyBreed.filter((said) => !world.breedsMet.has(said))
+
+  return {
+    gemsLeft: gemsLeft.length,
+    bestGemLeft,
+    coinsLeft: untaken
+      .filter((drop) => drop.kind === 'coins')
+      .reduce((held, drop) => held + drop.worth, 0),
+    barrelsWhole,
+    powersUnused,
+    breedsUnmet,
+    metTheDemonlord: world.breedsMet.has(breeds.demonlord.said),
+    deepestFloor: world.deepestFloor
+  }
 }
