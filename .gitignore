@@ -6,3 +6,5 @@ dist
 public/art
 Screenshot*.png
 contracts/out
+.env
+worker/.env
