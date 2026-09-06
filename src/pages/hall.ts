@@ -1,8 +1,10 @@
 import type { Offer, Pact } from '../types/pact'
 import type { RaiderClass } from '../types/raider'
+import type { Role } from '../types/role'
 import type { Part } from '../types/parts'
 import { dressTheHall } from '../parts/hallDressing'
 import { hangTheTally } from '../parts/tally'
+import { hangTheRoleSwitch } from '../parts/roleSwitch'
 import { raiseThePlinth } from '../parts/plinth'
 import { showStanding } from '../parts/standingBar'
 import { pinUpThePact } from '../parts/pactSlip'
@@ -17,6 +19,7 @@ import '../styles/hall.css'
 
 export interface HallOrder {
   address: string
+  whenRoleAsked(role: Role): void
   whenDescending(pact: Pact, chosenClass: RaiderClass): void
 }
 
@@ -28,6 +31,16 @@ export function buildHall(order: HallOrder): Part {
 
   const raider = readRaider(order.address)
   const tally = hangTheTally(raider)
+
+  const roleSwitch = hangTheRoleSwitch()
+  roleSwitch.showRole('raider')
+  roleSwitch.whenAsked(order.whenRoleAsked)
+
+  const tallyLine = tally.element.querySelector('.tally__line')
+  const tallyMark = tally.element.querySelector('.tally__mark')
+  if (tallyLine && tallyMark) {
+    tallyMark.after(roleSwitch.element)
+  }
 
   const body = document.createElement('div')
   body.className = 'hallpage__body'
@@ -99,6 +112,7 @@ export function buildHall(order: HallOrder): Part {
       pactSlip.teardown()
       standing.teardown()
       plinth.teardown()
+      roleSwitch.teardown()
       tally.teardown()
       dressing.teardown()
       hall.remove()
