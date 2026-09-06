@@ -65,6 +65,7 @@ const bossNeeded = everyMoveOf('demonlord', ['walk', 'attack', 'death'])
 
 export interface DescentOrder extends RaidOrder {
   whenSettled(takings: Takings): void
+  whenWayOutOpens(open: boolean): void
 }
 
 export function buildDescent(order: DescentOrder): Part {
@@ -77,6 +78,7 @@ export function buildDescent(order: DescentOrder): Part {
   const pressure = hangThePressureBar(order.seed)
   const life = hangTheLifeGlobe()
   const wayOut = openTheWayOut()
+  let wayIsOpen = false
   const reckoning = prepareTheReckoning()
   const minimap = pinTheMinimap()
   const belt = buckleThePowerBelt(powersFor(order.chosenClass))
@@ -201,7 +203,13 @@ export function buildDescent(order: DescentOrder): Part {
     belt.showRest(world, now)
     pressure.showCoins(world.coinsCarried, order.pact.coinsStaked)
     wayOut.showSum(world.coinsCarried, order.pact.patronShare, order.pact.coinsStaked)
-    wayOut.showDeeperReady(everyoneStanding(world))
+    const clear = everyoneStanding(world)
+    wayOut.showDeeperReady(clear)
+
+    if (clear !== wayIsOpen) {
+      wayIsOpen = clear
+      order.whenWayOutOpens(clear)
+    }
 
     if (world.finished === 'fell' && world.you.gone) {
       settle('fell')
