@@ -15,7 +15,8 @@
     "name-vault": "node scripts/deploy-contracts.mjs name-vault",
     "worker": "tsx worker/watchTheVault.ts",
     "test": "node tests/settlement.test.mjs && node tests/agreement.test.mjs",
-    "test-testnet": "node tests/testnet.test.mjs"
+    "test-testnet": "node tests/testnet.test.mjs",
+    "check-setup": "node scripts/check-setup.mjs"
   },
   "dependencies": {
     "ethers": "^6.13.4",
