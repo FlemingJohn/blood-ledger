@@ -204,6 +204,71 @@
   background: var(--blood);
 }
 
+.belt {
+  position: absolute;
+  left: 50%;
+  bottom: 46px;
+  z-index: 2;
+  display: flex;
+  gap: 1px;
+  transform: translateX(-50%);
+  background: var(--emberwood);
+  border: 1px solid var(--emberwood);
+}
+
+.belt__slot {
+  position: relative;
+  min-width: 106px;
+  padding: 8px 12px 10px;
+  background: rgba(10, 3, 7, 0.86);
+  text-align: center;
+  opacity: 0.55;
+  transition: opacity 180ms ease;
+}
+
+.belt__slot--ready {
+  opacity: 1;
+}
+
+.belt__key {
+  display: block;
+  font-family: var(--counted);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  color: var(--ash);
+}
+
+.belt__said {
+  display: block;
+  font-family: var(--chiselled);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bone);
+  margin-top: 2px;
+}
+
+.belt__slot--ready .belt__said {
+  color: var(--flare);
+}
+
+.belt__rest {
+  height: 3px;
+  margin-top: 7px;
+  background: var(--void);
+}
+
+.belt__filled {
+  height: 100%;
+  background: var(--blood);
+  transition: width 120ms linear;
+}
+
+.belt__slot--ready .belt__filled {
+  background: var(--flare);
+}
+
 .descent__hint {
   position: absolute;
   left: 50%;
@@ -257,5 +322,14 @@
 
   .descent__hint {
     display: none;
+  }
+
+  .belt {
+    bottom: 200px;
+  }
+
+  .belt__slot {
+    min-width: 84px;
+    padding: 6px 8px 8px;
   }
 }
