@@ -35,6 +35,7 @@ export function makeFighter(kind: FighterKind, spot: Spot): Fighter {
     pace: build.pace,
     blowLanded: false,
     restingUntil: 0,
+    struckAt: 0,
     gone: false
   }
 }
