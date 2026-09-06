@@ -4,7 +4,7 @@ import type { Eye } from '../dungeon/draw'
 import type { World } from '../dungeon/world'
 import { openSpriteStore, loadGroundTiles } from '../dungeon/sprites'
 import { followWith, paintWorld } from '../dungeon/draw'
-import { everyoneStanding, openWorld, turnTheWorld } from '../dungeon/world'
+import { everyoneStanding, openWorld, turnTheWorld, whatWasLeftBehind } from '../dungeon/world'
 import { takeTheHands } from '../dungeon/hands'
 import { hangThePressureBar } from '../parts/pressureBar'
 import { hangTheLifeGlobe } from '../parts/lifeGlobe'
@@ -138,18 +138,31 @@ export function buildDescent(order: DescentOrder): Part {
       killedBy: world.killedBy
     })
 
-    reckoning.showTakings(takings, order.pact.patronAddress)
+    reckoning.showTakings(takings, order.pact.patronAddress, whatWasLeftBehind(world))
     reckoning.whenReturning(() => order.whenSettled(takings))
   }
 
   function goDeeper(): void {
     const carried = world.coinsCarried
+    const slain = world.slain
+    const smashed = world.smashed
+    const powersUsed = world.powersUsed
+    const breedsMet = world.breedsMet
+    const deepest = world.floor + 1
+
     world = openWorld({
       seed: order.seed.seed,
-      floor: world.floor + 1,
+      floor: deepest,
       chosenClass: order.chosenClass
     })
+
     world.coinsCarried = carried
+    world.slain = slain
+    world.smashed = smashed
+    world.powersUsed = powersUsed
+    world.breedsMet = breedsMet
+    world.deepestFloor = deepest
+
     pressure.showFloor(world.floor)
 
     if (world.plan.bossSpot) {
