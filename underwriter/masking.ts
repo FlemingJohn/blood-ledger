@@ -6,13 +6,6 @@ const names = [
   'Kelvar', 'Lowmire', 'Marrowend', 'Northgate', 'Oakenshaw'
 ]
 
-/**
- * Turns an address into a stable made up name.
- *
- * Nothing that leaves for the model carries a real address, a transaction
- * hash, or a balance. The same address always gets the same name, so the
- * model can be consistent across a run without ever learning who anyone is.
- */
 export function handleFor(address: string): string {
   const held = handles.get(address.toLowerCase())
   if (held) {
@@ -41,7 +34,6 @@ const looksLikeAnAddress = /0x[0-9a-fA-F]{40}/g
 const looksLikeAHash = /0x[0-9a-fA-F]{64}/g
 const looksLikeAKey = /\b[0-9a-fA-F]{64}\b/g
 
-/** Last line of defence. Nothing shaped like a secret goes out, whatever built the text. */
 export function scrubbed(text: string): string {
   return text
     .replace(looksLikeAHash, '[hash]')
