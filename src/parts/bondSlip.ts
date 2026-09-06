@@ -27,7 +27,7 @@ function bondShareFor(score: number): number {
 
 export function showTheBond(standing: Standing): Part {
   const block = document.createElement('section')
-  block.className = 'rail__block'
+  block.className = 'rail__block framed'
 
   const label = document.createElement('p')
   label.className = 'panel__label'
