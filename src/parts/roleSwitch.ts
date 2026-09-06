@@ -1,4 +1,4 @@
-import type { Role, RoleSwitchPart } from '../types/role'
+import type { Role, RoleAnswer, RoleSwitchPart } from '../types/role'
 import { drawMark } from './marks'
 import '../styles/roleSwitch.css'
 
@@ -13,7 +13,8 @@ export function hangTheRoleSwitch(): RoleSwitchPart {
   swap.setAttribute('role', 'group')
   swap.setAttribute('aria-label', 'which side you are playing')
 
-  const listeners = new Set<(role: Role) => void>()
+  const listeners = new Set<(role: Role) => Promise<RoleAnswer> | RoleAnswer>()
+  let asking = false
 
   const tabs = roles.map((one) => {
     const tab = document.createElement('button')
@@ -28,7 +29,25 @@ export function hangTheRoleSwitch(): RoleSwitchPart {
     tab.append(said)
 
     tab.addEventListener('click', () => {
-      listeners.forEach((listener) => listener(one.role))
+      if (asking) {
+        return
+      }
+      asking = true
+      barred.hidden = true
+
+      const answers = [...listeners].map((listener) => listener(one.role))
+
+      void Promise.all(answers)
+        .then((given) => {
+          const trouble = given.find((one) => typeof one === 'string')
+          if (trouble) {
+            barred.hidden = false
+            barred.textContent = trouble
+          }
+        })
+        .finally(() => {
+          asking = false
+        })
     })
 
     swap.append(tab)
@@ -61,7 +80,12 @@ export function hangTheRoleSwitch(): RoleSwitchPart {
       barred.textContent = why ?? ''
     },
 
-    whenAsked(listener: (role: Role) => void): void {
+    showTrouble(why: string | null): void {
+      barred.hidden = why === null
+      barred.textContent = why ?? ''
+    },
+
+    whenAsked(listener: (role: Role) => Promise<RoleAnswer> | RoleAnswer): void {
       listeners.add(listener)
     },
 
