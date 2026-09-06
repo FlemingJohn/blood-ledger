@@ -19,6 +19,6 @@ export type PurseWatcher = (reading: PurseReading) => void
 export interface PurseKeeper {
   read(): PurseReading
   open(): Promise<PurseReading>
-  moveToHomeRealm(): Promise<PurseReading>
+  moveToWantedRealm(): Promise<PurseReading>
   watch(listener: PurseWatcher): () => void
 }
