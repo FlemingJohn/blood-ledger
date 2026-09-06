@@ -80,3 +80,81 @@
   opacity: 0.75;
   pointer-events: none;
 }
+
+.meter--notched {
+  position: relative;
+}
+
+.meter__rungs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.meter__notch {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--rule);
+}
+
+.meter__notch--past {
+  background: rgba(224, 213, 196, 0.35);
+}
+
+.meter__ladder {
+  display: flex;
+  justify-content: space-between;
+  margin: 3px 0 0;
+  font-family: var(--counted);
+  font-size: 0.53rem;
+  letter-spacing: 0.1em;
+  color: #5e4f54;
+}
+
+.meter__ladder .is-past {
+  color: var(--gold);
+}
+
+.door__sign {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.door__mark {
+  flex: none;
+}
+
+.panel__empty {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+}
+
+.panel__hook {
+  flex: none;
+  width: 26px;
+  height: 24px;
+  opacity: 0.55;
+}
+
+.offer__crest,
+.seeker__crest {
+  flex: none;
+}
+
+.seeker__who {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+}
+
+.offer__who {
+  white-space: nowrap;
+}
