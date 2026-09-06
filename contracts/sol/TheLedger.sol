@@ -81,6 +81,7 @@ contract TheLedger is ASCBase {
     event RaidSettled(
         uint256 indexed pactId,
         address indexed raider,
+        address indexed patron,
         Ending ending,
         uint256 coinsCarried,
         uint256 patronTakes,
@@ -367,6 +368,7 @@ contract TheLedger is ASCBase {
         emit RaidSettled(
             pactId,
             pact.raider,
+            pact.patron,
             ending,
             takings.coinsCarried,
             takings.patronTakes,
