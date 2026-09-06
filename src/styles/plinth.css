@@ -1,10 +1,7 @@
 .plinth {
-  border: 1px solid var(--emberwood);
-  background: rgba(22, 6, 12, 0.62);
-  padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .plinth__stage {
@@ -14,15 +11,15 @@
   align-items: flex-end;
   justify-content: center;
   width: 100%;
-  min-height: 140px;
-  padding-bottom: 8px;
+  min-height: 220px;
+  padding-bottom: 14px;
 }
 
 .plinth__ring {
   position: absolute;
   left: 50%;
   bottom: 0;
-  width: 168px;
+  width: 288px;
   transform: translateX(-50%);
   opacity: 0.5;
   image-rendering: pixelated;
@@ -43,9 +40,9 @@
   content: '';
   position: absolute;
   left: 50%;
-  bottom: -4px;
-  width: 104px;
-  height: 20px;
+  bottom: -6px;
+  width: 176px;
+  height: 30px;
   transform: translateX(-50%);
   background: radial-gradient(ellipse at center, rgba(4, 0, 2, 0.8), transparent 70%);
   pointer-events: none;
@@ -59,17 +56,20 @@
 
 .plinth__chooser {
   display: grid;
-  grid-template-columns: 34px minmax(0, 1fr) 34px;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
   align-items: center;
-  border-top: 1px solid var(--emberwood);
-  padding-top: 8px;
+  justify-self: center;
+  min-width: 260px;
+  border: 1px solid var(--emberwood);
+  background: rgba(10, 3, 7, 0.6);
+  padding: 8px 4px;
 }
 
 .plinth__name {
   margin: 0;
   text-align: center;
   font-family: var(--chiselled);
-  font-size: 0.86rem;
+  font-size: 1.02rem;
   font-weight: 700;
   letter-spacing: 0.26em;
   text-transform: uppercase;
@@ -78,7 +78,7 @@
 
 .plinth__step {
   padding: 4px 0;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   line-height: 1;
   color: var(--ash);
   transition: color 150ms ease;
