@@ -8,8 +8,9 @@
 
 .roles {
   display: flex;
+  align-items: stretch;
   gap: 1px;
-  background: var(--emberwood);
+  background: var(--rule);
   border: 1px solid var(--rule);
 }
 
@@ -57,4 +58,82 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--blood);
+}
+
+.roles__bay {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  padding-bottom: 5px;
+  background: var(--void);
+}
+
+.roles__bay .roles__tab {
+  width: 100%;
+  justify-content: center;
+}
+
+.roles__pip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 18px;
+  padding: 0 5px;
+  margin-left: 7px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: var(--counted);
+  font-size: 0.6rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.roles__pip--none {
+  border-color: var(--rule);
+  color: #52444a;
+}
+
+.roles__why {
+  margin: 0;
+  padding: 0 4px;
+  font-size: 0.74rem;
+  font-style: italic;
+  line-height: 1.35;
+  color: var(--ash);
+  text-align: center;
+}
+
+.roles__bay--quiet .roles__said {
+  color: #6b5a60;
+}
+
+.roles__bay--calling .roles__said,
+.roles__bay--calling .roles__pip {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+.roles__bay--calling .roles__tab {
+  border-color: var(--gold);
+  animation: seat-calling 1.9s ease-in-out infinite;
+}
+
+@keyframes seat-calling {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(201, 162, 39, 0);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(201, 162, 39, 0.34);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roles__bay--calling .roles__tab {
+    animation: none;
+    box-shadow: 0 0 14px rgba(201, 162, 39, 0.3);
+  }
 }
