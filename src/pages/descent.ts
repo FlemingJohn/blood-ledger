@@ -36,8 +36,23 @@ const soonestNeeded = [
   'dungeon/prop/bones',
   'dungeon/prop/rubble',
   'dungeon/prop/mushrooms',
+  'dungeon/prop/wall3',
+  'dungeon/prop/bricks',
+  'dungeon/prop/tiles',
+  'dungeon/prop/column2',
+  'dungeon/prop/bones2',
+  'dungeon/prop/bones3',
+  'dungeon/prop/brazier',
+  'dungeon/broken/barrel',
+  'dungeon/broken/crate',
+  'dungeon/light/brazier',
+  'dungeon/light/flames',
+  'dungeon/light/glow',
   'dungeon/loot/coins',
-  'dungeon/loot/gem'
+  'dungeon/loot/gem-white',
+  'dungeon/loot/gem-green',
+  'dungeon/loot/gem-blue',
+  'dungeon/loot/gem-red'
 ]
 
 const bossNeeded = everyMoveOf('demonlord', ['walk', 'attack', 'death'])
