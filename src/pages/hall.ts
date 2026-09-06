@@ -16,7 +16,8 @@ import { prepareTheRite } from '../parts/sealingRite'
 import { unrollTheLedger } from '../parts/ledgerFeed'
 import { layOutPowers } from '../parts/powerSlots'
 import { showTheBond } from '../parts/bondSlip'
-import { readLedger, readOffers, readRaider, sealPact } from '../chain/theLedger'
+import { gradeReaches, readLedger, readOffers, readRaider, sealPact } from '../chain/theLedger'
+import { readSeekers } from '../chain/seekers'
 import { readProfile } from '../chain/profiles'
 import { everyPieceOfHallArt } from '../art/paths'
 import { loadWhatYouCan } from '../art/pictures'
@@ -40,6 +41,37 @@ export function buildHall(order: HallOrder): Part {
 
   const roleSwitch = hangTheRoleSwitch()
   roleSwitch.showRole('raider')
+
+  const offersHere = readOffers(raider)
+  const openToYou = offersHere.filter(
+    (offer) => !offer.claimed && gradeReaches(raider.standing.grade, offer.needsGrade)
+  ).length
+  const seekingCoin = readSeekers().length
+
+  function tellTheSeats(): void {
+    const holding = heldPact !== null
+
+    roleSwitch.showSeats({
+      raider: {
+        count: openToYou,
+        why: holding
+          ? `You owe ${heldPact ? heldPact.coinsStaked : 0}. The stair is open.`
+          : openToYou > 0
+            ? `${openToYou} ${openToYou === 1 ? 'patron' : 'patrons'} will fund you.`
+            : 'No offer reaches your standing yet.',
+        state: 'here'
+      },
+      patron: {
+        count: seekingCoin,
+        why: holding
+          ? 'A pact stands. Go down or settle it first.'
+          : openToYou === 0
+            ? 'Nothing to raid. Earn standing by funding someone instead.'
+            : `${seekingCoin} raiders want coin.`,
+        state: holding ? 'barred' : seekingCoin > 0 ? 'open' : 'quiet'
+      }
+    })
+  }
   roleSwitch.whenAsked(order.whenRoleAsked)
 
   tally.middleSeat.append(roleSwitch.element)
@@ -75,7 +107,7 @@ export function buildHall(order: HallOrder): Part {
   let chosenClass: RaiderClass = raider.chosenClass
 
   const board = openThePatronBoard({
-    offers: readOffers(raider),
+    offers: offersHere,
     grade: raider.standing.grade,
     whenAccepted(offer: Offer) {
       if (sealing || heldPact) {
@@ -90,6 +122,7 @@ export function buildHall(order: HallOrder): Part {
         pactSlip.showPact(pact)
         descent.showBarred(false)
         roleSwitch.showBarred(true, 'you hold a pact — go down or it stands')
+        tellTheSeats()
         window.setTimeout(() => rite.close(), 900)
       })
     }
@@ -106,6 +139,7 @@ export function buildHall(order: HallOrder): Part {
   hall.append(dressing.element, tally.element, body, foot, rite.element, profile.element)
 
   descent.showBarred(true)
+  tellTheSeats()
   descent.whenPushed(() => {
     if (heldPact) {
       order.whenDescending(heldPact, chosenClass)
