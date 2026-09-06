@@ -12,7 +12,8 @@ const faintestKeptFromSolids = 24
 const faintestKeptFromGlows = 0
 
 const keepWhole = ['ground/', 'ui/vignette']
-const softEdged = ['ui/ring', 'ui/marker', 'flame/', 'sparkle/', 'sweep/', 'vfx/']
+const softEdged = ['ui/ring', 'ui/marker', 'flame/', 'sparkle/', 'sweep/', 'vfx/',
+  'dungeon/light/glow', 'dungeon/light/flames']
 
 function faintestKeptFor(name) {
   return softEdged.some((start) => name.startsWith(start))
