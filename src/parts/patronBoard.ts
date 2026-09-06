@@ -3,6 +3,7 @@ import type { OfferCardPart, Part } from '../types/parts'
 import type { StandingGrade } from '../types/raider'
 import { gradeReaches } from '../chain/theLedger'
 import { layOutOffer } from './offerCard'
+import { drawTorchBracket } from './hallMarks'
 
 const richEnoughToGlint = 1000
 
@@ -26,7 +27,13 @@ export function openThePatronBoard(order: BoardOrder): Part {
   const count = document.createElement('span')
   count.className = 'board__count'
 
-  head.append(title, count)
+  const leftTorch = drawTorchBracket()
+  leftTorch.classList.add('board__torch', 'board__torch--left')
+
+  const rightTorch = drawTorchBracket()
+  rightTorch.classList.add('board__torch', 'board__torch--right')
+
+  head.append(leftTorch, title, count, rightTorch)
 
   const list = document.createElement('div')
   list.className = 'board__list'
