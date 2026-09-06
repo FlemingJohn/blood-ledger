@@ -113,7 +113,7 @@ export function buildLanding(order: LandingOrder): Part {
     }
 
     if (reading.standing === 'wrong realm') {
-      void order.purse.moveToHomeRealm()
+      void order.purse.moveToWantedRealm()
       return
     }
 
