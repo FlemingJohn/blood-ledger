@@ -41,7 +41,7 @@ out and the game stops working.
 | | What it proves | Why nothing else does it |
 | --- | --- | --- |
 | Funding | A patron really staked coin on Ethereum | The gear cannot be minted on a promise |
-| Fair ground | The dungeon seed came from a real Ethereum block | Nobody picked the number, and anyone can check |
+| Fair ground | The floor is rolled from an attested Sepolia block | Nobody picked the number, and anyone can check it |
 | Standing | A newcomer's past on Ethereum is genuine | You bring your reputation instead of grinding from nothing |
 | Settling | Ten raids close under one continuity proof | Ten separate proofs would cost ten times as much |
 
@@ -51,6 +51,22 @@ Every proof is checked on Creditcoin by the block prover precompile at
 One honest note. Attestcoin readability is live and writability is not, so payment flows
 from Ethereum to Creditcoin and settlement happens on Creditcoin. Nothing is written back
 to Ethereum, because that road does not exist yet.
+
+---
+
+## Rolling a floor nobody chose
+
+Before you descend, the game asks Creditcoin what the Attestcoin witnesses last agreed
+about Sepolia, through the chain info precompile at
+`0x0000000000000000000000000000000000000fd3`. That digest is the seed the whole floor is
+carved from: rooms, corridors, what waits in them, and where the loot fell.
+
+The bar at the top of the dungeon says which block it came from and links to it. The
+digest maps back to its own height through `getAttestationHeightForDigest`, so a player who
+does not trust us can check the number was not ours to pick. If Creditcoin cannot be
+reached the game rolls locally and says so in blood red, rather than pretending.
+
+This part needs no contracts of our own. It works against the live testnet today.
 
 ---
 
@@ -117,6 +133,20 @@ two read the untrimmed originals and are not affected by this step.
 
 ---
 
+## Checking it
+
+```
+npm test            # the settlement, and that the game and the chain agree
+npm run test-testnet  # reaches the live Attestcoin testnet
+```
+
+The settlement tests read the constants straight out of `TheLedger.sol`, so the contract
+cannot drift away from them quietly. The agreement test holds `src/chain/settling.ts`
+against the same constants, because a game that shows one number while the chain records
+another is worse than a game that shows nothing.
+
+---
+
 ## How the code is named
 
 The code speaks the same language as the game. There are no abbreviations and no cryptic
@@ -160,6 +190,7 @@ names, and nothing is called a manager or a handler.
 | The contract on Creditcoin | Written and compiling |
 | The worker that carries proofs | Written |
 | Deployed to testnet | Not yet |
+| Floors rolled from an attested block | Live |
 
 The hall reads its patrons, standing and ledger from stand-in data while the contracts are
 still to come, and says so on the page itself. The four step sealing rite runs on a
