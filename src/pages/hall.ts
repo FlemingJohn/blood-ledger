@@ -12,6 +12,8 @@ import { buildDescent } from '../parts/descentDoor'
 import { openThePatronBoard } from '../parts/patronBoard'
 import { prepareTheRite } from '../parts/sealingRite'
 import { unrollTheLedger } from '../parts/ledgerFeed'
+import { layOutPowers } from '../parts/powerSlots'
+import { showTheBond } from '../parts/bondSlip'
 import { readLedger, readOffers, readRaider, sealPact } from '../chain/theLedger'
 import { everyPieceOfHallArt, restOfTheRaiders } from '../art/paths'
 import { loadWhatYouCan } from '../art/pictures'
@@ -41,15 +43,20 @@ export function buildHall(order: HallOrder): Part {
   const body = document.createElement('div')
   body.className = 'hallpage__body'
 
-  const left = document.createElement('div')
-  left.className = 'hallpage__left'
-
   const plinth = raiseThePlinth(raider.chosenClass)
   const standing = showStanding(raider.standing)
   const pactSlip = pinUpThePact()
   const descent = buildDescent()
+  const powers = layOutPowers(raider.chosenClass)
+  const bond = showTheBond(raider.standing)
 
-  left.append(plinth.element, standing.element, pactSlip.element, descent.element)
+  const middle = document.createElement('div')
+  middle.className = 'hallpage__middle'
+  middle.append(plinth.element)
+
+  const rail = document.createElement('aside')
+  rail.className = 'hallpage__rail'
+  rail.append(pactSlip.element, powers.element, bond.element, standing.element)
 
   const rite = prepareTheRite()
 
@@ -78,11 +85,15 @@ export function buildHall(order: HallOrder): Part {
     }
   })
 
-  body.append(left, board.element)
+  body.append(board.element, middle, rail)
 
   const ledger = unrollTheLedger(readLedger().slice(0, 3))
 
-  hall.append(dressing.element, tally.element, body, ledger.element, rite.element)
+  const foot = document.createElement('div')
+  foot.className = 'hallpage__foot'
+  foot.append(ledger.element, descent.element)
+
+  hall.append(dressing.element, tally.element, body, foot, rite.element)
 
   descent.showBarred(true)
   descent.whenPushed(() => {
@@ -93,6 +104,7 @@ export function buildHall(order: HallOrder): Part {
 
   plinth.whenClassChanged((chosen) => {
     chosenClass = chosen
+    powers.showClass(chosen)
     void loadWhatYouCan(restOfTheRaiders)
   })
 
@@ -103,6 +115,8 @@ export function buildHall(order: HallOrder): Part {
     element: hall,
     teardown(): void {
       board.teardown()
+      bond.teardown()
+      powers.teardown()
       ledger.teardown()
       rite.teardown()
       descent.teardown()
