@@ -34,7 +34,7 @@
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: 296px minmax(0, 1fr) 268px;
+  grid-template-columns: 320px minmax(0, 1fr) 268px;
   gap: var(--pause);
   align-content: stretch;
   align-items: stretch;
@@ -222,6 +222,9 @@
 }
 
 .board__list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 3px;
