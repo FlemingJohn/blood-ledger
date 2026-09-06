@@ -1,4 +1,4 @@
-import type { FloorPlan, Loot, Spot, StandingProp } from '../types/dungeon'
+import type { FloorPlan, Loot, Spot } from '../types/dungeon'
 import type { Fighter, Wound } from '../types/fighter'
 import { apart, blowLandsOnFrame, framesPerSecond, isDown, makeFighter } from './fighters'
 import { facingFrom } from './facing'
@@ -7,7 +7,6 @@ import { planFloor } from './floorPlan'
 const framesInMove = { walk: 8, attack: 8, death: 8 }
 const slimeDeathFrames = 7
 
-const propBlocksWithin = 42
 const enemyWakesWithin = 420
 const restBetweenBlows = 900
 const youRestBetweenBlows = 420
@@ -62,12 +61,14 @@ function framesIn(fighter: Fighter): number {
 }
 
 function blockedAt(plan: FloorPlan, spot: Spot): boolean {
-  if (spot.x < 60 || spot.x > plan.width - 60 || spot.y < 60 || spot.y > plan.height - 60) {
+  const atAcross = Math.floor(spot.x / plan.tileSize)
+  const atDown = Math.floor(spot.y / plan.tileSize)
+
+  if (atAcross < 0 || atAcross >= plan.across || atDown < 0 || atDown >= plan.down) {
     return true
   }
-  return plan.props.some(
-    (prop: StandingProp) => prop.blocks && apart(prop.spot, spot) < propBlocksWithin
-  )
+
+  return plan.walkable[atDown * plan.across + atAcross] !== true
 }
 
 function stepToward(fighter: Fighter, plan: FloorPlan, alongX: number, alongY: number, seconds: number): void {
