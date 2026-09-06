@@ -23,7 +23,7 @@
   display: flex;
   flex-direction: column;
   gap: 11px;
-  border: 1px solid var(--emberwood);
+  border: 1px solid var(--rule);
   background: rgba(22, 6, 12, 0.62);
   padding: 14px 16px 16px;
 }
@@ -49,7 +49,7 @@
 
 .stake__input {
   padding: 9px 11px;
-  border: 1px solid var(--emberwood);
+  border: 1px solid var(--rule);
   background: var(--void);
   color: var(--bone);
   font-family: var(--counted);
@@ -108,7 +108,7 @@
 }
 
 .door--stake:disabled {
-  border-color: var(--emberwood);
+  border-color: var(--rule);
   color: var(--ash);
   animation: none;
 }
@@ -169,7 +169,7 @@
 .stake__seen {
   color: var(--ash);
   text-decoration: none;
-  border-bottom: 1px dotted var(--emberwood);
+  border-bottom: 1px dotted var(--rule);
 }
 
 .stake__seen:hover {
@@ -232,7 +232,7 @@
 .seeker__yourself {
   justify-self: end;
   padding: 6px 12px;
-  border: 1px dashed var(--emberwood);
+  border: 1px dashed var(--rule);
   font-family: var(--counted);
   font-size: 0.58rem;
   letter-spacing: 0.14em;
