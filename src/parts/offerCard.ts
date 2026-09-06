@@ -7,7 +7,7 @@ import '../styles/offerCard.css'
 
 export function layOutOffer(offer: Offer): OfferCardPart {
   const card = document.createElement('article')
-  card.className = `offer${offer.reckoned ? ' offer--reckoned' : ''}`
+  card.className = `offer framed${offer.reckoned ? ' offer--reckoned framed--lit' : ''}`
 
   const marker = document.createElement('img')
   marker.className = 'offer__marker'
