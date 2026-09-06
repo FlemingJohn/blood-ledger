@@ -1,5 +1,6 @@
 import type { InjectedPurse } from '../types/injected'
 import type { PurseKeeper, PurseReading, PurseWatcher } from '../types/purse'
+import type { Realm } from '../types/realm'
 import { chainNumberAsHex, homeRealm } from './realms'
 
 const refusedByPlayer = 4001
@@ -44,7 +45,7 @@ function errorWords(trouble: unknown): string {
   return 'The purse would not answer.'
 }
 
-export function keepPurse(): PurseKeeper {
+export function keepPurse(wantedRealm: Realm = homeRealm): PurseKeeper {
   const purse = findInjectedPurse()
 
   let reading: PurseReading = purse
@@ -63,7 +64,7 @@ export function keepPurse(): PurseKeeper {
     if (!address) {
       return announce({ standing: 'ready to open', address: null, chainNumber, trouble: null })
     }
-    if (chainNumber !== homeRealm.chainNumber) {
+    if (chainNumber !== wantedRealm.chainNumber) {
       return announce({ standing: 'wrong realm', address, chainNumber, trouble: null })
     }
     return announce({ standing: 'opened', address, chainNumber, trouble: null })
@@ -76,7 +77,7 @@ export function keepPurse(): PurseKeeper {
     return readChainNumber(await purse.request({ method: 'eth_chainId' }))
   }
 
-  async function addHomeRealm(): Promise<void> {
+  async function addWantedRealm(): Promise<void> {
     if (!purse) {
       return
     }
@@ -84,14 +85,14 @@ export function keepPurse(): PurseKeeper {
       method: 'wallet_addEthereumChain',
       params: [
         {
-          chainId: chainNumberAsHex(homeRealm),
-          chainName: homeRealm.name,
-          rpcUrls: [homeRealm.rpcAddress],
-          blockExplorerUrls: [homeRealm.explorerAddress],
+          chainId: chainNumberAsHex(wantedRealm),
+          chainName: wantedRealm.name,
+          rpcUrls: [wantedRealm.rpcAddress],
+          blockExplorerUrls: [wantedRealm.explorerAddress],
           nativeCurrency: {
-            name: homeRealm.coinName,
-            symbol: homeRealm.coinSymbol,
-            decimals: homeRealm.coinDecimals
+            name: wantedRealm.coinName,
+            symbol: wantedRealm.coinSymbol,
+            decimals: wantedRealm.coinDecimals
           }
         }
       ]
@@ -146,7 +147,7 @@ export function keepPurse(): PurseKeeper {
       }
     },
 
-    async moveToHomeRealm(): Promise<PurseReading> {
+    async moveToWantedRealm(): Promise<PurseReading> {
       if (!purse) {
         return reading
       }
@@ -156,7 +157,7 @@ export function keepPurse(): PurseKeeper {
       try {
         await purse.request({
           method: 'wallet_switchEthereumChain',
-          params: [{ chainId: chainNumberAsHex(homeRealm) }]
+          params: [{ chainId: chainNumberAsHex(wantedRealm) }]
         })
         return settleStanding(reading.address, await askForChainNumber())
       } catch (trouble) {
@@ -164,7 +165,7 @@ export function keepPurse(): PurseKeeper {
 
         if (code === realmUnknownToPurse || code === realmMissingLegacy) {
           try {
-            await addHomeRealm()
+            await addWantedRealm()
             return settleStanding(reading.address, await askForChainNumber())
           } catch (addingTrouble) {
             return announce({
