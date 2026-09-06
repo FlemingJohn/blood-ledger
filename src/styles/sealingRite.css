@@ -11,7 +11,7 @@
 
 .rite__slab {
   width: min(460px, 100%);
-  border: 1px solid var(--emberwood);
+  border: 1px solid var(--rule);
   background: rgba(22, 6, 12, 0.96);
   padding: var(--rest);
   box-shadow: 0 0 80px rgba(139, 11, 46, 0.35);
