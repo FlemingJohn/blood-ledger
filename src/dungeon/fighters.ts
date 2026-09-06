@@ -1,4 +1,5 @@
 import type { Fighter, FighterKind } from '../types/fighter'
+import type { Breed } from '../types/breed'
 import type { Spot } from '../types/dungeon'
 
 interface Build {
@@ -18,11 +19,14 @@ const builds: Record<FighterKind, Build> = {
 export const framesPerSecond = 12
 export const blowLandsOnFrame = 4
 
-export function makeFighter(kind: FighterKind, spot: Spot): Fighter {
-  const build = builds[kind]
+export function makeFighter(kind: FighterKind, spot: Spot, breed: Breed | null = null): Fighter {
+  const build = breed
+    ? { life: breed.life, hurts: breed.hurts, reach: breed.reach, pace: breed.pace }
+    : builds[kind]
 
   return {
     kind,
+    breed,
     spot: { x: spot.x, y: spot.y },
     facing: 'S',
     move: 'walk',
