@@ -1,4 +1,4 @@
-import type { Role, RoleAnswer, RoleSwitchPart } from '../types/role'
+import type { Role, RoleAnswer, RoleSwitchPart, SeatReading } from '../types/role'
 import { drawMark } from './marks'
 import '../styles/roleSwitch.css'
 
@@ -25,8 +25,14 @@ export function hangTheRoleSwitch(): RoleSwitchPart {
     tab.append(drawMark({ name: one.mark, size: 15 }))
 
     const said = document.createElement('span')
+    said.className = 'roles__said'
     said.textContent = one.said
     tab.append(said)
+
+    const pip = document.createElement('span')
+    pip.className = 'roles__pip'
+    pip.hidden = true
+    tab.append(pip)
 
     tab.addEventListener('click', () => {
       if (asking) {
@@ -50,8 +56,16 @@ export function hangTheRoleSwitch(): RoleSwitchPart {
         })
     })
 
-    swap.append(tab)
-    return { role: one.role, tab }
+    const why = document.createElement('p')
+    why.className = 'roles__why'
+    why.hidden = true
+
+    const bay = document.createElement('div')
+    bay.className = 'roles__bay'
+    bay.append(tab, why)
+
+    swap.append(bay)
+    return { role: one.role, tab, pip, why, bay }
   })
 
   const barred = document.createElement('p')
@@ -68,6 +82,31 @@ export function hangTheRoleSwitch(): RoleSwitchPart {
     showRole(role: Role): void {
       tabs.forEach((one) => {
         one.tab.setAttribute('aria-pressed', one.role === role ? 'true' : 'false')
+      })
+    },
+
+    showSeats(seats: Record<Role, SeatReading>): void {
+      tabs.forEach((one) => {
+        const reading = seats[one.role]
+
+        one.bay.classList.remove('roles__bay--here', 'roles__bay--open', 'roles__bay--quiet', 'roles__bay--barred')
+        one.bay.classList.add(`roles__bay--${reading.state}`)
+
+        one.pip.hidden = reading.state === 'here'
+        one.pip.textContent = reading.state === 'barred' ? '—' : String(reading.count)
+        one.pip.classList.toggle('roles__pip--none', reading.count === 0 && reading.state !== 'barred')
+
+        one.why.hidden = reading.why.length === 0
+        one.why.textContent = reading.why
+      })
+
+      const here = tabs.find((one) => seats[one.role].state === 'here')
+      const other = tabs.find((one) => seats[one.role].state !== 'here')
+      const dryHere = here ? seats[here.role].count === 0 : false
+      const busyThere = other ? seats[other.role].count > 0 && seats[other.role].state !== 'barred' : false
+
+      tabs.forEach((one) => {
+        one.bay.classList.toggle('roles__bay--calling', one === other && dryHere && busyThere)
       })
     },
 
