@@ -54,12 +54,6 @@ export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
   const ringSitsUnderFeet = 0.86
   const shadowSitsUnderFeet = 0.58
 
-  /**
-   * The stage takes its height from the raider standing on it, so changing how
-   * much the sprite is magnified cannot leave the figure poking out of the
-   * bottom. The ring and the shadow follow the same width, so they stay under
-   * the feet instead of spreading past them.
-   */
   function sizeTheStageTo(canvas: HTMLCanvasElement): void {
     const wide = Number.parseFloat(canvas.style.width) || canvas.width
     const tall = Number.parseFloat(canvas.style.height) || canvas.height
