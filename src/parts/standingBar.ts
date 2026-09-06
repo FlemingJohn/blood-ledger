@@ -5,7 +5,7 @@ const highestScore = 1000
 
 export function showStanding(standing: Standing): Part {
   const block = document.createElement('section')
-  block.className = 'panel'
+  block.className = 'panel framed'
 
   const head = document.createElement('div')
   head.className = 'panel__head'
