@@ -91,8 +91,29 @@
   pointer-events: auto;
 }
 
+.pressure__seed--proved {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+.pressure__seed--proved::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 7px;
+  background: var(--gold);
+  vertical-align: middle;
+}
+
+.pressure__seed--guessed {
+  color: var(--blood);
+  border-bottom-style: dashed;
+  cursor: help;
+}
+
 .pressure__seed:hover {
-  color: var(--ember);
+  color: var(--flare);
 }
 
 .life {
