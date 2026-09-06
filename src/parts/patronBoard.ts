@@ -14,7 +14,7 @@ export interface BoardOrder {
 
 export function openThePatronBoard(order: BoardOrder): Part {
   const board = document.createElement('section')
-  board.className = 'board'
+  board.className = 'board framed'
 
   const head = document.createElement('header')
   head.className = 'board__head'
