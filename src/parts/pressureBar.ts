@@ -1,6 +1,7 @@
 import type { Part } from '../types/parts'
+import type { DungeonSeed } from '../types/attestation'
 import { countCoins } from '../chain/addresses'
-import { realmWherePatronsPay } from '../chain/realms'
+import { whereToCheckIt } from '../chain/attestedSeed'
 import { shortSeed } from '../dungeon/seed'
 
 export interface PressureBarPart extends Part {
@@ -9,7 +10,7 @@ export interface PressureBarPart extends Part {
   showSlain(slain: number): void
 }
 
-export function hangThePressureBar(seed: string): PressureBarPart {
+export function hangThePressureBar(seed: DungeonSeed): PressureBarPart {
   const bar = document.createElement('div')
   bar.className = 'pressure'
 
@@ -28,13 +29,24 @@ export function hangThePressureBar(seed: string): PressureBarPart {
 
   purse.append(carried, owed)
 
-  const proof = document.createElement('a')
-  proof.className = 'pressure__seed'
-  proof.href = `${realmWherePatronsPay.explorerAddress}/block/${seed}`
-  proof.target = '_blank'
-  proof.rel = 'noopener'
-  proof.textContent = `seed ${shortSeed(seed)}`
-  proof.title = 'The floor was rolled from this Ethereum block. Open it and check.'
+  const attestedElsewhere = whereToCheckIt(seed.attested)
+
+  const proof = document.createElement(attestedElsewhere ? 'a' : 'span')
+  proof.className = `pressure__seed pressure__seed--${seed.source === 'attested' ? 'proved' : 'guessed'}`
+  proof.textContent =
+    seed.source === 'attested'
+      ? `attested block ${seed.attested?.height} · ${shortSeed(seed.seed)}`
+      : `unattested seed ${shortSeed(seed.seed)}`
+
+  if (attestedElsewhere && proof instanceof HTMLAnchorElement) {
+    proof.href = attestedElsewhere
+    proof.target = '_blank'
+    proof.rel = 'noopener'
+    proof.title =
+      'This floor was rolled from a Sepolia block the Attestcoin witnesses agreed on. Open it and check.'
+  } else {
+    proof.title = 'Creditcoin could not be reached, so this floor was rolled locally.'
+  }
 
   bar.append(floorMark, slainMark, purse, proof)
 
