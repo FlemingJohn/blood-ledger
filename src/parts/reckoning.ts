@@ -1,11 +1,13 @@
 import type { Part } from '../types/parts'
 import type { Takings } from '../types/raid'
+import type { LeftBehind } from '../types/leftBehind'
+import { drawMark } from './marks'
 import { countCoins } from '../chain/addresses'
 import { shortAddress } from '../chain/addresses'
 import '../styles/reckoning.css'
 
 export interface ReckoningPart extends Part {
-  showTakings(takings: Takings, patronAddress: string): void
+  showTakings(takings: Takings, patronAddress: string, left: LeftBehind): void
   whenReturning(listener: () => void): void
 }
 
@@ -28,6 +30,9 @@ export function prepareTheReckoning(): ReckoningPart {
   const sums = document.createElement('div')
   sums.className = 'reckoning__sums'
 
+  const missed = document.createElement('div')
+  missed.className = 'reckoning__missed'
+
   const aside = document.createElement('p')
   aside.className = 'reckoning__aside'
 
@@ -40,11 +45,64 @@ export function prepareTheReckoning(): ReckoningPart {
   backWord.textContent = 'Back to the Hall'
   back.append(backWord)
 
-  slab.append(title, where, sums, aside, back)
+  slab.append(title, where, sums, missed, aside, back)
   shroud.append(slab)
 
   const returning = new Set<() => void>()
   back.addEventListener('click', () => returning.forEach((listener) => listener()))
+
+  function line(mark: 'coin' | 'blade' | 'shield' | 'skull', said: string): HTMLElement {
+    const one = document.createElement('p')
+    one.className = 'reckoning__left'
+    one.append(drawMark({ name: mark, size: 13 }))
+    one.append(document.createTextNode(` ${said}`))
+    return one
+  }
+
+  function showWhatWasLeft(left: LeftBehind): void {
+    const lines: HTMLElement[] = []
+
+    if (left.gemsLeft > 0) {
+      const best = left.bestGemLeft ? `, one of them ${left.bestGemLeft}` : ''
+      lines.push(line('coin', `${left.gemsLeft} gems left behind${best}`))
+    }
+
+    if (left.coinsLeft > 0) {
+      lines.push(line('coin', `${left.coinsLeft} in coin never picked up`))
+    }
+
+    if (left.barrelsWhole > 0) {
+      lines.push(line('shield', `${left.barrelsWhole} barrels never broken open`))
+    }
+
+    left.powersUnused.forEach((power) => {
+      lines.push(line('blade', `${power.said} never used`))
+    })
+
+    if (!left.metTheDemonlord) {
+      lines.push(line('skull', 'you have not met the Demonlord'))
+    }
+
+    const unmet = left.breedsUnmet.filter((said) => said !== 'Demonlord')
+    if (unmet.length > 0) {
+      const named = unmet.slice(0, 2).join(' and ')
+      const more = unmet.length > 2 ? `, and ${unmet.length - 2} more` : ''
+      lines.push(line('skull', `never faced ${named}${more}`))
+    }
+
+    if (lines.length === 0) {
+      missed.hidden = true
+      return
+    }
+
+    const label = document.createElement('p')
+    label.className = 'reckoning__missedLabel'
+    label.textContent = 'You left behind'
+
+    missed.hidden = false
+    missed.replaceChildren(label, ...lines.slice(0, 5))
+
+  }
 
   function row(name: string, worth: string, tone: string): HTMLElement {
     const line = document.createElement('p')
@@ -63,7 +121,7 @@ export function prepareTheReckoning(): ReckoningPart {
   return {
     element: shroud,
 
-    showTakings(takings: Takings, patronAddress: string): void {
+    showTakings(takings: Takings, patronAddress: string, left: LeftBehind): void {
       const lived = takings.ending === 'walked out'
 
       shroud.hidden = false
@@ -96,6 +154,8 @@ export function prepareTheReckoning(): ReckoningPart {
           moved >= 0 ? 'good' : 'bad'
         )
       )
+
+      showWhatWasLeft(left)
 
       aside.textContent = lived
         ? `${shortAddress(patronAddress)} was paid. The ledger will say so.`
