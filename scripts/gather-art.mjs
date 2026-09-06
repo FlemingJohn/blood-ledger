@@ -26,20 +26,12 @@ const wanted = [
   ['prop/gold_drop/S/gold_drop_S_270.0_0.png', 'prop/coins.png']
 ]
 
-const raiderClasses = ['warrior', 'knight', 'fighter']
-
 for (let step = 0; step < 8; step += 1) {
   wanted.push([`prop/brazier_lit/S/brazier_lit_S_270.0_${step}.png`, `torch/lit-${step}.png`])
   wanted.push([`vfx/flame/flame_${step}.png`, `flame/flame-${step}.png`])
   wanted.push([`vfx/swoosh/swoosh_${step}.png`, `sweep/sweep-${step}.png`])
   wanted.push([`vfx/glint/glint_${step}.png`, `sparkle/glint-${step}.png`])
 
-  for (const fighterName of raiderClasses) {
-    wanted.push([
-      `playable character/${fighterName}/${fighterName}_special_select/S/${fighterName}_special_select_S_270.0_${step}.png`,
-      `raider/${fighterName}-${step}.png`
-    ])
-  }
 }
 
 const facings = [
