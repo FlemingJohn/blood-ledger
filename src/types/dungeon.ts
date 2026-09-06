@@ -1,3 +1,5 @@
+import type { BreedName } from './breed'
+
 export type Facing = 'N' | 'NE' | 'E' | 'SE' | 'S' | 'SW' | 'W' | 'NW'
 
 export type Move = 'walk' | 'attack' | 'death'
@@ -43,7 +45,7 @@ export interface FloorPlan {
   chambers: Chamber[]
   props: StandingProp[]
   loot: Loot[]
-  enemySpots: { kind: 'skeleton' | 'slime'; spot: Spot }[]
+  enemySpots: { breed: BreedName; spot: Spot }[]
   bossSpot: Spot | null
   startSpot: Spot
   width: number
