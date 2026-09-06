@@ -58,7 +58,7 @@ export function buildHall(order: HallOrder): Part {
   let chosenClass: RaiderClass = raider.chosenClass
 
   const board = openThePatronBoard({
-    offers: readOffers(),
+    offers: readOffers(raider),
     grade: raider.standing.grade,
     whenAccepted(offer: Offer) {
       if (sealing || heldPact) {
@@ -72,6 +72,7 @@ export function buildHall(order: HallOrder): Part {
         sealing = false
         pactSlip.showPact(pact)
         descent.showBarred(false)
+        roleSwitch.showBarred(true, 'you hold a pact — go down or it stands')
         window.setTimeout(() => rite.close(), 900)
       })
     }
