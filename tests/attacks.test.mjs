@@ -50,7 +50,6 @@ console.log('\nstanding from a repeated pair falls away\n')
 const full = constantIn(ledger, 'EARNED_BY_CLEARING')
 const spentAfter = constantIn(ledger, 'PAIR_IS_SPENT_AFTER')
 
-/** The same halving TheLedger.earnedFromThisPair does. */
 function earnedOnPactNumber(between) {
   if (between > spentAfter) {
     return 0
@@ -95,7 +94,6 @@ console.log('  every wallet visible on chain, before it can reach the top of the
 
 console.log('\nthe bond falls away as standing rises\n')
 
-/** The same ladder TheLedger.bondShareFor walks. */
 function bondShareAt(score) {
   if (score >= 900) return 0
   if (score >= 750) return 10
