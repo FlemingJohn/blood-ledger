@@ -62,11 +62,8 @@ export function layOutOffer(offer: Offer): OfferCardPart {
 
   line.append(who, stake, share, accept, barred)
 
-  const words = document.createElement('p')
-  words.className = 'offer__words'
-  words.textContent = offer.words
-
-  card.append(marker, line, words)
+  card.title = offer.words
+  card.append(marker, line)
 
   const listeners = new Set<(offer: Offer) => void>()
   accept.addEventListener('click', () => listeners.forEach((listener) => listener(offer)))
