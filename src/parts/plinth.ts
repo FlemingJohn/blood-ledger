@@ -1,11 +1,11 @@
 import type { PlinthPart } from '../types/parts'
 import type { RaiderClass } from '../types/raider'
-import type { RunningFlipbook } from '../types/flipbook'
-import { raiderPoses, standingRing } from '../art/paths'
-import { startFlipbook } from '../art/flipbook'
+import { champions } from '../art/champions'
+import { drawAlcove, drawChampion } from './marks'
 import '../styles/plinth.css'
 
 const everyClass: RaiderClass[] = ['warrior', 'knight', 'fighter']
+const championStands = 196
 
 export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
   const plinth = document.createElement('div')
@@ -14,19 +14,14 @@ export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
   const stage = document.createElement('div')
   stage.className = 'plinth__stage'
 
-  const ring = document.createElement('img')
-  ring.className = 'plinth__ring'
-  ring.src = standingRing
-  ring.alt = ''
-  ring.setAttribute('aria-hidden', 'true')
+  stage.append(drawAlcove())
 
   const figure = document.createElement('div')
   figure.className = 'plinth__figure'
-
-  stage.append(ring, figure)
+  stage.append(figure)
 
   const chooser = document.createElement('div')
-  chooser.className = 'plinth__chooser'
+  chooser.className = 'plinth__chooser framed'
 
   const back = document.createElement('button')
   back.type = 'button'
@@ -44,44 +39,20 @@ export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
   on.setAttribute('aria-label', 'next class')
 
   chooser.append(back, name, on)
-  plinth.append(stage, chooser)
+
+  const line = document.createElement('p')
+  line.className = 'plinth__line'
+
+  plinth.append(stage, chooser, line)
 
   const listeners = new Set<(chosen: RaiderClass) => void>()
   let showing = startingClass
-  let running: RunningFlipbook | null = null
 
-  const airAboveTheHead = 34
-  const ringSitsUnderFeet = 0.86
-  const shadowSitsUnderFeet = 0.58
-
-  function sizeTheStageTo(canvas: HTMLCanvasElement): void {
-    const wide = Number.parseFloat(canvas.style.width) || canvas.width
-    const tall = Number.parseFloat(canvas.style.height) || canvas.height
-
-    stage.style.minHeight = `${Math.round(tall + airAboveTheHead)}px`
-    ring.style.width = `${Math.round(wide * ringSitsUnderFeet)}px`
-    figure.style.setProperty('--shadowWide', `${Math.round(wide * shadowSitsUnderFeet)}px`)
-  }
-
-  async function paint(): Promise<void> {
-    name.textContent = showing
-
-    const frames = raiderPoses[showing]
-    try {
-      const next = await startFlipbook({
-        frames,
-        framesPerSecond: 8,
-        trimToContent: true,
-        faintestKept: 24,
-        magnify: 5
-      })
-      running?.stop()
-      running = next
-      figure.replaceChildren(next.canvas)
-      sizeTheStageTo(next.canvas)
-    } catch {
-      figure.replaceChildren()
-    }
+  function paint(): void {
+    const kit = champions[showing]
+    name.textContent = kit.said
+    line.textContent = kit.line
+    figure.replaceChildren(drawChampion(showing, championStands))
   }
 
   function stepBy(move: number): void {
@@ -91,14 +62,14 @@ export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
       return
     }
     showing = next
-    void paint()
+    paint()
     listeners.forEach((listener) => listener(next))
   }
 
   back.addEventListener('click', () => stepBy(-1))
   on.addEventListener('click', () => stepBy(1))
 
-  void paint()
+  paint()
 
   return {
     element: plinth,
@@ -108,7 +79,7 @@ export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
         return
       }
       showing = chosen
-      void paint()
+      paint()
     },
 
     whenClassChanged(listener: (chosen: RaiderClass) => void): void {
@@ -117,7 +88,6 @@ export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
 
     teardown(): void {
       listeners.clear()
-      running?.stop()
       plinth.remove()
     }
   }
