@@ -1,0 +1,184 @@
+================================================================================
+  BLOOD LEDGER - WHY IT STILL LOOKS LIKE A WEBSITE
+================================================================================
+
+
+  THREE THINGS
+  ------------
+
+    1  the shader burns on pages that do not want it
+    2  every panel is a plain rectangle with a hairline
+    3  nothing sits ON anything - there is no depth
+
+
+================================================================================
+  1  THE SHADER
+================================================================================
+
+  WHERE IT RUNS NOW
+
+    landing.ts        dressTheHall('landing')     shader on
+    hall.ts           dressTheHall('working')     shader on, dimmed to 45%
+    patronTable.ts    dressTheHall('working')     shader on, dimmed to 45%
+
+  So a WebGL flame shader runs at 60fps behind two static pages, faded
+  until you can barely see it. It costs a GPU and buys nothing.
+
+
+  WHERE IT SHOULD RUN
+
+    +--------------+---------------------------------------------+
+    | LANDING      | shader. it IS the page. fire down both edges |
+    +--------------+---------------------------------------------+
+    | HALL         | no shader. a still stone ground.            |
+    | PATRON TABLE | no shader. a still stone ground.            |
+    +--------------+---------------------------------------------+
+    | DUNGEON      | no shader. it has its own world.            |
+    +--------------+---------------------------------------------+
+
+  The hall is a room you stand in, not a title screen. It wants stone,
+  not fire.
+
+
+================================================================================
+  2  EVERY PANEL IS A PLAIN RECTANGLE
+================================================================================
+
+  WHAT IS THERE NOW
+
+      .panel  {  border: 1px solid var(--emberwood);
+                 background: rgba(22, 6, 12, .62);
+                 padding: 11px 14px 13px;  }
+
+      +----------------------------+
+      | STANDING              720  |     one hairline
+      | XXXXXXXXXXXX...            |     one flat fill
+      | 12 raids . 9 repaid        |     square corners
+      +----------------------------+     no thickness
+
+  That is a div. Bootstrap has that div. Notion has that div.
+
+  It repeats eleven times down the page, identical, so the whole hall
+  reads as a form rather than a place.
+
+
+  WHAT A GAME PANEL DOES
+
+      #============================#
+      ||                          ||    an outer frame
+      ||  STANDING           720  ||    an inner recess
+      ||  #####################   ||    a lit top edge
+      ||  12 raids  9 repaid      ||    a dark bottom edge
+      ||                          ||    corner rivets
+      #============================#
+
+    +-------------------+--------------------------------------------+
+    | FRAME             | 3px outer, dark. it is a thing, not a line |
+    | RECESS            | inner fill sits BELOW the frame            |
+    | LIT EDGE          | 1px lighter along the top and left         |
+    | DARK EDGE         | 1px darker along the bottom and right      |
+    | RIVETS            | four small marks at the corners            |
+    | CUT CORNERS       | 6px chamfer, so it is not a browser box    |
+    +-------------------+--------------------------------------------+
+
+  All of that is CSS. No images. box-shadow does the bevel, clip-path
+  does the chamfer, radial-gradient does the rivets.
+
+
+================================================================================
+  3  NOTHING SITS ON ANYTHING
+================================================================================
+
+  NOW - everything on one plane
+
+      background .................. flat
+      panel ....................... flat, 62% alpha over it
+      text ........................ flat on the panel
+
+      you can see straight through the whole stack.
+      nothing casts, nothing catches light.
+
+
+  SHOULD BE - three planes
+
+      +--------------------------------------------------+
+      |  BACK      the room. stone, dark, still.         |
+      |            a vignette pulling in at the edges.   |
+      +--------------------------------------------------+
+      |  MIDDLE    the furniture. board, alcove, rail.   |
+      |            each one lifted with a shadow beneath |
+      |            so it reads as bolted to the wall.    |
+      +--------------------------------------------------+
+      |  FRONT     what you act on. buttons, the raider. |
+      |            brighter, and they may overlap the    |
+      |            frame they sit in.                    |
+      +--------------------------------------------------+
+
+
+================================================================================
+  THE HALL, AS IT SHOULD LOOK
+================================================================================
+
+  #==============================================================#
+  |  /|                                                      |\  |   corner
+  | /_|   (720)          B L O O D   L E D G E R       [1240]|_\ |   pieces
+  |       PROVEN       [ PATRON ][ RAIDER ]           0x7a3f     |
+  #==============================================================#
+  |                                                              |
+  | #==================#  .-~~~~~~~~~~~~-.  #==================# |
+  | || THE BOARD      ||  /              \  || YOUR PACT      || |
+  | ||                ||  |  ___________  |  ||  none yet     || |
+  | || #============# ||  | |           | |  #================# |
+  | || || THE      || ||  | |   WARRIOR | |                      |
+  | || || UNDERWRITER|| ||  | |    (svg)  | |  #================# |
+  | || || 811 . 27% || ||  | |___________| |  || YOUR POWERS   || |
+  | || ||  [ TAKE ] || ||  |               |  || [Q] [E]       || |
+  | || #============# ||  |   ===========  |  #================# |
+  | ||                ||  |  /           \ |                      |
+  | || #============# ||  | /_____________\|  #================# |
+  | || || 0xBEEF    || ||  \              /  || THE BOND      || |
+  | || || 500 . 40% || ||   `-.________.-'   ||  0.010 tCTC   || |
+  | || ||  [ TAKE ] || ||                    #================# |
+  | || #============# ||   [ < ] WARRIOR [ > ]                   |
+  | #==================#                                          |
+  #==============================================================#
+  |  x 0x91C2 fell floor 2  -300      #======================#   |
+  |  + 0x44AB out 1,850     +420      ||    D E S C E N D    ||  |
+  |                                   #======================#   |
+  #==============================================================#
+
+  Same information. Same three columns. What changed is that every
+  edge now has thickness, the alcove is an arch rather than a box,
+  and the character is drawn rather than blown up.
+
+
+================================================================================
+  WHAT I WOULD BUILD
+================================================================================
+
+    +---+--------------------------------+----------+---------------+
+    | # | CHANGE                         | WHERE    | COST          |
+    +---+--------------------------------+----------+---------------+
+    | 1 | shader on the landing only     | 3 files  | 15 min        |
+    | 2 | a still stone ground for the   | 2 files  | 30 min        |
+    |   | hall and the patron table      |          |               |
+    | 3 | framed panels - bevel, rivets, | 1 file   | 1 hr          |
+    |   | chamfered corners              |          |               |
+    | 4 | the drawn champions in the     | 3 files  | 1 hr          |
+    |   | alcove, sprite retired there   |          |               |
+    | 5 | corner pieces on the header    | 1 file   | 30 min        |
+    +---+--------------------------------+----------+---------------+
+    |   | no new image files at any step |          | about 3 hrs   |
+    +---+--------------------------------+----------+---------------+
+
+
+  ONE THING WORTH SAYING
+
+    None of this touches the dungeon. Down there the world already
+    reads as a game, because it IS one - sprites, depth sorting,
+    a camera. The hall reads as a website because it is built out of
+    the same divs a website is built out of.
+
+    The fix is not more colour. It is thickness.
+
+================================================================================
