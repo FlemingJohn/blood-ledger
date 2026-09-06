@@ -3,6 +3,7 @@ import type { Fighter, Wound } from '../types/fighter'
 import { apart, blowLandsOnFrame, framesPerSecond, isDown, makeFighter } from './fighters'
 import { facingFrom } from './facing'
 import { planFloor } from './floorPlan'
+import { breeds } from './breeds'
 
 const framesInMove = { walk: 8, attack: 8, death: 8 }
 const slimeDeathFrames = 7
@@ -35,10 +36,13 @@ export function openWorld(order: WorldOrder): World {
 
   const you = makeFighter('you', plan.startSpot)
 
-  const enemies = plan.enemySpots.map((waiting) => makeFighter(waiting.kind, waiting.spot))
+  const enemies = plan.enemySpots.map((waiting) => {
+    const breed = breeds[waiting.breed]
+    return makeFighter(breed.drawnAs, waiting.spot, breed)
+  })
 
   if (plan.bossSpot) {
-    enemies.push(makeFighter('demonlord', plan.bossSpot))
+    enemies.push(makeFighter('demonlord', plan.bossSpot, breeds.demonlord))
   }
 
   return {
@@ -145,6 +149,7 @@ function landBlow(world: World, striker: Fighter, now: number): void {
         enemy.move = 'death'
         enemy.frame = 0
         world.slain += 1
+        world.coinsCarried += enemy.breed ? enemy.breed.coinBonus : 0
       }
     })
     return
@@ -158,7 +163,7 @@ function landBlow(world: World, striker: Fighter, now: number): void {
       world.you.move = 'death'
       world.you.frame = 0
       world.finished = 'fell'
-      world.killedBy = striker.kind === 'demonlord' ? 'the Demonlord' : `a ${striker.kind}`
+      world.killedBy = striker.breed ? striker.breed.said : striker.kind
     }
   }
 }
