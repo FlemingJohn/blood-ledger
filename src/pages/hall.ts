@@ -1,6 +1,6 @@
 import type { Offer, Pact } from '../types/pact'
 import type { RaiderClass } from '../types/raider'
-import type { Role } from '../types/role'
+import type { Role, RoleAnswer } from '../types/role'
 import type { Part } from '../types/parts'
 import { dressTheHall } from '../parts/hallDressing'
 import { hangTheTally } from '../parts/tally'
@@ -21,7 +21,7 @@ import '../styles/hall.css'
 
 export interface HallOrder {
   address: string
-  whenRoleAsked(role: Role): void
+  whenRoleAsked(role: Role): Promise<RoleAnswer> | RoleAnswer
   whenDescending(pact: Pact, chosenClass: RaiderClass): void
 }
 
