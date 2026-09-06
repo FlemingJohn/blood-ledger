@@ -6,7 +6,6 @@
   overflow: hidden;
   isolation: isolate;
   background: var(--void);
-  cursor: crosshair;
 }
 
 .descent__board {
