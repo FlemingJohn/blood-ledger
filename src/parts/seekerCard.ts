@@ -2,6 +2,7 @@ import type { Part } from '../types/parts'
 import type { Raider } from '../types/raider'
 import { drawMark } from './marks'
 import { shortAddress } from '../chain/addresses'
+import { drawCrest } from './hallMarks'
 import '../styles/patron.css'
 
 export interface SeekerCardPart extends Part {
@@ -21,7 +22,14 @@ export function layOutSeeker(
 
   const who = document.createElement('span')
   who.className = 'seeker__who'
-  who.textContent = shortAddress(raider.address)
+
+  const crest = drawCrest(raider.address, 17)
+  crest.classList.add('seeker__crest')
+  who.append(crest)
+
+  const named = document.createElement('span')
+  named.textContent = shortAddress(raider.address)
+  who.append(named)
 
   const grade = document.createElement('span')
   grade.className = 'seeker__grade'
