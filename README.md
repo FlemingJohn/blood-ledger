@@ -233,15 +233,18 @@ builder for a Merkle and continuity proof, and calls `execute` on the ledger.
 
 ```
 npm run build-contracts
+npm run check-setup       # reads your .env, spends no gas
 npm run deploy-vault      # on Sepolia
 npm run deploy-ledger     # on Creditcoin
 npm run name-vault        # tell the ledger which vault to believe
 npm run worker            # carry proofs
 ```
 
-Copy `worker/.env.example` to `.env` and fill it in first. Contracts compile with
-`viaIR` and evm version `shanghai`, matching Gluwa's own settings, because `ASCBase`
-hits stack-too-deep without it.
+**[DEPLOYING.md](DEPLOYING.md) walks the whole way**, from an empty `.env` to a sealed
+pact, including where to get testnet coin and what the errors mean.
+
+Contracts compile with `viaIR` and evm version `shanghai`, matching Gluwa's own settings,
+because `ASCBase` hits stack-too-deep without it.
 
 ---
 
