@@ -36,11 +36,7 @@ export function buildHall(order: HallOrder): Part {
   roleSwitch.showRole('raider')
   roleSwitch.whenAsked(order.whenRoleAsked)
 
-  const tallyLine = tally.element.querySelector('.tally__line')
-  const tallyMark = tally.element.querySelector('.tally__mark')
-  if (tallyLine && tallyMark) {
-    tallyMark.after(roleSwitch.element)
-  }
+  tally.middleSeat.append(roleSwitch.element)
 
   const body = document.createElement('div')
   body.className = 'hallpage__body'
