@@ -1,6 +1,7 @@
 import type { DescentPart } from '../types/parts'
 import { bladeSweep } from '../art/paths'
 import { loadPicture } from '../art/pictures'
+import { drawMark } from './marks'
 import '../styles/door.css'
 
 export function buildDescent(): DescentPart {
@@ -11,10 +12,15 @@ export function buildDescent(): DescentPart {
   door.type = 'button'
   door.className = 'door door--descent'
 
+  const sign = document.createElement('span')
+  sign.className = 'door__sign'
+
   const word = document.createElement('span')
   word.className = 'door__word'
   word.textContent = 'Descend'
-  door.append(word)
+
+  sign.append(word)
+  door.append(sign)
 
   const aside = document.createElement('p')
   aside.className = 'doorway__aside'
@@ -41,6 +47,10 @@ export function buildDescent(): DescentPart {
     showBarred(barred: boolean): void {
       door.disabled = barred
       door.classList.toggle('door--barred', barred)
+
+      const mark = drawMark({ name: barred ? 'shield' : 'stair', size: 15 })
+      mark.classList.add('door__mark')
+      sign.replaceChildren(mark, word)
       aside.textContent = barred
         ? 'Accept an offer before you go down'
         : 'The stair is open. Nothing comes back for you.'
