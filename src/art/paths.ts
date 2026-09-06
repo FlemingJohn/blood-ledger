@@ -1,5 +1,3 @@
-import type { RaiderClass } from '../types/raider'
-
 const artRoot = '/art'
 
 function countUp(count: number): number[] {
@@ -28,12 +26,6 @@ export const risingFlame = countUp(8).map((step) => `${artRoot}/flame/flame-${st
 export const bladeSweep = countUp(8).map((step) => `${artRoot}/sweep/sweep-${step}.png`)
 export const goldSparkle = countUp(8).map((step) => `${artRoot}/sparkle/glint-${step}.png`)
 
-export const raiderPoses: Record<RaiderClass, string[]> = {
-  warrior: countUp(8).map((step) => `${artRoot}/raider/warrior-${step}.png`),
-  knight: countUp(8).map((step) => `${artRoot}/raider/knight-${step}.png`),
-  fighter: countUp(8).map((step) => `${artRoot}/raider/fighter-${step}.png`)
-}
-
 export const everyPieceOfArt = [
   stoneFloor,
   darkenedEdges,
@@ -44,12 +36,4 @@ export const everyPieceOfArt = [
   ...bladeSweep
 ]
 
-export const everyPieceOfHallArt = [
-  standingRing,
-  offerMarker,
-  coinMark,
-  ...raiderPoses.warrior,
-  ...goldSparkle
-]
-
-export const restOfTheRaiders = [...raiderPoses.knight, ...raiderPoses.fighter]
+export const everyPieceOfHallArt = [standingRing, offerMarker, coinMark, ...goldSparkle]
