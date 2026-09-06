@@ -80,11 +80,6 @@ export interface SigilOrder {
   size?: number
 }
 
-/**
- * The standing sigil: a ring that fills as a raider is trusted, with the
- * number cut into the middle of it. Drawn rather than written, because a
- * number in a row of numbers is a metric and this is meant to be a rank.
- */
 export function drawSigil(order: SigilOrder): SVGSVGElement {
   const size = order.size ?? 74
   const middle = 50
