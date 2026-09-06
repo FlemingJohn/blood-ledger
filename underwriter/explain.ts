@@ -1,4 +1,4 @@
-import type { Decision, RaiderFacts, WrittenReason } from './types'
+import type { Decision, RaiderFacts, WrittenReason } from '../src/types/underwriting'
 import { howToBehave, wordsSchema } from './schema'
 import { nothingSecretIn, scrubbed } from './masking'
 
