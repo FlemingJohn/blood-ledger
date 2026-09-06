@@ -6,6 +6,7 @@ import { buildLanding } from './pages/landing'
 import { buildHall } from './pages/hall'
 import { buildDescent } from './pages/descent'
 import { armThePointer } from './parts/pointer'
+import type { PointerMood } from './types/pointer'
 import { everyPieceOfArt } from './art/paths'
 import { loadWhatYouCan } from './art/pictures'
 import { madeUpSeed } from './dungeon/seed'
@@ -23,6 +24,13 @@ function findStage(): HTMLDivElement {
 const stage = findStage()
 
 const purse = keepPurse()
+const hand = armThePointer()
+
+const moodForPage: Record<PageName, PointerMood> = {
+  landing: 'resting',
+  hall: 'patron',
+  descent: 'enemy'
+}
 
 let showing: Part | null = null
 let showingName: PageName = 'landing'
@@ -33,6 +41,7 @@ function show(name: PageName, built: Part): void {
   showing = built
   showingName = name
   document.body.dataset.showing = name
+  hand.wear(moodForPage[name])
   stage.replaceChildren(built.element)
   window.scrollTo({ top: 0 })
 }
@@ -90,5 +99,4 @@ purse.watch((reading) => {
   }
 })
 
-void armThePointer()
 void loadWhatYouCan(everyPieceOfArt)
