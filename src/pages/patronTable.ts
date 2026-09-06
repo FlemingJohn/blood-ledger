@@ -6,6 +6,8 @@ import { fillOutAStake } from '../parts/stakeSlip'
 import { layOutSeeker } from '../parts/seekerCard'
 import { hangTheRoleSwitch } from '../parts/roleSwitch'
 import { hangTheTally } from '../parts/tally'
+import { openTheProfile } from '../parts/profileCard'
+import { readProfile } from '../chain/profiles'
 import { dressTheHall } from '../parts/hallDressing'
 
 import { readSeekers } from '../chain/seekers'
@@ -26,6 +28,9 @@ export function buildPatronTable(order: PatronTableOrder): Part {
   const dressing = dressTheHall('working')
 
   const tally = hangTheTally(readRaider(order.address))
+  const profile = openTheProfile()
+
+  tally.whenNameAsked(() => profile.showProfile(readProfile(order.address)))
 
   const roleSwitch = hangTheRoleSwitch()
   roleSwitch.showRole('patron')
@@ -80,7 +85,7 @@ export function buildPatronTable(order: PatronTableOrder): Part {
   boardCount.textContent = `${openToYou} you may back of ${seekers.length}`
 
   body.append(slip.element, board)
-  page.append(dressing.element, tally.element, body)
+  page.append(dressing.element, tally.element, body, profile.element)
 
   let staking = false
 
@@ -117,6 +122,7 @@ export function buildPatronTable(order: PatronTableOrder): Part {
     element: page,
     teardown(): void {
       cards.forEach((card) => card.teardown())
+      profile.teardown()
       slip.teardown()
       roleSwitch.teardown()
       tally.teardown()
