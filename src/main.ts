@@ -44,6 +44,7 @@ const moodForPage: Record<PageName, PointerMood> = {
 let showing: Part | null = null
 let showingName: PageName = 'landing'
 let heldAddress: string | null = null
+let changingRole = false
 
 function show(name: PageName, built: Part): void {
   showing?.teardown()
@@ -76,7 +77,7 @@ function showHall(address: string): void {
     buildHall({
       address,
       whenRoleAsked(role) {
-        void goToRole(role)
+        return goToRole(role)
       },
       whenDescending(pact, chosenClass) {
         void showDescent(pact, chosenClass)
@@ -85,28 +86,43 @@ function showHall(address: string): void {
   )
 }
 
-async function goToRole(role: Role): Promise<void> {
-  if (role === 'raider') {
-    const reading =
-      raiderPurse.read().standing === 'opened'
-        ? raiderPurse.read()
-        : await raiderPurse.moveToWantedRealm()
+const whyItFailed: Record<string, string> = {
+  'no purse found': 'no purse to sign with',
+  'you refused': 'you turned the switch away',
+  'wrong realm': 'your purse stayed where it was',
+  'something broke': 'the purse would not answer'
+}
 
-    if (reading.address) {
-      heldAddress = reading.address
-      showHall(reading.address)
-    }
-    return
+async function goToRole(role: Role): Promise<string | null> {
+  if (changingRole) {
+    return null
   }
 
-  const opened =
-    patronPurse.read().standing === 'opened' ? patronPurse.read() : await patronPurse.open()
+  changingRole = true
 
-  const reading =
-    opened.standing === 'opened' ? opened : await patronPurse.moveToWantedRealm()
+  try {
+    const purse = role === 'raider' ? raiderPurse : patronPurse
+    const wanted = role === 'raider' ? homeRealm : realmWherePatronsPay
 
-  if (reading.address) {
-    showPatronTable(reading.address)
+    const known = purse.read()
+    const opened = known.standing === 'opened' ? known : await purse.open()
+    const reading = opened.standing === 'opened' ? opened : await purse.moveToWantedRealm()
+
+    if (reading.standing !== 'opened' || !reading.address) {
+      const said = whyItFailed[reading.standing] ?? 'could not reach that side'
+      return `${said} — ${role} sits on ${wanted.name}`
+    }
+
+    if (role === 'raider') {
+      heldAddress = reading.address
+      showHall(reading.address)
+    } else {
+      showPatronTable(reading.address)
+    }
+
+    return null
+  } finally {
+    changingRole = false
   }
 }
 
@@ -117,7 +133,7 @@ function showPatronTable(address: string): void {
       purse: patronPurse,
       address,
       whenRoleAsked(role) {
-        void goToRole(role)
+        return goToRole(role)
       }
     })
   )
@@ -147,6 +163,9 @@ async function showDescent(pact: Pact, chosenClass: RaiderClass): Promise<void> 
 showLanding()
 
 raiderPurse.watch((reading) => {
+  if (changingRole) {
+    return
+  }
   if ((showingName === 'hall' || showingName === 'descent') && reading.standing !== 'opened') {
     showLanding()
   }
