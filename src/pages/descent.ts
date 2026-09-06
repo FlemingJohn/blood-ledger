@@ -24,8 +24,12 @@ function everyMoveOf(kind: string, moves: string[]): string[] {
   return names
 }
 
+function everyMoveOfYours(chosen: string): string[] {
+  return everyMoveOf(chosen, ['walk', 'attack', 'death'])
+}
+
 const soonestNeeded = [
-  ...everyMoveOf('you', ['walk', 'attack', 'death']),
+
   ...everyMoveOf('skeleton', ['walk', 'attack', 'death']),
   ...everyMoveOf('slime', ['walk', 'death']),
   'dungeon/prop/wall1',
@@ -83,7 +87,7 @@ export function buildDescent(order: DescentOrder): Part {
   const hands = takeTheHands(board)
   const eye: Eye = { atX: 0, atY: 0 }
 
-  let world: World = openWorld({ seed: order.seed, floor: 1 })
+  let world: World = openWorld({ seed: order.seed, floor: 1, chosenClass: order.chosenClass })
   let running = true
   let settled = false
   let lastAt = 0
@@ -124,7 +128,11 @@ export function buildDescent(order: DescentOrder): Part {
 
   function goDeeper(): void {
     const carried = world.coinsCarried
-    world = openWorld({ seed: order.seed, floor: world.floor + 1 })
+    world = openWorld({
+      seed: order.seed,
+      floor: world.floor + 1,
+      chosenClass: order.chosenClass
+    })
     world.coinsCarried = carried
     pressure.showFloor(world.floor)
 
@@ -180,7 +188,7 @@ export function buildDescent(order: DescentOrder): Part {
   void (async () => {
     store = await openSpriteStore()
     ground = await loadGroundTiles()
-    await store.bring(soonestNeeded)
+    await store.bring([...everyMoveOfYours(order.chosenClass), ...soonestNeeded])
     fitBoard()
     pressure.showFloor(world.floor)
     void store.bring(bossNeeded)
