@@ -1,9 +1,11 @@
 import type { Facing, Move, Spot } from './dungeon'
+import type { Breed } from './breed'
 
 export type FighterKind = 'you' | 'skeleton' | 'slime' | 'demonlord'
 
 export interface Fighter {
   kind: FighterKind
+  breed: Breed | null
   spot: Spot
   facing: Facing
   move: Move
