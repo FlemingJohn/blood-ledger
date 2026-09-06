@@ -1,6 +1,7 @@
 import type { Pact } from '../types/pact'
 import type { Part } from '../types/parts'
 import { countCoins, shortAddress } from '../chain/addresses'
+import { drawWaxSeal } from './hallMarks'
 
 export interface PactSlipPart extends Part {
   showPact(pact: Pact | null): void
@@ -25,15 +26,21 @@ export function pinUpThePact(): PactSlipPart {
   const body = document.createElement('p')
   body.className = 'panel__tally'
 
-  slip.append(head, body)
+  const seal = drawWaxSeal()
+  seal.classList.add('panel__seal')
+  seal.setAttribute('hidden', 'true')
+
+  slip.append(head, body, seal)
 
   function showNone(): void {
+    seal.setAttribute('hidden', 'true')
     who.replaceChildren()
     body.replaceChildren(document.createTextNode('None yet. Take an offer to go down.'))
     body.className = 'panel__empty'
   }
 
   function showSealed(pact: Pact): void {
+    seal.removeAttribute('hidden')
     const patron = document.createElement('b')
     patron.textContent = shortAddress(pact.patronAddress)
     who.replaceChildren(patron)
