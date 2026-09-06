@@ -154,7 +154,7 @@
 }
 
 .footing {
-  border-top: 1px solid var(--emberwood);
+  border-top: 1px solid var(--rule);
   background: rgba(10, 3, 7, 0.76);
   padding: var(--pause) var(--rest);
 }
