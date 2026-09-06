@@ -4,10 +4,13 @@ import type { SpriteStore } from './sprites'
 import type { World } from './world'
 import { drawFromGroup } from './sprites'
 import { isDown } from './fighters'
+import { barWidthFor, drawLifeBar } from './bars'
 
 export const worldMagnify = 2
 
 const feetBelowAnchor = 30
+const flashLastsFor = 130
+const barSitsAbove = 78
 
 interface Drawable {
   sortAt: number
@@ -41,7 +44,8 @@ export function paintWorld(
   ground: { floor: HTMLImageElement; dark: HTMLImageElement },
   eye: Eye,
   wide: number,
-  tall: number
+  tall: number,
+  now: number
 ): void {
   surface.imageSmoothingEnabled = false
   surface.fillStyle = '#0a0307'
@@ -94,18 +98,28 @@ export function paintWorld(
     if (!drawn) {
       return
     }
-    const spin = Math.floor(performance.now() / 110) % drawn.pictures.length
+    const spin = Math.floor(now / 110) % drawn.pictures.length
     queue.push({
       sortAt: drop.spot.y,
-      paint: () =>
-        drawFromGroup(
-          surface,
-          drawn,
-          spin,
-          toScreenX(drop.spot.x),
-          toScreenY(drop.spot.y),
-          worldMagnify
-        )
+      paint: () => {
+        const atX = toScreenX(drop.spot.x)
+        const atY = toScreenY(drop.spot.y)
+        const glow = drop.kind === 'gem' ? '74,127,193' : '201,162,39'
+
+        const beam = surface.createLinearGradient(atX, atY - 96, atX, atY)
+        beam.addColorStop(0, `rgba(${glow},0)`)
+        beam.addColorStop(1, `rgba(${glow},.34)`)
+        surface.fillStyle = beam
+        surface.fillRect(atX - 9, atY - 96, 18, 96)
+
+        const pool = surface.createRadialGradient(atX, atY, 1, atX, atY, 30)
+        pool.addColorStop(0, `rgba(${glow},.42)`)
+        pool.addColorStop(1, `rgba(${glow},0)`)
+        surface.fillStyle = pool
+        surface.fillRect(atX - 32, atY - 18, 64, 36)
+
+        drawFromGroup(surface, drawn, spin, atX, atY, worldMagnify)
+      }
     })
   })
 
@@ -122,18 +136,32 @@ export function paintWorld(
     queue.push({
       sortAt: fighter.spot.y,
       paint: () => {
-        if (isDown(fighter)) {
+        const atX = toScreenX(fighter.spot.x)
+        const atY = toScreenY(fighter.spot.y)
+        const down = isDown(fighter)
+        const flashing = !down && now - fighter.struckAt < flashLastsFor
+
+        if (down) {
           surface.globalAlpha = 0.85
         }
-        drawFromGroup(
-          surface,
-          drawn,
-          fighter.frame,
-          toScreenX(fighter.spot.x),
-          toScreenY(fighter.spot.y),
-          worldMagnify
-        )
+
+        drawFromGroup(surface, drawn, fighter.frame, atX, atY, worldMagnify)
+
+        if (flashing) {
+          surface.save()
+          surface.globalCompositeOperation = 'lighter'
+          surface.globalAlpha = 0.55 * (1 - (now - fighter.struckAt) / flashLastsFor)
+          drawFromGroup(surface, drawn, fighter.frame, atX, atY, worldMagnify)
+          surface.restore()
+        }
+
         surface.globalAlpha = 1
+
+        if (!down && fighter.kind !== 'you' && fighter.life < fighter.fullLife) {
+          const barWide = barWidthFor(fighter)
+          drawLifeBar(surface, atX - barWide / 2, atY - barSitsAbove, barWide, 4,
+            fighter.life / fighter.fullLife)
+        }
       }
     })
   })
@@ -145,7 +173,7 @@ export function paintWorld(
   surface.textAlign = 'center'
 
   world.wounds.forEach((wound) => {
-    const age = (performance.now() - wound.bornAt) / 900
+    const age = (now - wound.bornAt) / 900
     surface.globalAlpha = Math.max(0, 1 - age)
     surface.fillStyle = '#ff3d78'
     surface.fillText(
