@@ -50,6 +50,25 @@ export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
   let showing = startingClass
   let running: RunningFlipbook | null = null
 
+  const airAboveTheHead = 34
+  const ringSitsUnderFeet = 0.86
+  const shadowSitsUnderFeet = 0.58
+
+  /**
+   * The stage takes its height from the raider standing on it, so changing how
+   * much the sprite is magnified cannot leave the figure poking out of the
+   * bottom. The ring and the shadow follow the same width, so they stay under
+   * the feet instead of spreading past them.
+   */
+  function sizeTheStageTo(canvas: HTMLCanvasElement): void {
+    const wide = Number.parseFloat(canvas.style.width) || canvas.width
+    const tall = Number.parseFloat(canvas.style.height) || canvas.height
+
+    stage.style.minHeight = `${Math.round(tall + airAboveTheHead)}px`
+    ring.style.width = `${Math.round(wide * ringSitsUnderFeet)}px`
+    figure.style.setProperty('--shadowWide', `${Math.round(wide * shadowSitsUnderFeet)}px`)
+  }
+
   async function paint(): Promise<void> {
     name.textContent = showing
 
@@ -65,6 +84,7 @@ export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
       running?.stop()
       running = next
       figure.replaceChildren(next.canvas)
+      sizeTheStageTo(next.canvas)
     } catch {
       figure.replaceChildren()
     }
