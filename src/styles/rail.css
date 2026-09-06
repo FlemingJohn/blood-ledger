@@ -1,0 +1,81 @@
+.rail__block {
+  border: 1px solid var(--emberwood);
+  background: rgba(22, 6, 12, 0.62);
+  padding: 10px 13px 12px;
+}
+
+.rail__block .panel__label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 8px;
+}
+
+.powers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--emberwood);
+  border: 1px solid var(--emberwood);
+}
+
+.powers__slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 9px 6px 8px;
+  background: rgba(10, 3, 7, 0.72);
+  text-align: center;
+}
+
+.powers__key {
+  font-family: var(--counted);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  color: var(--ash);
+}
+
+.powers__said {
+  font-family: var(--chiselled);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--flare);
+}
+
+.powers__rests {
+  font-family: var(--counted);
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  color: var(--ash);
+  font-variant-numeric: tabular-nums;
+}
+
+.bond__asked {
+  margin: 0;
+  font-family: var(--counted);
+  font-variant-numeric: tabular-nums;
+}
+
+.bond__asked b {
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--gold);
+}
+
+.bond__meter {
+  margin-top: 8px;
+}
+
+.bond__filled {
+  background: linear-gradient(90deg, var(--gold), var(--molten));
+}
+
+.bond__why {
+  margin: 8px 0 0;
+  font-size: 0.8rem;
+  color: var(--ash);
+  line-height: 1.45;
+}
