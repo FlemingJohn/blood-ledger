@@ -1,5 +1,5 @@
 import type { RaiderClass } from '../types/raider'
-import { champions, inks } from '../art/champions'
+import { paintChampion } from '../art/championPaint'
 
 const drawnIn = 'http://www.w3.org/2000/svg'
 
@@ -153,28 +153,8 @@ export function drawSigil(order: SigilOrder): SVGSVGElement {
   return sigil
 }
 
-export function drawChampion(who: RaiderClass, tall: number): SVGSVGElement {
-  const kit = champions[who]
-
-  const drawn = document.createElementNS(drawnIn, 'svg')
-  drawn.setAttribute('viewBox', '0 0 200 320')
-  drawn.setAttribute('height', String(tall))
-  drawn.setAttribute('width', String(Math.round((tall * 200) / 320)))
-  drawn.setAttribute('class', 'champion')
-  drawn.setAttribute('role', 'img')
-
-  const said = document.createElementNS(drawnIn, 'title')
-  said.textContent = kit.said
-  drawn.append(said)
-
-  kit.parts.forEach((part) => {
-    const path = document.createElementNS(drawnIn, 'path')
-    path.setAttribute('d', part.d)
-    path.setAttribute('fill', inks[part.fill])
-    drawn.append(path)
-  })
-
-  return drawn
+export function drawChampion(who: RaiderClass, tall: number): HTMLCanvasElement {
+  return paintChampion(who, tall)
 }
 
 export function drawAlcove(): SVGSVGElement {
