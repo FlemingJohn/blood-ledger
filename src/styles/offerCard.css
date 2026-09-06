@@ -1,6 +1,6 @@
 .offer {
   position: relative;
-  padding: 11px 16px 12px;
+  padding: 8px 12px 9px;
   transition: box-shadow 160ms ease, transform 160ms ease;
 }
 
@@ -33,13 +33,12 @@
 
 .offer__line {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) 84px;
   grid-template-areas:
-    'who share'
-    'stake stake'
-    'take take';
+    'who   share'
+    'stake take';
   align-items: center;
-  gap: 8px 10px;
+  gap: 6px 10px;
 }
 
 .offer__who {
@@ -59,14 +58,14 @@
 }
 
 .offer__stake b {
-  font-size: 1.06rem;
+  font-size: 0.98rem;
   font-weight: 600;
   color: var(--gold);
 }
 
 .offer__coin {
-  width: 22px;
-  height: 22px;
+  width: 19px;
+  height: 19px;
   object-fit: contain;
   image-rendering: pixelated;
 }
@@ -83,9 +82,11 @@
 
 .offer__accept {
   grid-area: take;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
   position: relative;
   width: 100%;
-  padding: 9px 10px;
+  padding: 7px 6px;
   border: 1px solid var(--ember);
   background: transparent;
   color: var(--ember);
@@ -127,7 +128,7 @@
 .offer__barred {
   grid-area: take;
   margin: 0;
-  padding: 9px 10px;
+  padding: 7px 4px;
   border: 1px dashed var(--emberwood);
   font-family: var(--counted);
   font-size: 0.6rem;
@@ -138,13 +139,7 @@
 }
 
 .offer__words {
-  margin: 5px 0 0;
-  font-size: 0.86rem;
-  font-style: italic;
-  color: var(--ash);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  display: none;
 }
 
 .offer--rich .offer__stake b {
