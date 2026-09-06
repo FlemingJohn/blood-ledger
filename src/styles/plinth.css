@@ -1,7 +1,8 @@
 .plinth {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  gap: 12px;
 }
 
 .plinth__stage {
@@ -11,21 +12,19 @@
   align-items: flex-end;
   justify-content: center;
   width: 100%;
-  min-height: 220px;
-  padding-bottom: 14px;
-  transition: min-height 220ms ease;
+  min-height: 300px;
 }
 
-.plinth__ring {
+.alcove {
   position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 230px;
-  transform: translateX(-50%);
-  opacity: 0.5;
-  image-rendering: pixelated;
-  pointer-events: none;
-  animation: plinth-breathe 3.4s ease-in-out infinite;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.alcove__fire {
+  animation: alcove-flicker 900ms ease-in-out infinite alternate;
+  transform-origin: center bottom;
 }
 
 .plinth__figure {
@@ -34,36 +33,21 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  padding-bottom: 42px;
   line-height: 0;
 }
 
-.plinth__figure::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: -6px;
-  width: var(--shadowWide, 150px);
-  height: 30px;
-  transform: translateX(-50%);
-  background: radial-gradient(ellipse at center, rgba(4, 0, 2, 0.8), transparent 70%);
-  pointer-events: none;
-}
-
-.plinth__figure canvas {
-  position: relative;
-  z-index: 1;
-  image-rendering: pixelated;
+.champion {
+  display: block;
+  filter: drop-shadow(0 6px 12px rgba(4, 0, 2, 0.9));
 }
 
 .plinth__chooser {
   display: grid;
-  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  grid-template-columns: 46px minmax(0, 1fr) 46px;
   align-items: center;
-  align-self: center;
-  min-width: 260px;
-  border: 1px solid var(--emberwood);
-  background: rgba(10, 3, 7, 0.6);
-  padding: 8px 4px;
+  min-width: 268px;
+  padding: 9px 6px;
 }
 
 .plinth__name {
@@ -79,7 +63,7 @@
 
 .plinth__step {
   padding: 4px 0;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   line-height: 1;
   color: var(--ash);
   transition: color 150ms ease;
@@ -89,12 +73,22 @@
   color: var(--ember);
 }
 
-@keyframes plinth-breathe {
-  0%,
-  100% {
-    opacity: 0.4;
+.plinth__line {
+  margin: 0;
+  max-width: 34ch;
+  text-align: center;
+  font-size: 0.86rem;
+  font-style: italic;
+  color: var(--ash);
+}
+
+@keyframes alcove-flicker {
+  from {
+    opacity: 0.75;
+    transform: scaleY(0.92);
   }
-  50% {
-    opacity: 0.66;
+  to {
+    opacity: 1;
+    transform: scaleY(1.06);
   }
 }
