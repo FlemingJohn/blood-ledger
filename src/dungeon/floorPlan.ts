@@ -1,6 +1,7 @@
-import type { Chamber, FloorPlan, PropKind, Spot, StandingProp } from '../types/dungeon'
+import type { Chamber, FloorPlan, PropKind, Spot, StandingProp, Torchlight } from '../types/dungeon'
 import { rollsFromSeed, type Rolls } from './seed'
 import { pickBreed } from './breeds'
+import { gradeFromRoll } from './gems'
 
 const tileSize = 72
 
@@ -21,8 +22,32 @@ const shapes: Shape[] = [
   { name: 'cloister', across: 34, down: 26, chambers: 9, wideRange: [4, 7], tallRange: [4, 6] }
 ]
 
-const scatterKinds: PropKind[] = ['bones', 'rubble', 'mushrooms']
+const scatterKinds: PropKind[] = ['bones', 'bones2', 'bones3', 'rubble', 'mushrooms']
 const breakableKinds: PropKind[] = ['barrel', 'crate']
+
+interface Masonry {
+  walls: PropKind[]
+  column: PropKind
+}
+
+const masonryFor: Record<string, Masonry> = {
+  warren: { walls: ['wall1', 'wall2'], column: 'column' },
+  'long hall': { walls: ['wall2', 'bricks'], column: 'column2' },
+  'deep shaft': { walls: ['wall3', 'wall1'], column: 'column' },
+  'great chamber': { walls: ['tiles', 'wall2'], column: 'column' },
+  cloister: { walls: ['bricks', 'wall3'], column: 'column2' }
+}
+
+function standing(kind: PropKind, spot: Spot): StandingProp {
+  return {
+    kind,
+    spot,
+    breakable: breakableKinds.includes(kind),
+    broken: false,
+    brokeAt: 0,
+    life: 1
+  }
+}
 
 function overlaps(one: Chamber, other: Chamber, gap: number): boolean {
   return (
@@ -140,10 +165,14 @@ export function planFloor(seed: string, floor: number): FloorPlan {
         continue
       }
 
-      props.push({
-        kind: rolls.chance(0.72) ? 'wall1' : 'wall2',
-        spot: middleOfTile(atAcross, atDown)
-      })
+      const masonry = masonryFor[shape.name] ?? masonryFor.warren
+      const walls = masonry ? masonry.walls : (['wall1', 'wall2'] as PropKind[])
+      props.push(
+        standing(
+          rolls.chance(0.72) ? (walls[0] as PropKind) : (walls[1] as PropKind),
+          middleOfTile(atAcross, atDown)
+        )
+      )
     }
   }
 
@@ -181,7 +210,10 @@ export function planFloor(seed: string, floor: number): FloorPlan {
     if (!claim(tile)) {
       continue
     }
-    props.push({ kind: 'column', spot: middleOfTile(tile.atAcross, tile.atDown) })
+    const masonry = masonryFor[shape.name] ?? masonryFor.warren
+    props.push(
+      standing(masonry ? masonry.column : 'column', middleOfTile(tile.atAcross, tile.atDown))
+    )
   }
 
   const clutterCount = Math.min(roomTiles.length, 10 + Math.floor(rolls.next() * 10))
@@ -191,11 +223,34 @@ export function planFloor(seed: string, floor: number): FloorPlan {
     if (!claim(tile)) {
       continue
     }
-    props.push({
-      kind: rolls.chance(0.45) ? rolls.pick(breakableKinds) : rolls.pick(scatterKinds),
-      spot: middleOfTile(tile.atAcross, tile.atDown)
-    })
+    props.push(
+      standing(
+        rolls.chance(0.45) ? rolls.pick(breakableKinds) : rolls.pick(scatterKinds),
+        middleOfTile(tile.atAcross, tile.atDown)
+      )
+    )
   }
+
+  const lights: Torchlight[] = []
+
+  chambers.forEach((chamber) => {
+    if (chamber.wide < 5 || chamber.tall < 4) {
+      return
+    }
+    const corners = [
+      { atAcross: chamber.left + 1, atDown: chamber.top + 1 },
+      { atAcross: chamber.left + chamber.wide - 2, atDown: chamber.top + 1 },
+      { atAcross: chamber.left + 1, atDown: chamber.top + chamber.tall - 2 },
+      { atAcross: chamber.left + chamber.wide - 2, atDown: chamber.top + chamber.tall - 2 }
+    ]
+    corners.forEach((corner) => {
+      if (!rolls.chance(0.55) || !claim(corner)) {
+        return
+      }
+      props.push(standing('brazier', middleOfTile(corner.atAcross, corner.atDown)))
+      lights.push({ spot: middleOfTile(corner.atAcross, corner.atDown), frame: 0 })
+    })
+  })
 
   const bossFloor = 3
   const isBossFloor = floor === bossFloor || (floor > bossFloor && rolls.chance(0.4))
@@ -223,13 +278,16 @@ export function planFloor(seed: string, floor: number): FloorPlan {
       continue
     }
     const isGem = rolls.chance(0.32)
+    const grade = isGem ? gradeFromRoll(rolls.next()) : null
     loot.push({
       kind: isGem ? 'gem' : 'coins',
+      grade: grade ? grade.grade : null,
       spot: middleOfTile(tile.atAcross, tile.atDown),
-      worth: isGem
-        ? Math.round(rolls.between(120, 260)) * floor
+      worth: grade
+        ? Math.round(grade.worth * (0.85 + floor * 0.25))
         : Math.round(rolls.between(30, 90)) * floor,
-      taken: false
+      taken: false,
+      bornAt: 0
     })
   }
 
@@ -242,6 +300,7 @@ export function planFloor(seed: string, floor: number): FloorPlan {
     walkable,
     chambers,
     props,
+    lights,
     loot,
     enemySpots,
     bossSpot: isBossFloor ? middleOfTile(bossMiddle.across, bossMiddle.down) : null,
