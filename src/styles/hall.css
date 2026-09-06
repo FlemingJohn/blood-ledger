@@ -146,7 +146,7 @@
 .meter {
   height: 11px;
   background: var(--void);
-  border: 1px solid #1b0a10;
+  border: 1px solid var(--ruleDeep);
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.85);
   overflow: hidden;
 }
@@ -182,7 +182,7 @@
 }
 
 .door--barred {
-  border-color: var(--emberwood);
+  border-color: var(--rule);
   color: var(--ash);
   animation: none;
 }
@@ -203,7 +203,7 @@
   justify-content: space-between;
   gap: var(--pause);
   padding: 11px 16px;
-  border-bottom: 1px solid var(--emberwood);
+  border-bottom: 1px solid var(--rule);
 }
 
 .board__title {
