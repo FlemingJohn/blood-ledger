@@ -8,7 +8,7 @@ export const contractsAreLive = false
 
 const gradeLadder: StandingGrade[] = ['F', 'D', 'C', 'B', 'B+', 'A']
 
-const gradeFloors: { grade: StandingGrade; from: number }[] = [
+export const gradeFloors: { grade: StandingGrade; from: number }[] = [
   { grade: 'A', from: 900 },
   { grade: 'B+', from: 750 },
   { grade: 'B', from: 600 },
