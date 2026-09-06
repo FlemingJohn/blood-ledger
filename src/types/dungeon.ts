@@ -4,11 +4,6 @@ export type Move = 'walk' | 'attack' | 'death'
 
 export type Spot = { x: number; y: number }
 
-export interface Standing {
-  spot: Spot
-  facing: Facing
-}
-
 export type PropKind =
   | 'wall1'
   | 'wall2'
@@ -22,7 +17,6 @@ export type PropKind =
 export interface StandingProp {
   kind: PropKind
   spot: Spot
-  blocks: boolean
 }
 
 export type LootKind = 'coins' | 'gem'
@@ -34,12 +28,25 @@ export interface Loot {
   taken: boolean
 }
 
+export interface Chamber {
+  left: number
+  top: number
+  wide: number
+  tall: number
+}
+
 export interface FloorPlan {
-  width: number
-  height: number
+  tileSize: number
+  across: number
+  down: number
+  walkable: boolean[]
+  chambers: Chamber[]
   props: StandingProp[]
   loot: Loot[]
   enemySpots: { kind: 'skeleton' | 'slime'; spot: Spot }[]
   bossSpot: Spot | null
   startSpot: Spot
+  width: number
+  height: number
+  shape: string
 }
