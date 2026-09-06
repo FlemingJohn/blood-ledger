@@ -31,7 +31,6 @@ function azureSettings(): AzureSettings | null {
   }
 }
 
-/** Everything the model is allowed to see. Masked names only, never an address. */
 function whatTheModelIsTold(facts: RaiderFacts, decision: Decision): object {
   return {
     raider: facts.handle,
@@ -55,7 +54,6 @@ function whatTheModelIsTold(facts: RaiderFacts, decision: Decision): object {
   }
 }
 
-/** What we say when there is no model, or the model gave us something we will not use. */
 export function ourOwnWords(facts: RaiderFacts, decision: Decision): WrittenReason {
   if (decision.verdict === 'refuse') {
     const first = decision.reasons[0] ?? 'nothing here to trust'
@@ -88,8 +86,6 @@ function willNotUse(said: unknown, longest: number): boolean {
     return true
   }
 
-  // A model that runs to the cap gets cut mid word. Better our own plain
-  // sentence than half of a better one.
   if (!/[.!?]$/.test(trimmed)) {
     return true
   }
