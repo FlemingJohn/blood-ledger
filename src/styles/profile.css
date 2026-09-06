@@ -1,0 +1,202 @@
+.profile {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  display: grid;
+  place-items: center;
+  padding: var(--pause);
+  background: rgba(4, 0, 2, 0.86);
+  backdrop-filter: blur(3px);
+}
+
+.profile__slab {
+  width: min(560px, 100%);
+  max-height: min(720px, 92vh);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: var(--rest);
+  overflow-y: auto;
+}
+
+.profile__head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+}
+
+.profile__sigil {
+  line-height: 0;
+}
+
+.profile__naming {
+  min-width: 0;
+}
+
+.profile__rank {
+  margin: 0;
+  font-family: var(--chiselled);
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bone);
+}
+
+.profile__who {
+  margin: 2px 0 0;
+  font-family: var(--counted);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--ash);
+}
+
+.profile__shut {
+  align-self: start;
+  padding: 6px 14px;
+  border: 1px solid var(--emberwood);
+  background: none;
+  color: var(--ash);
+  font-family: var(--counted);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: var(--gauntlet, pointer);
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.profile__shut:hover,
+.profile__shut:focus-visible {
+  color: var(--ember);
+  border-color: var(--ember);
+}
+
+.profile__tally {
+  margin: 0;
+}
+
+.profile__grade {
+  color: var(--ember);
+  font-weight: 600;
+}
+
+.profile__columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.profile__column {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px 12px;
+  border: 1px solid var(--emberwood);
+  background: rgba(10, 3, 7, 0.6);
+}
+
+.profile__column .panel__label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0 0 4px;
+}
+
+.profile__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0;
+  font-family: var(--counted);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: var(--ash);
+  font-variant-numeric: tabular-nums;
+}
+
+.profile__row b {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--bone);
+}
+
+.profile__row--good b {
+  color: var(--gold);
+}
+
+.profile__row--bad b {
+  color: var(--blood);
+}
+
+.profile__recentLabel {
+  margin: 4px 0 0;
+}
+
+.profile__deeds {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.profile__deed {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr) auto 62px;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 8px;
+  background: rgba(10, 3, 7, 0.55);
+  font-family: var(--counted);
+  font-size: 0.68rem;
+  color: var(--ash);
+  font-variant-numeric: tabular-nums;
+}
+
+.profile__deedMark {
+  text-align: center;
+}
+
+.profile__deed--lived .profile__deedMark {
+  color: var(--gold);
+}
+
+.profile__deed--fell .profile__deedMark {
+  color: var(--blood);
+}
+
+.profile__deedSaid {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--bone);
+}
+
+.profile__deed--lived .profile__deedCoin {
+  color: var(--gold);
+}
+
+.profile__deed--fell .profile__deedCoin {
+  color: var(--blood);
+}
+
+.profile__deedWhen {
+  text-align: right;
+}
+
+@media (max-width: 560px) {
+  .profile__columns {
+    grid-template-columns: 1fr;
+  }
+
+  .profile__deed {
+    grid-template-columns: 14px minmax(0, 1fr) auto;
+  }
+
+  .profile__deedWhen {
+    display: none;
+  }
+}
