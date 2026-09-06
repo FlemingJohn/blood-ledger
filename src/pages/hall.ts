@@ -1,4 +1,5 @@
 import type { Offer, Pact } from '../types/pact'
+import type { RaiderClass } from '../types/raider'
 import type { Part } from '../types/parts'
 import { dressTheHall } from '../parts/hallDressing'
 import { hangTheTally } from '../parts/tally'
@@ -16,7 +17,7 @@ import '../styles/hall.css'
 
 export interface HallOrder {
   address: string
-  whenDescending(pact: Pact): void
+  whenDescending(pact: Pact, chosenClass: RaiderClass): void
 }
 
 export function buildHall(order: HallOrder): Part {
@@ -45,6 +46,7 @@ export function buildHall(order: HallOrder): Part {
 
   let heldPact: Pact | null = null
   let sealing = false
+  let chosenClass: RaiderClass = raider.chosenClass
 
   const board = openThePatronBoard({
     offers: readOffers(),
@@ -75,11 +77,12 @@ export function buildHall(order: HallOrder): Part {
   descent.showBarred(true)
   descent.whenPushed(() => {
     if (heldPact) {
-      order.whenDescending(heldPact)
+      order.whenDescending(heldPact, chosenClass)
     }
   })
 
-  plinth.whenClassChanged(() => {
+  plinth.whenClassChanged((chosen) => {
+    chosenClass = chosen
     void loadWhatYouCan(restOfTheRaiders)
   })
 
