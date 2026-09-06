@@ -99,7 +99,11 @@ export function buildDescent(order: DescentOrder): Part {
   const hands = takeTheHands(board)
   const eye: Eye = { atX: 0, atY: 0 }
 
-  let world: World = openWorld({ seed: order.seed, floor: 1, chosenClass: order.chosenClass })
+  let world: World = openWorld({
+    seed: order.seed.seed,
+    floor: 1,
+    chosenClass: order.chosenClass
+  })
   let running = true
   let settled = false
   let lastAt = 0
@@ -141,7 +145,7 @@ export function buildDescent(order: DescentOrder): Part {
   function goDeeper(): void {
     const carried = world.coinsCarried
     world = openWorld({
-      seed: order.seed,
+      seed: order.seed.seed,
       floor: world.floor + 1,
       chosenClass: order.chosenClass
     })
