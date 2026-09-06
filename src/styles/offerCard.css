@@ -1,12 +1,17 @@
 .offer {
   position: relative;
-  background: rgba(22, 6, 12, 0.72);
   padding: 11px 16px 12px;
-  transition: background-color 160ms ease;
+  transition: box-shadow 160ms ease, transform 160ms ease;
 }
 
 .offer:hover {
-  background: rgba(38, 11, 20, 0.85);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(200, 140, 150, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.7),
+    0 3px 0 rgba(0, 0, 0, 0.55),
+    0 0 24px rgba(214, 21, 78, 0.2),
+    0 10px 24px rgba(0, 0, 0, 0.6);
 }
 
 .offer__marker {
@@ -171,12 +176,7 @@
 }
 
 .offer--reckoned {
-  background: rgba(30, 8, 16, 0.82);
-  box-shadow: inset 2px 0 0 var(--gold);
-}
-
-.offer--reckoned:hover {
-  background: rgba(44, 13, 22, 0.9);
+  border-color: #2c1208;
 }
 
 .offer__who {
