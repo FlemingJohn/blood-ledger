@@ -60,7 +60,7 @@ export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
         framesPerSecond: 8,
         trimToContent: true,
         faintestKept: 24,
-        magnify: 3
+        magnify: 5
       })
       running?.stop()
       running = next
