@@ -40,6 +40,27 @@
   color: var(--bone);
 }
 
+.pressure__slain {
+  color: var(--ash);
+}
+
+.minimap {
+  position: absolute;
+  top: 46px;
+  right: var(--rest);
+  z-index: 2;
+  padding: 5px;
+  border: 1px solid var(--emberwood);
+  background: rgba(10, 3, 7, 0.7);
+  line-height: 0;
+  pointer-events: none;
+}
+
+.minimap canvas {
+  display: block;
+  image-rendering: pixelated;
+}
+
 .pressure__purse {
   display: inline-flex;
   align-items: baseline;
@@ -211,6 +232,13 @@
 }
 
 @media (max-width: 720px) {
+  .minimap {
+    top: 42px;
+    right: var(--pause);
+    transform: scale(0.72);
+    transform-origin: top right;
+  }
+
   .life,
   .wayout {
     left: var(--pause);
