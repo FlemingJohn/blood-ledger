@@ -98,12 +98,20 @@ for (const [inPack, actor, calledHere, moves] of fighters) {
 const standingProps = [
   ['prop/wall1', 'wall1'],
   ['prop/wall2', 'wall2'],
+  ['prop/wall3', 'wall3'],
+  ['prop/bricks', 'bricks'],
+  ['prop/tiles', 'tiles'],
   ['prop/column1', 'column'],
+  ['prop/column2', 'column2'],
   ['prop/barrel', 'barrel'],
   ['prop/crate', 'crate'],
   ['prop/bones1', 'bones'],
+  ['prop/bones2', 'bones2'],
+  ['prop/bones3', 'bones3'],
   ['prop/rocks', 'rubble'],
-  ['prop/mushrooms', 'mushrooms']
+  ['prop/mushrooms', 'mushrooms'],
+  ['prop/brazier', 'brazier'],
+  ['prop/torch', 'torch']
 ]
 
 for (const [inPack, calledHere] of standingProps) {
@@ -114,16 +122,38 @@ for (const [inPack, calledHere] of standingProps) {
   ])
 }
 
+const gemColours = ['white', 'green', 'blue', 'red']
+
 for (let step = 0; step < 8; step += 1) {
-  wanted.push([
-    `prop/gemstones_red/S/gemstones_red_S_270.0_${step}.png`,
-    `dungeon/loot/gem-${step}.png`
-  ])
+  for (const colour of gemColours) {
+    wanted.push([
+      `prop/gemstones_${colour}/S/gemstones_${colour}_S_270.0_${step}.png`,
+      `dungeon/loot/gem-${colour}-${step}.png`
+    ])
+  }
   wanted.push([
     `prop/gold_drop/S/gold_drop_S_270.0_${step}.png`,
     `dungeon/loot/coins-${step}.png`
   ])
+  wanted.push([
+    `prop/barrel_break/S/barrel_break_S_270.0_${step}.png`,
+    `dungeon/broken/barrel-${step}.png`
+  ])
+  wanted.push([
+    `prop/crate_break/S/crate_break_S_270.0_${step}.png`,
+    `dungeon/broken/crate-${step}.png`
+  ])
+  wanted.push([
+    `prop/brazier_lit/S/brazier_lit_S_270.0_${step}.png`,
+    `dungeon/light/brazier-${step}.png`
+  ])
+  wanted.push([
+    `vfx/flames/flames_${step}.png`,
+    `dungeon/light/flames-${step}.png`
+  ])
 }
+
+wanted.push(['vfx/glow.png', 'dungeon/light/glow.png'])
 
 wanted.push(['environment/ground_variation1.png', 'dungeon/ground/floor.png'])
 wanted.push(['environment/ground_darken.png', 'dungeon/ground/dark.png'])
