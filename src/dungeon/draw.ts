@@ -5,11 +5,13 @@ import type { World } from './world'
 import { drawFromGroup } from './sprites'
 import { isDown } from './fighters'
 import { barWidthFor, drawLifeBar } from './bars'
+import { glowOf } from './gems'
 
 export const worldMagnify = 2
 
 const feetBelowAnchor = 30
 const flashLastsFor = 130
+const breakLastsFor = 900
 const barSitsAbove = 78
 
 interface Drawable {
@@ -72,21 +74,70 @@ export function paintWorld(
   const queue: Drawable[] = []
 
   world.plan.props.forEach((prop: StandingProp) => {
-    const drawn = store.group(`dungeon/prop/${prop.kind}`)
+    const broken = prop.broken
+    const since = now - prop.brokeAt
+
+    if (broken && since > breakLastsFor) {
+      return
+    }
+
+    const drawn = broken
+      ? store.group(`dungeon/broken/${prop.kind}`)
+      : store.group(`dungeon/prop/${prop.kind}`)
+
     if (!drawn) {
       return
     }
+
+    const frame = broken
+      ? Math.min(drawn.pictures.length - 1, Math.floor(since / 70))
+      : 0
+
     queue.push({
       sortAt: prop.spot.y,
-      paint: () =>
-        drawFromGroup(
-          surface,
-          drawn,
-          0,
-          toScreenX(prop.spot.x),
-          toScreenY(prop.spot.y),
-          worldMagnify
-        )
+      paint: () => {
+        const atX = toScreenX(prop.spot.x)
+        const atY = toScreenY(prop.spot.y)
+
+        if (broken) {
+          surface.globalAlpha = Math.max(0, 1 - since / breakLastsFor)
+        }
+
+        drawFromGroup(surface, drawn, frame, atX, atY, worldMagnify)
+        surface.globalAlpha = 1
+      }
+    })
+  })
+
+  world.plan.lights.forEach((light) => {
+    const brazier = store.group('dungeon/light/brazier')
+    const flames = store.group('dungeon/light/flames')
+
+    queue.push({
+      sortAt: light.spot.y,
+      paint: () => {
+        const atX = toScreenX(light.spot.x)
+        const atY = toScreenY(light.spot.y)
+        const flicker = 0.78 + Math.sin(now / 90) * 0.12 + Math.sin(now / 41) * 0.06
+
+        const pool = surface.createRadialGradient(atX, atY, 4, atX, atY, 150 * flicker)
+        pool.addColorStop(0, 'rgba(255,150,80,.32)')
+        pool.addColorStop(0.45, 'rgba(214,21,78,.14)')
+        pool.addColorStop(1, 'rgba(139,11,46,0)')
+        surface.fillStyle = pool
+        surface.fillRect(atX - 160, atY - 160, 320, 320)
+
+        if (brazier) {
+          drawFromGroup(surface, brazier, light.frame, atX, atY, worldMagnify)
+        }
+        if (flames) {
+          surface.save()
+          surface.globalAlpha = 0.85
+          surface.globalCompositeOperation = 'lighter'
+          drawFromGroup(surface, flames, light.frame, atX, atY - 26, worldMagnify * 0.5)
+          surface.restore()
+        }
+      }
     })
   })
 
@@ -94,7 +145,9 @@ export function paintWorld(
     if (drop.taken) {
       return
     }
-    const drawn = store.group(`dungeon/loot/${drop.kind}`)
+    const drawn = store.group(
+      drop.kind === 'gem' ? `dungeon/loot/gem-${drop.grade ?? 'white'}` : 'dungeon/loot/coins'
+    )
     if (!drawn) {
       return
     }
@@ -104,7 +157,7 @@ export function paintWorld(
       paint: () => {
         const atX = toScreenX(drop.spot.x)
         const atY = toScreenY(drop.spot.y)
-        const glow = drop.kind === 'gem' ? '74,127,193' : '201,162,39'
+        const glow = drop.kind === 'gem' ? glowOf(drop.grade) : '201,162,39'
 
         const beam = surface.createLinearGradient(atX, atY - 96, atX, atY)
         beam.addColorStop(0, `rgba(${glow},0)`)
