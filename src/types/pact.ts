@@ -5,11 +5,13 @@ export type OfferState = 'open' | 'rich' | 'shut' | 'claimed'
 export interface Offer {
   id: string
   patronAddress: string
+  patronName: string | null
   coinsStaked: number
   patronShare: number
   words: string
   needsGrade: StandingGrade
   claimed: boolean
+  reckoned: boolean
 }
 
 export interface Pact {
