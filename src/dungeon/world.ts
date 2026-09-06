@@ -1,5 +1,6 @@
 import type { FloorPlan, Loot, Spot, StandingProp } from '../types/dungeon'
 import type { Fighter, Wound } from '../types/fighter'
+import type { RaiderClass } from '../types/raider'
 import { apart, blowLandsOnFrame, framesPerSecond, isDown, makeFighter } from './fighters'
 import { facingFrom } from './facing'
 import { planFloor } from './floorPlan'
@@ -19,6 +20,7 @@ const smashedWithin = 76
 export interface WorldOrder {
   seed: string
   floor: number
+  chosenClass: RaiderClass
 }
 
 export interface World {
@@ -38,7 +40,7 @@ export interface World {
 export function openWorld(order: WorldOrder): World {
   const plan = planFloor(order.seed, order.floor)
 
-  const you = makeFighter('you', plan.startSpot)
+  const you = makeFighter(order.chosenClass, plan.startSpot)
 
   const enemies = plan.enemySpots.map((waiting) => {
     const breed = breeds[waiting.breed]
@@ -104,6 +106,10 @@ function stepToward(fighter: Fighter, plan: FloorPlan, alongX: number, alongY: n
   fighter.facing = facingFrom(alongX, alongY)
 }
 
+function isYours(fighter: Fighter): boolean {
+  return fighter.breed === null
+}
+
 function windOn(fighter: Fighter, seconds: number, now: number): void {
   fighter.frameOwed += seconds
 
@@ -124,7 +130,7 @@ function windOn(fighter: Fighter, seconds: number, now: number): void {
       fighter.move = 'walk'
       fighter.frame = 0
       fighter.blowLanded = false
-      fighter.restingUntil = now + (fighter.kind === 'you' ? youRestBetweenBlows : restBetweenBlows)
+      fighter.restingUntil = now + (isYours(fighter) ? youRestBetweenBlows : restBetweenBlows)
       continue
     }
 
@@ -142,7 +148,7 @@ function landBlow(world: World, striker: Fighter, now: number): void {
 
   striker.blowLanded = true
 
-  if (striker.kind === 'you') {
+  if (isYours(striker)) {
     world.plan.props.forEach((prop: StandingProp) => {
       if (!prop.breakable || prop.broken) {
         return
