@@ -5,7 +5,9 @@ import { drawAlcove, drawChampion } from './marks'
 import '../styles/plinth.css'
 
 const everyClass: RaiderClass[] = ['warrior', 'knight', 'fighter']
-const championStands = 196
+const shortestChampion = 132
+const tallestChampion = 248
+const roomBelowTheFeet = 34
 
 export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
   const plinth = document.createElement('div')
@@ -48,12 +50,23 @@ export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
   const listeners = new Set<(chosen: RaiderClass) => void>()
   let showing = startingClass
 
+  function howTallHeMayStand(): number {
+    const room = stage.clientHeight - roomBelowTheFeet
+    if (room <= 0) {
+      return shortestChampion
+    }
+    return Math.max(shortestChampion, Math.min(tallestChampion, Math.round(room)))
+  }
+
   function paint(): void {
     const kit = champions[showing]
     name.textContent = kit.said
     line.textContent = kit.line
-    figure.replaceChildren(drawChampion(showing, championStands))
+    figure.replaceChildren(drawChampion(showing, howTallHeMayStand()))
   }
+
+  const watchTheStage = new ResizeObserver(() => paint())
+  watchTheStage.observe(stage)
 
   function stepBy(move: number): void {
     const at = everyClass.indexOf(showing)
@@ -87,6 +100,7 @@ export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
     },
 
     teardown(): void {
+      watchTheStage.disconnect()
       listeners.clear()
       plinth.remove()
     }
