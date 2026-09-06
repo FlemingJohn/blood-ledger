@@ -1,7 +1,5 @@
 .rail__block {
-  border: 1px solid var(--emberwood);
-  background: rgba(22, 6, 12, 0.62);
-  padding: 10px 13px 12px;
+  padding: 11px 14px 13px;
 }
 
 .rail__block .panel__label {
@@ -14,9 +12,7 @@
 .powers {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--emberwood);
-  border: 1px solid var(--emberwood);
+  gap: 4px;
 }
 
 .powers__slot {
@@ -25,7 +21,6 @@
   align-items: center;
   gap: 2px;
   padding: 9px 6px 8px;
-  background: rgba(10, 3, 7, 0.72);
   text-align: center;
 }
 
