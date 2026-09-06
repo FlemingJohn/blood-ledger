@@ -12,6 +12,11 @@
   --bone: #e0d5c4;
   --ash: #7d6a70;
 
+  --rule: #2c0d16;
+  --ruleDeep: #1b0a10;
+  --ruleLit: rgba(120, 60, 72, 0.28);
+  --ruleWarm: #2c1208;
+
   --carved: Nosifer, Cinzel, 'Trajan Pro', Georgia, serif;
   --chiselled: Cinzel, 'Trajan Pro', Georgia, serif;
   --spoken: 'Crimson Pro', Georgia, 'Times New Roman', serif;
