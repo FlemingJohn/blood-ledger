@@ -72,3 +72,79 @@ export function drawMark(order: MarkOrder): SVGSVGElement {
 
   return mark
 }
+
+const highestStanding = 1000
+
+export interface SigilOrder {
+  score: number
+  size?: number
+}
+
+/**
+ * The standing sigil: a ring that fills as a raider is trusted, with the
+ * number cut into the middle of it. Drawn rather than written, because a
+ * number in a row of numbers is a metric and this is meant to be a rank.
+ */
+export function drawSigil(order: SigilOrder): SVGSVGElement {
+  const size = order.size ?? 74
+  const middle = 50
+  const radius = 40
+  const wholeWayRound = 2 * Math.PI * radius
+  const filled = Math.max(0, Math.min(1, order.score / highestStanding))
+
+  const sigil = document.createElementNS(drawnIn, 'svg')
+  sigil.setAttribute('viewBox', '0 0 100 100')
+  sigil.setAttribute('width', String(size))
+  sigil.setAttribute('height', String(size))
+  sigil.setAttribute('class', 'sigil')
+  sigil.setAttribute('aria-hidden', 'true')
+
+  const behind = document.createElementNS(drawnIn, 'circle')
+  behind.setAttribute('cx', String(middle))
+  behind.setAttribute('cy', String(middle))
+  behind.setAttribute('r', String(radius))
+  behind.setAttribute('fill', 'none')
+  behind.setAttribute('stroke', 'currentColor')
+  behind.setAttribute('stroke-width', '5')
+  behind.setAttribute('class', 'sigil__behind')
+
+  const ahead = document.createElementNS(drawnIn, 'circle')
+  ahead.setAttribute('cx', String(middle))
+  ahead.setAttribute('cy', String(middle))
+  ahead.setAttribute('r', String(radius))
+  ahead.setAttribute('fill', 'none')
+  ahead.setAttribute('stroke', 'currentColor')
+  ahead.setAttribute('stroke-width', '5')
+  ahead.setAttribute('stroke-linecap', 'butt')
+  ahead.setAttribute('stroke-dasharray', `${wholeWayRound * filled} ${wholeWayRound}`)
+  ahead.setAttribute('transform', `rotate(-90 ${middle} ${middle})`)
+  ahead.setAttribute('class', 'sigil__ahead')
+
+  const notches = document.createElementNS(drawnIn, 'g')
+  notches.setAttribute('class', 'sigil__notches')
+
+  for (let notch = 0; notch < 12; notch += 1) {
+    const at = (notch / 12) * Math.PI * 2 - Math.PI / 2
+    const from = radius + 5
+    const to = radius + 9
+    const line = document.createElementNS(drawnIn, 'line')
+    line.setAttribute('x1', String(middle + Math.cos(at) * from))
+    line.setAttribute('y1', String(middle + Math.sin(at) * from))
+    line.setAttribute('x2', String(middle + Math.cos(at) * to))
+    line.setAttribute('y2', String(middle + Math.sin(at) * to))
+    line.setAttribute('stroke', 'currentColor')
+    line.setAttribute('stroke-width', '1.4')
+    notches.append(line)
+  }
+
+  const said = document.createElementNS(drawnIn, 'text')
+  said.setAttribute('x', String(middle))
+  said.setAttribute('y', String(middle))
+  said.setAttribute('text-anchor', 'middle')
+  said.setAttribute('dominant-baseline', 'central')
+  said.setAttribute('class', 'sigil__score')
+  said.textContent = String(order.score)
+
+  sigil.append(notches, behind, ahead, said)
+  return sigil
+}
