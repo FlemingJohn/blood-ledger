@@ -33,9 +33,13 @@
 
 .offer__line {
   display: grid;
-  grid-template-columns: 84px minmax(0, 1fr) 46px 92px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'who share'
+    'stake stake'
+    'take take';
   align-items: center;
-  gap: 12px;
+  gap: 8px 10px;
 }
 
 .offer__who {
@@ -46,6 +50,7 @@
 }
 
 .offer__stake {
+  grid-area: stake;
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -67,6 +72,7 @@
 }
 
 .offer__share {
+  grid-area: share;
   font-family: var(--counted);
   font-size: 0.72rem;
   color: var(--ash);
@@ -76,8 +82,10 @@
 }
 
 .offer__accept {
+  grid-area: take;
   position: relative;
-  padding: 8px 10px;
+  width: 100%;
+  padding: 9px 10px;
   border: 1px solid var(--ember);
   background: transparent;
   color: var(--ember);
@@ -117,8 +125,9 @@
 }
 
 .offer__barred {
+  grid-area: take;
   margin: 0;
-  padding: 8px 10px;
+  padding: 9px 10px;
   border: 1px dashed var(--emberwood);
   font-family: var(--counted);
   font-size: 0.6rem;
@@ -164,16 +173,7 @@
   display: none;
 }
 
-@media (max-width: 560px) {
-  .offer__line {
-    grid-template-columns: minmax(0, 1fr) auto;
-    row-gap: 8px;
-  }
 
-  .offer__share {
-    text-align: left;
-  }
-}
 
 .offer--reckoned {
   border-color: #2c1208;
