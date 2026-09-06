@@ -1,6 +1,7 @@
 import type { DescentPart } from '../types/parts'
 import { bladeSweep } from '../art/paths'
 import { loadPicture } from '../art/pictures'
+import '../styles/door.css'
 
 export function buildDescent(): DescentPart {
   const way = document.createElement('div')
