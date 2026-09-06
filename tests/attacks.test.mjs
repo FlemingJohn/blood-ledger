@@ -93,6 +93,55 @@ console.log(`  a ring must run ${pairsNeeded} pairs, ${spentAfter} pacts each,`)
 console.log(`  at ${smallestStake} ETH a time: ${costToFarmTheTop.toFixed(3)} ETH of real coin,`)
 console.log('  every wallet visible on chain, before it can reach the top of the board.')
 
+console.log('\nthe bond falls away as standing rises\n')
+
+/** The same ladder TheLedger.bondShareFor walks. */
+function bondShareAt(score) {
+  if (score >= 900) return 0
+  if (score >= 750) return 10
+  if (score >= 600) return 30
+  if (score >= 450) return 60
+  if (score >= 300) return 80
+  return 100
+}
+
+const fullBond = 0.1
+
+for (const [score, grade, want] of [
+  [240, 'F', 100],
+  [380, 'D', 80],
+  [500, 'C', 60],
+  [640, 'B', 30],
+  [780, 'B+', 10],
+  [940, 'A', 0]
+]) {
+  const share = bondShareAt(score)
+  checks += 1
+  if (share !== want) {
+    failures += 1
+    console.log(`  FAIL standing ${score} posts ${share}%, want ${want}%`)
+  } else {
+    console.log(
+      `  ok   standing ${String(score).padEnd(4)} grade ${grade.padEnd(2)} posts ${String(share).padStart(3)}%  = ${(fullBond * share / 100).toFixed(3)} tCTC`
+    )
+  }
+}
+
+console.log('\ngriefing a rival patron now costs something\n')
+
+const freshWallet = bondShareAt(500) / 100 * fullBond
+is('a fresh wallet must lock up', freshWallet, 0.06)
+is('and loses it by dying', freshWallet > 0, true)
+
+const provenRaider = bondShareAt(940) / 100 * fullBond
+is('a proven raider locks up nothing', provenRaider, 0)
+
+console.log('')
+console.log(`  a rival wanting to throw raids pays ${freshWallet} tCTC each time,`)
+console.log('  and the patron they cost is paid out of it.')
+console.log('  a raider everyone already trusts pays nothing, because')
+console.log('  their standing is the collateral.')
+
 console.log('')
 console.log(`${checks - failures} of ${checks} checks passed`)
 
