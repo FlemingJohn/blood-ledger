@@ -291,6 +291,40 @@ export function planFloor(seed: string, floor: number): FloorPlan {
     })
   }
 
+  if (floor === 1 && firstChamber) {
+    const showFirst = [
+      { atAcross: start.across + 2, atDown: start.down },
+      { atAcross: start.across, atDown: start.down + 1 },
+      { atAcross: start.across + 1, atDown: start.down + 2 }
+    ]
+
+    const barrelAt = showFirst[0]
+    if (barrelAt && isWalkable(barrelAt.atAcross, barrelAt.atDown) && claim(barrelAt)) {
+      props.push(standing('barrel', middleOfTile(barrelAt.atAcross, barrelAt.atDown)))
+    }
+
+    const gemAt = showFirst[1]
+    if (gemAt && isWalkable(gemAt.atAcross, gemAt.atDown) && claim(gemAt)) {
+      const grade = gradeFromRoll(rolls.next())
+      loot.push({
+        kind: 'gem',
+        grade: grade.grade,
+        spot: middleOfTile(gemAt.atAcross, gemAt.atDown),
+        worth: Math.round(grade.worth * 1.1),
+        taken: false,
+        bornAt: 0
+      })
+    }
+
+    const skeletonAt = showFirst[2]
+    if (skeletonAt && isWalkable(skeletonAt.atAcross, skeletonAt.atDown) && claim(skeletonAt)) {
+      enemySpots.push({
+        breed: 'skeleton',
+        spot: middleOfTile(skeletonAt.atAcross, skeletonAt.atDown)
+      })
+    }
+  }
+
   const bossMiddle = lastChamber ? middleOf(lastChamber) : start
 
   return {
