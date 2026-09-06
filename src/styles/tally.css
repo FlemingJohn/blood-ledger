@@ -151,10 +151,22 @@
 
 .tally__who {
   margin: 0;
+  padding: 2px 0 0;
+  border: 0;
+  background: none;
   font-family: var(--counted);
   font-size: 0.58rem;
   letter-spacing: 0.1em;
   color: var(--ash);
+  cursor: var(--gauntlet, pointer);
+  border-bottom: 1px dotted transparent;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.tally__who:hover,
+.tally__who:focus-visible {
+  color: var(--ember);
+  border-bottom-color: var(--emberwood);
 }
 
 .tally__realm {
