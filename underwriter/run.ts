@@ -1,7 +1,7 @@
 import { config } from 'dotenv'
 
-import type { RaiderFacts } from './types'
-import { judge } from './judging'
+import type { RaiderFacts } from '../src/types/underwriting'
+import { judge } from '../src/chain/underwriting'
 import { putItInWords } from './explain'
 import { handleFor } from './masking'
 
