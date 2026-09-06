@@ -1,10 +1,3 @@
-/**
- * The only shape the model is allowed to answer in.
- *
- * Nothing here can change a decision. There is no field for a verdict, a share,
- * or an amount, because those are settled before the model is asked anything.
- * It writes two sentences and nothing else.
- */
 export const wordsSchema = {
   type: 'object',
   additionalProperties: false,
