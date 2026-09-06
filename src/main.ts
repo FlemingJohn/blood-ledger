@@ -1,6 +1,7 @@
 import './styles/theme.css'
 import type { Part } from './types/parts'
 import type { Pact } from './types/pact'
+import type { RaiderClass } from './types/raider'
 import { keepPurse } from './chain/purse'
 import { buildLanding } from './pages/landing'
 import { buildHall } from './pages/hall'
@@ -66,18 +67,19 @@ function showHall(address: string): void {
     'hall',
     buildHall({
       address,
-      whenDescending(pact) {
-        showDescent(pact)
+      whenDescending(pact, chosenClass) {
+        showDescent(pact, chosenClass)
       }
     })
   )
 }
 
-function showDescent(pact: Pact): void {
+function showDescent(pact: Pact, chosenClass: RaiderClass): void {
   show(
     'descent',
     buildDescent({
       pact,
+      chosenClass,
       standing: 720,
       seed: madeUpSeed(),
       whenSettled() {
