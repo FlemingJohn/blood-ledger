@@ -106,3 +106,40 @@ export function paintChampion(who: RaiderClass, tall: number): HTMLCanvasElement
 
   return board
 }
+
+const bustLeft = 38
+const bustTop = 6
+const bustWide = 124
+const bustTall = 100
+
+export function paintBust(who: RaiderClass, size: number): HTMLCanvasElement {
+  const board = document.createElement('canvas')
+  board.className = 'bust__face'
+  board.setAttribute('role', 'img')
+  board.setAttribute('aria-label', champions[who].said)
+
+  const density = Math.min(3, Math.max(1, Math.round(window.devicePixelRatio || 1)))
+  const wide = size * density
+
+  board.width = wide
+  board.height = wide
+  board.style.width = `${size}px`
+  board.style.height = `${size}px`
+
+  const paint = board.getContext('2d')
+  if (!paint) {
+    return board
+  }
+
+  const scale = wide / bustWide
+  const spare = (wide - bustTall * scale) / 2
+
+  paint.setTransform(scale, 0, 0, scale, -bustLeft * scale, -bustTop * scale + spare)
+
+  champions[who].parts.forEach((part) => {
+    paint.fillStyle = bandFor(paint, part.fill)
+    paint.fill(new Path2D(part.d))
+  })
+
+  return board
+}
