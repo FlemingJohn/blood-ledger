@@ -13,7 +13,7 @@ import { dressTheHall } from '../parts/hallDressing'
 
 import { readSeekers } from '../chain/seekers'
 import { stakeOnARaider } from '../chain/patronVault'
-import { readRaider } from '../chain/theLedger'
+import { gradeReaches, readOffers, readRaider } from '../chain/theLedger'
 import '../styles/hallMarks.css'
 import '../styles/patron.css'
 
@@ -29,13 +29,42 @@ export function buildPatronTable(order: PatronTableOrder): Part {
 
   const dressing = dressTheHall('working')
 
-  const tally = hangTheTally(readRaider(order.address))
+  const youAsRaider = readRaider(order.address)
+  const tally = hangTheTally(youAsRaider)
   const profile = openTheProfile()
 
   tally.whenNameAsked(() => profile.showProfile(readProfile(order.address)))
 
+  const offersOpenToYou = readOffers(youAsRaider).filter(
+    (offer) => !offer.claimed && gradeReaches(youAsRaider.standing.grade, offer.needsGrade)
+  ).length
+  const seekingCoin = readSeekers().filter(
+    (seeker) => seeker.raider.address.toLowerCase() !== order.address.toLowerCase()
+  ).length
+
   const roleSwitch = hangTheRoleSwitch()
   roleSwitch.showRole('patron')
+
+  function tellTheSeats(): void {
+    roleSwitch.showSeats({
+      patron: {
+        count: seekingCoin,
+        why: seekingCoin > 0
+          ? `You are here. ${seekingCoin} raiders want coin.`
+          : 'No one is asking for coin.',
+        state: 'here'
+      },
+      raider: {
+        count: offersOpenToYou,
+        why: offersOpenToYou > 0
+          ? `${offersOpenToYou} ${offersOpenToYou === 1 ? 'patron' : 'patrons'} will fund you.`
+          : 'No offer reaches your standing yet.',
+        state: offersOpenToYou > 0 ? 'open' : 'quiet'
+      }
+    })
+  }
+
+  tellTheSeats()
   roleSwitch.whenAsked(order.whenRoleAsked)
 
   tally.middleSeat.append(roleSwitch.element)
