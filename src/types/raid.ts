@@ -1,4 +1,5 @@
 import type { Pact } from './pact'
+import type { RaiderClass } from './raider'
 
 export type RaidEnding = 'walked out' | 'fell'
 
@@ -19,4 +20,5 @@ export interface RaidOrder {
   pact: Pact
   standing: number
   seed: string
+  chosenClass: RaiderClass
 }
