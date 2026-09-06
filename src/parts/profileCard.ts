@@ -2,23 +2,44 @@ import type { Deed, PatronRecord, Profile, RaiderRecord } from '../types/profile
 import type { ProfilePart } from '../types/parts'
 import { countCoins, shortAddress, signedCoins } from '../chain/addresses'
 import { titleFor } from '../chain/ranks'
-import { drawMark, drawSigil } from './marks'
+import { paintBust } from '../art/championPaint'
+import { champions } from '../art/champions'
+import { gradeFloors } from '../chain/theLedger'
+import { drawMark } from './marks'
 import '../styles/profile.css'
 
 const highestScore = 1000
 
-function readingRow(said: string, worth: string, tone: string): HTMLElement {
-  const line = document.createElement('p')
-  line.className = `profile__row profile__row--${tone}`
+function statBar(said: string, worth: string, filled: number, tone: string): HTMLElement {
+  const stat = document.createElement('div')
+  stat.className = 'profile__stat'
+
+  const top = document.createElement('div')
+  top.className = 'profile__statTop'
 
   const name = document.createElement('span')
   name.textContent = said
 
   const counted = document.createElement('b')
+  counted.className = `profile__statCount profile__statCount--${tone}`
   counted.textContent = worth
 
-  line.append(name, counted)
-  return line
+  top.append(name, counted)
+
+  const track = document.createElement('div')
+  track.className = 'meter profile__statBar'
+
+  const run = document.createElement('div')
+  run.className = `meter__filled meter__filled--${tone}`
+  run.style.width = `${Math.max(3, Math.min(100, filled))}%`
+  track.append(run)
+
+  stat.append(top, track)
+  return stat
+}
+
+function share(worth: number, most: number): number {
+  return most <= 0 ? 0 : (worth / most) * 100
 }
 
 function raiderColumn(record: RaiderRecord): HTMLElement {
@@ -32,10 +53,10 @@ function raiderColumn(record: RaiderRecord): HTMLElement {
 
   column.append(
     label,
-    readingRow('deepest floor', String(record.deepestFloor), 'plain'),
-    readingRow('best haul', countCoins(record.bestHaul), 'good'),
-    readingRow('coin kept', countCoins(record.coinKept), 'plain'),
-    readingRow('defaults', String(record.defaults), record.defaults > 0 ? 'bad' : 'plain')
+    statBar('deepest floor', `${record.deepestFloor} / 9`, share(record.deepestFloor, 9), 'good'),
+    statBar('best haul', countCoins(record.bestHaul), share(record.bestHaul, 2500), 'good'),
+    statBar('coin kept', countCoins(record.coinKept), share(record.coinKept, 6800), 'good'),
+    statBar('defaults', String(record.defaults), share(record.defaults, 9), record.defaults > 0 ? 'bad' : 'good')
   )
 
   return column
@@ -50,24 +71,36 @@ function patronColumn(record: PatronRecord): HTMLElement {
   label.append(drawMark({ name: 'scales', size: 11 }))
   label.append(document.createTextNode(' As Patron'))
 
+  const backed = Math.max(1, record.backed)
+
   column.append(
     label,
-    readingRow('backed', String(record.backed), 'plain'),
-    readingRow('returned', String(record.returned), 'good'),
-    readingRow('lost', String(record.lost), record.lost > 0 ? 'bad' : 'plain'),
-    readingRow('profit', signedCoins(record.profit), record.profit >= 0 ? 'good' : 'bad')
+    statBar('raiders backed', String(record.backed), share(record.backed, 10), 'good'),
+    statBar('returned alive', String(record.returned), share(record.returned, backed), 'good'),
+    statBar('lost', String(record.lost), share(record.lost, backed), record.lost > 0 ? 'bad' : 'good'),
+    statBar('profit', signedCoins(record.profit), share(Math.abs(record.profit), 2400), record.profit >= 0 ? 'good' : 'bad')
   )
 
   return column
+}
+
+function markFor(deed: Deed): SVGSVGElement {
+  if (deed.side === 'patron') {
+    return drawMark({ name: 'scales', size: 14 })
+  }
+  return drawMark({ name: deed.outcome === 'fell' ? 'skull' : 'blade', size: 14 })
+}
+
+function nextRungAbove(score: number): { grade: string; from: number } | null {
+  return gradeFloors.slice().reverse().find((step) => step.from > score) ?? null
 }
 
 function deedLine(deed: Deed): HTMLElement {
   const line = document.createElement('li')
   line.className = `profile__deed profile__deed--${deed.outcome === 'fell' ? 'fell' : 'lived'}`
 
-  const mark = document.createElement('span')
-  mark.className = 'profile__deedMark'
-  mark.textContent = deed.outcome === 'fell' ? 'x' : '+'
+  const mark = markFor(deed)
+  mark.classList.add('profile__deedMark')
 
   const said = document.createElement('span')
   said.className = 'profile__deedSaid'
@@ -125,11 +158,16 @@ export function openTheProfile(): ProfilePart {
   head.append(sigilSeat, naming, shut)
 
   const bar = document.createElement('div')
-  bar.className = 'meter'
+  bar.className = 'meter meter--notched'
 
   const filled = document.createElement('div')
   filled.className = 'meter__filled'
   bar.append(filled)
+
+  const rungs = document.createElement('div')
+  rungs.className = 'meter__rungs'
+  rungs.setAttribute('aria-hidden', 'true')
+  bar.append(rungs)
 
   const tally = document.createElement('p')
   tally.className = 'panel__tally profile__tally'
@@ -165,12 +203,41 @@ export function openTheProfile(): ProfilePart {
     element: shroud,
 
     showProfile(profile: Profile): void {
-      sigilSeat.replaceChildren(drawSigil({ score: profile.standing.score }))
+      sigilSeat.replaceChildren(paintBust(profile.chosenClass, 62))
 
       rank.textContent = titleFor(profile.standing.grade)
-      who.textContent = shortAddress(profile.address)
+
+      const above = nextRungAbove(profile.standing.score)
+
+      const grade = document.createElement('b')
+      grade.textContent = profile.standing.grade
+
+      const target = document.createElement('span')
+      target.textContent = above
+        ? `${profile.standing.score} / ${above.from} to ${above.grade}`
+        : `${profile.standing.score} — highest rank held`
+
+      who.replaceChildren(grade, target)
 
       filled.style.width = `${Math.min(100, (profile.standing.score / highestScore) * 100)}%`
+
+      rungs.replaceChildren()
+      gradeFloors
+        .slice()
+        .reverse()
+        .forEach((step) => {
+          if (step.from <= 0) {
+            return
+          }
+          const notch = document.createElement('u')
+          notch.className =
+            profile.standing.score >= step.from ? 'meter__notch meter__notch--past' : 'meter__notch'
+          notch.style.left = `${(step.from / highestScore) * 100}%`
+          rungs.append(notch)
+        })
+
+      const called = document.createElement('span')
+      called.textContent = champions[profile.chosenClass].said
 
       const raids = document.createElement('span')
       raids.textContent = `${profile.standing.raids} raids`
@@ -183,11 +250,7 @@ export function openTheProfile(): ProfilePart {
       lost.className = 'panel__bad'
       lost.textContent = `${profile.standing.lost} lost`
 
-      const grade = document.createElement('span')
-      grade.className = 'profile__grade'
-      grade.textContent = `${profile.standing.grade} ${profile.standing.score}`
-
-      tally.replaceChildren(grade, raids, repaid, lost)
+      tally.replaceChildren(called, raids, repaid, lost)
 
       columns.replaceChildren(raiderColumn(profile.asRaider), patronColumn(profile.asPatron))
 
