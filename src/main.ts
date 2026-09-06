@@ -10,7 +10,7 @@ import { armThePointer } from './parts/pointer'
 import type { PointerMood } from './types/pointer'
 import { everyPieceOfArt } from './art/paths'
 import { loadWhatYouCan } from './art/pictures'
-import { madeUpSeed } from './dungeon/seed'
+import { seedForTheDescent } from './chain/attestedSeed'
 
 type PageName = 'landing' | 'hall' | 'descent'
 
@@ -68,20 +68,22 @@ function showHall(address: string): void {
     buildHall({
       address,
       whenDescending(pact, chosenClass) {
-        showDescent(pact, chosenClass)
+        void showDescent(pact, chosenClass)
       }
     })
   )
 }
 
-function showDescent(pact: Pact, chosenClass: RaiderClass): void {
+async function showDescent(pact: Pact, chosenClass: RaiderClass): Promise<void> {
+  const seed = await seedForTheDescent()
+
   show(
     'descent',
     buildDescent({
       pact,
       chosenClass,
       standing: 720,
-      seed: madeUpSeed(),
+      seed,
       whenSettled() {
         if (heldAddress) {
           showHall(heldAddress)
