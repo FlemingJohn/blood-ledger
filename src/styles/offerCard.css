@@ -169,3 +169,29 @@
     text-align: left;
   }
 }
+
+.offer--reckoned {
+  background: rgba(30, 8, 16, 0.82);
+  box-shadow: inset 2px 0 0 var(--gold);
+}
+
+.offer--reckoned:hover {
+  background: rgba(44, 13, 22, 0.9);
+}
+
+.offer__who {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.offer--reckoned .offer__who {
+  color: var(--gold);
+}
+
+.offer--reckoned .offer__who b {
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.62rem;
+}
