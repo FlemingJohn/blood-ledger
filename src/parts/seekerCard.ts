@@ -14,7 +14,7 @@ export function layOutSeeker(
   isYou: boolean
 ): SeekerCardPart {
   const card = document.createElement('article')
-  card.className = `seeker${isYou ? ' seeker--yourself' : ''}`
+  card.className = `seeker framed${isYou ? ' seeker--yourself' : ''}`
 
   const line = document.createElement('div')
   line.className = 'seeker__line'
