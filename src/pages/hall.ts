@@ -15,7 +15,7 @@ import { unrollTheLedger } from '../parts/ledgerFeed'
 import { layOutPowers } from '../parts/powerSlots'
 import { showTheBond } from '../parts/bondSlip'
 import { readLedger, readOffers, readRaider, sealPact } from '../chain/theLedger'
-import { everyPieceOfHallArt, restOfTheRaiders } from '../art/paths'
+import { everyPieceOfHallArt } from '../art/paths'
 import { loadWhatYouCan } from '../art/pictures'
 import '../styles/hall.css'
 
@@ -105,11 +105,9 @@ export function buildHall(order: HallOrder): Part {
   plinth.whenClassChanged((chosen) => {
     chosenClass = chosen
     powers.showClass(chosen)
-    void loadWhatYouCan(restOfTheRaiders)
   })
 
   void loadWhatYouCan(everyPieceOfHallArt)
-  window.setTimeout(() => void loadWhatYouCan(restOfTheRaiders), 1200)
 
   return {
     element: hall,
