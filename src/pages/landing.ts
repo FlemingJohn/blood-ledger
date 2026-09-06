@@ -104,6 +104,23 @@ export function buildLanding(order: LandingOrder): Part {
     door.showStanding(reading.standing)
   })
 
+  function enterIfOpened(reading: PurseReading): void {
+    if (reading.standing === 'opened') {
+      order.whenHallOpens(reading)
+    }
+  }
+
+  async function openThenEnter(): Promise<void> {
+    const opened = await order.purse.open()
+
+    if (opened.standing === 'wrong realm') {
+      enterIfOpened(await order.purse.moveToWantedRealm())
+      return
+    }
+
+    enterIfOpened(opened)
+  }
+
   door.whenPushed(() => {
     const reading = order.purse.read()
 
@@ -112,17 +129,17 @@ export function buildLanding(order: LandingOrder): Part {
       return
     }
 
-    if (reading.standing === 'wrong realm') {
-      void order.purse.moveToWantedRealm()
-      return
-    }
-
     if (reading.standing === 'opened') {
       order.whenHallOpens(reading)
       return
     }
 
-    void order.purse.open()
+    if (reading.standing === 'wrong realm') {
+      void order.purse.moveToWantedRealm().then(enterIfOpened)
+      return
+    }
+
+    void openThenEnter()
   })
 
   return {
