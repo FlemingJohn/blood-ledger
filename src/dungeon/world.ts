@@ -24,6 +24,7 @@ export interface World {
   loot: Loot[]
   wounds: Wound[]
   coinsCarried: number
+  slain: number
   floor: number
   finished: 'still going' | 'fell' | 'walked out'
   killedBy: string | null
@@ -47,6 +48,7 @@ export function openWorld(order: WorldOrder): World {
     loot: plan.loot.map((drop) => ({ ...drop })),
     wounds: [],
     coinsCarried: 0,
+    slain: 0,
     floor: order.floor,
     finished: 'still going',
     killedBy: null
@@ -137,10 +139,12 @@ function landBlow(world: World, striker: Fighter, now: number): void {
         return
       }
       enemy.life -= striker.hurts
+      enemy.struckAt = now
       world.wounds.push({ spot: { ...enemy.spot }, amount: striker.hurts, bornAt: now })
       if (isDown(enemy)) {
         enemy.move = 'death'
         enemy.frame = 0
+        world.slain += 1
       }
     })
     return
@@ -148,6 +152,7 @@ function landBlow(world: World, striker: Fighter, now: number): void {
 
   if (apart(striker.spot, world.you.spot) <= striker.reach && !isDown(world.you)) {
     world.you.life -= striker.hurts
+    world.you.struckAt = now
     world.wounds.push({ spot: { ...world.you.spot }, amount: striker.hurts, bornAt: now })
     if (isDown(world.you)) {
       world.you.move = 'death'
