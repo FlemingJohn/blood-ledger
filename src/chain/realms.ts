@@ -2,6 +2,7 @@ import type { Realm } from '../types/realm'
 
 export const creditcoinTestnet: Realm = {
   name: 'Creditcoin CC3 Testnet',
+  shortName: 'CC3',
   chainNumber: 102031,
   rpcAddress: 'https://rpc.cc3-testnet.creditcoin.network',
   explorerAddress: 'https://creditcoin-testnet.blockscout.com',
@@ -12,6 +13,7 @@ export const creditcoinTestnet: Realm = {
 
 export const ethereumSepolia: Realm = {
   name: 'Ethereum Sepolia',
+  shortName: 'Sepolia',
   chainNumber: 11155111,
   rpcAddress: 'https://rpc.sepolia.org',
   explorerAddress: 'https://sepolia.etherscan.io',
