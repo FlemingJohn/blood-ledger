@@ -1,5 +1,6 @@
 import type { Part } from '../types/parts'
 import type { Standing } from '../types/raider'
+import { gradeFloors } from '../chain/theLedger'
 
 const highestScore = 1000
 
@@ -27,12 +28,45 @@ export function showStanding(standing: Standing): Part {
   head.append(label, reading)
 
   const bar = document.createElement('div')
-  bar.className = 'meter'
+  bar.className = 'meter meter--notched'
 
   const filled = document.createElement('div')
   filled.className = 'meter__filled'
   filled.style.width = `${Math.min(100, (standing.score / highestScore) * 100)}%`
   bar.append(filled)
+
+  const rungs = document.createElement('div')
+  rungs.className = 'meter__rungs'
+  rungs.setAttribute('aria-hidden', 'true')
+
+  gradeFloors
+    .slice()
+    .reverse()
+    .forEach((step) => {
+      if (step.from <= 0) {
+        return
+      }
+      const notch = document.createElement('u')
+      notch.className = standing.score >= step.from ? 'meter__notch meter__notch--past' : 'meter__notch'
+      notch.style.left = `${(step.from / highestScore) * 100}%`
+      rungs.append(notch)
+    })
+
+  bar.append(rungs)
+
+  const ladder = document.createElement('p')
+  ladder.className = 'meter__ladder'
+  ladder.setAttribute('aria-hidden', 'true')
+
+  gradeFloors
+    .slice()
+    .reverse()
+    .forEach((step) => {
+      const rung = document.createElement('span')
+      rung.textContent = step.grade
+      rung.className = standing.score >= step.from ? 'is-past' : ''
+      ladder.append(rung)
+    })
 
   const tally = document.createElement('p')
   tally.className = 'panel__tally'
@@ -50,7 +84,7 @@ export function showStanding(standing: Standing): Part {
 
   tally.append(raids, repaid, lost)
 
-  block.append(head, bar, tally)
+  block.append(head, bar, ladder, tally)
 
   return {
     element: block,
