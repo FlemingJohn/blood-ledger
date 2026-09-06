@@ -143,11 +143,6 @@ export function readRaider(address: string): Raider {
 
 export const underwriterAddress = madeUpAddress('01A1', 'AE')
 
-/**
- * What the Underwriter would put up for this raider, worked out the same way
- * the standalone one does. It sits on the board as one more patron, and its
- * terms move with the standing it can see rather than being written down.
- */
 function offerFromTheUnderwriter(raider: Raider): Offer | null {
   const facts: RaiderFacts = {
     handle: 'this raider',
