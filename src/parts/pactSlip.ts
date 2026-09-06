@@ -1,7 +1,7 @@
 import type { Pact } from '../types/pact'
 import type { Part } from '../types/parts'
 import { countCoins, shortAddress } from '../chain/addresses'
-import { drawWaxSeal } from './hallMarks'
+import { drawEmptyHook, drawWaxSeal } from './hallMarks'
 
 export interface PactSlipPart extends Part {
   showPact(pact: Pact | null): void
@@ -35,7 +35,14 @@ export function pinUpThePact(): PactSlipPart {
   function showNone(): void {
     seal.setAttribute('hidden', 'true')
     who.replaceChildren()
-    body.replaceChildren(document.createTextNode('None yet. Take an offer to go down.'))
+
+    const hook = drawEmptyHook()
+    hook.classList.add('panel__hook')
+
+    const said = document.createElement('span')
+    said.textContent = 'None yet. Take an offer to go down.'
+
+    body.replaceChildren(hook, said)
     body.className = 'panel__empty'
   }
 
