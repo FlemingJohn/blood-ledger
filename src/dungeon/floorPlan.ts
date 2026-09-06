@@ -1,5 +1,6 @@
 import type { Chamber, FloorPlan, PropKind, Spot, StandingProp } from '../types/dungeon'
 import { rollsFromSeed, type Rolls } from './seed'
+import { pickBreed } from './breeds'
 
 const tileSize = 72
 
@@ -208,7 +209,7 @@ export function planFloor(seed: string, floor: number): FloorPlan {
       continue
     }
     enemySpots.push({
-      kind: rolls.chance(0.65) ? 'skeleton' : 'slime',
+      breed: pickBreed(floor, rolls).name,
       spot: middleOfTile(tile.atAcross, tile.atDown)
     })
   }
