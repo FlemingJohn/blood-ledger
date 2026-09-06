@@ -1,6 +1,7 @@
 import type { PurseStanding } from './purse'
 import type { RaiderClass } from './raider'
 import type { Offer, OfferState, SealingProgress } from './pact'
+import type { Profile } from './profile'
 
 export interface Part {
   element: HTMLElement
@@ -38,4 +39,10 @@ export interface SealingRitePart extends Part {
   showProgress(progress: SealingProgress): void
   open(): void
   close(): void
+}
+
+export interface ProfilePart extends Part {
+  showProfile(profile: Profile): void
+  closeProfile(): void
+  whenClosed(listener: () => void): void
 }
