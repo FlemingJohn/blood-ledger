@@ -32,7 +32,7 @@ function madeUpAddress(head: string, tail: string): string {
 }
 
 const standInStanding: Standing = {
-  score: 720,
+  score: 780,
   grade: 'B+',
   raids: 12,
   repaid: 9,
