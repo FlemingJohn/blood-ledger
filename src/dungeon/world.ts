@@ -460,7 +460,6 @@ export function everyoneStanding(world: World): boolean {
 
 const gemsWorstFirst: GemGrade[] = ['white', 'green', 'blue', 'red']
 
-/** What the raid held that this raider never touched. */
 export function whatWasLeftBehind(world: World): LeftBehind {
   const untaken = world.loot.filter((drop) => !drop.taken)
 
