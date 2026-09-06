@@ -129,7 +129,7 @@
   grid-area: take;
   margin: 0;
   padding: 7px 4px;
-  border: 1px dashed var(--emberwood);
+  border: 1px dashed var(--rule);
   font-family: var(--counted);
   font-size: 0.6rem;
   letter-spacing: 0.14em;
@@ -171,7 +171,7 @@
 
 
 .offer--reckoned {
-  border-color: #2c1208;
+  border-color: var(--ruleWarm);
 }
 
 .offer__who {
