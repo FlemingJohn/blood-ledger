@@ -4,13 +4,6 @@ const standingFloor = 300
 const mostAPatronMayKeep = 80
 const leastAPatronWillTake = 20
 
-/**
- * Everything below is arithmetic on facts that arrived proved.
- *
- * No model is asked anything here. The same facts give the same verdict every
- * time, and each refusal names the reason it was refused, so a raider who is
- * turned down can be told exactly what to mend.
- */
 export function judge(facts: RaiderFacts, purse: PurseLimits): Decision {
   const flags: Flag[] = []
   const reasons: string[] = []
