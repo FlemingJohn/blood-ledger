@@ -16,7 +16,7 @@ export interface StakeSlipPart extends Part {
 
 export function fillOutAStake(): StakeSlipPart {
   const slip = document.createElement('form')
-  slip.className = 'stake'
+  slip.className = 'stake framed'
 
   function field(label: string, hint: string, control: HTMLElement): HTMLElement {
     const row = document.createElement('label')
