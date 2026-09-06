@@ -11,7 +11,7 @@
 
 .reckoning__slab {
   width: min(420px, 100%);
-  border: 1px solid var(--emberwood);
+  border: 1px solid var(--rule);
   background: rgba(22, 6, 12, 0.97);
   padding: var(--rest);
 }
@@ -57,8 +57,8 @@
   flex-direction: column;
   gap: 7px;
   padding: var(--pause) 0;
-  border-top: 1px solid var(--emberwood);
-  border-bottom: 1px solid var(--emberwood);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
 }
 
 .reckoning__row {
@@ -99,7 +99,7 @@
 .reckoning__missed {
   margin: var(--pause) 0 0;
   padding-top: var(--pause);
-  border-top: 1px solid var(--emberwood);
+  border-top: 1px solid var(--rule);
 }
 
 .reckoning__missedLabel {
