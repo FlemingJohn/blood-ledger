@@ -3,6 +3,7 @@ import type { StakeYouMade, WhatYouOffer } from '../types/patron'
 import { lookUpStake, mostAPatronMayKeep, vaultIsDeployed } from '../chain/patronVault'
 import { shortAddress } from '../chain/addresses'
 import { drawMark } from './marks'
+import '../styles/door.css'
 import '../styles/patron.css'
 
 export interface StakeSlipPart extends Part {
