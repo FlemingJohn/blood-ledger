@@ -6,6 +6,7 @@ import { shortSeed } from '../dungeon/seed'
 export interface PressureBarPart extends Part {
   showFloor(floor: number): void
   showCoins(carried: number, owed: number): void
+  showSlain(slain: number): void
 }
 
 export function hangThePressureBar(seed: string): PressureBarPart {
@@ -14,6 +15,9 @@ export function hangThePressureBar(seed: string): PressureBarPart {
 
   const floorMark = document.createElement('span')
   floorMark.className = 'pressure__floor'
+
+  const slainMark = document.createElement('span')
+  slainMark.className = 'pressure__slain'
 
   const purse = document.createElement('span')
   purse.className = 'pressure__purse'
@@ -32,13 +36,17 @@ export function hangThePressureBar(seed: string): PressureBarPart {
   proof.textContent = `seed ${shortSeed(seed)}`
   proof.title = 'The floor was rolled from this Ethereum block. Open it and check.'
 
-  bar.append(floorMark, purse, proof)
+  bar.append(floorMark, slainMark, purse, proof)
 
   return {
     element: bar,
 
     showFloor(floor: number): void {
       floorMark.textContent = `Floor ${floor}`
+    },
+
+    showSlain(slain: number): void {
+      slainMark.textContent = `${slain} slain`
     },
 
     showCoins(carriedNow: number, owedNow: number): void {
