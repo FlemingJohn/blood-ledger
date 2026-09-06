@@ -1,4 +1,5 @@
 import './styles/theme.css'
+import './styles/marks.css'
 import type { Part } from './types/parts'
 import type { Pact } from './types/pact'
 import type { RaiderClass } from './types/raider'
@@ -6,13 +7,16 @@ import { keepPurse } from './chain/purse'
 import { buildLanding } from './pages/landing'
 import { buildHall } from './pages/hall'
 import { buildDescent } from './pages/descent'
+import { buildPatronTable } from './pages/patronTable'
 import { armThePointer } from './parts/pointer'
 import type { PointerMood } from './types/pointer'
 import { everyPieceOfArt } from './art/paths'
 import { loadWhatYouCan } from './art/pictures'
+import type { Role } from './types/role'
 import { seedForTheDescent } from './chain/attestedSeed'
+import { homeRealm, realmWherePatronsPay } from './chain/realms'
 
-type PageName = 'landing' | 'hall' | 'descent'
+type PageName = 'landing' | 'hall' | 'descent' | 'patron'
 
 function findStage(): HTMLDivElement {
   const found = document.querySelector<HTMLDivElement>('#game')
@@ -24,13 +28,16 @@ function findStage(): HTMLDivElement {
 
 const stage = findStage()
 
-const purse = keepPurse()
+const raiderPurse = keepPurse(homeRealm)
+const patronPurse = keepPurse(realmWherePatronsPay)
+
 const hand = armThePointer()
 
 const moodForPage: Record<PageName, PointerMood> = {
   landing: 'resting',
   hall: 'patron',
-  descent: 'enemy'
+  descent: 'enemy',
+  patron: 'loot'
 }
 
 let showing: Part | null = null
@@ -51,7 +58,7 @@ function showLanding(): void {
   show(
     'landing',
     buildLanding({
-      purse,
+      purse: raiderPurse,
       whenHallOpens(reading) {
         if (reading.address) {
           heldAddress = reading.address
@@ -67,8 +74,49 @@ function showHall(address: string): void {
     'hall',
     buildHall({
       address,
+      whenRoleAsked(role) {
+        void goToRole(role)
+      },
       whenDescending(pact, chosenClass) {
         void showDescent(pact, chosenClass)
+      }
+    })
+  )
+}
+
+async function goToRole(role: Role): Promise<void> {
+  if (role === 'raider') {
+    const reading =
+      raiderPurse.read().standing === 'opened'
+        ? raiderPurse.read()
+        : await raiderPurse.moveToWantedRealm()
+
+    if (reading.address) {
+      heldAddress = reading.address
+      showHall(reading.address)
+    }
+    return
+  }
+
+  const opened =
+    patronPurse.read().standing === 'opened' ? patronPurse.read() : await patronPurse.open()
+
+  const reading =
+    opened.standing === 'opened' ? opened : await patronPurse.moveToWantedRealm()
+
+  if (reading.address) {
+    showPatronTable(reading.address)
+  }
+}
+
+function showPatronTable(address: string): void {
+  show(
+    'patron',
+    buildPatronTable({
+      purse: patronPurse,
+      address,
+      whenRoleAsked(role) {
+        void goToRole(role)
       }
     })
   )
@@ -97,8 +145,8 @@ async function showDescent(pact: Pact, chosenClass: RaiderClass): Promise<void> 
 
 showLanding()
 
-purse.watch((reading) => {
-  if (showingName !== 'landing' && reading.standing !== 'opened') {
+raiderPurse.watch((reading) => {
+  if ((showingName === 'hall' || showingName === 'descent') && reading.standing !== 'opened') {
     showLanding()
   }
 })
