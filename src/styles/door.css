@@ -70,7 +70,7 @@
 
 .door:disabled {
   cursor: wait;
-  border-color: var(--emberwood);
+  border-color: var(--rule);
   color: var(--ash);
   animation: door-waiting 1.6s ease-in-out infinite;
 }
@@ -121,7 +121,7 @@
 @keyframes door-waiting {
   0%,
   100% {
-    border-color: var(--emberwood);
+    border-color: var(--rule);
   }
   50% {
     border-color: var(--ember);
