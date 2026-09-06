@@ -7,12 +7,14 @@ import { layOutSeeker } from '../parts/seekerCard'
 import { hangTheRoleSwitch } from '../parts/roleSwitch'
 import { hangTheTally } from '../parts/tally'
 import { openTheProfile } from '../parts/profileCard'
+import { drawBinding, drawCoinStack, drawScales } from '../parts/hallMarks'
 import { readProfile } from '../chain/profiles'
 import { dressTheHall } from '../parts/hallDressing'
 
 import { readSeekers } from '../chain/seekers'
 import { stakeOnARaider } from '../chain/patronVault'
 import { readRaider } from '../chain/theLedger'
+import '../styles/hallMarks.css'
 import '../styles/patron.css'
 
 export interface PatronTableOrder {
@@ -61,7 +63,13 @@ export function buildPatronTable(order: PatronTableOrder): Part {
   const boardList = document.createElement('div')
   boardList.className = 'board__list'
 
-  board.append(boardHead, boardList)
+  const weighing = drawScales()
+  weighing.classList.add('board__scales')
+
+  const spine = drawBinding()
+  spine.classList.add('board__binding')
+
+  board.append(weighing, spine, boardHead, boardList)
 
   const seekers = readSeekers()
   let openToYou = 0
@@ -83,6 +91,10 @@ export function buildPatronTable(order: PatronTableOrder): Part {
   })
 
   boardCount.textContent = `${openToYou} you may back of ${seekers.length}`
+
+  const coins = drawCoinStack()
+  coins.classList.add('stake__coins')
+  slip.element.append(coins)
 
   body.append(slip.element, board)
   page.append(dressing.element, tally.element, body, profile.element)
