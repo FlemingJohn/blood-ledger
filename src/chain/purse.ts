@@ -99,6 +99,22 @@ export function keepPurse(wantedRealm: Realm = homeRealm): PurseKeeper {
     })
   }
 
+  async function noticeAlreadyOpen(): Promise<void> {
+    if (!purse) {
+      return
+    }
+
+    try {
+      const address = firstAddress(await purse.request({ method: 'eth_accounts' }))
+
+      if (address) {
+        settleStanding(address, await askForChainNumber())
+      }
+    } catch {
+      return
+    }
+  }
+
   if (purse) {
     purse.on('accountsChanged', (...payload: unknown[]) => {
       settleStanding(firstAddress(payload[0]), reading.chainNumber)
@@ -106,6 +122,7 @@ export function keepPurse(wantedRealm: Realm = homeRealm): PurseKeeper {
     purse.on('chainChanged', (...payload: unknown[]) => {
       settleStanding(reading.address, readChainNumber(payload[0]))
     })
+    void noticeAlreadyOpen()
   }
 
   return {
