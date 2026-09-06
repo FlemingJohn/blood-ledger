@@ -8,7 +8,12 @@
     "start": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "trim-art": "node scripts/trim-art.mjs"
+    "trim-art": "node scripts/trim-art.mjs",
+    "build-contracts": "node scripts/build-contracts.mjs",
+    "deploy-vault": "node scripts/deploy-contracts.mjs vault",
+    "deploy-ledger": "node scripts/deploy-contracts.mjs ledger",
+    "name-vault": "node scripts/deploy-contracts.mjs name-vault",
+    "worker": "tsx worker/watchTheVault.ts"
   },
   "dependencies": {
     "ethers": "^6.13.4",
@@ -18,8 +23,10 @@
     "@gluwa/asc-contracts": "^0.2.1",
     "@gluwa/usc-sdk": "^0.18.0",
     "@openzeppelin/contracts": "^5.4.0",
+    "dotenv": "^17.4.2",
     "pngjs": "^7.0.0",
     "solc": "^0.8.30",
+    "tsx": "^4.23.13",
     "typescript": "^5.6.3",
     "vite": "^5.4.11"
   }
