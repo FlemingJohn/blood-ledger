@@ -19,13 +19,6 @@
   padding: 12px var(--rest);
 }
 
-.tally__realm {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--ash);
-}
-
 .stake {
   display: flex;
   flex-direction: column;
