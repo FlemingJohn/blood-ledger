@@ -38,7 +38,7 @@
 .tally__line {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: var(--pause);
   width: min(1180px, 100%);
