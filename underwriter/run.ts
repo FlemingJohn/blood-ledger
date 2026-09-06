@@ -9,13 +9,6 @@ config()
 
 const mostPerRaider = Number(process.env.UNDERWRITER_MOST_PER_RAIDER ?? '0.05')
 
-/**
- * Raiders the Underwriter is looking at.
- *
- * Once the contracts are deployed these come from TheLedger and PatronVault,
- * every one of them proved. The shapes are the same either way, so only the
- * reading changes.
- */
 const lookingAt: { address: string; facts: Omit<RaiderFacts, 'handle'> }[] = [
   {
     address: '0x7a3f000000000000000000000000000000009c2e',
