@@ -1,5 +1,6 @@
 import type { Pact } from './pact'
 import type { RaiderClass } from './raider'
+import type { DungeonSeed } from './attestation'
 
 export type RaidEnding = 'walked out' | 'fell'
 
@@ -19,6 +20,6 @@ export interface Takings {
 export interface RaidOrder {
   pact: Pact
   standing: number
-  seed: string
+  seed: DungeonSeed
   chosenClass: RaiderClass
 }
