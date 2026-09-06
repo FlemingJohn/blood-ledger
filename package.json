@@ -14,9 +14,10 @@
     "deploy-ledger": "node scripts/deploy-contracts.mjs ledger",
     "name-vault": "node scripts/deploy-contracts.mjs name-vault",
     "worker": "tsx worker/watchTheVault.ts",
-    "test": "node tests/settlement.test.mjs && node tests/agreement.test.mjs",
+    "test": "node tests/settlement.test.mjs && node tests/agreement.test.mjs && node tests/attacks.test.mjs && node tests/underwriter.test.mjs",
     "test-testnet": "node tests/testnet.test.mjs",
-    "check-setup": "node scripts/check-setup.mjs"
+    "check-setup": "node scripts/check-setup.mjs",
+    "underwriter": "tsx underwriter/run.ts"
   },
   "dependencies": {
     "ethers": "^6.13.4",
