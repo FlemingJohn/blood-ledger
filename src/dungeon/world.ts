@@ -1,9 +1,11 @@
-import type { FloorPlan, Loot, Spot } from '../types/dungeon'
+import type { FloorPlan, Loot, Spot, StandingProp } from '../types/dungeon'
 import type { Fighter, Wound } from '../types/fighter'
 import { apart, blowLandsOnFrame, framesPerSecond, isDown, makeFighter } from './fighters'
 import { facingFrom } from './facing'
 import { planFloor } from './floorPlan'
 import { breeds } from './breeds'
+import { gradeFromRoll } from './gems'
+import { rollsFromSeed } from './seed'
 
 const framesInMove = { walk: 8, attack: 8, death: 8 }
 const slimeDeathFrames = 7
@@ -12,6 +14,7 @@ const enemyWakesWithin = 420
 const restBetweenBlows = 900
 const youRestBetweenBlows = 420
 const lootPickedUpWithin = 58
+const smashedWithin = 76
 
 export interface WorldOrder {
   seed: string
@@ -26,6 +29,7 @@ export interface World {
   wounds: Wound[]
   coinsCarried: number
   slain: number
+  smashed: number
   floor: number
   finished: 'still going' | 'fell' | 'walked out'
   killedBy: string | null
@@ -53,6 +57,7 @@ export function openWorld(order: WorldOrder): World {
     wounds: [],
     coinsCarried: 0,
     slain: 0,
+    smashed: 0,
     floor: order.floor,
     finished: 'still going',
     killedBy: null
@@ -138,6 +143,35 @@ function landBlow(world: World, striker: Fighter, now: number): void {
   striker.blowLanded = true
 
   if (striker.kind === 'you') {
+    world.plan.props.forEach((prop: StandingProp) => {
+      if (!prop.breakable || prop.broken) {
+        return
+      }
+      if (apart(striker.spot, prop.spot) > smashedWithin) {
+        return
+      }
+      prop.broken = true
+      prop.brokeAt = now
+      world.smashed += 1
+
+      const rolls = rollsFromSeed(`${world.floor}:${Math.round(prop.spot.x)}:${Math.round(prop.spot.y)}`)
+      if (!rolls.chance(0.55)) {
+        return
+      }
+      const isGem = rolls.chance(0.3)
+      const grade = isGem ? gradeFromRoll(rolls.next()) : null
+      world.loot.push({
+        kind: isGem ? 'gem' : 'coins',
+        grade: grade ? grade.grade : null,
+        spot: { x: prop.spot.x, y: prop.spot.y },
+        worth: grade
+          ? Math.round(grade.worth * (0.85 + world.floor * 0.25))
+          : Math.round(rolls.between(20, 60)) * world.floor,
+        taken: false,
+        bornAt: now
+      })
+    })
+
     world.enemies.forEach((enemy) => {
       if (isDown(enemy) || apart(striker.spot, enemy.spot) > striker.reach) {
         return
@@ -234,6 +268,10 @@ export function turnTheWorld(world: World, wanted: WhatYouWant, seconds: number,
       stepToward(enemy, world.plan, you.spot.x - enemy.spot.x, you.spot.y - enemy.spot.y, seconds)
       windOn(enemy, seconds, now)
     }
+  })
+
+  world.plan.lights.forEach((light) => {
+    light.frame = Math.floor(now / 110) % 8
   })
 
   world.loot.forEach((drop) => {
