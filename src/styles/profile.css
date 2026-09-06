@@ -27,7 +27,23 @@
 }
 
 .profile__sigil {
-  line-height: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 66px;
+  height: 66px;
+  border: 1px solid var(--rule);
+  background: radial-gradient(120% 100% at 50% 30%, #2a0c14, #0d0407);
+  clip-path: polygon(
+    9px 0,
+    calc(100% - 9px) 0,
+    100% 9px,
+    100% calc(100% - 9px),
+    calc(100% - 9px) 100%,
+    9px 100%,
+    0 calc(100% - 9px),
+    0 9px
+  );
 }
 
 .profile__naming {
@@ -45,11 +61,21 @@
 }
 
 .profile__who {
-  margin: 2px 0 0;
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  margin: 3px 0 0;
   font-family: var(--counted);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
   color: var(--ash);
+  font-variant-numeric: tabular-nums;
+}
+
+.profile__who b {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ember);
 }
 
 .profile__shut {
@@ -199,4 +225,61 @@
   .profile__deedWhen {
     display: none;
   }
+}
+
+.profile__stat {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 9px;
+}
+
+.profile__statTop {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  font-family: var(--counted);
+  font-size: 0.61rem;
+  letter-spacing: 0.04em;
+  color: var(--ash);
+}
+
+.profile__statCount {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--bone);
+  font-variant-numeric: tabular-nums;
+}
+
+.profile__statCount--good {
+  color: var(--gold);
+}
+
+.profile__statCount--bad {
+  color: var(--blood);
+}
+
+.profile__statBar {
+  height: 6px;
+}
+
+.profile .meter__filled--good {
+  background: linear-gradient(90deg, #8a6c1a, var(--gold));
+}
+
+.profile .meter__filled--bad {
+  background: linear-gradient(90deg, #5a0620, var(--blood));
+}
+
+.profile__deedMark {
+  width: 14px;
+  height: 14px;
+}
+
+.profile__deed--lived .profile__deedMark {
+  color: var(--gold);
+}
+
+.profile__deed--fell .profile__deedMark {
+  color: var(--blood);
 }
