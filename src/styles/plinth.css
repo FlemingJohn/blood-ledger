@@ -13,13 +13,14 @@
   width: 100%;
   min-height: 220px;
   padding-bottom: 14px;
+  transition: min-height 220ms ease;
 }
 
 .plinth__ring {
   position: absolute;
   left: 50%;
   bottom: 0;
-  width: 288px;
+  width: 230px;
   transform: translateX(-50%);
   opacity: 0.5;
   image-rendering: pixelated;
@@ -41,7 +42,7 @@
   position: absolute;
   left: 50%;
   bottom: -6px;
-  width: 176px;
+  width: var(--shadowWide, 150px);
   height: 30px;
   transform: translateX(-50%);
   background: radial-gradient(ellipse at center, rgba(4, 0, 2, 0.8), transparent 70%);
@@ -58,7 +59,7 @@
   display: grid;
   grid-template-columns: 44px minmax(0, 1fr) 44px;
   align-items: center;
-  justify-self: center;
+  align-self: center;
   min-width: 260px;
   border: 1px solid var(--emberwood);
   background: rgba(10, 3, 7, 0.6);
