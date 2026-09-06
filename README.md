@@ -156,9 +156,10 @@ names, and nothing is called a manager or a handler.
 | Page one, the landing | Built |
 | Page two, the hall of patrons | Built, reading worked examples |
 | Page three, the dungeon | Built, playable |
-| The contract on Ethereum | Not started |
-| The contract on Creditcoin | Not started |
-| The worker that carries proofs | Not started |
+| The contract on Ethereum | Written and compiling |
+| The contract on Creditcoin | Written and compiling |
+| The worker that carries proofs | Written |
+| Deployed to testnet | Not yet |
 
 The hall reads its patrons, standing and ledger from stand-in data while the contracts are
 still to come, and says so on the page itself. The four step sealing rite runs on a
@@ -175,6 +176,41 @@ your standing.
 
 The seed is a made up hash for now, and becomes an attested Ethereum block once the
 contracts land.
+
+---
+
+## The contracts
+
+Two contracts, one on each chain, and a worker between them.
+
+**`PatronVault.sol`** sits on Ethereum and does one thing: hold a stake and shout
+`RaidFunded(raider, patron, pactId, coinsStaked, patronShare)`. It knows nothing about
+Creditcoin.
+
+**`TheLedger.sol`** sits on Creditcoin and extends `ASCBase` from `@gluwa/asc-contracts`.
+That base calls the block prover precompile at
+`0x0000000000000000000000000000000000000FD2`, refuses any query id it has already seen,
+and only then hands control to our `_processAndEmitEvent`. So every number the ledger acts
+on came out of a proved Ethereum transaction, and no proof can be spent twice.
+
+The ledger will only believe one vault. `nameTheVault` is set once, and a funding log from
+any other address is refused, so a proved transaction from some other contract cannot seal
+a pact here.
+
+**The worker** watches the vault, waits for the block to be attested, asks the proof
+builder for a Merkle and continuity proof, and calls `execute` on the ledger.
+
+```
+npm run build-contracts
+npm run deploy-vault      # on Sepolia
+npm run deploy-ledger     # on Creditcoin
+npm run name-vault        # tell the ledger which vault to believe
+npm run worker            # carry proofs
+```
+
+Copy `worker/.env.example` to `.env` and fill it in first. Contracts compile with
+`viaIR` and evm version `shanghai`, matching Gluwa's own settings, because `ASCBase`
+hits stack-too-deep without it.
 
 ---
 
