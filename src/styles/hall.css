@@ -30,71 +30,6 @@
   opacity: 0.45;
 }
 
-.tally {
-  border-bottom: 1px solid var(--emberwood);
-  background: rgba(10, 3, 7, 0.82);
-}
-
-.tally__line {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--pause);
-  width: min(1180px, 100%);
-  margin: 0 auto;
-  padding: 11px var(--rest);
-}
-
-.tally__mark {
-  font-family: var(--chiselled);
-  font-weight: 700;
-  font-size: 0.94rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--ember);
-}
-
-.tally__facts {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 22px;
-  font-family: var(--counted);
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ash);
-  font-variant-numeric: tabular-nums;
-}
-
-.tally__coins {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  color: var(--gold);
-}
-
-.tally__coin {
-  width: 22px;
-  height: 22px;
-  object-fit: contain;
-  image-rendering: pixelated;
-}
-
-.tally__standing {
-  color: var(--ember);
-}
-
-.tally__rehearsal {
-  padding: 3px 8px;
-  border: 1px dashed var(--emberwood);
-  font-size: 0.6rem;
-  letter-spacing: 0.14em;
-  color: var(--ash);
-  cursor: help;
-}
-
 .hallpage__body {
   flex: 1;
   min-height: 0;
@@ -287,11 +222,6 @@
     grid-template-columns: 1fr;
     min-height: auto;
     padding: var(--pause) var(--pause) var(--rest);
-  }
-
-  .tally__line {
-    padding-left: var(--pause);
-    padding-right: var(--pause);
   }
 
   .hallpage__left,
