@@ -140,27 +140,44 @@ export function paintWorld(
         const atY = toScreenY(fighter.spot.y)
         const down = isDown(fighter)
         const flashing = !down && now - fighter.struckAt < flashLastsFor
+        const breed = fighter.breed
+        const swell = breed ? breed.swell : 1
+
+        surface.save()
 
         if (down) {
           surface.globalAlpha = 0.85
+        }
+        if (breed && breed.tint) {
+          surface.filter = breed.tint
+        }
+        if (swell !== 1) {
+          surface.translate(atX, atY)
+          surface.scale(swell, swell)
+          surface.translate(-atX, -atY)
         }
 
         drawFromGroup(surface, drawn, fighter.frame, atX, atY, worldMagnify)
 
         if (flashing) {
-          surface.save()
+          surface.filter = 'none'
           surface.globalCompositeOperation = 'lighter'
           surface.globalAlpha = 0.55 * (1 - (now - fighter.struckAt) / flashLastsFor)
           drawFromGroup(surface, drawn, fighter.frame, atX, atY, worldMagnify)
-          surface.restore()
         }
 
-        surface.globalAlpha = 1
+        surface.restore()
 
         if (!down && fighter.kind !== 'you' && fighter.life < fighter.fullLife) {
-          const barWide = barWidthFor(fighter)
-          drawLifeBar(surface, atX - barWide / 2, atY - barSitsAbove, barWide, 4,
-            fighter.life / fighter.fullLife)
+          const barWide = barWidthFor(fighter) * swell
+          drawLifeBar(
+            surface,
+            atX - barWide / 2,
+            atY - barSitsAbove * swell,
+            barWide,
+            4,
+            fighter.life / fighter.fullLife
+          )
         }
       }
     })
