@@ -5,7 +5,7 @@ import '../styles/door.css'
 
 export function buildDescent(): DescentPart {
   const way = document.createElement('div')
-  way.className = 'descent'
+  way.className = 'stairway'
 
   const door = document.createElement('button')
   door.type = 'button'
