@@ -1,0 +1,183 @@
+.housecall {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 8px;
+  padding: 4px 9px;
+  border: 1px solid var(--gold);
+  background: rgba(201, 162, 39, 0.09);
+  color: var(--gold);
+  font-family: var(--counted);
+  font-size: 0.54rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: var(--gauntlet, pointer);
+  transition: background 150ms ease;
+}
+
+.housecall:hover,
+.housecall:focus-visible {
+  background: rgba(201, 162, 39, 0.2);
+}
+
+.housepurse {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  width: 300px;
+  padding: 13px 15px 14px;
+  background: linear-gradient(180deg, #2c1019, #140509);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.7);
+}
+
+.housepurse__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 9px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--ruleDeep);
+}
+
+.housepurse__title {
+  margin: 0;
+  font-family: var(--counted);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ash);
+}
+
+.housepurse__shut {
+  padding: 3px 9px;
+  border: 1px solid var(--rule);
+  background: none;
+  color: var(--ash);
+  font-family: var(--counted);
+  font-size: 0.54rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: var(--gauntlet, pointer);
+}
+
+.housepurse__shut:hover,
+.housepurse__shut:focus-visible {
+  color: var(--ember);
+  border-color: var(--ember);
+}
+
+.housepurse__rows {
+  display: grid;
+}
+
+.housepurse__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--ruleDeep);
+}
+
+.housepurse__row:last-child {
+  border-bottom: 0;
+}
+
+.housepurse__said {
+  font-family: var(--counted);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  color: var(--ash);
+}
+
+.housepurse__fig {
+  font-family: var(--counted);
+  font-size: 0.66rem;
+  font-weight: 400;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.housepurse__take {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 9px;
+  border: 1px solid var(--ember);
+  background: linear-gradient(180deg, rgba(196, 68, 46, 0.24), rgba(196, 68, 46, 0.08));
+  color: #f4d9cf;
+  font-family: var(--counted);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: var(--gauntlet, pointer);
+}
+
+.housepurse__take:hover:not(:disabled),
+.housepurse__take:focus-visible:not(:disabled) {
+  background: linear-gradient(180deg, rgba(196, 68, 46, 0.4), rgba(196, 68, 46, 0.16));
+}
+
+.housepurse__take:disabled {
+  border-color: var(--ruleDeep);
+  background: none;
+  color: #6d5b63;
+  cursor: default;
+}
+
+.housepurse__trouble {
+  margin: 10px 0 0;
+  font-family: var(--counted);
+  font-size: 0.55rem;
+  letter-spacing: 0.06em;
+  line-height: 1.6;
+  color: var(--ember);
+}
+
+.housepurse__poured {
+  display: grid;
+  gap: 4px;
+  margin-top: 10px;
+  padding-top: 9px;
+  border-top: 1px solid var(--ruleDeep);
+}
+
+.housepurse__given {
+  font-family: var(--counted);
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.housepurse__given:hover,
+.housepurse__given:focus-visible {
+  color: var(--flare, #e0b84a);
+}
+
+.housepurse__aside {
+  margin: 10px 0 0;
+  font-family: var(--counted);
+  font-size: 0.52rem;
+  letter-spacing: 0.06em;
+  color: #6b5a60;
+}
+
+.offercard--house {
+  border-color: #6b5216;
+}
+
+.offercard__house {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--counted);
+  font-size: 0.52rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
