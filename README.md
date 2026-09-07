@@ -75,7 +75,7 @@ This part needs no contracts of our own. It works against the live testnet today
 | | Creditcoin CC3 Testnet | Ethereum Sepolia |
 | --- | --- | --- |
 | Chain number | `102031` | `11155111` |
-| Node | `https://rpc.cc3-testnet.creditcoin.network` | `https://rpc.sepolia.org` |
+| Node | `https://rpc.cc3-testnet.creditcoin.network` | `https://ethereum-sepolia-rpc.publicnode.com` |
 | Explorer | `creditcoin-testnet.blockscout.com` | `sepolia.etherscan.io` |
 | Coin | tCTC | ETH |
 | Its job | Where the game lives and settles | Where patrons put up their coin |
