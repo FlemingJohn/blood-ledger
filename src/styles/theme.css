@@ -38,13 +38,16 @@
 html,
 body {
   height: 100%;
+}
+
+* {
   scrollbar-width: thin;
-  scrollbar-color: var(--emberwood) var(--void);
+  scrollbar-color: var(--rule) var(--void);
 }
 
 ::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -52,12 +55,20 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--emberwood);
-  border: 3px solid var(--void);
+  background: var(--rule);
+  border: 2px solid var(--void);
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--blood);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: var(--ember);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--void);
 }
 
 ::-webkit-scrollbar-corner {
