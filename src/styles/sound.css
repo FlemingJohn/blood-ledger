@@ -175,3 +175,15 @@
   bottom: 14px;
   z-index: 25;
 }
+
+.soundrail {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.soundrail--afloat {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 25;
+}
