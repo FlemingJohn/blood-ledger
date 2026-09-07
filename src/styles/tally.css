@@ -1,8 +1,8 @@
 .tally {
   flex: none;
   position: relative;
-  width: min(1216px, calc(100% - 2 * var(--rest)));
-  margin: 10px auto 0;
+  width: auto;
+  margin: 10px clamp(12px, 1.6vw, 26px) 0;
   border: 1px solid var(--rule);
   background: linear-gradient(180deg, rgba(34, 11, 19, 0.96), rgba(12, 4, 8, 0.98));
   clip-path: polygon(
