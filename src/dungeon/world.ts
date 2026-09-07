@@ -4,6 +4,7 @@ import type { Fighter, Wound } from '../types/fighter'
 import type { RaiderClass } from '../types/raider'
 import type { Power, PowerInFlight } from '../types/power'
 import { apart, blowLandsOnFrame, framesPerSecond, isDown, makeFighter } from './fighters'
+import { bladeLands, bulwarkHolds, cleaveSwings, coinTaken, demonlordLaughs, enemyFalls, youAreHit, youFall } from '../sound/blows'
 import { facingFrom } from './facing'
 import { planFloor } from './floorPlan'
 import { breeds } from './breeds'
@@ -67,6 +68,7 @@ export function openWorld(order: WorldOrder): World {
 
   if (plan.bossSpot) {
     enemies.push(makeFighter('demonlord', plan.bossSpot, breeds.demonlord))
+    demonlordLaughs()
   }
 
   return {
@@ -209,10 +211,12 @@ function landBlow(world: World, striker: Fighter, now: number): void {
       }
       enemy.life -= striker.hurts
       enemy.struckAt = now
+      bladeLands()
       world.wounds.push({ spot: { ...enemy.spot }, amount: striker.hurts, bornAt: now })
       if (isDown(enemy)) {
         enemy.move = 'death'
         enemy.frame = 0
+        enemyFalls()
         world.slain += 1
         world.coinsCarried += enemy.breed ? enemy.breed.coinBonus : 0
       }
@@ -224,6 +228,7 @@ function landBlow(world: World, striker: Fighter, now: number): void {
     const guarded = now < world.guardedUntil
     world.you.life -= guarded ? Math.round(striker.hurts * guardCuts) : striker.hurts
     world.you.struckAt = now
+    youAreHit()
     world.wounds.push({
       spot: { ...world.you.spot },
       amount: guarded ? Math.round(striker.hurts * guardCuts) : striker.hurts,
@@ -232,6 +237,7 @@ function landBlow(world: World, striker: Fighter, now: number): void {
     if (isDown(world.you)) {
       world.you.move = 'death'
       world.you.frame = 0
+      youFall()
       world.finished = 'fell'
       world.killedBy = striker.breed ? striker.breed.said : striker.kind
     }
@@ -267,10 +273,12 @@ function hurtEnemiesNear(world: World, at: Spot, within: number, amount: number,
     }
     enemy.life -= amount
     enemy.struckAt = now
+    bladeLands()
     world.wounds.push({ spot: { ...enemy.spot }, amount, bornAt: now })
     if (isDown(enemy)) {
       enemy.move = 'death'
       enemy.frame = 0
+      enemyFalls()
       world.slain += 1
       world.coinsCarried += enemy.breed ? enemy.breed.coinBonus : 0
     }
@@ -290,6 +298,8 @@ function loosePower(world: World, power: Power, now: number): void {
     facingX: way.x,
     facingY: way.y
   })
+
+  cleaveSwings()
 
   if (power.name === 'cleave') {
     world.enemies.forEach((enemy) => {
@@ -343,6 +353,7 @@ function loosePower(world: World, power: Power, now: number): void {
   }
 
   world.guardedUntil = now + power.lastsFor
+  bulwarkHolds()
 }
 
 export function powerReady(world: World, power: Power, now: number): boolean {
@@ -447,6 +458,7 @@ export function turnTheWorld(world: World, wanted: WhatYouWant, seconds: number,
     if (apart(drop.spot, you.spot) <= lootPickedUpWithin) {
       drop.taken = true
       world.coinsCarried += drop.worth
+      coinTaken()
     }
   })
 
