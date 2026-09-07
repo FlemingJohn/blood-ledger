@@ -102,10 +102,16 @@ export function hangTheSoundSlip(): SoundSlipPart {
 
       const box = near.getBoundingClientRect()
       const wide = slip.offsetWidth
-      const room = document.documentElement.clientWidth
+      const tall = slip.offsetHeight
+      const across = document.documentElement.clientWidth
+      const down = document.documentElement.clientHeight
 
-      slip.style.top = `${Math.round(box.bottom + 8)}px`
-      slip.style.left = `${Math.round(Math.min(Math.max(8, box.right - wide), room - wide - 8))}px`
+      const below = box.bottom + 8
+      const above = box.top - 8 - tall
+      const top = below + tall <= down - 8 || above < 8 ? below : above
+
+      slip.style.top = `${Math.round(Math.min(Math.max(8, top), Math.max(8, down - tall - 8)))}px`
+      slip.style.left = `${Math.round(Math.min(Math.max(8, box.right - wide), Math.max(8, across - wide - 8)))}px`
     },
 
     close,
