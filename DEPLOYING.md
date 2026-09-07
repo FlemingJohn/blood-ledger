@@ -167,7 +167,64 @@ Leave it running. It polls Sepolia every twelve seconds.
 
 ---
 
-## Step 7 — Fund a raid and watch it seal
+## Step 7 — Open the house, so nobody has to visit a faucet
+
+```
+npm run house
+```
+
+The house is a small service that lets a player with an empty wallet reach the stair. It does
+two things, and both of them spend real testnet coin from the wallets already in your `.env`.
+
+**The house purse.** A player presses *the house will stake you* in the header and the house
+sends them coin on both chains. In the game it is a slip; underneath it is two ordinary
+transfers.
+
+**The house patron.** The house posts its own offer on the patron board and calls `fundRaid`
+on the vault when a raider takes it. That is a real Sepolia transaction, proven by Attestcoin
+exactly like any other. The house is a player, not a shortcut through the protocol.
+
+It prints what it will give before it gives anything:
+
+```
+Blood Ledger house
+  listening on http://localhost:8787
+  pours         0.02 ETH and 0.15 tCTC
+  keeps back    0.01 ETH and 0.05 tCTC
+  per address   3 purses, 90s apart
+  stakes        0.005 ETH at 35 percent
+  vault         0xABC...
+```
+
+Every one of those is a line in `.env` you can change:
+
+| | | |
+| --- | --- | --- |
+| `HOUSE_DRIP_SEPOLIA` | `0.02` | poured per purse on Ethereum |
+| `HOUSE_DRIP_CREDITCOIN` | `0.15` | poured per purse on Creditcoin |
+| `HOUSE_KEEPS_BACK_SEPOLIA` | `0.01` | the house stops pouring above this, so the keeper never starves |
+| `HOUSE_KEEPS_BACK_CREDITCOIN` | `0.05` | the same on the other side |
+| `HOUSE_MOST_PER_ADDRESS` | `3` | purses one address may ever have |
+| `HOUSE_WAIT_BETWEEN_MS` | `90000` | how long between pours to the same address |
+| `HOUSE_STAKE` | `0.005` | what the house patron puts up |
+| `HOUSE_SHARE` | `35` | what the house patron keeps, out of 100 |
+| `HOUSE_PORT` | `8787` | where the house listens |
+
+By default the house spends from `SEPOLIA_WALLET_PRIVATE_KEY` and
+`CREDITCOIN_WALLET_PRIVATE_KEY`, the same wallets that deployed the contracts. Set
+`HOUSE_SEPOLIA_KEY` and `HOUSE_CREDITCOIN_KEY` to keep them apart, which means two more trips
+to the faucets but no chance of the house draining the keeper.
+
+**A server holding a private key is only safe because this is a testnet.** The coin is worth
+nothing, the payouts are capped, and the key never leaves `.env`. Never point the house at a
+wallet holding anything real.
+
+If the house is not running, the game notices and says so. The button reports
+*the house is not open* and everything else works as before.
+
+---
+
+## Step 8 — Fund a raid and watch it seal
 
 Call `fundRaid(raider, patronShare)` on the vault with some ETH attached. The raider is
 whichever address will play; the share is what the patron keeps, out of 100, and may not
