@@ -6,6 +6,7 @@ import { paintBust } from '../art/championPaint'
 import { champions } from '../art/champions'
 import { gradeFloors } from '../chain/theLedger'
 import { drawMark } from './marks'
+import { pageTurns } from '../sound/blows'
 import '../styles/profile.css'
 
 const highestScore = 1000
@@ -257,6 +258,7 @@ export function openTheProfile(): ProfilePart {
       deeds.replaceChildren()
       profile.deeds.forEach((deed) => deeds.append(deedLine(deed)))
 
+      pageTurns()
       shroud.hidden = false
     },
 
