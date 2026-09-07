@@ -15,7 +15,7 @@ export const ethereumSepolia: Realm = {
   name: 'Ethereum Sepolia',
   shortName: 'Sepolia',
   chainNumber: 11155111,
-  rpcAddress: 'https://rpc.sepolia.org',
+  rpcAddress: 'https://ethereum-sepolia-rpc.publicnode.com',
   explorerAddress: 'https://sepolia.etherscan.io',
   coinName: 'Sepolia Ether',
   coinSymbol: 'ETH',
