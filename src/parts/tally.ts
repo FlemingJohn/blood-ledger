@@ -1,7 +1,10 @@
 import type { Part } from '../types/parts'
 import type { Raider } from '../types/raider'
 import { paintBust } from '../art/championPaint'
-import { contractsAreLive, gradeFloors } from '../chain/theLedger'
+import { contractsAreLive, gradeFloors, readTheUnderwriter } from '../chain/theLedger'
+import { readTheWitnesses } from '../chain/witnesses'
+import { readOutTheUnderwriter } from './underwriterBay'
+import { watchTheWitnesses } from './witnessBay'
 import { countCoins } from '../chain/addresses'
 import { titleFor } from '../chain/ranks'
 import { homeRealm } from '../chain/realms'
@@ -106,6 +109,30 @@ export function hangTheTally(raider: Raider): TallyPart {
 
   standingBay.append(rank, reading, bar, counted)
 
+  const underwriter = readOutTheUnderwriter(readTheUnderwriter(raider))
+
+  const witnesses = watchTheWitnesses()
+  witnesses.showWitnesses({
+    chains: [],
+    paying: null,
+    blocksBehind: null,
+    minutesBehind: null,
+    reachable: false
+  })
+
+  let stillWatching = true
+
+  function askTheWitnesses(): void {
+    void readTheWitnesses().then((reading) => {
+      if (stillWatching) {
+        witnesses.showWitnesses(reading)
+      }
+    })
+  }
+
+  askTheWitnesses()
+  const witnessBeat = window.setInterval(askTheWitnesses, 30000)
+
   const roleBay = document.createElement('div')
   roleBay.className = 'tally__bay tally__bay--role'
 
@@ -157,7 +184,7 @@ export function hangTheTally(raider: Raider): TallyPart {
 
   purseBay.append(socket, realm)
 
-  plate.append(faceBay, standingBay, roleBay, purseBay)
+  plate.append(faceBay, standingBay, underwriter.element, witnesses.element, roleBay, purseBay)
   tally.append(plate)
 
   function showBust(): void {
@@ -176,6 +203,10 @@ export function hangTheTally(raider: Raider): TallyPart {
     },
 
     teardown(): void {
+      stillWatching = false
+      window.clearInterval(witnessBeat)
+      witnesses.teardown()
+      underwriter.teardown()
       asking.clear()
       tally.remove()
     }
