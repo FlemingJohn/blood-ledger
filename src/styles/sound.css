@@ -144,3 +144,34 @@
 .tally__speaker--hushed {
   color: #52444a;
 }
+
+.soundhorn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: rgba(10, 3, 7, 0.7);
+  color: var(--ash);
+  cursor: var(--gauntlet, pointer);
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.soundhorn:hover,
+.soundhorn:focus-visible {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+.soundhorn--hushed {
+  color: #52444a;
+}
+
+.soundhorn--afloat {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 25;
+}
