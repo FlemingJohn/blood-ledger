@@ -1,6 +1,7 @@
 import type { Part } from '../types/parts'
 import type { RaidOrder, Takings } from '../types/raid'
-import { youWalkedOut, youWereLost } from '../sound/blows'
+import { chainHauls, stoneGrinds, youWalkedOut, youWereLost } from '../sound/blows'
+import { hangTheSoundHorn } from '../parts/soundHorn'
 import type { Eye } from '../dungeon/draw'
 import type { World } from '../dungeon/world'
 import { openSpriteStore, loadGroundTiles } from '../dungeon/sprites'
@@ -79,6 +80,8 @@ export function buildDescent(order: DescentOrder): Part {
   const pressure = hangThePressureBar(order.seed)
   const life = hangTheLifeGlobe()
   const wayOut = openTheWayOut()
+  const horn = hangTheSoundHorn()
+  horn.element.classList.add('soundhorn--afloat')
   let wayIsOpen = false
   const reckoning = prepareTheReckoning()
   const minimap = pinTheMinimap()
@@ -96,6 +99,7 @@ export function buildDescent(order: DescentOrder): Part {
     belt.element,
     hint,
     wayOut.element,
+    horn.element,
     reckoning.element
   )
 
@@ -225,8 +229,14 @@ export function buildDescent(order: DescentOrder): Part {
     heartbeat = window.requestAnimationFrame(beat)
   }
 
-  wayOut.whenLeaving(() => settle('walked out'))
-  wayOut.whenGoingDeeper(goDeeper)
+  wayOut.whenLeaving(() => {
+    chainHauls()
+    settle('walked out')
+  })
+  wayOut.whenGoingDeeper(() => {
+    stoneGrinds()
+    goDeeper()
+  })
 
   window.addEventListener('resize', fitBoard)
 
@@ -252,6 +262,7 @@ export function buildDescent(order: DescentOrder): Part {
       belt.teardown()
       minimap.teardown()
       reckoning.teardown()
+      horn.teardown()
       wayOut.teardown()
       life.teardown()
       pressure.teardown()
