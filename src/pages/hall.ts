@@ -18,6 +18,7 @@ import { showTheBond } from '../parts/bondSlip'
 import { gradeReaches, readLedger, readOffers, readRaider, sealPact } from '../chain/theLedger'
 import { readSeekers } from '../chain/seekers'
 import { readProfile } from '../chain/profiles'
+import { pactSeals, stairOpens } from '../sound/blows'
 import { everyPieceOfHallArt } from '../art/paths'
 import { loadWhatYouCan } from '../art/pictures'
 import '../styles/hall.css'
@@ -117,6 +118,7 @@ export function buildHall(order: HallOrder): Part {
       void sealPact(offer, (progress) => rite.showProgress(progress)).then((pact) => {
         heldPact = pact
         sealing = false
+        pactSeals()
         pactSlip.showPact(pact)
         descent.showBarred(false)
         roleSwitch.showBarred(true, 'you hold a pact — go down or it stands')
@@ -140,6 +142,7 @@ export function buildHall(order: HallOrder): Part {
   tellTheSeats()
   descent.whenPushed(() => {
     if (heldPact) {
+      stairOpens()
       order.whenDescending(heldPact, chosenClass)
     }
   })
