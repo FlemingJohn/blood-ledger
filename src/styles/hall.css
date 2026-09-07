@@ -34,13 +34,12 @@
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: 320px minmax(0, 1fr) 268px;
+  grid-template-columns: clamp(300px, 23vw, 392px) minmax(0, 1fr) clamp(252px, 19vw, 330px);
   gap: var(--pause);
   grid-auto-rows: minmax(0, 1fr);
   align-items: stretch;
-  width: min(1280px, 100%);
-  margin: 0 auto;
-  padding: 12px var(--rest);
+  width: 100%;
+  padding: 12px clamp(12px, 1.6vw, 26px);
 }
 
 .hallpage__middle {
@@ -70,12 +69,11 @@
 .hallpage__foot {
   flex: none;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 268px;
+  grid-template-columns: minmax(0, 1fr) clamp(252px, 19vw, 330px);
   gap: var(--pause);
   align-items: end;
-  width: min(1280px, 100%);
-  margin: 0 auto;
-  padding: 0 var(--rest) 14px;
+  width: 100%;
+  padding: 0 clamp(12px, 1.6vw, 26px) 14px;
 }
 
 .panel {
@@ -237,7 +235,7 @@
 
 @media (max-width: 1100px) {
   .hallpage__body {
-    grid-template-columns: 288px minmax(0, 1fr);
+    grid-template-columns: clamp(272px, 30vw, 310px) minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr) auto;
     grid-template-areas:
       'board middle'
@@ -283,7 +281,7 @@
     grid-template-columns: 1fr;
     grid-template-areas: 'middle' 'board' 'rail';
     min-height: auto;
-    padding: var(--pause) var(--pause) var(--rest);
+    padding: var(--pause) clamp(12px, 1.6vw, 26px) var(--rest);
   }
 
   .hallpage__rail {
@@ -292,7 +290,7 @@
 
   .hallpage__foot {
     grid-template-columns: 1fr;
-    padding: 0 var(--pause) var(--pause);
+    padding: 0 clamp(12px, 1.6vw, 26px) var(--pause);
   }
 
   .hallpage__rail,
@@ -322,7 +320,7 @@
   }
 
   .board__head {
-    padding: 7px 12px;
+    padding: 6px 28px 7px;
   }
 
   .hallpage__rail {
