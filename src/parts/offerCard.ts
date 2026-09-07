@@ -3,6 +3,7 @@ import type { OfferCardPart } from '../types/parts'
 import { coinMark, offerMarker } from '../art/paths'
 import { countCoins, shortAddress } from '../chain/addresses'
 import { drawMark } from './marks'
+import { coinDrops } from '../sound/blows'
 import { drawCrest } from './hallMarks'
 import '../styles/offerCard.css'
 
@@ -73,7 +74,10 @@ export function layOutOffer(offer: Offer): OfferCardPart {
   card.append(marker, line)
 
   const listeners = new Set<(offer: Offer) => void>()
-  accept.addEventListener('click', () => listeners.forEach((listener) => listener(offer)))
+  accept.addEventListener('click', () => {
+    coinDrops()
+    listeners.forEach((listener) => listener(offer))
+  })
 
   return {
     element: card,
