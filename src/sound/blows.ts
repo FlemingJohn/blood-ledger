@@ -174,3 +174,82 @@ export function youWalkedOut(): void {
 export function youWereLost(): void {
   run([392, 349, 294, 196], rightNow(), 0.19, 0.7, 0.16, 'sawtooth')
 }
+
+export function coinDrops(): void {
+  const at = rightNow()
+  tone('triangle', at, 0.11, 1560, 1540, 0.12)
+  tone('triangle', at + 0.015, 0.16, 2340, 2300, 0.07)
+  tone('sine', at + 0.06, 0.14, 190, 110, 0.14)
+}
+
+export function coinPoured(): void {
+  const at = rightNow()
+  for (let step = 0; step < 5; step += 1) {
+    const when = at + step * 0.045 + Math.random() * 0.02
+    tone('triangle', when, 0.1, 1300 + Math.random() * 900, 1200, 0.075)
+  }
+  tone('sine', at + 0.1, 0.26, 150, 80, 0.16)
+}
+
+export function waxPressed(): void {
+  const at = rightNow()
+  burstOfHiss(at, 0.13, 900, 260, 0.2)
+  tone('sine', at + 0.02, 0.24, 150, 90, 0.2)
+}
+
+export function boltDrawn(): void {
+  const at = rightNow()
+  burstOfHiss(at, 0.16, 2200, 900, 0.16)
+  tone('square', at + 0.05, 0.08, 260, 250, 0.09)
+  tone('sine', at + 0.14, 0.7, 110, 52, 0.24)
+}
+
+export function scaleTips(): void {
+  const at = rightNow()
+  tone('triangle', at, 0.16, 880, 660, 0.1)
+  tone('triangle', at + 0.09, 0.22, 660, 588, 0.08)
+}
+
+export function bladeDrawn(): void {
+  const at = rightNow()
+  burstOfHiss(at, 0.2, 1800, 4200, 0.16)
+  tone('triangle', at + 0.04, 0.22, 1320, 1760, 0.07)
+}
+
+export function armourShifts(): void {
+  const at = rightNow()
+  burstOfHiss(at, 0.1, 1400, 500, 0.14)
+  tone('square', at, 0.06, 190, 170, 0.06)
+}
+
+export function chainHauls(): void {
+  const at = rightNow()
+  for (let step = 0; step < 4; step += 1) {
+    const when = at + step * 0.085
+    tone('square', when, 0.05, 420 + step * 40, 380 + step * 40, 0.055)
+    burstOfHiss(when, 0.06, 2400, 1100, 0.08)
+  }
+}
+
+export function stoneGrinds(): void {
+  const at = rightNow()
+  burstOfHiss(at, 0.7, 320, 120, 0.2)
+  tone('sine', at, 0.8, 74, 46, 0.2)
+}
+
+export function pageTurns(): void {
+  const at = rightNow()
+  burstOfHiss(at, 0.16, 3400, 1300, 0.11)
+}
+
+export function latchClicks(): void {
+  const at = rightNow()
+  tone('square', at, 0.035, 620, 560, 0.06)
+  burstOfHiss(at, 0.04, 2800, 1600, 0.07)
+}
+
+export function doorWontBudge(): void {
+  const at = rightNow()
+  tone('sine', at, 0.2, 120, 96, 0.22)
+  burstOfHiss(at, 0.1, 500, 180, 0.12)
+}
