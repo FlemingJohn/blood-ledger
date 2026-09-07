@@ -17,6 +17,7 @@ import type { Role } from './types/role'
 import { seedForTheDescent } from './chain/attestedSeed'
 import { letTheDarkIn } from './sound/theDark'
 import { whenTheBoxOpens } from './sound/theBox'
+import { goFullSight } from './parts/fullSight'
 import { homeRealm, realmWherePatronsPay } from './chain/realms'
 
 type PageName = 'landing' | 'hall' | 'descent' | 'patron'
@@ -66,6 +67,7 @@ function showLanding(): void {
       whenHallOpens(reading) {
         if (reading.address) {
           heldAddress = reading.address
+          goFullSight()
           showHall(reading.address)
         }
       }
