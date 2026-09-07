@@ -18,7 +18,7 @@ import { showTheBond } from '../parts/bondSlip'
 import { gradeReaches, readLedger, readOffers, readRaider, sealPact } from '../chain/theLedger'
 import { readSeekers } from '../chain/seekers'
 import { readProfile } from '../chain/profiles'
-import { pactSeals, stairOpens } from '../sound/blows'
+import { pactSeals, stairOpens, waxPressed } from '../sound/blows'
 import { everyPieceOfHallArt } from '../art/paths'
 import { loadWhatYouCan } from '../art/pictures'
 import '../styles/hall.css'
@@ -113,6 +113,7 @@ export function buildHall(order: HallOrder): Part {
         return
       }
       sealing = true
+      waxPressed()
       rite.open()
 
       void sealPact(offer, (progress) => rite.showProgress(progress)).then((pact) => {
