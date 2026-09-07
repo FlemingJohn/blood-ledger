@@ -13,7 +13,11 @@ export interface BoardOrder {
   whenAccepted(offer: Offer): void
 }
 
-export function openThePatronBoard(order: BoardOrder): Part {
+export interface PatronBoardPart extends Part {
+  addOffer(offer: Offer, className?: string): void
+}
+
+export function openThePatronBoard(order: BoardOrder): PatronBoardPart {
   const board = document.createElement('section')
   board.className = 'board framed'
 
@@ -42,9 +46,18 @@ export function openThePatronBoard(order: BoardOrder): Part {
 
   const cards: OfferCardPart[] = []
   let openToYou = 0
+  let onTheBoard = 0
 
-  order.offers.forEach((offer) => {
+  function tellTheCount(): void {
+    count.textContent = `${openToYou} open to you of ${onTheBoard}`
+  }
+
+  function lay(offer: Offer, className?: string, atTheTop = false): void {
     const card = layOutOffer(offer)
+
+    if (className) {
+      card.element.classList.add(className)
+    }
 
     if (offer.claimed) {
       card.showState('claimed')
@@ -57,13 +70,26 @@ export function openThePatronBoard(order: BoardOrder): Part {
     }
 
     cards.push(card)
-    list.append(card.element)
-  })
+    onTheBoard += 1
 
-  count.textContent = `${openToYou} open to you of ${order.offers.length}`
+    if (atTheTop) {
+      list.prepend(card.element)
+    } else {
+      list.append(card.element)
+    }
+
+    tellTheCount()
+  }
+
+  order.offers.forEach((offer) => lay(offer))
 
   return {
     element: board,
+
+    addOffer(offer: Offer, className?: string): void {
+      lay(offer, className, true)
+    },
+
     teardown(): void {
       cards.forEach((card) => card.teardown())
       board.remove()
