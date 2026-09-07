@@ -34,7 +34,7 @@ read `.env` from wherever npm was run.
 Open it and set the two keys. Everything else is already filled in for testnet:
 
 ```
-SOURCE_CHAIN_RPC_URL=https://rpc.sepolia.org
+SOURCE_CHAIN_RPC_URL=https://ethereum-sepolia-rpc.publicnode.com
 SOURCE_CHAIN_KEY=1
 PATRON_VAULT_ADDRESS=0x
 SEPOLIA_WALLET_PRIVATE_KEY=0x        <- yours
