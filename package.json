@@ -18,7 +18,8 @@
     "test-testnet": "node tests/testnet.test.mjs",
     "check-setup": "node scripts/check-setup.mjs",
     "underwriter": "tsx underwriter/run.ts",
-    "test-contracts": "forge test --root contracts"
+    "test-contracts": "forge test --root contracts",
+    "house": "tsx house/run.ts"
   },
   "dependencies": {
     "ethers": "^6.13.4",
