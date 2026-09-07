@@ -19,7 +19,7 @@
 
 .tally__plate {
   display: grid;
-  grid-template-columns: 108px minmax(0, 1fr) auto 178px;
+  grid-template-columns: 108px 268px minmax(206px, 1fr) minmax(206px, 1fr) auto 178px;
   align-items: stretch;
   width: 100%;
   margin: 0;
