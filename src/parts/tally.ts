@@ -9,8 +9,7 @@ import { countCoins } from '../chain/addresses'
 import { titleFor } from '../chain/ranks'
 import { homeRealm } from '../chain/realms'
 import { drawMark } from './marks'
-import { hangTheSoundSlip } from './soundSlip'
-import { readSound, whenSoundChanges } from '../sound/theBox'
+import { hangTheSoundHorn } from './soundHorn'
 import '../styles/tally.css'
 
 const highestScore = 1000
@@ -184,35 +183,10 @@ export function hangTheTally(raider: Raider): TallyPart {
     realm.append(document.createTextNode(` ${homeRealm.shortName} · rehearsal`))
   }
 
-  const slip = hangTheSoundSlip()
+  const horn = hangTheSoundHorn()
 
-  const speaker = document.createElement('button')
-  speaker.type = 'button'
-  speaker.className = 'tally__speaker'
-  speaker.title = 'Sound'
-  speaker.setAttribute('aria-label', 'sound settings')
-  speaker.append(drawMark({ name: 'seal', size: 12 }))
-
-  function showHushed(): void {
-    const heard = readSound()
-    const hushed = heard.everything <= 0 || (heard.blows <= 0 && heard.dark <= 0)
-    speaker.classList.toggle('tally__speaker--hushed', hushed)
-  }
-
-  showHushed()
-  const stopWatchingSound = whenSoundChanges(showHushed)
-
-  speaker.addEventListener('click', () => {
-    if (slip.isOpen()) {
-      slip.close()
-      return
-    }
-    slip.open(speaker)
-  })
-
-  realm.append(speaker)
+  realm.append(horn.element)
   purseBay.append(socket, realm)
-  document.body.append(slip.element)
 
   plate.append(faceBay, standingBay, underwriter.element, witnesses.element, roleBay, purseBay)
   tally.append(plate)
@@ -233,8 +207,7 @@ export function hangTheTally(raider: Raider): TallyPart {
     },
 
     teardown(): void {
-      stopWatchingSound()
-      slip.teardown()
+      horn.teardown()
       stillWatching = false
       window.clearInterval(witnessBeat)
       witnesses.teardown()
