@@ -1,0 +1,138 @@
+.bay--reading {
+  gap: 4px;
+}
+
+.bay__label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0;
+  font-family: var(--counted);
+  font-size: 0.55rem;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--ash);
+  white-space: nowrap;
+}
+
+.bay__named {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--ash);
+}
+
+.bay__aside {
+  color: #6b5a60;
+}
+
+.bay__aside--wide {
+  margin: 0;
+  font-family: var(--counted);
+  font-size: 0.55rem;
+  letter-spacing: 0.06em;
+  color: var(--ash);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bay__aside--kind {
+  color: #6fbf7f;
+}
+
+.bay__aside--grim {
+  color: var(--blood);
+}
+
+.bay__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  font-family: var(--counted);
+  font-size: 0.62rem;
+  color: var(--ash);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.bay__row--dim {
+  font-size: 0.55rem;
+  color: #6b5a60;
+}
+
+.bay__count {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--bone);
+}
+
+.bay__count--kind {
+  color: #6fbf7f;
+}
+
+.bay__count--wary {
+  color: var(--gold);
+}
+
+.bay__count--grim {
+  color: var(--blood);
+}
+
+.bay__track {
+  height: 6px;
+  background: var(--void);
+  border: 1px solid var(--ruleDeep);
+  overflow: hidden;
+}
+
+.bay__run {
+  height: 100%;
+}
+
+.bay__run--kind {
+  background: linear-gradient(90deg, #2f6b3c, #6fbf7f);
+}
+
+.bay__run--wary {
+  background: linear-gradient(90deg, #8a6c1a, var(--gold));
+}
+
+.bay__run--grim {
+  background: linear-gradient(90deg, #5a0620, var(--blood));
+}
+
+.bay__marks {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.bay__mark {
+  flex: none;
+  padding: 1px 6px;
+  border: 1px solid var(--blood);
+  color: var(--flare);
+  font-family: var(--counted);
+  font-size: 0.51rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bay__mark--clean {
+  border-color: #3f7a4a;
+  color: #6fbf7f;
+}
+
+.bay__mark--more {
+  border-color: var(--rule);
+  color: var(--ash);
+}
