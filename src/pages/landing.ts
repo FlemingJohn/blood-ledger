@@ -5,6 +5,8 @@ import { buildScroll } from '../parts/scroll'
 import { dressTheHall } from '../parts/hallDressing'
 import { homeRealm, realmWherePatronsPay } from '../chain/realms'
 import { openTheBox } from '../sound/theBox'
+import { boltDrawn } from '../sound/blows'
+import { hangTheSoundHorn } from '../parts/soundHorn'
 import '../styles/landing.css'
 
 const purseHomePage = 'https://metamask.io/download/'
@@ -99,7 +101,10 @@ export function buildLanding(order: LandingOrder): Part {
 
   centre.append(makeTitle(), makePromise(), door.element, scrolls)
   hall.append(centre)
-  landing.append(dressing.element, hall, makeFooting())
+  const horn = hangTheSoundHorn()
+  horn.element.classList.add('soundhorn--afloat')
+
+  landing.append(dressing.element, hall, makeFooting(), horn.element)
 
   const stopWatching = order.purse.watch((reading) => {
     door.showStanding(reading.standing)
@@ -124,6 +129,7 @@ export function buildLanding(order: LandingOrder): Part {
 
   door.whenPushed(() => {
     openTheBox()
+    boltDrawn()
 
     const reading = order.purse.read()
 
@@ -148,6 +154,7 @@ export function buildLanding(order: LandingOrder): Part {
   return {
     element: landing,
     teardown(): void {
+      horn.teardown()
       stopWatching()
       firstScroll.teardown()
       secondScroll.teardown()
