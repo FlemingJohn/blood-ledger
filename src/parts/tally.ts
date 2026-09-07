@@ -10,6 +10,7 @@ import { titleFor } from '../chain/ranks'
 import { homeRealm } from '../chain/realms'
 import { drawMark } from './marks'
 import { hangTheSoundHorn } from './soundHorn'
+import { hangTheHousePurse } from './housePurse'
 import '../styles/tally.css'
 
 const highestScore = 1000
@@ -174,7 +175,7 @@ export function hangTheTally(raider: Raider): TallyPart {
   if (raider.coins <= 0) {
     realm.classList.add('tally__realm--empty')
     figure.classList.add('tally__coins--empty')
-    realm.textContent = `${homeRealm.shortName} · faucet →`
+    realm.textContent = `${homeRealm.shortName} · empty`
   } else if (contractsAreLive) {
     realm.textContent = homeRealm.name
   } else {
@@ -184,9 +185,10 @@ export function hangTheTally(raider: Raider): TallyPart {
   }
 
   const horn = hangTheSoundHorn()
+  const houseCall = hangTheHousePurse(raider.address)
 
   realm.append(horn.element)
-  purseBay.append(socket, realm)
+  purseBay.append(socket, realm, houseCall.element)
 
   plate.append(faceBay, standingBay, underwriter.element, witnesses.element, roleBay, purseBay)
   tally.append(plate)
@@ -207,6 +209,7 @@ export function hangTheTally(raider: Raider): TallyPart {
     },
 
     teardown(): void {
+      houseCall.teardown()
       horn.teardown()
       stillWatching = false
       window.clearInterval(witnessBeat)
