@@ -2,6 +2,7 @@ import type { PlinthPart } from '../types/parts'
 import type { RaiderClass } from '../types/raider'
 import { champions } from '../art/champions'
 import { drawAlcove, drawChampion } from './marks'
+import { armourShifts } from '../sound/blows'
 import '../styles/plinth.css'
 
 const everyClass: RaiderClass[] = ['warrior', 'knight', 'fighter']
@@ -75,6 +76,7 @@ export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
       return
     }
     showing = next
+    armourShifts()
     paint()
     listeners.forEach((listener) => listener(next))
   }
