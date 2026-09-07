@@ -3,6 +3,7 @@ import type { Raider } from '../types/raider'
 import { drawMark } from './marks'
 import { shortAddress } from '../chain/addresses'
 import { drawCrest } from './hallMarks'
+import { coinPoured } from '../sound/blows'
 import '../styles/patron.css'
 
 export interface SeekerCardPart extends Part {
@@ -55,6 +56,7 @@ export function layOutSeeker(
     line.append(back)
 
     back.addEventListener('click', () => {
+      coinPoured()
       listeners.forEach((listener) => listener(raider))
     })
   }
