@@ -1,5 +1,6 @@
 import type { Role, RoleAnswer, RoleSwitchPart, SeatReading } from '../types/role'
 import { drawMark } from './marks'
+import { bladeDrawn, doorWontBudge, scaleTips } from '../sound/blows'
 import '../styles/roleSwitch.css'
 
 const roles: { role: Role; said: string; mark: 'scales' | 'blade'; where: string }[] = [
@@ -41,12 +42,19 @@ export function hangTheRoleSwitch(): RoleSwitchPart {
       asking = true
       barred.hidden = true
 
+      if (one.role === 'raider') {
+        bladeDrawn()
+      } else {
+        scaleTips()
+      }
+
       const answers = [...listeners].map((listener) => listener(one.role))
 
       void Promise.all(answers)
         .then((given) => {
           const trouble = given.find((one) => typeof one === 'string')
           if (trouble) {
+            doorWontBudge()
             barred.hidden = false
             barred.textContent = trouble
           }
