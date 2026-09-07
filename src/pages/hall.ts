@@ -17,6 +17,8 @@ import { layOutPowers } from '../parts/powerSlots'
 import { showTheBond } from '../parts/bondSlip'
 import { gradeReaches, readLedger, readOffers, readRaider, sealPact } from '../chain/theLedger'
 import { readSeekers } from '../chain/seekers'
+import { askTheHouse, askTheHouseToBackYou, theHouseAnswered } from '../chain/house'
+import { asAnOffer, houseOfferId } from '../chain/houseOffer'
 import { readProfile } from '../chain/profiles'
 import { pactSeals, stairOpens, waxPressed } from '../sound/blows'
 import { everyPieceOfHallArt } from '../art/paths'
@@ -43,7 +45,7 @@ export function buildHall(order: HallOrder): Part {
   roleSwitch.showRole('raider')
 
   const offersHere = readOffers(raider)
-  const openToYou = offersHere.filter(
+  let openToYou = offersHere.filter(
     (offer) => !offer.claimed && gradeReaches(raider.standing.grade, offer.needsGrade)
   ).length
   const seekingCoin = readSeekers().length
@@ -105,6 +107,17 @@ export function buildHall(order: HallOrder): Part {
   let sealing = false
   let chosenClass: RaiderClass = raider.chosenClass
 
+  function holdThePact(pact: Pact): void {
+    heldPact = pact
+    sealing = false
+    pactSeals()
+    pactSlip.showPact(pact)
+    descent.showBarred(false)
+    roleSwitch.showBarred(true, 'you hold a pact — go down or it stands')
+    tellTheSeats()
+    window.setTimeout(() => rite.close(), 900)
+  }
+
   const board = openThePatronBoard({
     offers: offersHere,
     grade: raider.standing.grade,
@@ -116,17 +129,33 @@ export function buildHall(order: HallOrder): Part {
       waxPressed()
       rite.open()
 
-      void sealPact(offer, (progress) => rite.showProgress(progress)).then((pact) => {
-        heldPact = pact
-        sealing = false
-        pactSeals()
-        pactSlip.showPact(pact)
-        descent.showBarred(false)
-        roleSwitch.showBarred(true, 'you hold a pact — go down or it stands')
-        tellTheSeats()
-        window.setTimeout(() => rite.close(), 900)
-      })
+      const staked =
+        offer.id === houseOfferId
+          ? askTheHouseToBackYou(order.address).then((answer) => {
+              if (!theHouseAnswered(answer)) {
+                throw new Error(answer.trouble)
+              }
+            })
+          : Promise.resolve()
+
+      void staked
+        .then(() => sealPact(offer, (progress) => rite.showProgress(progress)))
+        .then(holdThePact)
+        .catch((trouble: Error) => {
+          sealing = false
+          rite.showProgress({ steps: [], finished: false, trouble: trouble.message })
+        })
     }
+  })
+
+  void askTheHouse(order.address).then((answer) => {
+    if (!theHouseAnswered(answer) || !answer.held.patron.canBack) {
+      return
+    }
+
+    board.addOffer(asAnOffer(answer.held.patron), 'offer--house')
+    openToYou += 1
+    tellTheSeats()
   })
 
   body.append(board.element, middle, rail)
