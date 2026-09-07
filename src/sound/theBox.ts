@@ -99,6 +99,20 @@ export function openTheBox(): void {
 
   noise = fillWithHiss(box)
   turnTheTaps()
+
+  opened.forEach((listener) => listener())
+}
+
+const opened = new Set<() => void>()
+
+export function whenTheBoxOpens(listener: () => void): () => void {
+  if (box) {
+    listener()
+  }
+  opened.add(listener)
+  return () => {
+    opened.delete(listener)
+  }
 }
 
 export function theBox(): AudioContext | null {
