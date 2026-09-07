@@ -4,6 +4,7 @@ import { buildDoor } from '../parts/door'
 import { buildScroll } from '../parts/scroll'
 import { dressTheHall } from '../parts/hallDressing'
 import { homeRealm, realmWherePatronsPay } from '../chain/realms'
+import { openTheBox } from '../sound/theBox'
 import '../styles/landing.css'
 
 const purseHomePage = 'https://metamask.io/download/'
@@ -122,6 +123,8 @@ export function buildLanding(order: LandingOrder): Part {
   }
 
   door.whenPushed(() => {
+    openTheBox()
+
     const reading = order.purse.read()
 
     if (reading.standing === 'no purse found') {
