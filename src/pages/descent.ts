@@ -1,5 +1,6 @@
 import type { Part } from '../types/parts'
 import type { RaidOrder, Takings } from '../types/raid'
+import { youWalkedOut, youWereLost } from '../sound/blows'
 import type { Eye } from '../dungeon/draw'
 import type { World } from '../dungeon/world'
 import { openSpriteStore, loadGroundTiles } from '../dungeon/sprites'
@@ -125,6 +126,12 @@ export function buildDescent(order: DescentOrder): Part {
   }
 
   function settle(ending: 'walked out' | 'fell'): void {
+    if (ending === 'walked out') {
+      youWalkedOut()
+    } else {
+      youWereLost()
+    }
+
     if (settled) {
       return
     }
