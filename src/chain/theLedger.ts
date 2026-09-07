@@ -1,7 +1,7 @@
 import type { LedgerEntry } from '../types/ledger'
 import type { Offer, Pact, SealingProgress, SealingStep, SealingWatcher } from '../types/pact'
 import type { Raider, Standing, StandingGrade } from '../types/raider'
-import type { RaiderFacts } from '../types/underwriting'
+import type { Decision, RaiderFacts } from '../types/underwriting'
 import { judge } from './underwriting'
 
 export const contractsAreLive = false
@@ -143,8 +143,8 @@ export function readRaider(address: string): Raider {
 
 export const underwriterAddress = madeUpAddress('01A1', 'AE')
 
-function offerFromTheUnderwriter(raider: Raider): Offer | null {
-  const facts: RaiderFacts = {
+export function factsAbout(raider: Raider): RaiderFacts {
+  return {
     handle: 'this raider',
     standing: raider.standing.score,
     grade: raider.standing.grade,
@@ -157,8 +157,14 @@ function offerFromTheUnderwriter(raider: Raider): Offer | null {
     fundedInACircle: false,
     youngestFunderAgeDays: 90
   }
+}
 
-  const decision = judge(facts, { mostPerRaider: 900 })
+export function readTheUnderwriter(raider: Raider): Decision {
+  return judge(factsAbout(raider), { mostPerRaider: 900 })
+}
+
+function offerFromTheUnderwriter(raider: Raider): Offer | null {
+  const decision = readTheUnderwriter(raider)
 
   if (decision.verdict === 'refuse') {
     return null
