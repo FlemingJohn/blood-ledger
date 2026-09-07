@@ -14,7 +14,7 @@
   gap: var(--pause);
   align-content: center;
   align-items: start;
-  width: min(1180px, 100%);
+  width: 100%;
   margin: 0 auto;
   padding: 12px var(--rest);
 }
