@@ -15,6 +15,8 @@ import { everyPieceOfArt } from './art/paths'
 import { loadWhatYouCan } from './art/pictures'
 import type { Role } from './types/role'
 import { seedForTheDescent } from './chain/attestedSeed'
+import { letTheDarkIn } from './sound/theDark'
+import { whenTheBoxOpens } from './sound/theBox'
 import { homeRealm, realmWherePatronsPay } from './chain/realms'
 
 type PageName = 'landing' | 'hall' | 'descent' | 'patron'
@@ -162,6 +164,8 @@ async function showDescent(pact: Pact, chosenClass: RaiderClass): Promise<void> 
     })
   )
 }
+
+whenTheBoxOpens(letTheDarkIn)
 
 showLanding()
 
