@@ -30,10 +30,9 @@ export function hangTheHousePurse(address: string | null): Part {
   const call = document.createElement('button')
   call.type = 'button'
   call.className = 'housecall'
-  call.append(
-    drawMark({ name: 'coin', size: 13 }),
-    document.createTextNode('The house will stake you')
-  )
+  call.title = 'The house will stake you'
+  call.setAttribute('aria-label', 'the house will stake you')
+  call.append(drawMark({ name: 'purse', size: 15 }))
 
   const slip = document.createElement('div')
   slip.className = 'housepurse framed'
