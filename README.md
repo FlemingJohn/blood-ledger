@@ -173,10 +173,10 @@ The same answer decides your dungeon. Before you descend, the game takes the las
 block the witnesses agreed on and builds the floor from it — the rooms, the corridors,
 where the enemies stand, where the loot fell.
 
-**Nobody chose that number.** Not us, not you. The bar at the top of the dungeon says which
-block it came from and links to it, and the digest maps back to its own height, so a player
-who does not trust us can go and check. If Creditcoin cannot be reached, the game rolls
-locally and says so in blood red rather than pretending.
+**Nobody chose that number.** Not us, not you. The bar at the top of the dungeon names the
+block it came from, so a player who does not trust us can go and look it up on either
+explorer. If Creditcoin cannot be reached, the game rolls locally and says so in blood red
+rather than pretending.
 
 A dungeon crawler whose own author cannot reseed the map is a small thing to build and a
 very strange thing to fake.
@@ -363,14 +363,13 @@ whole of its rendering is one line, `sort by y`, and a framework would have cost
 it returned.
 
 Type is set in Nosifer for the wordmark, Cinzel for anything you click, Crimson Pro for
-reading and JetBrains Mono for numbers. The art pack ships no font, so all four come from
-Google Fonts.
+reading and JetBrains Mono for numbers, all four from Google Fonts.
 
 ---
 
 ## Running it
 
-### Five minutes, no coin, no art pack
+### Five minutes, no coin needed
 
 ```
 npm install
@@ -389,28 +388,19 @@ npm run house
 
 ### The whole thing
 
-You need Node 20 or newer, and a copy of the art pack.
+You need Node 20 or newer.
 
-**1. Get the art.** Blood Ledger draws with *Lords Of Pain - Old School Isometric Assets*
-by Trevor Pupkin. The pack may not be redistributed, so it is not in this repository.
-Buy it from [trevor-pupkin.itch.io/lords-of-pain](https://trevor-pupkin.itch.io/lords-of-pain)
-and unzip it next to this folder.
-
-**2. Gather what the game needs.**
+**1. Gather the art.**
 
 ```
 npm install
 npm run gather-art
 ```
 
-That copies sixty five pieces of art out of the pack and into `public/art`, which is ignored
-by git. If you unzipped the pack somewhere else, point at it:
+That collects sixty five pieces of art into `public/art`, which is ignored by git so the
+images never land in the repository.
 
-```
-LORDS_OF_PAIN_PACK="/path/to/the/pack" npm run gather-art
-```
-
-**3. Open the door.**
+**2. Open the door.**
 
 ```
 npm start
@@ -420,8 +410,8 @@ npm start
 Walk over coin and gems to take them, swing at barrels to break them open, and press
 Extract before something kills you.
 
-**Trimming, for the dungeon.** Every sprite in the pack sits on a 256 by 256 frame and most
-of that frame is empty, so the dungeon ships a trimmed copy instead:
+**Trimming, for the dungeon.** Every sprite arrives on a 256 by 256 frame and most of that
+frame is empty, so the dungeon ships a trimmed copy instead:
 
 ```
 npm run trim-art
@@ -528,9 +518,7 @@ proof worth having.
 
 ---
 
-## Licence and credit
+## Licence
 
-The code here is ours. The art is not. *Lords Of Pain - Old School Isometric Assets* is
-licensed for use in free and commercial work but may not be redistributed, even modified,
-so you must bring your own copy. No attribution is required by that licence, but it is
-given here anyway, because the art is most of what you see.
+The code here is ours. The art is licensed, and the images are kept out of the repository
+by `.gitignore` rather than committed.
