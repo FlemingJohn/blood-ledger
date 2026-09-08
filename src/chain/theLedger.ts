@@ -1,8 +1,9 @@
 import type { LedgerEntry } from '../types/ledger'
 import type { Offer, Pact, SealingProgress, SealingStep, SealingWatcher } from '../types/pact'
-import type { Raider, Standing, StandingGrade } from '../types/raider'
+import type { Raider, StandingGrade } from '../types/raider'
 import type { Decision, RaiderFacts } from '../types/underwriting'
 import { judge } from './underwriting'
+import { classOf, coinsOf, standingOf } from './whatYouHaveDone'
 
 export const contractsAreLive = false
 
@@ -29,14 +30,6 @@ export function gradeReaches(held: StandingGrade, needed: StandingGrade): boolea
 function madeUpAddress(head: string, tail: string): string {
   const middle = '0'.repeat(40 - head.length - tail.length)
   return `0x${head}${middle}${tail}`
-}
-
-const standInStanding: Standing = {
-  score: 780,
-  grade: 'B+',
-  raids: 12,
-  repaid: 9,
-  lost: 3
 }
 
 const standInOffers: Offer[] = [
@@ -135,9 +128,9 @@ const standInLedger: LedgerEntry[] = [
 export function readRaider(address: string): Raider {
   return {
     address,
-    chosenClass: 'warrior',
-    coins: 1240,
-    standing: standInStanding
+    chosenClass: classOf(address),
+    coins: coinsOf(address),
+    standing: standingOf(address)
   }
 }
 
