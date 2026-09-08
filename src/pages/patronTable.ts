@@ -13,6 +13,7 @@ import { dressTheHall } from '../parts/hallDressing'
 
 import { readSeekers } from '../chain/seekers'
 import { stakeOnARaider } from '../chain/patronVault'
+import { writeUpTheStake } from '../chain/whatYouHaveDone'
 import { gradeReaches, readOffers, readRaider } from '../chain/theLedger'
 import '../styles/hallMarks.css'
 import '../styles/patron.css'
@@ -149,6 +150,7 @@ export function buildPatronTable(order: PatronTableOrder): Part {
       .then((made: StakeYouMade) => {
         slip.addStake(made)
         slip.showTrouble(null)
+        writeUpTheStake(order.address, made.raider, Number(made.coinsStaked))
       })
       .catch((trouble: Error) => {
         slip.showTrouble(trouble.message)
