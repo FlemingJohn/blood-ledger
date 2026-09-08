@@ -19,6 +19,7 @@ import { gradeReaches, readLedger, readOffers, readRaider, sealPact } from '../c
 import { readSeekers } from '../chain/seekers'
 import { askTheHouse, askTheHouseToBackYou, theHouseAnswered } from '../chain/house'
 import { asAnOffer, houseOfferId } from '../chain/houseOffer'
+import { rememberTheClass } from '../chain/whatYouHaveDone'
 import { readProfile } from '../chain/profiles'
 import { pactSeals, stairOpens, waxPressed } from '../sound/blows'
 import { everyPieceOfHallArt } from '../art/paths'
@@ -179,6 +180,7 @@ export function buildHall(order: HallOrder): Part {
 
   plinth.whenClassChanged((chosen) => {
     chosenClass = chosen
+    rememberTheClass(order.address, chosen)
     powers.showClass(chosen)
   })
 
