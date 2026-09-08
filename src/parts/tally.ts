@@ -172,23 +172,29 @@ export function hangTheTally(raider: Raider): TallyPart {
   const realm = document.createElement('p')
   realm.className = 'tally__realm'
 
+  const realmName = document.createElement('span')
+  realmName.className = 'tally__realmName'
+  realm.append(realmName)
+
   if (raider.coins <= 0) {
     realm.classList.add('tally__realm--empty')
     figure.classList.add('tally__coins--empty')
-    realm.textContent = `${homeRealm.shortName} · empty`
+    realmName.textContent = `${homeRealm.shortName} · empty`
   } else if (contractsAreLive) {
-    realm.textContent = homeRealm.name
+    realmName.textContent = homeRealm.name
   } else {
     realm.classList.add('tally__realm--warned')
-    realm.append(drawMark({ name: 'warning', size: 10 }))
-    realm.append(document.createTextNode(` ${homeRealm.shortName} · rehearsal`))
+    realmName.append(drawMark({ name: 'warning', size: 10 }))
+    realmName.append(document.createTextNode(` ${homeRealm.shortName} · rehearsal`))
   }
+
+  realmName.title = realmName.textContent ?? ''
 
   const horn = hangTheSoundHorn()
   const houseCall = hangTheHousePurse(raider.address)
 
-  realm.append(horn.element)
-  purseBay.append(socket, realm, houseCall.element)
+  realm.append(horn.element, houseCall.element)
+  purseBay.append(socket, realm)
 
   plate.append(faceBay, standingBay, underwriter.element, witnesses.element, roleBay, purseBay)
   tally.append(plate)
