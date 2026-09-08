@@ -231,10 +231,33 @@ export function chainHauls(): void {
   }
 }
 
-export function stoneGrinds(): void {
+export function stoneGrinds(floor = 1): void {
   const at = rightNow()
-  burstOfHiss(at, 0.7, 320, 120, 0.2)
-  tone('sine', at, 0.8, 74, 46, 0.2)
+  const deeper = Math.min(0.6, (floor - 1) * 0.08)
+  const lowest = 74 * (1 - deeper)
+
+  burstOfHiss(at, 0.7 + deeper * 0.5, 320 * (1 - deeper * 0.5), 120, 0.2)
+  tone('sine', at, 0.8 + deeper * 0.6, lowest, lowest * 0.62, 0.2 + deeper * 0.1)
+}
+
+export function somethingComes(): void {
+  const at = rightNow()
+  burstOfHiss(at, 0.62, 240, 90, 0.09)
+  tone('sine', at + 0.06, 0.5, 132, 88, 0.07)
+}
+
+export function somethingWorseComes(): void {
+  const at = rightNow()
+  burstOfHiss(at, 0.9, 300, 70, 0.13)
+  tone('sawtooth', at, 0.85, 96, 54, 0.1)
+  tone('sine', at + 0.14, 0.7, 62, 40, 0.11)
+}
+
+export function theStairIsFound(): void {
+  const at = rightNow()
+  tone('sine', at, 1.3, 116, 58, 0.22)
+  run([294, 392, 494], at + 0.1, 0.13, 0.34, 0.11, 'triangle')
+  burstOfHiss(at, 0.4, 380, 120, 0.09)
 }
 
 export function pageTurns(): void {
