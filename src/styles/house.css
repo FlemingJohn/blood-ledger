@@ -1,24 +1,23 @@
 .housecall {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  margin-left: 8px;
-  padding: 4px 9px;
-  border: 1px solid var(--gold);
-  background: rgba(201, 162, 39, 0.09);
+  justify-content: center;
+  flex: none;
+  width: 26px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid var(--ruleDeep);
+  background: rgba(201, 162, 39, 0.08);
   color: var(--gold);
-  font-family: var(--counted);
-  font-size: 0.54rem;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  white-space: nowrap;
+  vertical-align: middle;
   cursor: var(--gauntlet, pointer);
-  transition: background 150ms ease;
+  transition: background 150ms ease, border-color 150ms ease;
 }
 
 .housecall:hover,
 .housecall:focus-visible {
   background: rgba(201, 162, 39, 0.2);
+  border-color: var(--gold);
 }
 
 .housepurse {
