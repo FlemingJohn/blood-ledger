@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1330" width="1200" height="1330" role="img" aria-label="A cross section of Blood Ledger: the patron's coin on Ethereum at the surface, the Attestcoin stair carrying proof down, the ledger hall on Creditcoin, and the dungeon running in your browser below">
+  <defs>
+    <marker id="down" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#c9a227"/>
+    </marker>
+    <marker id="tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#7d6a70"/>
+    </marker>
+    <linearGradient id="shaft" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1c0810"/>
+      <stop offset="1" stop-color="#0a0307"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="1330" fill="#0a0307"/>
+
+  <text x="600" y="46" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="25" letter-spacing="6" fill="#e0d5c4">A CROSS SECTION</text>
+  <rect x="420" y="62" width="360" height="1" fill="#2c0d16"/>
+  <text x="600" y="86" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" letter-spacing="2" fill="#7d6a70">THE COIN IS AT THE TOP. THE FIGHT IS AT THE BOTTOM. PROOF IS THE ONLY THING THAT GOES DOWN.</text>
+
+  <!-- ================= THE SURFACE ================= -->
+  <rect x="0" y="112" width="1200" height="272" fill="#160710"/>
+  <path d="M0 112 L70 106 L150 116 L240 104 L330 118 L420 108 L510 117 L600 105 L690 116 L780 107 L870 118 L960 106 L1050 115 L1130 105 L1200 113" fill="none" stroke="#3d1620" stroke-width="2"/>
+
+  <text x="70" y="152" font-family="'Courier New', monospace" font-size="13" letter-spacing="3" fill="#7d6a70">THE SURFACE</text>
+  <text x="70" y="186" font-family="Georgia, 'Times New Roman', serif" font-size="27" fill="#e0d5c4">Ethereum Sepolia</text>
+  <text x="70" y="212" font-family="Georgia, 'Times New Roman', serif" font-size="17" fill="#c9a227">Where the patron's coin sits, and does nothing else.</text>
+
+  <g font-family="Georgia, 'Times New Roman', serif" font-size="16" fill="#b4a49c">
+    <text x="70" y="252">A patron stakes coin on one named raider and says what share they keep.</text>
+    <text x="70" y="278">The vault holds it and shouts one thing. That shout is the whole point.</text>
+    <text x="70" y="304">Nothing here knows Creditcoin exists.</text>
+  </g>
+
+  <g font-family="'Courier New', monospace" font-size="12" letter-spacing="1">
+    <rect x="70" y="322" width="200" height="30" fill="#0d0409" stroke="#3d1620"/>
+    <text x="82" y="342" fill="#c9a227">PatronVault.sol</text>
+    <rect x="284" y="322" width="266" height="30" fill="#0d0409" stroke="#3d1620"/>
+    <text x="296" y="342" fill="#b4a49c">fundRaid(raider, share) payable</text>
+    <rect x="564" y="322" width="180" height="30" fill="#0d0409" stroke="#3d1620"/>
+    <text x="576" y="342" fill="#d6154e">emits RaidFunded</text>
+  </g>
+
+  <g font-family="'Courier New', monospace" font-size="12" letter-spacing="1" fill="#7d6a70">
+    <text x="1130" y="252" text-anchor="end">SMALLEST STAKE     0.001 ETH</text>
+    <text x="1130" y="276" text-anchor="end">PATRON KEEPS AT MOST     80%</text>
+    <text x="1130" y="300" text-anchor="end">RECLAIM AFTER        7 DAYS</text>
+    <text x="1130" y="342" text-anchor="end">16 FOUNDRY TESTS PASSING</text>
+  </g>
+
+  <!-- ================= THE STAIR ================= -->
+  <rect x="0" y="384" width="1200" height="316" fill="#0d0409"/>
+  <rect x="470" y="384" width="260" height="316" fill="url(#shaft)" stroke="#2c0d16"/>
+
+  <g stroke="#2c0d16" stroke-width="1">
+    <path d="M470 424 L730 424"/><path d="M470 464 L730 464"/><path d="M470 504 L730 504"/>
+    <path d="M470 544 L730 544"/><path d="M470 584 L730 584"/><path d="M470 624 L730 624"/>
+    <path d="M470 664 L730 664"/>
+  </g>
+
+  <path d="M600 400 L600 652" stroke="#c9a227" stroke-width="2" fill="none" marker-end="url(#down)"/>
+
+  <text x="440" y="418" text-anchor="end" font-family="'Courier New', monospace" font-size="13" letter-spacing="3" fill="#7d6a70">THE STAIR</text>
+  <text x="440" y="452" text-anchor="end" font-family="Georgia, 'Times New Roman', serif" font-size="27" fill="#e0d5c4">Attestcoin</text>
+
+  <g font-family="Georgia, 'Times New Roman', serif" font-size="16" fill="#b4a49c" text-anchor="end">
+    <text x="440" y="486">A group of witnesses watch Ethereum</text>
+    <text x="440" y="510">and write down what they saw, on</text>
+    <text x="440" y="534">Creditcoin. Once enough of them agree,</text>
+    <text x="440" y="558">anything on Creditcoin can ask two</text>
+    <text x="440" y="582">questions and trust the answer without</text>
+    <text x="440" y="606">trusting us.</text>
+  </g>
+
+  <g font-family="'Courier New', monospace" font-size="12" letter-spacing="1">
+    <rect x="180" y="628" width="260" height="30" fill="#0d0409" stroke="#3d1620"/>
+    <text x="192" y="648" fill="#c9a227">HOW FAR HAVE YOU GOT?</text>
+    <text x="192" y="678" fill="#7d6a70">chain info at 0x...0FD3</text>
+  </g>
+
+  <g font-family="Georgia, 'Times New Roman', serif" font-size="16" fill="#b4a49c">
+    <text x="760" y="486">The worker is the only thing on this</text>
+    <text x="760" y="510">stair. It watches Ethereum every twelve</text>
+    <text x="760" y="534">seconds, waits for the witnesses to</text>
+    <text x="760" y="558">reach the block, fetches the proof and</text>
+    <text x="760" y="582">carries it down.</text>
+    <text x="760" y="612" fill="#c9a227">It carries a proof, not a message.</text>
+  </g>
+
+  <g font-family="'Courier New', monospace" font-size="12" letter-spacing="1">
+    <rect x="760" y="628" width="290" height="30" fill="#0d0409" stroke="#3d1620"/>
+    <text x="772" y="648" fill="#c9a227">DID THIS PAYMENT HAPPEN?</text>
+    <text x="772" y="678" fill="#7d6a70">block prover at 0x...0FD2</text>
+  </g>
+
+  <rect x="452" y="666" width="296" height="24" fill="#0d0409" stroke="#2c0d16"/>
+  <text x="600" y="682" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" letter-spacing="2" fill="#c9a227">8 TO 20 MINUTES TO AGREE</text>
+
+  <!-- ================= THE HALL ================= -->
+  <rect x="0" y="700" width="1200" height="290" fill="#160710"/>
+  <path d="M0 700 L80 694 L170 704 L260 692 L350 706 L440 696 L530 705 L620 693 L710 704 L800 695 L890 706 L980 694 L1070 703 L1150 693 L1200 701" fill="none" stroke="#3d1620" stroke-width="2"/>
+
+  <text x="70" y="740" font-family="'Courier New', monospace" font-size="13" letter-spacing="3" fill="#7d6a70">THE HALL</text>
+  <text x="70" y="774" font-family="Georgia, 'Times New Roman', serif" font-size="27" fill="#e0d5c4">Creditcoin CC3</text>
+  <text x="70" y="800" font-family="Georgia, 'Times New Roman', serif" font-size="17" fill="#d6154e">Everything that outlives a raid.</text>
+
+  <g font-family="Georgia, 'Times New Roman', serif" font-size="16" fill="#b4a49c">
+    <text x="70" y="840">The ledger reads the payment out of the proof itself. It never takes the</text>
+    <text x="70" y="864">worker's word for anything. A proof already used is refused. A proof from</text>
+    <text x="70" y="888">a vault it was not told to trust is refused. Until someone names the one</text>
+    <text x="70" y="912">vault to believe, every proof is refused, and that is on purpose.</text>
+  </g>
+
+  <g font-family="'Courier New', monospace" font-size="12" letter-spacing="1">
+    <rect x="70" y="932" width="230" height="30" fill="#0d0409" stroke="#3d1620"/>
+    <text x="82" y="952" fill="#c9a227">TheLedger.sol : ASCBase</text>
+    <rect x="314" y="932" width="150" height="30" fill="#0d0409" stroke="#3d1620"/>
+    <text x="326" y="952" fill="#b4a49c">the pact</text>
+    <rect x="478" y="932" width="170" height="30" fill="#0d0409" stroke="#3d1620"/>
+    <text x="490" y="952" fill="#b4a49c">your standing</text>
+    <rect x="662" y="932" width="150" height="30" fill="#0d0409" stroke="#3d1620"/>
+    <text x="674" y="952" fill="#b4a49c">settleRaid</text>
+  </g>
+
+  <g font-family="'Courier New', monospace" font-size="12" letter-spacing="1" fill="#7d6a70">
+    <text x="1130" y="840" text-anchor="end">THE BOND FALLS AS YOU EARN IT</text>
+    <text x="1130" y="866" text-anchor="end" fill="#b4a49c">BELOW 300 .......... 100% OF 0.1 tCTC</text>
+    <text x="1130" y="888" text-anchor="end" fill="#b4a49c">600 AND UP ......................  30%</text>
+    <text x="1130" y="910" text-anchor="end" fill="#c9a227">900 AND UP ......................   0%</text>
+  </g>
+
+  <!-- ================= THE DARK ================= -->
+  <rect x="0" y="990" width="1200" height="290" fill="#0a0307"/>
+  <path d="M0 990 L90 984 L180 994 L270 982 L360 996 L450 986 L540 995 L630 983 L720 994 L810 985 L900 996 L990 984 L1080 993 L1160 983 L1200 991" fill="none" stroke="#3d1620" stroke-width="2"/>
+
+  <text x="70" y="1030" font-family="'Courier New', monospace" font-size="13" letter-spacing="3" fill="#7d6a70">THE DARK</text>
+  <text x="70" y="1064" font-family="Georgia, 'Times New Roman', serif" font-size="27" fill="#e0d5c4">Your browser</text>
+  <text x="70" y="1090" font-family="Georgia, 'Times New Roman', serif" font-size="17" fill="#c9a227">There is no game server. The fight is on your machine.</text>
+
+  <g font-family="Georgia, 'Times New Roman', serif" font-size="16" fill="#b4a49c">
+    <text x="70" y="1130">The floor is built from the last Ethereum block the witnesses agreed on.</text>
+    <text x="70" y="1154">Nobody chose that number, and anyone can go and check which block it was.</text>
+    <text x="70" y="1178">Enemies stand where the seed put them, and the dark keeps sending more</text>
+    <text x="70" y="1202">for as long as you stay.</text>
+  </g>
+
+  <g font-family="'Courier New', monospace" font-size="12" letter-spacing="1" fill="#7d6a70">
+    <text x="1130" y="1130" text-anchor="end">HOW FAST THE DARK SENDS</text>
+    <text x="1130" y="1156" text-anchor="end" fill="#b4a49c">START ....................... 15.0s</text>
+    <text x="1130" y="1178" text-anchor="end" fill="#b4a49c">EACH FLOOR DEEPER ......... - 1.1s</text>
+    <text x="1130" y="1200" text-anchor="end" fill="#b4a49c">EACH MINUTE YOU LINGER .... - 2.4s</text>
+    <text x="1130" y="1222" text-anchor="end" fill="#d6154e">CARRIED DIVIDED BY OWED ... - 3.6s</text>
+    <text x="1130" y="1244" text-anchor="end" fill="#c9a227">NEVER FASTER THAN ........... 4.2s</text>
+  </g>
+
+  <g font-family="'Courier New', monospace" font-size="12" letter-spacing="1">
+    <rect x="70" y="1222" width="210" height="30" fill="#0d0409" stroke="#3d1620"/>
+    <text x="82" y="1242" fill="#b4a49c">canvas, no framework</text>
+    <rect x="294" y="1222" width="190" height="30" fill="#0d0409" stroke="#3d1620"/>
+    <text x="306" y="1242" fill="#b4a49c">27 sounds, no files</text>
+    <rect x="498" y="1222" width="230" height="30" fill="#0d0409" stroke="#3d1620"/>
+    <text x="510" y="1242" fill="#d6154e">Demonlord waits on six</text>
+  </g>
+
+  <rect x="0" y="1280" width="1200" height="50" fill="#0d0409"/>
+  <text x="70" y="1310" font-family="'Courier New', monospace" font-size="12" letter-spacing="2" fill="#6b4a52">PROOF ONLY GOES DOWN. NOTHING IS WRITTEN BACK TO ETHEREUM, BECAUSE THAT ROAD DOES NOT EXIST YET.</text>
+</svg>
