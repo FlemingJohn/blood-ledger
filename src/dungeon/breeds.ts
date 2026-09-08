@@ -111,8 +111,8 @@ export const breeds: Record<BreedName, Breed> = {
     swell: 0.55,
     tint: 'grayscale(.55) brightness(1.25)',
     coinBonus: 160,
-    fromFloor: 4,
-    rarity: 0.18
+    fromFloor: 3,
+    rarity: 0.26
   },
   demonlord: {
     name: 'demonlord',
@@ -125,7 +125,7 @@ export const breeds: Record<BreedName, Breed> = {
     swell: 1,
     tint: null,
     coinBonus: 900,
-    fromFloor: 3,
+    fromFloor: 6,
     rarity: 1
   }
 }
