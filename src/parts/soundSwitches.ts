@@ -16,7 +16,7 @@ interface Switch {
 
 const switches: Switch[] = [
   { channel: 'blows', said: 'Blows and cries', loud: 'horn', quiet: 'hushed', fallback: 0.75 },
-  { channel: 'dark', said: 'The dark', loud: 'song', quiet: 'songHushed', fallback: 0.4 }
+  { channel: 'dark', said: 'The dark', loud: 'song', quiet: 'songHushed', fallback: 0.15 }
 ]
 
 const everythingBack = 0.8
