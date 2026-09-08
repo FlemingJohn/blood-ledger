@@ -17,6 +17,7 @@ export type MarkName =
   | 'hushed'
   | 'song'
   | 'songHushed'
+  | 'purse'
 
 const strokes: Record<MarkName, string[]> = {
   horn: [
@@ -39,6 +40,12 @@ const strokes: Record<MarkName, string[]> = {
     'M9 15a2.2 2.2 0 1 1-4.4 0a2.2 2.2 0 1 1 4.4 0z',
     'M15.5 9.5l5 5',
     'M20.5 9.5l-5 5'
+  ],
+  purse: [
+    'M6 9h12l1.6 9a3 3 0 0 1-3 3.5H7.4a3 3 0 0 1-3-3.5z',
+    'M9 9V6.6a3 3 0 0 1 6 0V9',
+    'M12 13v5',
+    'M9.6 15.5h4.8'
   ],
   scales: [
     'M12 3v16',
