@@ -5,7 +5,7 @@ const remembered = 'bloodledger.sound'
 const asHeard: SoundSettings = {
   everything: 0.8,
   blows: 0.75,
-  dark: 0.4
+  dark: 0.15
 }
 
 let box: AudioContext | null = null
