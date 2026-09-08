@@ -26,6 +26,9 @@ import {
 const framesInMove = { walk: 8, attack: 8, death: 8 }
 const slimeDeathFrames = 7
 
+const woundsCloseAfter = 5000
+const woundsCloseBy = 1.5
+
 const enemyWakesWithin = 420
 const restBetweenBlows = 900
 const youRestBetweenBlows = 420
@@ -385,6 +388,20 @@ export function powerRestShare(world: World, power: Power, now: number): number 
   return Math.max(0, Math.min(1, (now - last) / power.restsFor))
 }
 
+function woundsClose(world: World, seconds: number, now: number): void {
+  const you = world.you
+
+  if (world.finished !== 'still going' || isDown(you) || you.life >= you.fullLife) {
+    return
+  }
+
+  if (now - you.struckAt < woundsCloseAfter) {
+    return
+  }
+
+  you.life = Math.min(you.fullLife, you.life + woundsCloseBy * seconds)
+}
+
 function letTheDarkSend(world: World, now: number): void {
   if (world.finished !== 'still going' || isDown(world.you)) {
     return
@@ -422,6 +439,7 @@ export function turnTheWorld(world: World, wanted: WhatYouWant, seconds: number,
   const you = world.you
 
   letTheDarkSend(world, now)
+  woundsClose(world, seconds, now)
 
   if (world.finished === 'still going' && !isDown(you)) {
     const firstOne = world.powers[0]
