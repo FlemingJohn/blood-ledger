@@ -159,7 +159,7 @@ async function showDescent(pact: Pact, chosenClass: RaiderClass): Promise<void> 
       },
       whenSettled(takings) {
         if (heldAddress) {
-          writeUpTheRaid(heldAddress, takings)
+          writeUpTheRaid(heldAddress, takings, pact)
           showHall(heldAddress)
         } else {
           showLanding()
