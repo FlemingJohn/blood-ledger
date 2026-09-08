@@ -6,7 +6,7 @@ import type { Eye } from '../dungeon/draw'
 import type { World } from '../dungeon/world'
 import { openSpriteStore, loadGroundTiles } from '../dungeon/sprites'
 import { followWith, paintWorld } from '../dungeon/draw'
-import { everyoneStanding, openWorld, turnTheWorld, whatWasLeftBehind } from '../dungeon/world'
+import { openWorld, theWayDownIsOpen, turnTheWorld, whatWasLeftBehind } from '../dungeon/world'
 import { takeTheHands } from '../dungeon/hands'
 import { hangThePressureBar } from '../parts/pressureBar'
 import { hangTheLifeGlobe } from '../parts/lifeGlobe'
@@ -109,6 +109,7 @@ export function buildDescent(order: DescentOrder): Part {
   let world: World = openWorld({
     seed: order.seed.seed,
     floor: 1,
+    owed: order.pact.coinsStaked,
     chosenClass: order.chosenClass
   })
   let running = true
@@ -166,7 +167,8 @@ export function buildDescent(order: DescentOrder): Part {
     world = openWorld({
       seed: order.seed.seed,
       floor: deepest,
-      chosenClass: order.chosenClass
+      chosenClass: order.chosenClass,
+      owed: order.pact.coinsStaked
     })
 
     world.coinsCarried = carried
@@ -214,7 +216,10 @@ export function buildDescent(order: DescentOrder): Part {
     belt.showRest(world, now)
     pressure.showCoins(world.coinsCarried, order.pact.coinsStaked)
     wayOut.showSum(world.coinsCarried, order.pact.patronShare, order.pact.coinsStaked)
-    const clear = everyoneStanding(world)
+    world.seenWide = page.clientWidth
+    world.seenTall = page.clientHeight
+
+    const clear = theWayDownIsOpen(world)
     wayOut.showDeeperReady(clear)
 
     if (clear !== wayIsOpen) {
@@ -234,7 +239,7 @@ export function buildDescent(order: DescentOrder): Part {
     settle('walked out')
   })
   wayOut.whenGoingDeeper(() => {
-    stoneGrinds()
+    stoneGrinds(world.floor + 1)
     goDeeper()
   })
 
