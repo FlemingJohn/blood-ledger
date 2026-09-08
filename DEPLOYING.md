@@ -257,6 +257,92 @@ the proof worth having.
 
 ---
 
+## Putting the game on Vercel
+
+Vercel hosts the pages. It cannot host the worker, and it should not host the house. Read
+the three notes before you deploy.
+
+### Deploy
+
+```
+npm install -g vercel
+vercel login
+vercel --prod
+```
+
+`vercel.json` already sets the build, the output folder, the rewrites and long cache
+headers for the art and music.
+
+In the Vercel dashboard, under Settings then Environment Variables, add:
+
+```
+VITE_PATRON_VAULT_ADDRESS=0xcBB956Fa0358F53B9A83b78d6586a1fbB46fF64e
+```
+
+Without it the patron page will say there is no vault and refuse to stake.
+
+### Note one: deploy from your machine, not from GitHub
+
+`public/art` is in `.gitignore`, so a build triggered from a git push has no art and the
+dungeon renders empty. `vercel --prod` from your own folder uploads the art you already
+gathered, without ever committing it. The art is 46 MB across 2,881 files, so the first
+upload is slow and later ones are cached.
+
+If you connect the repo to Vercel for automatic deploys, the game will build and it will
+look broken. Deploy from the command line.
+
+### Note two: the worker cannot live here
+
+The worker polls Sepolia every twelve seconds and waits up to twenty minutes for the
+witnesses. Vercel functions are short lived and cannot hold a process open, so there is
+nowhere for it to run.
+
+Keep running it on your own machine:
+
+```
+npm run worker
+```
+
+The hosted page does not need the worker to take a patron's money. A patron on the deployed
+site signs a real transaction to the vault on Sepolia straight from their own wallet. The
+worker only has to be alive somewhere to carry the proof afterwards, and your laptop is
+somewhere.
+
+For something permanent, put the worker on any host that runs a long process, such as a
+small virtual machine, Railway, Fly or Render.
+
+### Note three: do not put the house on Vercel
+
+The house holds a private key and gives coin away. Two things make it unsafe as a
+serverless function:
+
+**The caps live in memory.** `house/ledgerOfGiving.ts` counts what each address has been
+given in a `Map`. Serverless invocations do not share memory, so the three purse limit
+resets whenever a new instance starts, and the purse can be emptied.
+
+**The endpoint would be public.** On your machine the house answers only to a browser on
+the same computer. On the internet it answers to anyone who finds the URL.
+
+For a demo, run the house locally and leave `VITE_HOUSE_URL` unset on Vercel. The button
+will report that the house is shut, which is true and harmless.
+
+If you do want it hosted, the counts have to move out of memory first, into a small
+database or a Vercel KV store, and the payouts need a hard daily ceiling on top of the per
+address one.
+
+### What works on the deployed site
+
+| | |
+| --- | --- |
+| The landing, the hall, the dungeon, the reckoning | yes |
+| Live Attestcoin heights in the header | yes |
+| Floors seeded from an attested block | yes |
+| A patron staking real coin from their own wallet | yes |
+| The proof being carried and the pact sealing | only while your worker is running |
+| The house filling an empty wallet | no, unless you host it properly |
+
+---
+
 ## What can go wrong
 
 **`the ledger believes 0x000…, not 0xABC…`**
