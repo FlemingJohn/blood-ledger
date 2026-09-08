@@ -4,11 +4,14 @@ import type { Fighter, Wound } from '../types/fighter'
 import type { RaiderClass } from '../types/raider'
 import type { Power, PowerInFlight } from '../types/power'
 import { apart, blowLandsOnFrame, framesPerSecond, isDown, makeFighter } from './fighters'
-import { bladeLands, bulwarkHolds, cleaveSwings, coinTaken, demonlordLaughs, enemyFalls, youAreHit, youFall } from '../sound/blows'
+import { bladeLands, bulwarkHolds, cleaveSwings, coinTaken, demonlordLaughs, enemyFalls, somethingComes, somethingWorseComes, theStairIsFound, youAreHit, youFall } from '../sound/blows'
 import { facingFrom } from './facing'
 import { planFloor } from './floorPlan'
 import { breeds } from './breeds'
 import { gradeFromRoll } from './gems'
+import type { Prowl } from './prowl'
+import { openTheProwl, stirTheDark } from './prowl'
+import type { Rolls } from './seed'
 import { rollsFromSeed } from './seed'
 import {
   cleaveReaches,
@@ -33,6 +36,7 @@ export interface WorldOrder {
   seed: string
   floor: number
   chosenClass: RaiderClass
+  owed: number
 }
 
 export interface World {
@@ -52,6 +56,12 @@ export interface World {
   inFlight: PowerInFlight[]
   guardedUntil: number
   floor: number
+  owed: number
+  prowl: Prowl
+  prowlRolls: Rolls
+  seenWide: number
+  seenTall: number
+  stairFound: boolean
   finished: 'still going' | 'fell' | 'walked out'
   killedBy: string | null
 }
@@ -88,6 +98,12 @@ export function openWorld(order: WorldOrder): World {
     inFlight: [],
     guardedUntil: 0,
     floor: order.floor,
+    owed: order.owed,
+    prowl: openTheProwl(performance.now()),
+    prowlRolls: rollsFromSeed(`${order.seed}:prowl:${order.floor}`),
+    seenWide: 1280,
+    seenTall: 720,
+    stairFound: false,
     finished: 'still going',
     killedBy: null
   }
@@ -369,8 +385,43 @@ export function powerRestShare(world: World, power: Power, now: number): number 
   return Math.max(0, Math.min(1, (now - last) / power.restsFor))
 }
 
+function letTheDarkSend(world: World, now: number): void {
+  if (world.finished !== 'still going' || isDown(world.you)) {
+    return
+  }
+
+  const come = stirTheDark({
+    prowl: world.prowl,
+    plan: world.plan,
+    you: world.you,
+    enemies: world.enemies,
+    floor: world.floor,
+    coinsCarried: world.coinsCarried,
+    owed: world.owed,
+    seenWide: world.seenWide,
+    seenTall: world.seenTall,
+    rolls: world.prowlRolls,
+    now
+  })
+
+  if (!come) {
+    return
+  }
+
+  world.enemies.push(come)
+
+  if (come.breed && come.breed.rarity < 0.3) {
+    somethingWorseComes()
+    return
+  }
+
+  somethingComes()
+}
+
 export function turnTheWorld(world: World, wanted: WhatYouWant, seconds: number, now: number): void {
   const you = world.you
+
+  letTheDarkSend(world, now)
 
   if (world.finished === 'still going' && !isDown(you)) {
     const firstOne = world.powers[0]
@@ -468,6 +519,14 @@ export function turnTheWorld(world: World, wanted: WhatYouWant, seconds: number,
 
 export function everyoneStanding(world: World): boolean {
   return world.enemies.every((enemy) => isDown(enemy))
+}
+
+export function theWayDownIsOpen(world: World): boolean {
+  if (!world.stairFound && everyoneStanding(world)) {
+    world.stairFound = true
+    theStairIsFound()
+  }
+  return world.stairFound
 }
 
 const gemsWorstFirst: GemGrade[] = ['white', 'green', 'blue', 'red']
