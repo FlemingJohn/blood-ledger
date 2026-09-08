@@ -1,0 +1,96 @@
+.descending {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(120% 80% at 50% 40%, #24070f 0%, #0a0307 62%, #050104 100%);
+  opacity: 1;
+  transition: opacity 600ms ease;
+}
+
+.descending--lifting {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.descending__slab {
+  width: min(360px, 78vw);
+  padding: 30px 30px 26px;
+  border: 1px solid var(--rule);
+  background: linear-gradient(180deg, rgba(44, 16, 25, 0.72), rgba(10, 3, 7, 0.9));
+  text-align: center;
+}
+
+.descending__mark {
+  color: var(--ember);
+  animation: stairBreathes 2.4s ease-in-out infinite;
+}
+
+.descending__word {
+  margin: 12px 0 4px;
+  font-family: var(--chiselled);
+  font-size: 1.35rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--bone);
+}
+
+.descending__floor {
+  margin: 0 0 20px;
+  font-family: var(--counted);
+  font-size: 0.62rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.descending__rail {
+  height: 3px;
+  background: var(--void);
+  border: 1px solid var(--ruleDeep);
+  overflow: hidden;
+}
+
+.descending__filled {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--ember), var(--flare, #e0b84a));
+  transition: width 420ms ease;
+}
+
+.descending__said {
+  margin: 12px 0 0;
+  font-family: var(--counted);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ash);
+}
+
+.descending__aside {
+  margin: 16px 0 0;
+  font-family: var(--spoken);
+  font-style: italic;
+  font-size: 0.86rem;
+  color: #6b5a60;
+}
+
+@keyframes stairBreathes {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .descending__mark {
+    animation: none;
+    opacity: 0.9;
+  }
+  .descending,
+  .descending__filled {
+    transition: none;
+  }
+}
