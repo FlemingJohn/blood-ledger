@@ -9,6 +9,7 @@ import { followWith, paintWorld } from '../dungeon/draw'
 import { openWorld, theWayDownIsOpen, turnTheWorld, whatWasLeftBehind } from '../dungeon/world'
 import { takeTheHands } from '../dungeon/hands'
 import { hangThePressureBar } from '../parts/pressureBar'
+import { coverTheStair } from '../parts/descending'
 import { hangTheLifeGlobe } from '../parts/lifeGlobe'
 import { openTheWayOut } from '../parts/wayOut'
 import { prepareTheReckoning } from '../parts/reckoning'
@@ -91,6 +92,9 @@ export function buildDescent(order: DescentOrder): Part {
   hint.className = 'descent__hint'
   hint.textContent = 'W A S D to move · click or space to swing · Q and E for powers'
 
+  const stair = coverTheStair()
+  stair.showFloor(1)
+
   page.append(
     board,
     pressure.element,
@@ -100,6 +104,7 @@ export function buildDescent(order: DescentOrder): Part {
     hint,
     wayOut.element,
     horn.element,
+    stair.element,
     reckoning.element
   )
 
@@ -247,10 +252,17 @@ export function buildDescent(order: DescentOrder): Part {
 
   void (async () => {
     store = await openSpriteStore()
+    stair.reached(1)
+
     ground = await loadGroundTiles()
+    stair.reached(2)
+
     await store.bring([...everyMoveOfYours(order.chosenClass), ...soonestNeeded])
+    stair.reached(3)
+
     fitBoard()
     pressure.showFloor(world.floor)
+    stair.done()
     void store.bring(bossNeeded)
   })()
 
@@ -264,6 +276,7 @@ export function buildDescent(order: DescentOrder): Part {
       window.cancelAnimationFrame(heartbeat)
       window.removeEventListener('resize', fitBoard)
       hands.letGo()
+      stair.teardown()
       belt.teardown()
       minimap.teardown()
       reckoning.teardown()
