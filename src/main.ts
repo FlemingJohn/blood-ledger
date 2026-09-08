@@ -15,6 +15,7 @@ import { everyPieceOfArt } from './art/paths'
 import { loadWhatYouCan } from './art/pictures'
 import type { Role } from './types/role'
 import { seedForTheDescent } from './chain/attestedSeed'
+import { writeUpTheRaid } from './chain/whatYouHaveDone'
 import { letTheDarkIn } from './sound/theDark'
 import { whenTheBoxOpens } from './sound/theBox'
 import { goFullSight } from './parts/fullSight'
@@ -156,8 +157,9 @@ async function showDescent(pact: Pact, chosenClass: RaiderClass): Promise<void> 
       whenWayOutOpens(open: boolean) {
         hand.wear(open ? 'wayOut' : 'enemy')
       },
-      whenSettled() {
+      whenSettled(takings) {
         if (heldAddress) {
+          writeUpTheRaid(heldAddress, takings)
           showHall(heldAddress)
         } else {
           showLanding()
