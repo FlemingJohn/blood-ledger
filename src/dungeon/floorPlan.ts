@@ -252,8 +252,8 @@ export function planFloor(seed: string, floor: number): FloorPlan {
     })
   })
 
-  const bossFloor = 3
-  const isBossFloor = floor === bossFloor || (floor > bossFloor && rolls.chance(0.4))
+  const bossFloor = 6
+  const isBossFloor = floor === bossFloor
 
   const enemySpots: FloorPlan['enemySpots'] = []
   const enemyCount = Math.min(roomTiles.length, (isBossFloor ? 3 : 5) + floor * 2)
