@@ -1,0 +1,4368 @@
+{
+  "dungeon/broken/barrel": {
+    "frames": [
+      "/art/trimmed/dungeon/broken/barrel-0.png",
+      "/art/trimmed/dungeon/broken/barrel-1.png",
+      "/art/trimmed/dungeon/broken/barrel-2.png",
+      "/art/trimmed/dungeon/broken/barrel-3.png",
+      "/art/trimmed/dungeon/broken/barrel-4.png",
+      "/art/trimmed/dungeon/broken/barrel-5.png",
+      "/art/trimmed/dungeon/broken/barrel-6.png",
+      "/art/trimmed/dungeon/broken/barrel-7.png"
+    ],
+    "content": {
+      "left": 103,
+      "top": 105,
+      "width": 53,
+      "height": 43
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/broken/crate": {
+    "frames": [
+      "/art/trimmed/dungeon/broken/crate-0.png",
+      "/art/trimmed/dungeon/broken/crate-1.png",
+      "/art/trimmed/dungeon/broken/crate-2.png",
+      "/art/trimmed/dungeon/broken/crate-3.png",
+      "/art/trimmed/dungeon/broken/crate-4.png",
+      "/art/trimmed/dungeon/broken/crate-5.png",
+      "/art/trimmed/dungeon/broken/crate-6.png",
+      "/art/trimmed/dungeon/broken/crate-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 118,
+      "width": 28,
+      "height": 17
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/attack-E": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/attack-E-0.png",
+      "/art/trimmed/dungeon/demonlord/attack-E-1.png",
+      "/art/trimmed/dungeon/demonlord/attack-E-2.png",
+      "/art/trimmed/dungeon/demonlord/attack-E-3.png",
+      "/art/trimmed/dungeon/demonlord/attack-E-4.png",
+      "/art/trimmed/dungeon/demonlord/attack-E-5.png",
+      "/art/trimmed/dungeon/demonlord/attack-E-6.png",
+      "/art/trimmed/dungeon/demonlord/attack-E-7.png"
+    ],
+    "content": {
+      "left": 108,
+      "top": 59,
+      "width": 116,
+      "height": 92
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/attack-N": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/attack-N-0.png",
+      "/art/trimmed/dungeon/demonlord/attack-N-1.png",
+      "/art/trimmed/dungeon/demonlord/attack-N-2.png",
+      "/art/trimmed/dungeon/demonlord/attack-N-3.png",
+      "/art/trimmed/dungeon/demonlord/attack-N-4.png",
+      "/art/trimmed/dungeon/demonlord/attack-N-5.png",
+      "/art/trimmed/dungeon/demonlord/attack-N-6.png",
+      "/art/trimmed/dungeon/demonlord/attack-N-7.png"
+    ],
+    "content": {
+      "left": 103,
+      "top": 43,
+      "width": 108,
+      "height": 98
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/attack-NE": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/attack-NE-0.png",
+      "/art/trimmed/dungeon/demonlord/attack-NE-1.png",
+      "/art/trimmed/dungeon/demonlord/attack-NE-2.png",
+      "/art/trimmed/dungeon/demonlord/attack-NE-3.png",
+      "/art/trimmed/dungeon/demonlord/attack-NE-4.png",
+      "/art/trimmed/dungeon/demonlord/attack-NE-5.png",
+      "/art/trimmed/dungeon/demonlord/attack-NE-6.png",
+      "/art/trimmed/dungeon/demonlord/attack-NE-7.png"
+    ],
+    "content": {
+      "left": 110,
+      "top": 49,
+      "width": 112,
+      "height": 98
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/attack-NW": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/attack-NW-0.png",
+      "/art/trimmed/dungeon/demonlord/attack-NW-1.png",
+      "/art/trimmed/dungeon/demonlord/attack-NW-2.png",
+      "/art/trimmed/dungeon/demonlord/attack-NW-3.png",
+      "/art/trimmed/dungeon/demonlord/attack-NW-4.png",
+      "/art/trimmed/dungeon/demonlord/attack-NW-5.png",
+      "/art/trimmed/dungeon/demonlord/attack-NW-6.png",
+      "/art/trimmed/dungeon/demonlord/attack-NW-7.png"
+    ],
+    "content": {
+      "left": 78,
+      "top": 47,
+      "width": 120,
+      "height": 94
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/attack-S": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/attack-S-0.png",
+      "/art/trimmed/dungeon/demonlord/attack-S-1.png",
+      "/art/trimmed/dungeon/demonlord/attack-S-2.png",
+      "/art/trimmed/dungeon/demonlord/attack-S-3.png",
+      "/art/trimmed/dungeon/demonlord/attack-S-4.png",
+      "/art/trimmed/dungeon/demonlord/attack-S-5.png",
+      "/art/trimmed/dungeon/demonlord/attack-S-6.png",
+      "/art/trimmed/dungeon/demonlord/attack-S-7.png"
+    ],
+    "content": {
+      "left": 95,
+      "top": 64,
+      "width": 114,
+      "height": 112
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/attack-SE": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/attack-SE-0.png",
+      "/art/trimmed/dungeon/demonlord/attack-SE-1.png",
+      "/art/trimmed/dungeon/demonlord/attack-SE-2.png",
+      "/art/trimmed/dungeon/demonlord/attack-SE-3.png",
+      "/art/trimmed/dungeon/demonlord/attack-SE-4.png",
+      "/art/trimmed/dungeon/demonlord/attack-SE-5.png",
+      "/art/trimmed/dungeon/demonlord/attack-SE-6.png",
+      "/art/trimmed/dungeon/demonlord/attack-SE-7.png"
+    ],
+    "content": {
+      "left": 100,
+      "top": 62,
+      "width": 120,
+      "height": 100
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/attack-SW": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/attack-SW-0.png",
+      "/art/trimmed/dungeon/demonlord/attack-SW-1.png",
+      "/art/trimmed/dungeon/demonlord/attack-SW-2.png",
+      "/art/trimmed/dungeon/demonlord/attack-SW-3.png",
+      "/art/trimmed/dungeon/demonlord/attack-SW-4.png",
+      "/art/trimmed/dungeon/demonlord/attack-SW-5.png",
+      "/art/trimmed/dungeon/demonlord/attack-SW-6.png",
+      "/art/trimmed/dungeon/demonlord/attack-SW-7.png"
+    ],
+    "content": {
+      "left": 78,
+      "top": 67,
+      "width": 127,
+      "height": 96
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/attack-W": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/attack-W-0.png",
+      "/art/trimmed/dungeon/demonlord/attack-W-1.png",
+      "/art/trimmed/dungeon/demonlord/attack-W-2.png",
+      "/art/trimmed/dungeon/demonlord/attack-W-3.png",
+      "/art/trimmed/dungeon/demonlord/attack-W-4.png",
+      "/art/trimmed/dungeon/demonlord/attack-W-5.png",
+      "/art/trimmed/dungeon/demonlord/attack-W-6.png",
+      "/art/trimmed/dungeon/demonlord/attack-W-7.png"
+    ],
+    "content": {
+      "left": 59,
+      "top": 58,
+      "width": 143,
+      "height": 87
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/death-E": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/death-E-0.png",
+      "/art/trimmed/dungeon/demonlord/death-E-1.png",
+      "/art/trimmed/dungeon/demonlord/death-E-2.png",
+      "/art/trimmed/dungeon/demonlord/death-E-3.png",
+      "/art/trimmed/dungeon/demonlord/death-E-4.png",
+      "/art/trimmed/dungeon/demonlord/death-E-5.png",
+      "/art/trimmed/dungeon/demonlord/death-E-6.png",
+      "/art/trimmed/dungeon/demonlord/death-E-7.png"
+    ],
+    "content": {
+      "left": 108,
+      "top": 59,
+      "width": 97,
+      "height": 100
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/death-N": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/death-N-0.png",
+      "/art/trimmed/dungeon/demonlord/death-N-1.png",
+      "/art/trimmed/dungeon/demonlord/death-N-2.png",
+      "/art/trimmed/dungeon/demonlord/death-N-3.png",
+      "/art/trimmed/dungeon/demonlord/death-N-4.png",
+      "/art/trimmed/dungeon/demonlord/death-N-5.png",
+      "/art/trimmed/dungeon/demonlord/death-N-6.png",
+      "/art/trimmed/dungeon/demonlord/death-N-7.png"
+    ],
+    "content": {
+      "left": 99,
+      "top": 65,
+      "width": 130,
+      "height": 76
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/death-NE": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/death-NE-0.png",
+      "/art/trimmed/dungeon/demonlord/death-NE-1.png",
+      "/art/trimmed/dungeon/demonlord/death-NE-2.png",
+      "/art/trimmed/dungeon/demonlord/death-NE-3.png",
+      "/art/trimmed/dungeon/demonlord/death-NE-4.png",
+      "/art/trimmed/dungeon/demonlord/death-NE-5.png",
+      "/art/trimmed/dungeon/demonlord/death-NE-6.png",
+      "/art/trimmed/dungeon/demonlord/death-NE-7.png"
+    ],
+    "content": {
+      "left": 103,
+      "top": 59,
+      "width": 115,
+      "height": 88
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/death-NW": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/death-NW-0.png",
+      "/art/trimmed/dungeon/demonlord/death-NW-1.png",
+      "/art/trimmed/dungeon/demonlord/death-NW-2.png",
+      "/art/trimmed/dungeon/demonlord/death-NW-3.png",
+      "/art/trimmed/dungeon/demonlord/death-NW-4.png",
+      "/art/trimmed/dungeon/demonlord/death-NW-5.png",
+      "/art/trimmed/dungeon/demonlord/death-NW-6.png",
+      "/art/trimmed/dungeon/demonlord/death-NW-7.png"
+    ],
+    "content": {
+      "left": 99,
+      "top": 51,
+      "width": 110,
+      "height": 90
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/death-S": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/death-S-0.png",
+      "/art/trimmed/dungeon/demonlord/death-S-1.png",
+      "/art/trimmed/dungeon/demonlord/death-S-2.png",
+      "/art/trimmed/dungeon/demonlord/death-S-3.png",
+      "/art/trimmed/dungeon/demonlord/death-S-4.png",
+      "/art/trimmed/dungeon/demonlord/death-S-5.png",
+      "/art/trimmed/dungeon/demonlord/death-S-6.png",
+      "/art/trimmed/dungeon/demonlord/death-S-7.png"
+    ],
+    "content": {
+      "left": 78,
+      "top": 66,
+      "width": 120,
+      "height": 88
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/death-SE": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/death-SE-0.png",
+      "/art/trimmed/dungeon/demonlord/death-SE-1.png",
+      "/art/trimmed/dungeon/demonlord/death-SE-2.png",
+      "/art/trimmed/dungeon/demonlord/death-SE-3.png",
+      "/art/trimmed/dungeon/demonlord/death-SE-4.png",
+      "/art/trimmed/dungeon/demonlord/death-SE-5.png",
+      "/art/trimmed/dungeon/demonlord/death-SE-6.png",
+      "/art/trimmed/dungeon/demonlord/death-SE-7.png"
+    ],
+    "content": {
+      "left": 100,
+      "top": 62,
+      "width": 103,
+      "height": 101
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/death-SW": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/death-SW-0.png",
+      "/art/trimmed/dungeon/demonlord/death-SW-1.png",
+      "/art/trimmed/dungeon/demonlord/death-SW-2.png",
+      "/art/trimmed/dungeon/demonlord/death-SW-3.png",
+      "/art/trimmed/dungeon/demonlord/death-SW-4.png",
+      "/art/trimmed/dungeon/demonlord/death-SW-5.png",
+      "/art/trimmed/dungeon/demonlord/death-SW-6.png",
+      "/art/trimmed/dungeon/demonlord/death-SW-7.png"
+    ],
+    "content": {
+      "left": 76,
+      "top": 63,
+      "width": 121,
+      "height": 83
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/death-W": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/death-W-0.png",
+      "/art/trimmed/dungeon/demonlord/death-W-1.png",
+      "/art/trimmed/dungeon/demonlord/death-W-2.png",
+      "/art/trimmed/dungeon/demonlord/death-W-3.png",
+      "/art/trimmed/dungeon/demonlord/death-W-4.png",
+      "/art/trimmed/dungeon/demonlord/death-W-5.png",
+      "/art/trimmed/dungeon/demonlord/death-W-6.png",
+      "/art/trimmed/dungeon/demonlord/death-W-7.png"
+    ],
+    "content": {
+      "left": 90,
+      "top": 48,
+      "width": 106,
+      "height": 100
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/walk-E": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/walk-E-0.png",
+      "/art/trimmed/dungeon/demonlord/walk-E-1.png",
+      "/art/trimmed/dungeon/demonlord/walk-E-2.png",
+      "/art/trimmed/dungeon/demonlord/walk-E-3.png",
+      "/art/trimmed/dungeon/demonlord/walk-E-4.png",
+      "/art/trimmed/dungeon/demonlord/walk-E-5.png",
+      "/art/trimmed/dungeon/demonlord/walk-E-6.png",
+      "/art/trimmed/dungeon/demonlord/walk-E-7.png"
+    ],
+    "content": {
+      "left": 107,
+      "top": 58,
+      "width": 101,
+      "height": 93
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/walk-N": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/walk-N-0.png",
+      "/art/trimmed/dungeon/demonlord/walk-N-1.png",
+      "/art/trimmed/dungeon/demonlord/walk-N-2.png",
+      "/art/trimmed/dungeon/demonlord/walk-N-3.png",
+      "/art/trimmed/dungeon/demonlord/walk-N-4.png",
+      "/art/trimmed/dungeon/demonlord/walk-N-5.png",
+      "/art/trimmed/dungeon/demonlord/walk-N-6.png",
+      "/art/trimmed/dungeon/demonlord/walk-N-7.png"
+    ],
+    "content": {
+      "left": 106,
+      "top": 62,
+      "width": 98,
+      "height": 81
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/walk-NE": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/walk-NE-0.png",
+      "/art/trimmed/dungeon/demonlord/walk-NE-1.png",
+      "/art/trimmed/dungeon/demonlord/walk-NE-2.png",
+      "/art/trimmed/dungeon/demonlord/walk-NE-3.png",
+      "/art/trimmed/dungeon/demonlord/walk-NE-4.png",
+      "/art/trimmed/dungeon/demonlord/walk-NE-5.png",
+      "/art/trimmed/dungeon/demonlord/walk-NE-6.png",
+      "/art/trimmed/dungeon/demonlord/walk-NE-7.png"
+    ],
+    "content": {
+      "left": 107,
+      "top": 57,
+      "width": 108,
+      "height": 90
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/walk-NW": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/walk-NW-0.png",
+      "/art/trimmed/dungeon/demonlord/walk-NW-1.png",
+      "/art/trimmed/dungeon/demonlord/walk-NW-2.png",
+      "/art/trimmed/dungeon/demonlord/walk-NW-3.png",
+      "/art/trimmed/dungeon/demonlord/walk-NW-4.png",
+      "/art/trimmed/dungeon/demonlord/walk-NW-5.png",
+      "/art/trimmed/dungeon/demonlord/walk-NW-6.png",
+      "/art/trimmed/dungeon/demonlord/walk-NW-7.png"
+    ],
+    "content": {
+      "left": 102,
+      "top": 57,
+      "width": 88,
+      "height": 86
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/walk-S": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/walk-S-0.png",
+      "/art/trimmed/dungeon/demonlord/walk-S-1.png",
+      "/art/trimmed/dungeon/demonlord/walk-S-2.png",
+      "/art/trimmed/dungeon/demonlord/walk-S-3.png",
+      "/art/trimmed/dungeon/demonlord/walk-S-4.png",
+      "/art/trimmed/dungeon/demonlord/walk-S-5.png",
+      "/art/trimmed/dungeon/demonlord/walk-S-6.png",
+      "/art/trimmed/dungeon/demonlord/walk-S-7.png"
+    ],
+    "content": {
+      "left": 95,
+      "top": 73,
+      "width": 106,
+      "height": 83
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/walk-SE": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/walk-SE-0.png",
+      "/art/trimmed/dungeon/demonlord/walk-SE-1.png",
+      "/art/trimmed/dungeon/demonlord/walk-SE-2.png",
+      "/art/trimmed/dungeon/demonlord/walk-SE-3.png",
+      "/art/trimmed/dungeon/demonlord/walk-SE-4.png",
+      "/art/trimmed/dungeon/demonlord/walk-SE-5.png",
+      "/art/trimmed/dungeon/demonlord/walk-SE-6.png",
+      "/art/trimmed/dungeon/demonlord/walk-SE-7.png"
+    ],
+    "content": {
+      "left": 100,
+      "top": 65,
+      "width": 106,
+      "height": 99
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/walk-SW": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/walk-SW-0.png",
+      "/art/trimmed/dungeon/demonlord/walk-SW-1.png",
+      "/art/trimmed/dungeon/demonlord/walk-SW-2.png",
+      "/art/trimmed/dungeon/demonlord/walk-SW-3.png",
+      "/art/trimmed/dungeon/demonlord/walk-SW-4.png",
+      "/art/trimmed/dungeon/demonlord/walk-SW-5.png",
+      "/art/trimmed/dungeon/demonlord/walk-SW-6.png",
+      "/art/trimmed/dungeon/demonlord/walk-SW-7.png"
+    ],
+    "content": {
+      "left": 77,
+      "top": 74,
+      "width": 114,
+      "height": 73
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/demonlord/walk-W": {
+    "frames": [
+      "/art/trimmed/dungeon/demonlord/walk-W-0.png",
+      "/art/trimmed/dungeon/demonlord/walk-W-1.png",
+      "/art/trimmed/dungeon/demonlord/walk-W-2.png",
+      "/art/trimmed/dungeon/demonlord/walk-W-3.png",
+      "/art/trimmed/dungeon/demonlord/walk-W-4.png",
+      "/art/trimmed/dungeon/demonlord/walk-W-5.png",
+      "/art/trimmed/dungeon/demonlord/walk-W-6.png",
+      "/art/trimmed/dungeon/demonlord/walk-W-7.png"
+    ],
+    "content": {
+      "left": 88,
+      "top": 67,
+      "width": 96,
+      "height": 76
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/attack-E": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/attack-E-0.png",
+      "/art/trimmed/dungeon/fighter/attack-E-1.png",
+      "/art/trimmed/dungeon/fighter/attack-E-2.png",
+      "/art/trimmed/dungeon/fighter/attack-E-3.png",
+      "/art/trimmed/dungeon/fighter/attack-E-4.png",
+      "/art/trimmed/dungeon/fighter/attack-E-5.png",
+      "/art/trimmed/dungeon/fighter/attack-E-6.png",
+      "/art/trimmed/dungeon/fighter/attack-E-7.png"
+    ],
+    "content": {
+      "left": 118,
+      "top": 95,
+      "width": 52,
+      "height": 40
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/attack-N": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/attack-N-0.png",
+      "/art/trimmed/dungeon/fighter/attack-N-1.png",
+      "/art/trimmed/dungeon/fighter/attack-N-2.png",
+      "/art/trimmed/dungeon/fighter/attack-N-3.png",
+      "/art/trimmed/dungeon/fighter/attack-N-4.png",
+      "/art/trimmed/dungeon/fighter/attack-N-5.png",
+      "/art/trimmed/dungeon/fighter/attack-N-6.png",
+      "/art/trimmed/dungeon/fighter/attack-N-7.png"
+    ],
+    "content": {
+      "left": 118,
+      "top": 87,
+      "width": 46,
+      "height": 46
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/attack-NE": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/attack-NE-0.png",
+      "/art/trimmed/dungeon/fighter/attack-NE-1.png",
+      "/art/trimmed/dungeon/fighter/attack-NE-2.png",
+      "/art/trimmed/dungeon/fighter/attack-NE-3.png",
+      "/art/trimmed/dungeon/fighter/attack-NE-4.png",
+      "/art/trimmed/dungeon/fighter/attack-NE-5.png",
+      "/art/trimmed/dungeon/fighter/attack-NE-6.png",
+      "/art/trimmed/dungeon/fighter/attack-NE-7.png"
+    ],
+    "content": {
+      "left": 121,
+      "top": 90,
+      "width": 50,
+      "height": 42
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/attack-NW": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/attack-NW-0.png",
+      "/art/trimmed/dungeon/fighter/attack-NW-1.png",
+      "/art/trimmed/dungeon/fighter/attack-NW-2.png",
+      "/art/trimmed/dungeon/fighter/attack-NW-3.png",
+      "/art/trimmed/dungeon/fighter/attack-NW-4.png",
+      "/art/trimmed/dungeon/fighter/attack-NW-5.png",
+      "/art/trimmed/dungeon/fighter/attack-NW-6.png",
+      "/art/trimmed/dungeon/fighter/attack-NW-7.png"
+    ],
+    "content": {
+      "left": 104,
+      "top": 91,
+      "width": 62,
+      "height": 42
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/attack-S": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/attack-S-0.png",
+      "/art/trimmed/dungeon/fighter/attack-S-1.png",
+      "/art/trimmed/dungeon/fighter/attack-S-2.png",
+      "/art/trimmed/dungeon/fighter/attack-S-3.png",
+      "/art/trimmed/dungeon/fighter/attack-S-4.png",
+      "/art/trimmed/dungeon/fighter/attack-S-5.png",
+      "/art/trimmed/dungeon/fighter/attack-S-6.png",
+      "/art/trimmed/dungeon/fighter/attack-S-7.png"
+    ],
+    "content": {
+      "left": 118,
+      "top": 95,
+      "width": 48,
+      "height": 55
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/attack-SE": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/attack-SE-0.png",
+      "/art/trimmed/dungeon/fighter/attack-SE-1.png",
+      "/art/trimmed/dungeon/fighter/attack-SE-2.png",
+      "/art/trimmed/dungeon/fighter/attack-SE-3.png",
+      "/art/trimmed/dungeon/fighter/attack-SE-4.png",
+      "/art/trimmed/dungeon/fighter/attack-SE-5.png",
+      "/art/trimmed/dungeon/fighter/attack-SE-6.png",
+      "/art/trimmed/dungeon/fighter/attack-SE-7.png"
+    ],
+    "content": {
+      "left": 121,
+      "top": 95,
+      "width": 51,
+      "height": 49
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/attack-SW": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/attack-SW-0.png",
+      "/art/trimmed/dungeon/fighter/attack-SW-1.png",
+      "/art/trimmed/dungeon/fighter/attack-SW-2.png",
+      "/art/trimmed/dungeon/fighter/attack-SW-3.png",
+      "/art/trimmed/dungeon/fighter/attack-SW-4.png",
+      "/art/trimmed/dungeon/fighter/attack-SW-5.png",
+      "/art/trimmed/dungeon/fighter/attack-SW-6.png",
+      "/art/trimmed/dungeon/fighter/attack-SW-7.png"
+    ],
+    "content": {
+      "left": 105,
+      "top": 95,
+      "width": 62,
+      "height": 50
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/attack-W": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/attack-W-0.png",
+      "/art/trimmed/dungeon/fighter/attack-W-1.png",
+      "/art/trimmed/dungeon/fighter/attack-W-2.png",
+      "/art/trimmed/dungeon/fighter/attack-W-3.png",
+      "/art/trimmed/dungeon/fighter/attack-W-4.png",
+      "/art/trimmed/dungeon/fighter/attack-W-5.png",
+      "/art/trimmed/dungeon/fighter/attack-W-6.png",
+      "/art/trimmed/dungeon/fighter/attack-W-7.png"
+    ],
+    "content": {
+      "left": 95,
+      "top": 96,
+      "width": 67,
+      "height": 38
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/death-E": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/death-E-0.png",
+      "/art/trimmed/dungeon/fighter/death-E-1.png",
+      "/art/trimmed/dungeon/fighter/death-E-2.png",
+      "/art/trimmed/dungeon/fighter/death-E-3.png",
+      "/art/trimmed/dungeon/fighter/death-E-4.png",
+      "/art/trimmed/dungeon/fighter/death-E-5.png",
+      "/art/trimmed/dungeon/fighter/death-E-6.png",
+      "/art/trimmed/dungeon/fighter/death-E-7.png"
+    ],
+    "content": {
+      "left": 96,
+      "top": 103,
+      "width": 59,
+      "height": 34
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/death-N": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/death-N-0.png",
+      "/art/trimmed/dungeon/fighter/death-N-1.png",
+      "/art/trimmed/dungeon/fighter/death-N-2.png",
+      "/art/trimmed/dungeon/fighter/death-N-3.png",
+      "/art/trimmed/dungeon/fighter/death-N-4.png",
+      "/art/trimmed/dungeon/fighter/death-N-5.png",
+      "/art/trimmed/dungeon/fighter/death-N-6.png",
+      "/art/trimmed/dungeon/fighter/death-N-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 105,
+      "width": 40,
+      "height": 45
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/death-NE": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/death-NE-0.png",
+      "/art/trimmed/dungeon/fighter/death-NE-1.png",
+      "/art/trimmed/dungeon/fighter/death-NE-2.png",
+      "/art/trimmed/dungeon/fighter/death-NE-3.png",
+      "/art/trimmed/dungeon/fighter/death-NE-4.png",
+      "/art/trimmed/dungeon/fighter/death-NE-5.png",
+      "/art/trimmed/dungeon/fighter/death-NE-6.png",
+      "/art/trimmed/dungeon/fighter/death-NE-7.png"
+    ],
+    "content": {
+      "left": 103,
+      "top": 103,
+      "width": 52,
+      "height": 43
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/death-NW": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/death-NW-0.png",
+      "/art/trimmed/dungeon/fighter/death-NW-1.png",
+      "/art/trimmed/dungeon/fighter/death-NW-2.png",
+      "/art/trimmed/dungeon/fighter/death-NW-3.png",
+      "/art/trimmed/dungeon/fighter/death-NW-4.png",
+      "/art/trimmed/dungeon/fighter/death-NW-5.png",
+      "/art/trimmed/dungeon/fighter/death-NW-6.png",
+      "/art/trimmed/dungeon/fighter/death-NW-7.png"
+    ],
+    "content": {
+      "left": 120,
+      "top": 103,
+      "width": 41,
+      "height": 42
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/death-S": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/death-S-0.png",
+      "/art/trimmed/dungeon/fighter/death-S-1.png",
+      "/art/trimmed/dungeon/fighter/death-S-2.png",
+      "/art/trimmed/dungeon/fighter/death-S-3.png",
+      "/art/trimmed/dungeon/fighter/death-S-4.png",
+      "/art/trimmed/dungeon/fighter/death-S-5.png",
+      "/art/trimmed/dungeon/fighter/death-S-6.png",
+      "/art/trimmed/dungeon/fighter/death-S-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 98,
+      "width": 40,
+      "height": 35
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/death-SE": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/death-SE-0.png",
+      "/art/trimmed/dungeon/fighter/death-SE-1.png",
+      "/art/trimmed/dungeon/fighter/death-SE-2.png",
+      "/art/trimmed/dungeon/fighter/death-SE-3.png",
+      "/art/trimmed/dungeon/fighter/death-SE-4.png",
+      "/art/trimmed/dungeon/fighter/death-SE-5.png",
+      "/art/trimmed/dungeon/fighter/death-SE-6.png",
+      "/art/trimmed/dungeon/fighter/death-SE-7.png"
+    ],
+    "content": {
+      "left": 103,
+      "top": 100,
+      "width": 52,
+      "height": 34
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/death-SW": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/death-SW-0.png",
+      "/art/trimmed/dungeon/fighter/death-SW-1.png",
+      "/art/trimmed/dungeon/fighter/death-SW-2.png",
+      "/art/trimmed/dungeon/fighter/death-SW-3.png",
+      "/art/trimmed/dungeon/fighter/death-SW-4.png",
+      "/art/trimmed/dungeon/fighter/death-SW-5.png",
+      "/art/trimmed/dungeon/fighter/death-SW-6.png",
+      "/art/trimmed/dungeon/fighter/death-SW-7.png"
+    ],
+    "content": {
+      "left": 120,
+      "top": 101,
+      "width": 41,
+      "height": 33
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/death-W": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/death-W-0.png",
+      "/art/trimmed/dungeon/fighter/death-W-1.png",
+      "/art/trimmed/dungeon/fighter/death-W-2.png",
+      "/art/trimmed/dungeon/fighter/death-W-3.png",
+      "/art/trimmed/dungeon/fighter/death-W-4.png",
+      "/art/trimmed/dungeon/fighter/death-W-5.png",
+      "/art/trimmed/dungeon/fighter/death-W-6.png",
+      "/art/trimmed/dungeon/fighter/death-W-7.png"
+    ],
+    "content": {
+      "left": 121,
+      "top": 103,
+      "width": 47,
+      "height": 34
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/walk-E": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/walk-E-0.png",
+      "/art/trimmed/dungeon/fighter/walk-E-1.png",
+      "/art/trimmed/dungeon/fighter/walk-E-2.png",
+      "/art/trimmed/dungeon/fighter/walk-E-3.png",
+      "/art/trimmed/dungeon/fighter/walk-E-4.png",
+      "/art/trimmed/dungeon/fighter/walk-E-5.png",
+      "/art/trimmed/dungeon/fighter/walk-E-6.png",
+      "/art/trimmed/dungeon/fighter/walk-E-7.png"
+    ],
+    "content": {
+      "left": 114,
+      "top": 102,
+      "width": 50,
+      "height": 38
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/walk-N": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/walk-N-0.png",
+      "/art/trimmed/dungeon/fighter/walk-N-1.png",
+      "/art/trimmed/dungeon/fighter/walk-N-2.png",
+      "/art/trimmed/dungeon/fighter/walk-N-3.png",
+      "/art/trimmed/dungeon/fighter/walk-N-4.png",
+      "/art/trimmed/dungeon/fighter/walk-N-5.png",
+      "/art/trimmed/dungeon/fighter/walk-N-6.png",
+      "/art/trimmed/dungeon/fighter/walk-N-7.png"
+    ],
+    "content": {
+      "left": 117,
+      "top": 98,
+      "width": 44,
+      "height": 39
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/walk-NE": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/walk-NE-0.png",
+      "/art/trimmed/dungeon/fighter/walk-NE-1.png",
+      "/art/trimmed/dungeon/fighter/walk-NE-2.png",
+      "/art/trimmed/dungeon/fighter/walk-NE-3.png",
+      "/art/trimmed/dungeon/fighter/walk-NE-4.png",
+      "/art/trimmed/dungeon/fighter/walk-NE-5.png",
+      "/art/trimmed/dungeon/fighter/walk-NE-6.png",
+      "/art/trimmed/dungeon/fighter/walk-NE-7.png"
+    ],
+    "content": {
+      "left": 115,
+      "top": 102,
+      "width": 49,
+      "height": 36
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/walk-NW": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/walk-NW-0.png",
+      "/art/trimmed/dungeon/fighter/walk-NW-1.png",
+      "/art/trimmed/dungeon/fighter/walk-NW-2.png",
+      "/art/trimmed/dungeon/fighter/walk-NW-3.png",
+      "/art/trimmed/dungeon/fighter/walk-NW-4.png",
+      "/art/trimmed/dungeon/fighter/walk-NW-5.png",
+      "/art/trimmed/dungeon/fighter/walk-NW-6.png",
+      "/art/trimmed/dungeon/fighter/walk-NW-7.png"
+    ],
+    "content": {
+      "left": 114,
+      "top": 99,
+      "width": 44,
+      "height": 37
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/walk-S": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/walk-S-0.png",
+      "/art/trimmed/dungeon/fighter/walk-S-1.png",
+      "/art/trimmed/dungeon/fighter/walk-S-2.png",
+      "/art/trimmed/dungeon/fighter/walk-S-3.png",
+      "/art/trimmed/dungeon/fighter/walk-S-4.png",
+      "/art/trimmed/dungeon/fighter/walk-S-5.png",
+      "/art/trimmed/dungeon/fighter/walk-S-6.png",
+      "/art/trimmed/dungeon/fighter/walk-S-7.png"
+    ],
+    "content": {
+      "left": 111,
+      "top": 105,
+      "width": 47,
+      "height": 35
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/walk-SE": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/walk-SE-0.png",
+      "/art/trimmed/dungeon/fighter/walk-SE-1.png",
+      "/art/trimmed/dungeon/fighter/walk-SE-2.png",
+      "/art/trimmed/dungeon/fighter/walk-SE-3.png",
+      "/art/trimmed/dungeon/fighter/walk-SE-4.png",
+      "/art/trimmed/dungeon/fighter/walk-SE-5.png",
+      "/art/trimmed/dungeon/fighter/walk-SE-6.png",
+      "/art/trimmed/dungeon/fighter/walk-SE-7.png"
+    ],
+    "content": {
+      "left": 113,
+      "top": 103,
+      "width": 45,
+      "height": 37
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/walk-SW": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/walk-SW-0.png",
+      "/art/trimmed/dungeon/fighter/walk-SW-1.png",
+      "/art/trimmed/dungeon/fighter/walk-SW-2.png",
+      "/art/trimmed/dungeon/fighter/walk-SW-3.png",
+      "/art/trimmed/dungeon/fighter/walk-SW-4.png",
+      "/art/trimmed/dungeon/fighter/walk-SW-5.png",
+      "/art/trimmed/dungeon/fighter/walk-SW-6.png",
+      "/art/trimmed/dungeon/fighter/walk-SW-7.png"
+    ],
+    "content": {
+      "left": 110,
+      "top": 103,
+      "width": 46,
+      "height": 34
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/fighter/walk-W": {
+    "frames": [
+      "/art/trimmed/dungeon/fighter/walk-W-0.png",
+      "/art/trimmed/dungeon/fighter/walk-W-1.png",
+      "/art/trimmed/dungeon/fighter/walk-W-2.png",
+      "/art/trimmed/dungeon/fighter/walk-W-3.png",
+      "/art/trimmed/dungeon/fighter/walk-W-4.png",
+      "/art/trimmed/dungeon/fighter/walk-W-5.png",
+      "/art/trimmed/dungeon/fighter/walk-W-6.png",
+      "/art/trimmed/dungeon/fighter/walk-W-7.png"
+    ],
+    "content": {
+      "left": 110,
+      "top": 101,
+      "width": 46,
+      "height": 34
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/ground/dark": {
+    "frames": [
+      "/art/trimmed/dungeon/ground/dark.png"
+    ],
+    "content": {
+      "left": 0,
+      "top": 0,
+      "width": 256,
+      "height": 256
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/ground/floor": {
+    "frames": [
+      "/art/trimmed/dungeon/ground/floor.png"
+    ],
+    "content": {
+      "left": 5,
+      "top": 2,
+      "width": 248,
+      "height": 251
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/attack-E": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/attack-E-0.png",
+      "/art/trimmed/dungeon/knight/attack-E-1.png",
+      "/art/trimmed/dungeon/knight/attack-E-2.png",
+      "/art/trimmed/dungeon/knight/attack-E-3.png",
+      "/art/trimmed/dungeon/knight/attack-E-4.png",
+      "/art/trimmed/dungeon/knight/attack-E-5.png",
+      "/art/trimmed/dungeon/knight/attack-E-6.png",
+      "/art/trimmed/dungeon/knight/attack-E-7.png"
+    ],
+    "content": {
+      "left": 110,
+      "top": 91,
+      "width": 69,
+      "height": 44
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/attack-N": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/attack-N-0.png",
+      "/art/trimmed/dungeon/knight/attack-N-1.png",
+      "/art/trimmed/dungeon/knight/attack-N-2.png",
+      "/art/trimmed/dungeon/knight/attack-N-3.png",
+      "/art/trimmed/dungeon/knight/attack-N-4.png",
+      "/art/trimmed/dungeon/knight/attack-N-5.png",
+      "/art/trimmed/dungeon/knight/attack-N-6.png",
+      "/art/trimmed/dungeon/knight/attack-N-7.png"
+    ],
+    "content": {
+      "left": 110,
+      "top": 83,
+      "width": 69,
+      "height": 52
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/attack-NE": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/attack-NE-0.png",
+      "/art/trimmed/dungeon/knight/attack-NE-1.png",
+      "/art/trimmed/dungeon/knight/attack-NE-2.png",
+      "/art/trimmed/dungeon/knight/attack-NE-3.png",
+      "/art/trimmed/dungeon/knight/attack-NE-4.png",
+      "/art/trimmed/dungeon/knight/attack-NE-5.png",
+      "/art/trimmed/dungeon/knight/attack-NE-6.png",
+      "/art/trimmed/dungeon/knight/attack-NE-7.png"
+    ],
+    "content": {
+      "left": 117,
+      "top": 88,
+      "width": 66,
+      "height": 48
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/attack-NW": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/attack-NW-0.png",
+      "/art/trimmed/dungeon/knight/attack-NW-1.png",
+      "/art/trimmed/dungeon/knight/attack-NW-2.png",
+      "/art/trimmed/dungeon/knight/attack-NW-3.png",
+      "/art/trimmed/dungeon/knight/attack-NW-4.png",
+      "/art/trimmed/dungeon/knight/attack-NW-5.png",
+      "/art/trimmed/dungeon/knight/attack-NW-6.png",
+      "/art/trimmed/dungeon/knight/attack-NW-7.png"
+    ],
+    "content": {
+      "left": 102,
+      "top": 77,
+      "width": 73,
+      "height": 57
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/attack-S": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/attack-S-0.png",
+      "/art/trimmed/dungeon/knight/attack-S-1.png",
+      "/art/trimmed/dungeon/knight/attack-S-2.png",
+      "/art/trimmed/dungeon/knight/attack-S-3.png",
+      "/art/trimmed/dungeon/knight/attack-S-4.png",
+      "/art/trimmed/dungeon/knight/attack-S-5.png",
+      "/art/trimmed/dungeon/knight/attack-S-6.png",
+      "/art/trimmed/dungeon/knight/attack-S-7.png"
+    ],
+    "content": {
+      "left": 112,
+      "top": 84,
+      "width": 61,
+      "height": 66
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/attack-SE": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/attack-SE-0.png",
+      "/art/trimmed/dungeon/knight/attack-SE-1.png",
+      "/art/trimmed/dungeon/knight/attack-SE-2.png",
+      "/art/trimmed/dungeon/knight/attack-SE-3.png",
+      "/art/trimmed/dungeon/knight/attack-SE-4.png",
+      "/art/trimmed/dungeon/knight/attack-SE-5.png",
+      "/art/trimmed/dungeon/knight/attack-SE-6.png",
+      "/art/trimmed/dungeon/knight/attack-SE-7.png"
+    ],
+    "content": {
+      "left": 107,
+      "top": 92,
+      "width": 72,
+      "height": 50
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/attack-SW": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/attack-SW-0.png",
+      "/art/trimmed/dungeon/knight/attack-SW-1.png",
+      "/art/trimmed/dungeon/knight/attack-SW-2.png",
+      "/art/trimmed/dungeon/knight/attack-SW-3.png",
+      "/art/trimmed/dungeon/knight/attack-SW-4.png",
+      "/art/trimmed/dungeon/knight/attack-SW-5.png",
+      "/art/trimmed/dungeon/knight/attack-SW-6.png",
+      "/art/trimmed/dungeon/knight/attack-SW-7.png"
+    ],
+    "content": {
+      "left": 106,
+      "top": 81,
+      "width": 66,
+      "height": 64
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/attack-W": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/attack-W-0.png",
+      "/art/trimmed/dungeon/knight/attack-W-1.png",
+      "/art/trimmed/dungeon/knight/attack-W-2.png",
+      "/art/trimmed/dungeon/knight/attack-W-3.png",
+      "/art/trimmed/dungeon/knight/attack-W-4.png",
+      "/art/trimmed/dungeon/knight/attack-W-5.png",
+      "/art/trimmed/dungeon/knight/attack-W-6.png",
+      "/art/trimmed/dungeon/knight/attack-W-7.png"
+    ],
+    "content": {
+      "left": 95,
+      "top": 78,
+      "width": 78,
+      "height": 62
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/death-E": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/death-E-0.png",
+      "/art/trimmed/dungeon/knight/death-E-1.png",
+      "/art/trimmed/dungeon/knight/death-E-2.png",
+      "/art/trimmed/dungeon/knight/death-E-3.png",
+      "/art/trimmed/dungeon/knight/death-E-4.png",
+      "/art/trimmed/dungeon/knight/death-E-5.png",
+      "/art/trimmed/dungeon/knight/death-E-6.png",
+      "/art/trimmed/dungeon/knight/death-E-7.png"
+    ],
+    "content": {
+      "left": 120,
+      "top": 96,
+      "width": 62,
+      "height": 40
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/death-N": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/death-N-0.png",
+      "/art/trimmed/dungeon/knight/death-N-1.png",
+      "/art/trimmed/dungeon/knight/death-N-2.png",
+      "/art/trimmed/dungeon/knight/death-N-3.png",
+      "/art/trimmed/dungeon/knight/death-N-4.png",
+      "/art/trimmed/dungeon/knight/death-N-5.png",
+      "/art/trimmed/dungeon/knight/death-N-6.png",
+      "/art/trimmed/dungeon/knight/death-N-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 87,
+      "width": 51,
+      "height": 47
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/death-NE": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/death-NE-0.png",
+      "/art/trimmed/dungeon/knight/death-NE-1.png",
+      "/art/trimmed/dungeon/knight/death-NE-2.png",
+      "/art/trimmed/dungeon/knight/death-NE-3.png",
+      "/art/trimmed/dungeon/knight/death-NE-4.png",
+      "/art/trimmed/dungeon/knight/death-NE-5.png",
+      "/art/trimmed/dungeon/knight/death-NE-6.png",
+      "/art/trimmed/dungeon/knight/death-NE-7.png"
+    ],
+    "content": {
+      "left": 117,
+      "top": 93,
+      "width": 56,
+      "height": 43
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/death-NW": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/death-NW-0.png",
+      "/art/trimmed/dungeon/knight/death-NW-1.png",
+      "/art/trimmed/dungeon/knight/death-NW-2.png",
+      "/art/trimmed/dungeon/knight/death-NW-3.png",
+      "/art/trimmed/dungeon/knight/death-NW-4.png",
+      "/art/trimmed/dungeon/knight/death-NW-5.png",
+      "/art/trimmed/dungeon/knight/death-NW-6.png",
+      "/art/trimmed/dungeon/knight/death-NW-7.png"
+    ],
+    "content": {
+      "left": 96,
+      "top": 93,
+      "width": 68,
+      "height": 43
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/death-S": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/death-S-0.png",
+      "/art/trimmed/dungeon/knight/death-S-1.png",
+      "/art/trimmed/dungeon/knight/death-S-2.png",
+      "/art/trimmed/dungeon/knight/death-S-3.png",
+      "/art/trimmed/dungeon/knight/death-S-4.png",
+      "/art/trimmed/dungeon/knight/death-S-5.png",
+      "/art/trimmed/dungeon/knight/death-S-6.png",
+      "/art/trimmed/dungeon/knight/death-S-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 99,
+      "width": 50,
+      "height": 60
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/death-SE": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/death-SE-0.png",
+      "/art/trimmed/dungeon/knight/death-SE-1.png",
+      "/art/trimmed/dungeon/knight/death-SE-2.png",
+      "/art/trimmed/dungeon/knight/death-SE-3.png",
+      "/art/trimmed/dungeon/knight/death-SE-4.png",
+      "/art/trimmed/dungeon/knight/death-SE-5.png",
+      "/art/trimmed/dungeon/knight/death-SE-6.png",
+      "/art/trimmed/dungeon/knight/death-SE-7.png"
+    ],
+    "content": {
+      "left": 117,
+      "top": 98,
+      "width": 55,
+      "height": 53
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/death-SW": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/death-SW-0.png",
+      "/art/trimmed/dungeon/knight/death-SW-1.png",
+      "/art/trimmed/dungeon/knight/death-SW-2.png",
+      "/art/trimmed/dungeon/knight/death-SW-3.png",
+      "/art/trimmed/dungeon/knight/death-SW-4.png",
+      "/art/trimmed/dungeon/knight/death-SW-5.png",
+      "/art/trimmed/dungeon/knight/death-SW-6.png",
+      "/art/trimmed/dungeon/knight/death-SW-7.png"
+    ],
+    "content": {
+      "left": 95,
+      "top": 97,
+      "width": 69,
+      "height": 53
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/death-W": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/death-W-0.png",
+      "/art/trimmed/dungeon/knight/death-W-1.png",
+      "/art/trimmed/dungeon/knight/death-W-2.png",
+      "/art/trimmed/dungeon/knight/death-W-3.png",
+      "/art/trimmed/dungeon/knight/death-W-4.png",
+      "/art/trimmed/dungeon/knight/death-W-5.png",
+      "/art/trimmed/dungeon/knight/death-W-6.png",
+      "/art/trimmed/dungeon/knight/death-W-7.png"
+    ],
+    "content": {
+      "left": 85,
+      "top": 96,
+      "width": 78,
+      "height": 41
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/walk-E": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/walk-E-0.png",
+      "/art/trimmed/dungeon/knight/walk-E-1.png",
+      "/art/trimmed/dungeon/knight/walk-E-2.png",
+      "/art/trimmed/dungeon/knight/walk-E-3.png",
+      "/art/trimmed/dungeon/knight/walk-E-4.png",
+      "/art/trimmed/dungeon/knight/walk-E-5.png",
+      "/art/trimmed/dungeon/knight/walk-E-6.png",
+      "/art/trimmed/dungeon/knight/walk-E-7.png"
+    ],
+    "content": {
+      "left": 114,
+      "top": 93,
+      "width": 56,
+      "height": 43
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/walk-N": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/walk-N-0.png",
+      "/art/trimmed/dungeon/knight/walk-N-1.png",
+      "/art/trimmed/dungeon/knight/walk-N-2.png",
+      "/art/trimmed/dungeon/knight/walk-N-3.png",
+      "/art/trimmed/dungeon/knight/walk-N-4.png",
+      "/art/trimmed/dungeon/knight/walk-N-5.png",
+      "/art/trimmed/dungeon/knight/walk-N-6.png",
+      "/art/trimmed/dungeon/knight/walk-N-7.png"
+    ],
+    "content": {
+      "left": 117,
+      "top": 91,
+      "width": 53,
+      "height": 46
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/walk-NE": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/walk-NE-0.png",
+      "/art/trimmed/dungeon/knight/walk-NE-1.png",
+      "/art/trimmed/dungeon/knight/walk-NE-2.png",
+      "/art/trimmed/dungeon/knight/walk-NE-3.png",
+      "/art/trimmed/dungeon/knight/walk-NE-4.png",
+      "/art/trimmed/dungeon/knight/walk-NE-5.png",
+      "/art/trimmed/dungeon/knight/walk-NE-6.png",
+      "/art/trimmed/dungeon/knight/walk-NE-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 92,
+      "width": 56,
+      "height": 45
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/walk-NW": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/walk-NW-0.png",
+      "/art/trimmed/dungeon/knight/walk-NW-1.png",
+      "/art/trimmed/dungeon/knight/walk-NW-2.png",
+      "/art/trimmed/dungeon/knight/walk-NW-3.png",
+      "/art/trimmed/dungeon/knight/walk-NW-4.png",
+      "/art/trimmed/dungeon/knight/walk-NW-5.png",
+      "/art/trimmed/dungeon/knight/walk-NW-6.png",
+      "/art/trimmed/dungeon/knight/walk-NW-7.png"
+    ],
+    "content": {
+      "left": 112,
+      "top": 91,
+      "width": 56,
+      "height": 46
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/walk-S": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/walk-S-0.png",
+      "/art/trimmed/dungeon/knight/walk-S-1.png",
+      "/art/trimmed/dungeon/knight/walk-S-2.png",
+      "/art/trimmed/dungeon/knight/walk-S-3.png",
+      "/art/trimmed/dungeon/knight/walk-S-4.png",
+      "/art/trimmed/dungeon/knight/walk-S-5.png",
+      "/art/trimmed/dungeon/knight/walk-S-6.png",
+      "/art/trimmed/dungeon/knight/walk-S-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 94,
+      "width": 54,
+      "height": 47
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/walk-SE": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/walk-SE-0.png",
+      "/art/trimmed/dungeon/knight/walk-SE-1.png",
+      "/art/trimmed/dungeon/knight/walk-SE-2.png",
+      "/art/trimmed/dungeon/knight/walk-SE-3.png",
+      "/art/trimmed/dungeon/knight/walk-SE-4.png",
+      "/art/trimmed/dungeon/knight/walk-SE-5.png",
+      "/art/trimmed/dungeon/knight/walk-SE-6.png",
+      "/art/trimmed/dungeon/knight/walk-SE-7.png"
+    ],
+    "content": {
+      "left": 115,
+      "top": 94,
+      "width": 56,
+      "height": 45
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/walk-SW": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/walk-SW-0.png",
+      "/art/trimmed/dungeon/knight/walk-SW-1.png",
+      "/art/trimmed/dungeon/knight/walk-SW-2.png",
+      "/art/trimmed/dungeon/knight/walk-SW-3.png",
+      "/art/trimmed/dungeon/knight/walk-SW-4.png",
+      "/art/trimmed/dungeon/knight/walk-SW-5.png",
+      "/art/trimmed/dungeon/knight/walk-SW-6.png",
+      "/art/trimmed/dungeon/knight/walk-SW-7.png"
+    ],
+    "content": {
+      "left": 108,
+      "top": 94,
+      "width": 60,
+      "height": 45
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/knight/walk-W": {
+    "frames": [
+      "/art/trimmed/dungeon/knight/walk-W-0.png",
+      "/art/trimmed/dungeon/knight/walk-W-1.png",
+      "/art/trimmed/dungeon/knight/walk-W-2.png",
+      "/art/trimmed/dungeon/knight/walk-W-3.png",
+      "/art/trimmed/dungeon/knight/walk-W-4.png",
+      "/art/trimmed/dungeon/knight/walk-W-5.png",
+      "/art/trimmed/dungeon/knight/walk-W-6.png",
+      "/art/trimmed/dungeon/knight/walk-W-7.png"
+    ],
+    "content": {
+      "left": 107,
+      "top": 94,
+      "width": 60,
+      "height": 41
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/light/brazier": {
+    "frames": [
+      "/art/trimmed/dungeon/light/brazier-0.png",
+      "/art/trimmed/dungeon/light/brazier-1.png",
+      "/art/trimmed/dungeon/light/brazier-2.png",
+      "/art/trimmed/dungeon/light/brazier-3.png",
+      "/art/trimmed/dungeon/light/brazier-4.png",
+      "/art/trimmed/dungeon/light/brazier-5.png",
+      "/art/trimmed/dungeon/light/brazier-6.png",
+      "/art/trimmed/dungeon/light/brazier-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 106,
+      "width": 39,
+      "height": 29
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/light/flames": {
+    "frames": [
+      "/art/trimmed/dungeon/light/flames-0.png",
+      "/art/trimmed/dungeon/light/flames-1.png",
+      "/art/trimmed/dungeon/light/flames-2.png",
+      "/art/trimmed/dungeon/light/flames-3.png",
+      "/art/trimmed/dungeon/light/flames-4.png",
+      "/art/trimmed/dungeon/light/flames-5.png",
+      "/art/trimmed/dungeon/light/flames-6.png",
+      "/art/trimmed/dungeon/light/flames-7.png"
+    ],
+    "content": {
+      "left": 102,
+      "top": 0,
+      "width": 49,
+      "height": 149
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/light/glow": {
+    "frames": [
+      "/art/trimmed/dungeon/light/glow.png"
+    ],
+    "content": {
+      "left": 89,
+      "top": 89,
+      "width": 78,
+      "height": 78
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/loot/coins": {
+    "frames": [
+      "/art/trimmed/dungeon/loot/coins-0.png",
+      "/art/trimmed/dungeon/loot/coins-1.png",
+      "/art/trimmed/dungeon/loot/coins-2.png",
+      "/art/trimmed/dungeon/loot/coins-3.png",
+      "/art/trimmed/dungeon/loot/coins-4.png",
+      "/art/trimmed/dungeon/loot/coins-5.png",
+      "/art/trimmed/dungeon/loot/coins-6.png",
+      "/art/trimmed/dungeon/loot/coins-7.png"
+    ],
+    "content": {
+      "left": 115,
+      "top": 117,
+      "width": 26,
+      "height": 22
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/loot/gem": {
+    "frames": [
+      "/art/trimmed/dungeon/loot/gem-0.png",
+      "/art/trimmed/dungeon/loot/gem-1.png",
+      "/art/trimmed/dungeon/loot/gem-2.png",
+      "/art/trimmed/dungeon/loot/gem-3.png",
+      "/art/trimmed/dungeon/loot/gem-4.png",
+      "/art/trimmed/dungeon/loot/gem-5.png",
+      "/art/trimmed/dungeon/loot/gem-6.png",
+      "/art/trimmed/dungeon/loot/gem-7.png"
+    ],
+    "content": {
+      "left": 123,
+      "top": 121,
+      "width": 15,
+      "height": 10
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/loot/gem-blue": {
+    "frames": [
+      "/art/trimmed/dungeon/loot/gem-blue-0.png",
+      "/art/trimmed/dungeon/loot/gem-blue-1.png",
+      "/art/trimmed/dungeon/loot/gem-blue-2.png",
+      "/art/trimmed/dungeon/loot/gem-blue-3.png",
+      "/art/trimmed/dungeon/loot/gem-blue-4.png",
+      "/art/trimmed/dungeon/loot/gem-blue-5.png",
+      "/art/trimmed/dungeon/loot/gem-blue-6.png",
+      "/art/trimmed/dungeon/loot/gem-blue-7.png"
+    ],
+    "content": {
+      "left": 123,
+      "top": 121,
+      "width": 15,
+      "height": 10
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/loot/gem-green": {
+    "frames": [
+      "/art/trimmed/dungeon/loot/gem-green-0.png",
+      "/art/trimmed/dungeon/loot/gem-green-1.png",
+      "/art/trimmed/dungeon/loot/gem-green-2.png",
+      "/art/trimmed/dungeon/loot/gem-green-3.png",
+      "/art/trimmed/dungeon/loot/gem-green-4.png",
+      "/art/trimmed/dungeon/loot/gem-green-5.png",
+      "/art/trimmed/dungeon/loot/gem-green-6.png",
+      "/art/trimmed/dungeon/loot/gem-green-7.png"
+    ],
+    "content": {
+      "left": 123,
+      "top": 121,
+      "width": 15,
+      "height": 10
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/loot/gem-red": {
+    "frames": [
+      "/art/trimmed/dungeon/loot/gem-red-0.png",
+      "/art/trimmed/dungeon/loot/gem-red-1.png",
+      "/art/trimmed/dungeon/loot/gem-red-2.png",
+      "/art/trimmed/dungeon/loot/gem-red-3.png",
+      "/art/trimmed/dungeon/loot/gem-red-4.png",
+      "/art/trimmed/dungeon/loot/gem-red-5.png",
+      "/art/trimmed/dungeon/loot/gem-red-6.png",
+      "/art/trimmed/dungeon/loot/gem-red-7.png"
+    ],
+    "content": {
+      "left": 123,
+      "top": 121,
+      "width": 15,
+      "height": 10
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/loot/gem-white": {
+    "frames": [
+      "/art/trimmed/dungeon/loot/gem-white-0.png",
+      "/art/trimmed/dungeon/loot/gem-white-1.png",
+      "/art/trimmed/dungeon/loot/gem-white-2.png",
+      "/art/trimmed/dungeon/loot/gem-white-3.png",
+      "/art/trimmed/dungeon/loot/gem-white-4.png",
+      "/art/trimmed/dungeon/loot/gem-white-5.png",
+      "/art/trimmed/dungeon/loot/gem-white-6.png",
+      "/art/trimmed/dungeon/loot/gem-white-7.png"
+    ],
+    "content": {
+      "left": 123,
+      "top": 121,
+      "width": 15,
+      "height": 10
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/prop/barrel": {
+    "frames": [
+      "/art/trimmed/dungeon/prop/barrel.png"
+    ],
+    "content": {
+      "left": 120,
+      "top": 111,
+      "width": 29,
+      "height": 22
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/prop/bones": {
+    "frames": [
+      "/art/trimmed/dungeon/prop/bones.png"
+    ],
+    "content": {
+      "left": 115,
+      "top": 106,
+      "width": 31,
+      "height": 45
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/prop/bones2": {
+    "frames": [
+      "/art/trimmed/dungeon/prop/bones2.png"
+    ],
+    "content": {
+      "left": 109,
+      "top": 118,
+      "width": 39,
+      "height": 21
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/prop/bones3": {
+    "frames": [
+      "/art/trimmed/dungeon/prop/bones3.png"
+    ],
+    "content": {
+      "left": 111,
+      "top": 112,
+      "width": 36,
+      "height": 38
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/prop/brazier": {
+    "frames": [
+      "/art/trimmed/dungeon/prop/brazier.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 106,
+      "width": 39,
+      "height": 29
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/prop/bricks": {
+    "frames": [
+      "/art/trimmed/dungeon/prop/bricks.png"
+    ],
+    "content": {
+      "left": 97,
+      "top": 102,
+      "width": 74,
+      "height": 50
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/prop/column": {
+    "frames": [
+      "/art/trimmed/dungeon/prop/column.png"
+    ],
+    "content": {
+      "left": 111,
+      "top": 44,
+      "width": 121,
+      "height": 96
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/prop/column2": {
+    "frames": [
+      "/art/trimmed/dungeon/prop/column2.png"
+    ],
+    "content": {
+      "left": 113,
+      "top": 102,
+      "width": 47,
+      "height": 38
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/prop/crate": {
+    "frames": [
+      "/art/trimmed/dungeon/prop/crate.png"
+    ],
+    "content": {
+      "left": 119,
+      "top": 120,
+      "width": 22,
+      "height": 13
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/prop/mushrooms": {
+    "frames": [
+      "/art/trimmed/dungeon/prop/mushrooms.png"
+    ],
+    "content": {
+      "left": 112,
+      "top": 116,
+      "width": 32,
+      "height": 21
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/prop/rubble": {
+    "frames": [
+      "/art/trimmed/dungeon/prop/rubble.png"
+    ],
+    "content": {
+      "left": 40,
+      "top": 67,
+      "width": 186,
+      "height": 127
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/prop/tiles": {
+    "frames": [
+      "/art/trimmed/dungeon/prop/tiles.png"
+    ],
+    "content": {
+      "left": 66,
+      "top": 84,
+      "width": 124,
+      "height": 88
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/prop/torch": {
+    "frames": [
+      "/art/trimmed/dungeon/prop/torch.png"
+    ],
+    "content": {
+      "left": 124,
+      "top": 93,
+      "width": 51,
+      "height": 46
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/prop/wall1": {
+    "frames": [
+      "/art/trimmed/dungeon/prop/wall1.png"
+    ],
+    "content": {
+      "left": 119,
+      "top": 81,
+      "width": 20,
+      "height": 91
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/prop/wall2": {
+    "frames": [
+      "/art/trimmed/dungeon/prop/wall2.png"
+    ],
+    "content": {
+      "left": 114,
+      "top": 67,
+      "width": 44,
+      "height": 106
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/prop/wall3": {
+    "frames": [
+      "/art/trimmed/dungeon/prop/wall3.png"
+    ],
+    "content": {
+      "left": 115,
+      "top": 78,
+      "width": 42,
+      "height": 96
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/attack-E": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/attack-E-0.png",
+      "/art/trimmed/dungeon/skeleton/attack-E-1.png",
+      "/art/trimmed/dungeon/skeleton/attack-E-2.png",
+      "/art/trimmed/dungeon/skeleton/attack-E-3.png",
+      "/art/trimmed/dungeon/skeleton/attack-E-4.png",
+      "/art/trimmed/dungeon/skeleton/attack-E-5.png",
+      "/art/trimmed/dungeon/skeleton/attack-E-6.png",
+      "/art/trimmed/dungeon/skeleton/attack-E-7.png"
+    ],
+    "content": {
+      "left": 121,
+      "top": 94,
+      "width": 55,
+      "height": 39
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/attack-N": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/attack-N-0.png",
+      "/art/trimmed/dungeon/skeleton/attack-N-1.png",
+      "/art/trimmed/dungeon/skeleton/attack-N-2.png",
+      "/art/trimmed/dungeon/skeleton/attack-N-3.png",
+      "/art/trimmed/dungeon/skeleton/attack-N-4.png",
+      "/art/trimmed/dungeon/skeleton/attack-N-5.png",
+      "/art/trimmed/dungeon/skeleton/attack-N-6.png",
+      "/art/trimmed/dungeon/skeleton/attack-N-7.png"
+    ],
+    "content": {
+      "left": 115,
+      "top": 79,
+      "width": 51,
+      "height": 51
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/attack-NE": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/attack-NE-0.png",
+      "/art/trimmed/dungeon/skeleton/attack-NE-1.png",
+      "/art/trimmed/dungeon/skeleton/attack-NE-2.png",
+      "/art/trimmed/dungeon/skeleton/attack-NE-3.png",
+      "/art/trimmed/dungeon/skeleton/attack-NE-4.png",
+      "/art/trimmed/dungeon/skeleton/attack-NE-5.png",
+      "/art/trimmed/dungeon/skeleton/attack-NE-6.png",
+      "/art/trimmed/dungeon/skeleton/attack-NE-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 86,
+      "width": 61,
+      "height": 46
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/attack-NW": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/attack-NW-0.png",
+      "/art/trimmed/dungeon/skeleton/attack-NW-1.png",
+      "/art/trimmed/dungeon/skeleton/attack-NW-2.png",
+      "/art/trimmed/dungeon/skeleton/attack-NW-3.png",
+      "/art/trimmed/dungeon/skeleton/attack-NW-4.png",
+      "/art/trimmed/dungeon/skeleton/attack-NW-5.png",
+      "/art/trimmed/dungeon/skeleton/attack-NW-6.png",
+      "/art/trimmed/dungeon/skeleton/attack-NW-7.png"
+    ],
+    "content": {
+      "left": 111,
+      "top": 79,
+      "width": 51,
+      "height": 53
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/attack-S": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/attack-S-0.png",
+      "/art/trimmed/dungeon/skeleton/attack-S-1.png",
+      "/art/trimmed/dungeon/skeleton/attack-S-2.png",
+      "/art/trimmed/dungeon/skeleton/attack-S-3.png",
+      "/art/trimmed/dungeon/skeleton/attack-S-4.png",
+      "/art/trimmed/dungeon/skeleton/attack-S-5.png",
+      "/art/trimmed/dungeon/skeleton/attack-S-6.png",
+      "/art/trimmed/dungeon/skeleton/attack-S-7.png"
+    ],
+    "content": {
+      "left": 115,
+      "top": 97,
+      "width": 51,
+      "height": 44
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/attack-SE": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/attack-SE-0.png",
+      "/art/trimmed/dungeon/skeleton/attack-SE-1.png",
+      "/art/trimmed/dungeon/skeleton/attack-SE-2.png",
+      "/art/trimmed/dungeon/skeleton/attack-SE-3.png",
+      "/art/trimmed/dungeon/skeleton/attack-SE-4.png",
+      "/art/trimmed/dungeon/skeleton/attack-SE-5.png",
+      "/art/trimmed/dungeon/skeleton/attack-SE-6.png",
+      "/art/trimmed/dungeon/skeleton/attack-SE-7.png"
+    ],
+    "content": {
+      "left": 120,
+      "top": 96,
+      "width": 52,
+      "height": 44
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/attack-SW": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/attack-SW-0.png",
+      "/art/trimmed/dungeon/skeleton/attack-SW-1.png",
+      "/art/trimmed/dungeon/skeleton/attack-SW-2.png",
+      "/art/trimmed/dungeon/skeleton/attack-SW-3.png",
+      "/art/trimmed/dungeon/skeleton/attack-SW-4.png",
+      "/art/trimmed/dungeon/skeleton/attack-SW-5.png",
+      "/art/trimmed/dungeon/skeleton/attack-SW-6.png",
+      "/art/trimmed/dungeon/skeleton/attack-SW-7.png"
+    ],
+    "content": {
+      "left": 106,
+      "top": 96,
+      "width": 57,
+      "height": 42
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/attack-W": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/attack-W-0.png",
+      "/art/trimmed/dungeon/skeleton/attack-W-1.png",
+      "/art/trimmed/dungeon/skeleton/attack-W-2.png",
+      "/art/trimmed/dungeon/skeleton/attack-W-3.png",
+      "/art/trimmed/dungeon/skeleton/attack-W-4.png",
+      "/art/trimmed/dungeon/skeleton/attack-W-5.png",
+      "/art/trimmed/dungeon/skeleton/attack-W-6.png",
+      "/art/trimmed/dungeon/skeleton/attack-W-7.png"
+    ],
+    "content": {
+      "left": 106,
+      "top": 87,
+      "width": 57,
+      "height": 47
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/death-E": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/death-E-0.png",
+      "/art/trimmed/dungeon/skeleton/death-E-1.png",
+      "/art/trimmed/dungeon/skeleton/death-E-2.png",
+      "/art/trimmed/dungeon/skeleton/death-E-3.png",
+      "/art/trimmed/dungeon/skeleton/death-E-4.png",
+      "/art/trimmed/dungeon/skeleton/death-E-5.png",
+      "/art/trimmed/dungeon/skeleton/death-E-6.png",
+      "/art/trimmed/dungeon/skeleton/death-E-7.png"
+    ],
+    "content": {
+      "left": 104,
+      "top": 101,
+      "width": 57,
+      "height": 42
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/death-N": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/death-N-0.png",
+      "/art/trimmed/dungeon/skeleton/death-N-1.png",
+      "/art/trimmed/dungeon/skeleton/death-N-2.png",
+      "/art/trimmed/dungeon/skeleton/death-N-3.png",
+      "/art/trimmed/dungeon/skeleton/death-N-4.png",
+      "/art/trimmed/dungeon/skeleton/death-N-5.png",
+      "/art/trimmed/dungeon/skeleton/death-N-6.png",
+      "/art/trimmed/dungeon/skeleton/death-N-7.png"
+    ],
+    "content": {
+      "left": 111,
+      "top": 96,
+      "width": 49,
+      "height": 49
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/death-NE": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/death-NE-0.png",
+      "/art/trimmed/dungeon/skeleton/death-NE-1.png",
+      "/art/trimmed/dungeon/skeleton/death-NE-2.png",
+      "/art/trimmed/dungeon/skeleton/death-NE-3.png",
+      "/art/trimmed/dungeon/skeleton/death-NE-4.png",
+      "/art/trimmed/dungeon/skeleton/death-NE-5.png",
+      "/art/trimmed/dungeon/skeleton/death-NE-6.png",
+      "/art/trimmed/dungeon/skeleton/death-NE-7.png"
+    ],
+    "content": {
+      "left": 107,
+      "top": 98,
+      "width": 55,
+      "height": 43
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/death-NW": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/death-NW-0.png",
+      "/art/trimmed/dungeon/skeleton/death-NW-1.png",
+      "/art/trimmed/dungeon/skeleton/death-NW-2.png",
+      "/art/trimmed/dungeon/skeleton/death-NW-3.png",
+      "/art/trimmed/dungeon/skeleton/death-NW-4.png",
+      "/art/trimmed/dungeon/skeleton/death-NW-5.png",
+      "/art/trimmed/dungeon/skeleton/death-NW-6.png",
+      "/art/trimmed/dungeon/skeleton/death-NW-7.png"
+    ],
+    "content": {
+      "left": 103,
+      "top": 97,
+      "width": 53,
+      "height": 46
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/death-S": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/death-S-0.png",
+      "/art/trimmed/dungeon/skeleton/death-S-1.png",
+      "/art/trimmed/dungeon/skeleton/death-S-2.png",
+      "/art/trimmed/dungeon/skeleton/death-S-3.png",
+      "/art/trimmed/dungeon/skeleton/death-S-4.png",
+      "/art/trimmed/dungeon/skeleton/death-S-5.png",
+      "/art/trimmed/dungeon/skeleton/death-S-6.png",
+      "/art/trimmed/dungeon/skeleton/death-S-7.png"
+    ],
+    "content": {
+      "left": 107,
+      "top": 104,
+      "width": 51,
+      "height": 42
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/death-SE": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/death-SE-0.png",
+      "/art/trimmed/dungeon/skeleton/death-SE-1.png",
+      "/art/trimmed/dungeon/skeleton/death-SE-2.png",
+      "/art/trimmed/dungeon/skeleton/death-SE-3.png",
+      "/art/trimmed/dungeon/skeleton/death-SE-4.png",
+      "/art/trimmed/dungeon/skeleton/death-SE-5.png",
+      "/art/trimmed/dungeon/skeleton/death-SE-6.png",
+      "/art/trimmed/dungeon/skeleton/death-SE-7.png"
+    ],
+    "content": {
+      "left": 111,
+      "top": 103,
+      "width": 50,
+      "height": 37
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/death-SW": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/death-SW-0.png",
+      "/art/trimmed/dungeon/skeleton/death-SW-1.png",
+      "/art/trimmed/dungeon/skeleton/death-SW-2.png",
+      "/art/trimmed/dungeon/skeleton/death-SW-3.png",
+      "/art/trimmed/dungeon/skeleton/death-SW-4.png",
+      "/art/trimmed/dungeon/skeleton/death-SW-5.png",
+      "/art/trimmed/dungeon/skeleton/death-SW-6.png",
+      "/art/trimmed/dungeon/skeleton/death-SW-7.png"
+    ],
+    "content": {
+      "left": 111,
+      "top": 103,
+      "width": 46,
+      "height": 43
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/death-W": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/death-W-0.png",
+      "/art/trimmed/dungeon/skeleton/death-W-1.png",
+      "/art/trimmed/dungeon/skeleton/death-W-2.png",
+      "/art/trimmed/dungeon/skeleton/death-W-3.png",
+      "/art/trimmed/dungeon/skeleton/death-W-4.png",
+      "/art/trimmed/dungeon/skeleton/death-W-5.png",
+      "/art/trimmed/dungeon/skeleton/death-W-6.png",
+      "/art/trimmed/dungeon/skeleton/death-W-7.png"
+    ],
+    "content": {
+      "left": 102,
+      "top": 100,
+      "width": 55,
+      "height": 40
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/walk-E": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/walk-E-0.png",
+      "/art/trimmed/dungeon/skeleton/walk-E-1.png",
+      "/art/trimmed/dungeon/skeleton/walk-E-2.png",
+      "/art/trimmed/dungeon/skeleton/walk-E-3.png",
+      "/art/trimmed/dungeon/skeleton/walk-E-4.png",
+      "/art/trimmed/dungeon/skeleton/walk-E-5.png",
+      "/art/trimmed/dungeon/skeleton/walk-E-6.png",
+      "/art/trimmed/dungeon/skeleton/walk-E-7.png"
+    ],
+    "content": {
+      "left": 119,
+      "top": 95,
+      "width": 48,
+      "height": 39
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/walk-N": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/walk-N-0.png",
+      "/art/trimmed/dungeon/skeleton/walk-N-1.png",
+      "/art/trimmed/dungeon/skeleton/walk-N-2.png",
+      "/art/trimmed/dungeon/skeleton/walk-N-3.png",
+      "/art/trimmed/dungeon/skeleton/walk-N-4.png",
+      "/art/trimmed/dungeon/skeleton/walk-N-5.png",
+      "/art/trimmed/dungeon/skeleton/walk-N-6.png",
+      "/art/trimmed/dungeon/skeleton/walk-N-7.png"
+    ],
+    "content": {
+      "left": 118,
+      "top": 91,
+      "width": 48,
+      "height": 43
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/walk-NE": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/walk-NE-0.png",
+      "/art/trimmed/dungeon/skeleton/walk-NE-1.png",
+      "/art/trimmed/dungeon/skeleton/walk-NE-2.png",
+      "/art/trimmed/dungeon/skeleton/walk-NE-3.png",
+      "/art/trimmed/dungeon/skeleton/walk-NE-4.png",
+      "/art/trimmed/dungeon/skeleton/walk-NE-5.png",
+      "/art/trimmed/dungeon/skeleton/walk-NE-6.png",
+      "/art/trimmed/dungeon/skeleton/walk-NE-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 92,
+      "width": 52,
+      "height": 42
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/walk-NW": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/walk-NW-0.png",
+      "/art/trimmed/dungeon/skeleton/walk-NW-1.png",
+      "/art/trimmed/dungeon/skeleton/walk-NW-2.png",
+      "/art/trimmed/dungeon/skeleton/walk-NW-3.png",
+      "/art/trimmed/dungeon/skeleton/walk-NW-4.png",
+      "/art/trimmed/dungeon/skeleton/walk-NW-5.png",
+      "/art/trimmed/dungeon/skeleton/walk-NW-6.png",
+      "/art/trimmed/dungeon/skeleton/walk-NW-7.png"
+    ],
+    "content": {
+      "left": 114,
+      "top": 92,
+      "width": 49,
+      "height": 42
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/walk-S": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/walk-S-0.png",
+      "/art/trimmed/dungeon/skeleton/walk-S-1.png",
+      "/art/trimmed/dungeon/skeleton/walk-S-2.png",
+      "/art/trimmed/dungeon/skeleton/walk-S-3.png",
+      "/art/trimmed/dungeon/skeleton/walk-S-4.png",
+      "/art/trimmed/dungeon/skeleton/walk-S-5.png",
+      "/art/trimmed/dungeon/skeleton/walk-S-6.png",
+      "/art/trimmed/dungeon/skeleton/walk-S-7.png"
+    ],
+    "content": {
+      "left": 117,
+      "top": 98,
+      "width": 48,
+      "height": 41
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/walk-SE": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/walk-SE-0.png",
+      "/art/trimmed/dungeon/skeleton/walk-SE-1.png",
+      "/art/trimmed/dungeon/skeleton/walk-SE-2.png",
+      "/art/trimmed/dungeon/skeleton/walk-SE-3.png",
+      "/art/trimmed/dungeon/skeleton/walk-SE-4.png",
+      "/art/trimmed/dungeon/skeleton/walk-SE-5.png",
+      "/art/trimmed/dungeon/skeleton/walk-SE-6.png",
+      "/art/trimmed/dungeon/skeleton/walk-SE-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 97,
+      "width": 52,
+      "height": 41
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/walk-SW": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/walk-SW-0.png",
+      "/art/trimmed/dungeon/skeleton/walk-SW-1.png",
+      "/art/trimmed/dungeon/skeleton/walk-SW-2.png",
+      "/art/trimmed/dungeon/skeleton/walk-SW-3.png",
+      "/art/trimmed/dungeon/skeleton/walk-SW-4.png",
+      "/art/trimmed/dungeon/skeleton/walk-SW-5.png",
+      "/art/trimmed/dungeon/skeleton/walk-SW-6.png",
+      "/art/trimmed/dungeon/skeleton/walk-SW-7.png"
+    ],
+    "content": {
+      "left": 114,
+      "top": 97,
+      "width": 48,
+      "height": 41
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/skeleton/walk-W": {
+    "frames": [
+      "/art/trimmed/dungeon/skeleton/walk-W-0.png",
+      "/art/trimmed/dungeon/skeleton/walk-W-1.png",
+      "/art/trimmed/dungeon/skeleton/walk-W-2.png",
+      "/art/trimmed/dungeon/skeleton/walk-W-3.png",
+      "/art/trimmed/dungeon/skeleton/walk-W-4.png",
+      "/art/trimmed/dungeon/skeleton/walk-W-5.png",
+      "/art/trimmed/dungeon/skeleton/walk-W-6.png",
+      "/art/trimmed/dungeon/skeleton/walk-W-7.png"
+    ],
+    "content": {
+      "left": 112,
+      "top": 95,
+      "width": 48,
+      "height": 37
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/slime/death-E": {
+    "frames": [
+      "/art/trimmed/dungeon/slime/death-E-0.png",
+      "/art/trimmed/dungeon/slime/death-E-1.png",
+      "/art/trimmed/dungeon/slime/death-E-2.png",
+      "/art/trimmed/dungeon/slime/death-E-3.png",
+      "/art/trimmed/dungeon/slime/death-E-4.png",
+      "/art/trimmed/dungeon/slime/death-E-5.png",
+      "/art/trimmed/dungeon/slime/death-E-6.png"
+    ],
+    "content": {
+      "left": 114,
+      "top": 114,
+      "width": 30,
+      "height": 24
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/slime/death-N": {
+    "frames": [
+      "/art/trimmed/dungeon/slime/death-N-0.png",
+      "/art/trimmed/dungeon/slime/death-N-1.png",
+      "/art/trimmed/dungeon/slime/death-N-2.png",
+      "/art/trimmed/dungeon/slime/death-N-3.png",
+      "/art/trimmed/dungeon/slime/death-N-4.png",
+      "/art/trimmed/dungeon/slime/death-N-5.png",
+      "/art/trimmed/dungeon/slime/death-N-6.png"
+    ],
+    "content": {
+      "left": 114,
+      "top": 116,
+      "width": 31,
+      "height": 22
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/slime/death-NE": {
+    "frames": [
+      "/art/trimmed/dungeon/slime/death-NE-0.png",
+      "/art/trimmed/dungeon/slime/death-NE-1.png",
+      "/art/trimmed/dungeon/slime/death-NE-2.png",
+      "/art/trimmed/dungeon/slime/death-NE-3.png",
+      "/art/trimmed/dungeon/slime/death-NE-4.png",
+      "/art/trimmed/dungeon/slime/death-NE-5.png",
+      "/art/trimmed/dungeon/slime/death-NE-6.png"
+    ],
+    "content": {
+      "left": 113,
+      "top": 116,
+      "width": 31,
+      "height": 22
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/slime/death-NW": {
+    "frames": [
+      "/art/trimmed/dungeon/slime/death-NW-0.png",
+      "/art/trimmed/dungeon/slime/death-NW-1.png",
+      "/art/trimmed/dungeon/slime/death-NW-2.png",
+      "/art/trimmed/dungeon/slime/death-NW-3.png",
+      "/art/trimmed/dungeon/slime/death-NW-4.png",
+      "/art/trimmed/dungeon/slime/death-NW-5.png",
+      "/art/trimmed/dungeon/slime/death-NW-6.png"
+    ],
+    "content": {
+      "left": 112,
+      "top": 116,
+      "width": 32,
+      "height": 23
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/slime/death-S": {
+    "frames": [
+      "/art/trimmed/dungeon/slime/death-S-0.png",
+      "/art/trimmed/dungeon/slime/death-S-1.png",
+      "/art/trimmed/dungeon/slime/death-S-2.png",
+      "/art/trimmed/dungeon/slime/death-S-3.png",
+      "/art/trimmed/dungeon/slime/death-S-4.png",
+      "/art/trimmed/dungeon/slime/death-S-5.png",
+      "/art/trimmed/dungeon/slime/death-S-6.png"
+    ],
+    "content": {
+      "left": 114,
+      "top": 112,
+      "width": 30,
+      "height": 27
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/slime/death-SE": {
+    "frames": [
+      "/art/trimmed/dungeon/slime/death-SE-0.png",
+      "/art/trimmed/dungeon/slime/death-SE-1.png",
+      "/art/trimmed/dungeon/slime/death-SE-2.png",
+      "/art/trimmed/dungeon/slime/death-SE-3.png",
+      "/art/trimmed/dungeon/slime/death-SE-4.png",
+      "/art/trimmed/dungeon/slime/death-SE-5.png",
+      "/art/trimmed/dungeon/slime/death-SE-6.png"
+    ],
+    "content": {
+      "left": 114,
+      "top": 112,
+      "width": 30,
+      "height": 27
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/slime/death-SW": {
+    "frames": [
+      "/art/trimmed/dungeon/slime/death-SW-0.png",
+      "/art/trimmed/dungeon/slime/death-SW-1.png",
+      "/art/trimmed/dungeon/slime/death-SW-2.png",
+      "/art/trimmed/dungeon/slime/death-SW-3.png",
+      "/art/trimmed/dungeon/slime/death-SW-4.png",
+      "/art/trimmed/dungeon/slime/death-SW-5.png",
+      "/art/trimmed/dungeon/slime/death-SW-6.png"
+    ],
+    "content": {
+      "left": 113,
+      "top": 114,
+      "width": 34,
+      "height": 25
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/slime/death-W": {
+    "frames": [
+      "/art/trimmed/dungeon/slime/death-W-0.png",
+      "/art/trimmed/dungeon/slime/death-W-1.png",
+      "/art/trimmed/dungeon/slime/death-W-2.png",
+      "/art/trimmed/dungeon/slime/death-W-3.png",
+      "/art/trimmed/dungeon/slime/death-W-4.png",
+      "/art/trimmed/dungeon/slime/death-W-5.png",
+      "/art/trimmed/dungeon/slime/death-W-6.png"
+    ],
+    "content": {
+      "left": 112,
+      "top": 114,
+      "width": 34,
+      "height": 24
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/slime/walk-E": {
+    "frames": [
+      "/art/trimmed/dungeon/slime/walk-E-0.png",
+      "/art/trimmed/dungeon/slime/walk-E-1.png",
+      "/art/trimmed/dungeon/slime/walk-E-2.png",
+      "/art/trimmed/dungeon/slime/walk-E-3.png",
+      "/art/trimmed/dungeon/slime/walk-E-4.png",
+      "/art/trimmed/dungeon/slime/walk-E-5.png",
+      "/art/trimmed/dungeon/slime/walk-E-6.png",
+      "/art/trimmed/dungeon/slime/walk-E-7.png"
+    ],
+    "content": {
+      "left": 115,
+      "top": 114,
+      "width": 36,
+      "height": 23
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/slime/walk-N": {
+    "frames": [
+      "/art/trimmed/dungeon/slime/walk-N-0.png",
+      "/art/trimmed/dungeon/slime/walk-N-1.png",
+      "/art/trimmed/dungeon/slime/walk-N-2.png",
+      "/art/trimmed/dungeon/slime/walk-N-3.png",
+      "/art/trimmed/dungeon/slime/walk-N-4.png",
+      "/art/trimmed/dungeon/slime/walk-N-5.png",
+      "/art/trimmed/dungeon/slime/walk-N-6.png",
+      "/art/trimmed/dungeon/slime/walk-N-7.png"
+    ],
+    "content": {
+      "left": 115,
+      "top": 110,
+      "width": 30,
+      "height": 28
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/slime/walk-NE": {
+    "frames": [
+      "/art/trimmed/dungeon/slime/walk-NE-0.png",
+      "/art/trimmed/dungeon/slime/walk-NE-1.png",
+      "/art/trimmed/dungeon/slime/walk-NE-2.png",
+      "/art/trimmed/dungeon/slime/walk-NE-3.png",
+      "/art/trimmed/dungeon/slime/walk-NE-4.png",
+      "/art/trimmed/dungeon/slime/walk-NE-5.png",
+      "/art/trimmed/dungeon/slime/walk-NE-6.png",
+      "/art/trimmed/dungeon/slime/walk-NE-7.png"
+    ],
+    "content": {
+      "left": 114,
+      "top": 112,
+      "width": 37,
+      "height": 25
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/slime/walk-NW": {
+    "frames": [
+      "/art/trimmed/dungeon/slime/walk-NW-0.png",
+      "/art/trimmed/dungeon/slime/walk-NW-1.png",
+      "/art/trimmed/dungeon/slime/walk-NW-2.png",
+      "/art/trimmed/dungeon/slime/walk-NW-3.png",
+      "/art/trimmed/dungeon/slime/walk-NW-4.png",
+      "/art/trimmed/dungeon/slime/walk-NW-5.png",
+      "/art/trimmed/dungeon/slime/walk-NW-6.png",
+      "/art/trimmed/dungeon/slime/walk-NW-7.png"
+    ],
+    "content": {
+      "left": 109,
+      "top": 110,
+      "width": 35,
+      "height": 28
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/slime/walk-S": {
+    "frames": [
+      "/art/trimmed/dungeon/slime/walk-S-0.png",
+      "/art/trimmed/dungeon/slime/walk-S-1.png",
+      "/art/trimmed/dungeon/slime/walk-S-2.png",
+      "/art/trimmed/dungeon/slime/walk-S-3.png",
+      "/art/trimmed/dungeon/slime/walk-S-4.png",
+      "/art/trimmed/dungeon/slime/walk-S-5.png",
+      "/art/trimmed/dungeon/slime/walk-S-6.png",
+      "/art/trimmed/dungeon/slime/walk-S-7.png"
+    ],
+    "content": {
+      "left": 115,
+      "top": 112,
+      "width": 30,
+      "height": 31
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/slime/walk-SE": {
+    "frames": [
+      "/art/trimmed/dungeon/slime/walk-SE-0.png",
+      "/art/trimmed/dungeon/slime/walk-SE-1.png",
+      "/art/trimmed/dungeon/slime/walk-SE-2.png",
+      "/art/trimmed/dungeon/slime/walk-SE-3.png",
+      "/art/trimmed/dungeon/slime/walk-SE-4.png",
+      "/art/trimmed/dungeon/slime/walk-SE-5.png",
+      "/art/trimmed/dungeon/slime/walk-SE-6.png",
+      "/art/trimmed/dungeon/slime/walk-SE-7.png"
+    ],
+    "content": {
+      "left": 115,
+      "top": 112,
+      "width": 33,
+      "height": 29
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/slime/walk-SW": {
+    "frames": [
+      "/art/trimmed/dungeon/slime/walk-SW-0.png",
+      "/art/trimmed/dungeon/slime/walk-SW-1.png",
+      "/art/trimmed/dungeon/slime/walk-SW-2.png",
+      "/art/trimmed/dungeon/slime/walk-SW-3.png",
+      "/art/trimmed/dungeon/slime/walk-SW-4.png",
+      "/art/trimmed/dungeon/slime/walk-SW-5.png",
+      "/art/trimmed/dungeon/slime/walk-SW-6.png",
+      "/art/trimmed/dungeon/slime/walk-SW-7.png"
+    ],
+    "content": {
+      "left": 109,
+      "top": 114,
+      "width": 37,
+      "height": 28
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/slime/walk-W": {
+    "frames": [
+      "/art/trimmed/dungeon/slime/walk-W-0.png",
+      "/art/trimmed/dungeon/slime/walk-W-1.png",
+      "/art/trimmed/dungeon/slime/walk-W-2.png",
+      "/art/trimmed/dungeon/slime/walk-W-3.png",
+      "/art/trimmed/dungeon/slime/walk-W-4.png",
+      "/art/trimmed/dungeon/slime/walk-W-5.png",
+      "/art/trimmed/dungeon/slime/walk-W-6.png",
+      "/art/trimmed/dungeon/slime/walk-W-7.png"
+    ],
+    "content": {
+      "left": 106,
+      "top": 114,
+      "width": 41,
+      "height": 23
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/attack-E": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/attack-E-0.png",
+      "/art/trimmed/dungeon/warrior/attack-E-1.png",
+      "/art/trimmed/dungeon/warrior/attack-E-2.png",
+      "/art/trimmed/dungeon/warrior/attack-E-3.png",
+      "/art/trimmed/dungeon/warrior/attack-E-4.png",
+      "/art/trimmed/dungeon/warrior/attack-E-5.png",
+      "/art/trimmed/dungeon/warrior/attack-E-6.png",
+      "/art/trimmed/dungeon/warrior/attack-E-7.png"
+    ],
+    "content": {
+      "left": 105,
+      "top": 84,
+      "width": 77,
+      "height": 50
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/attack-N": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/attack-N-0.png",
+      "/art/trimmed/dungeon/warrior/attack-N-1.png",
+      "/art/trimmed/dungeon/warrior/attack-N-2.png",
+      "/art/trimmed/dungeon/warrior/attack-N-3.png",
+      "/art/trimmed/dungeon/warrior/attack-N-4.png",
+      "/art/trimmed/dungeon/warrior/attack-N-5.png",
+      "/art/trimmed/dungeon/warrior/attack-N-6.png",
+      "/art/trimmed/dungeon/warrior/attack-N-7.png"
+    ],
+    "content": {
+      "left": 119,
+      "top": 68,
+      "width": 53,
+      "height": 71
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/attack-NE": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/attack-NE-0.png",
+      "/art/trimmed/dungeon/warrior/attack-NE-1.png",
+      "/art/trimmed/dungeon/warrior/attack-NE-2.png",
+      "/art/trimmed/dungeon/warrior/attack-NE-3.png",
+      "/art/trimmed/dungeon/warrior/attack-NE-4.png",
+      "/art/trimmed/dungeon/warrior/attack-NE-5.png",
+      "/art/trimmed/dungeon/warrior/attack-NE-6.png",
+      "/art/trimmed/dungeon/warrior/attack-NE-7.png"
+    ],
+    "content": {
+      "left": 112,
+      "top": 73,
+      "width": 71,
+      "height": 61
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/attack-NW": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/attack-NW-0.png",
+      "/art/trimmed/dungeon/warrior/attack-NW-1.png",
+      "/art/trimmed/dungeon/warrior/attack-NW-2.png",
+      "/art/trimmed/dungeon/warrior/attack-NW-3.png",
+      "/art/trimmed/dungeon/warrior/attack-NW-4.png",
+      "/art/trimmed/dungeon/warrior/attack-NW-5.png",
+      "/art/trimmed/dungeon/warrior/attack-NW-6.png",
+      "/art/trimmed/dungeon/warrior/attack-NW-7.png"
+    ],
+    "content": {
+      "left": 98,
+      "top": 72,
+      "width": 76,
+      "height": 61
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/attack-S": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/attack-S-0.png",
+      "/art/trimmed/dungeon/warrior/attack-S-1.png",
+      "/art/trimmed/dungeon/warrior/attack-S-2.png",
+      "/art/trimmed/dungeon/warrior/attack-S-3.png",
+      "/art/trimmed/dungeon/warrior/attack-S-4.png",
+      "/art/trimmed/dungeon/warrior/attack-S-5.png",
+      "/art/trimmed/dungeon/warrior/attack-S-6.png",
+      "/art/trimmed/dungeon/warrior/attack-S-7.png"
+    ],
+    "content": {
+      "left": 118,
+      "top": 73,
+      "width": 55,
+      "height": 85
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/attack-SE": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/attack-SE-0.png",
+      "/art/trimmed/dungeon/warrior/attack-SE-1.png",
+      "/art/trimmed/dungeon/warrior/attack-SE-2.png",
+      "/art/trimmed/dungeon/warrior/attack-SE-3.png",
+      "/art/trimmed/dungeon/warrior/attack-SE-4.png",
+      "/art/trimmed/dungeon/warrior/attack-SE-5.png",
+      "/art/trimmed/dungeon/warrior/attack-SE-6.png",
+      "/art/trimmed/dungeon/warrior/attack-SE-7.png"
+    ],
+    "content": {
+      "left": 111,
+      "top": 78,
+      "width": 72,
+      "height": 72
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/attack-SW": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/attack-SW-0.png",
+      "/art/trimmed/dungeon/warrior/attack-SW-1.png",
+      "/art/trimmed/dungeon/warrior/attack-SW-2.png",
+      "/art/trimmed/dungeon/warrior/attack-SW-3.png",
+      "/art/trimmed/dungeon/warrior/attack-SW-4.png",
+      "/art/trimmed/dungeon/warrior/attack-SW-5.png",
+      "/art/trimmed/dungeon/warrior/attack-SW-6.png",
+      "/art/trimmed/dungeon/warrior/attack-SW-7.png"
+    ],
+    "content": {
+      "left": 97,
+      "top": 77,
+      "width": 81,
+      "height": 72
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/attack-W": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/attack-W-0.png",
+      "/art/trimmed/dungeon/warrior/attack-W-1.png",
+      "/art/trimmed/dungeon/warrior/attack-W-2.png",
+      "/art/trimmed/dungeon/warrior/attack-W-3.png",
+      "/art/trimmed/dungeon/warrior/attack-W-4.png",
+      "/art/trimmed/dungeon/warrior/attack-W-5.png",
+      "/art/trimmed/dungeon/warrior/attack-W-6.png",
+      "/art/trimmed/dungeon/warrior/attack-W-7.png"
+    ],
+    "content": {
+      "left": 85,
+      "top": 84,
+      "width": 86,
+      "height": 50
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/death-E": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/death-E-0.png",
+      "/art/trimmed/dungeon/warrior/death-E-1.png",
+      "/art/trimmed/dungeon/warrior/death-E-2.png",
+      "/art/trimmed/dungeon/warrior/death-E-3.png",
+      "/art/trimmed/dungeon/warrior/death-E-4.png",
+      "/art/trimmed/dungeon/warrior/death-E-5.png",
+      "/art/trimmed/dungeon/warrior/death-E-6.png",
+      "/art/trimmed/dungeon/warrior/death-E-7.png"
+    ],
+    "content": {
+      "left": 120,
+      "top": 96,
+      "width": 62,
+      "height": 41
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/death-N": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/death-N-0.png",
+      "/art/trimmed/dungeon/warrior/death-N-1.png",
+      "/art/trimmed/dungeon/warrior/death-N-2.png",
+      "/art/trimmed/dungeon/warrior/death-N-3.png",
+      "/art/trimmed/dungeon/warrior/death-N-4.png",
+      "/art/trimmed/dungeon/warrior/death-N-5.png",
+      "/art/trimmed/dungeon/warrior/death-N-6.png",
+      "/art/trimmed/dungeon/warrior/death-N-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 87,
+      "width": 50,
+      "height": 47
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/death-NE": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/death-NE-0.png",
+      "/art/trimmed/dungeon/warrior/death-NE-1.png",
+      "/art/trimmed/dungeon/warrior/death-NE-2.png",
+      "/art/trimmed/dungeon/warrior/death-NE-3.png",
+      "/art/trimmed/dungeon/warrior/death-NE-4.png",
+      "/art/trimmed/dungeon/warrior/death-NE-5.png",
+      "/art/trimmed/dungeon/warrior/death-NE-6.png",
+      "/art/trimmed/dungeon/warrior/death-NE-7.png"
+    ],
+    "content": {
+      "left": 117,
+      "top": 93,
+      "width": 56,
+      "height": 43
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/death-NW": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/death-NW-0.png",
+      "/art/trimmed/dungeon/warrior/death-NW-1.png",
+      "/art/trimmed/dungeon/warrior/death-NW-2.png",
+      "/art/trimmed/dungeon/warrior/death-NW-3.png",
+      "/art/trimmed/dungeon/warrior/death-NW-4.png",
+      "/art/trimmed/dungeon/warrior/death-NW-5.png",
+      "/art/trimmed/dungeon/warrior/death-NW-6.png",
+      "/art/trimmed/dungeon/warrior/death-NW-7.png"
+    ],
+    "content": {
+      "left": 97,
+      "top": 93,
+      "width": 65,
+      "height": 43
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/death-S": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/death-S-0.png",
+      "/art/trimmed/dungeon/warrior/death-S-1.png",
+      "/art/trimmed/dungeon/warrior/death-S-2.png",
+      "/art/trimmed/dungeon/warrior/death-S-3.png",
+      "/art/trimmed/dungeon/warrior/death-S-4.png",
+      "/art/trimmed/dungeon/warrior/death-S-5.png",
+      "/art/trimmed/dungeon/warrior/death-S-6.png",
+      "/art/trimmed/dungeon/warrior/death-S-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 99,
+      "width": 49,
+      "height": 60
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/death-SE": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/death-SE-0.png",
+      "/art/trimmed/dungeon/warrior/death-SE-1.png",
+      "/art/trimmed/dungeon/warrior/death-SE-2.png",
+      "/art/trimmed/dungeon/warrior/death-SE-3.png",
+      "/art/trimmed/dungeon/warrior/death-SE-4.png",
+      "/art/trimmed/dungeon/warrior/death-SE-5.png",
+      "/art/trimmed/dungeon/warrior/death-SE-6.png",
+      "/art/trimmed/dungeon/warrior/death-SE-7.png"
+    ],
+    "content": {
+      "left": 117,
+      "top": 98,
+      "width": 55,
+      "height": 53
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/death-SW": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/death-SW-0.png",
+      "/art/trimmed/dungeon/warrior/death-SW-1.png",
+      "/art/trimmed/dungeon/warrior/death-SW-2.png",
+      "/art/trimmed/dungeon/warrior/death-SW-3.png",
+      "/art/trimmed/dungeon/warrior/death-SW-4.png",
+      "/art/trimmed/dungeon/warrior/death-SW-5.png",
+      "/art/trimmed/dungeon/warrior/death-SW-6.png",
+      "/art/trimmed/dungeon/warrior/death-SW-7.png"
+    ],
+    "content": {
+      "left": 95,
+      "top": 98,
+      "width": 66,
+      "height": 52
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/death-W": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/death-W-0.png",
+      "/art/trimmed/dungeon/warrior/death-W-1.png",
+      "/art/trimmed/dungeon/warrior/death-W-2.png",
+      "/art/trimmed/dungeon/warrior/death-W-3.png",
+      "/art/trimmed/dungeon/warrior/death-W-4.png",
+      "/art/trimmed/dungeon/warrior/death-W-5.png",
+      "/art/trimmed/dungeon/warrior/death-W-6.png",
+      "/art/trimmed/dungeon/warrior/death-W-7.png"
+    ],
+    "content": {
+      "left": 84,
+      "top": 96,
+      "width": 76,
+      "height": 41
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/walk-E": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/walk-E-0.png",
+      "/art/trimmed/dungeon/warrior/walk-E-1.png",
+      "/art/trimmed/dungeon/warrior/walk-E-2.png",
+      "/art/trimmed/dungeon/warrior/walk-E-3.png",
+      "/art/trimmed/dungeon/warrior/walk-E-4.png",
+      "/art/trimmed/dungeon/warrior/walk-E-5.png",
+      "/art/trimmed/dungeon/warrior/walk-E-6.png",
+      "/art/trimmed/dungeon/warrior/walk-E-7.png"
+    ],
+    "content": {
+      "left": 114,
+      "top": 88,
+      "width": 58,
+      "height": 47
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/walk-N": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/walk-N-0.png",
+      "/art/trimmed/dungeon/warrior/walk-N-1.png",
+      "/art/trimmed/dungeon/warrior/walk-N-2.png",
+      "/art/trimmed/dungeon/warrior/walk-N-3.png",
+      "/art/trimmed/dungeon/warrior/walk-N-4.png",
+      "/art/trimmed/dungeon/warrior/walk-N-5.png",
+      "/art/trimmed/dungeon/warrior/walk-N-6.png",
+      "/art/trimmed/dungeon/warrior/walk-N-7.png"
+    ],
+    "content": {
+      "left": 119,
+      "top": 79,
+      "width": 53,
+      "height": 58
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/walk-NE": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/walk-NE-0.png",
+      "/art/trimmed/dungeon/warrior/walk-NE-1.png",
+      "/art/trimmed/dungeon/warrior/walk-NE-2.png",
+      "/art/trimmed/dungeon/warrior/walk-NE-3.png",
+      "/art/trimmed/dungeon/warrior/walk-NE-4.png",
+      "/art/trimmed/dungeon/warrior/walk-NE-5.png",
+      "/art/trimmed/dungeon/warrior/walk-NE-6.png",
+      "/art/trimmed/dungeon/warrior/walk-NE-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 83,
+      "width": 61,
+      "height": 54
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/walk-NW": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/walk-NW-0.png",
+      "/art/trimmed/dungeon/warrior/walk-NW-1.png",
+      "/art/trimmed/dungeon/warrior/walk-NW-2.png",
+      "/art/trimmed/dungeon/warrior/walk-NW-3.png",
+      "/art/trimmed/dungeon/warrior/walk-NW-4.png",
+      "/art/trimmed/dungeon/warrior/walk-NW-5.png",
+      "/art/trimmed/dungeon/warrior/walk-NW-6.png",
+      "/art/trimmed/dungeon/warrior/walk-NW-7.png"
+    ],
+    "content": {
+      "left": 112,
+      "top": 80,
+      "width": 56,
+      "height": 56
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/walk-S": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/walk-S-0.png",
+      "/art/trimmed/dungeon/warrior/walk-S-1.png",
+      "/art/trimmed/dungeon/warrior/walk-S-2.png",
+      "/art/trimmed/dungeon/warrior/walk-S-3.png",
+      "/art/trimmed/dungeon/warrior/walk-S-4.png",
+      "/art/trimmed/dungeon/warrior/walk-S-5.png",
+      "/art/trimmed/dungeon/warrior/walk-S-6.png",
+      "/art/trimmed/dungeon/warrior/walk-S-7.png"
+    ],
+    "content": {
+      "left": 118,
+      "top": 93,
+      "width": 53,
+      "height": 48
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/walk-SE": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/walk-SE-0.png",
+      "/art/trimmed/dungeon/warrior/walk-SE-1.png",
+      "/art/trimmed/dungeon/warrior/walk-SE-2.png",
+      "/art/trimmed/dungeon/warrior/walk-SE-3.png",
+      "/art/trimmed/dungeon/warrior/walk-SE-4.png",
+      "/art/trimmed/dungeon/warrior/walk-SE-5.png",
+      "/art/trimmed/dungeon/warrior/walk-SE-6.png",
+      "/art/trimmed/dungeon/warrior/walk-SE-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 92,
+      "width": 56,
+      "height": 47
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/walk-SW": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/walk-SW-0.png",
+      "/art/trimmed/dungeon/warrior/walk-SW-1.png",
+      "/art/trimmed/dungeon/warrior/walk-SW-2.png",
+      "/art/trimmed/dungeon/warrior/walk-SW-3.png",
+      "/art/trimmed/dungeon/warrior/walk-SW-4.png",
+      "/art/trimmed/dungeon/warrior/walk-SW-5.png",
+      "/art/trimmed/dungeon/warrior/walk-SW-6.png",
+      "/art/trimmed/dungeon/warrior/walk-SW-7.png"
+    ],
+    "content": {
+      "left": 112,
+      "top": 90,
+      "width": 56,
+      "height": 49
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/warrior/walk-W": {
+    "frames": [
+      "/art/trimmed/dungeon/warrior/walk-W-0.png",
+      "/art/trimmed/dungeon/warrior/walk-W-1.png",
+      "/art/trimmed/dungeon/warrior/walk-W-2.png",
+      "/art/trimmed/dungeon/warrior/walk-W-3.png",
+      "/art/trimmed/dungeon/warrior/walk-W-4.png",
+      "/art/trimmed/dungeon/warrior/walk-W-5.png",
+      "/art/trimmed/dungeon/warrior/walk-W-6.png",
+      "/art/trimmed/dungeon/warrior/walk-W-7.png"
+    ],
+    "content": {
+      "left": 110,
+      "top": 84,
+      "width": 58,
+      "height": 50
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/attack-E": {
+    "frames": [
+      "/art/trimmed/dungeon/you/attack-E-0.png",
+      "/art/trimmed/dungeon/you/attack-E-1.png",
+      "/art/trimmed/dungeon/you/attack-E-2.png",
+      "/art/trimmed/dungeon/you/attack-E-3.png",
+      "/art/trimmed/dungeon/you/attack-E-4.png",
+      "/art/trimmed/dungeon/you/attack-E-5.png",
+      "/art/trimmed/dungeon/you/attack-E-6.png",
+      "/art/trimmed/dungeon/you/attack-E-7.png"
+    ],
+    "content": {
+      "left": 105,
+      "top": 84,
+      "width": 77,
+      "height": 50
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/attack-N": {
+    "frames": [
+      "/art/trimmed/dungeon/you/attack-N-0.png",
+      "/art/trimmed/dungeon/you/attack-N-1.png",
+      "/art/trimmed/dungeon/you/attack-N-2.png",
+      "/art/trimmed/dungeon/you/attack-N-3.png",
+      "/art/trimmed/dungeon/you/attack-N-4.png",
+      "/art/trimmed/dungeon/you/attack-N-5.png",
+      "/art/trimmed/dungeon/you/attack-N-6.png",
+      "/art/trimmed/dungeon/you/attack-N-7.png"
+    ],
+    "content": {
+      "left": 119,
+      "top": 68,
+      "width": 53,
+      "height": 71
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/attack-NE": {
+    "frames": [
+      "/art/trimmed/dungeon/you/attack-NE-0.png",
+      "/art/trimmed/dungeon/you/attack-NE-1.png",
+      "/art/trimmed/dungeon/you/attack-NE-2.png",
+      "/art/trimmed/dungeon/you/attack-NE-3.png",
+      "/art/trimmed/dungeon/you/attack-NE-4.png",
+      "/art/trimmed/dungeon/you/attack-NE-5.png",
+      "/art/trimmed/dungeon/you/attack-NE-6.png",
+      "/art/trimmed/dungeon/you/attack-NE-7.png"
+    ],
+    "content": {
+      "left": 112,
+      "top": 73,
+      "width": 71,
+      "height": 61
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/attack-NW": {
+    "frames": [
+      "/art/trimmed/dungeon/you/attack-NW-0.png",
+      "/art/trimmed/dungeon/you/attack-NW-1.png",
+      "/art/trimmed/dungeon/you/attack-NW-2.png",
+      "/art/trimmed/dungeon/you/attack-NW-3.png",
+      "/art/trimmed/dungeon/you/attack-NW-4.png",
+      "/art/trimmed/dungeon/you/attack-NW-5.png",
+      "/art/trimmed/dungeon/you/attack-NW-6.png",
+      "/art/trimmed/dungeon/you/attack-NW-7.png"
+    ],
+    "content": {
+      "left": 98,
+      "top": 72,
+      "width": 76,
+      "height": 61
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/attack-S": {
+    "frames": [
+      "/art/trimmed/dungeon/you/attack-S-0.png",
+      "/art/trimmed/dungeon/you/attack-S-1.png",
+      "/art/trimmed/dungeon/you/attack-S-2.png",
+      "/art/trimmed/dungeon/you/attack-S-3.png",
+      "/art/trimmed/dungeon/you/attack-S-4.png",
+      "/art/trimmed/dungeon/you/attack-S-5.png",
+      "/art/trimmed/dungeon/you/attack-S-6.png",
+      "/art/trimmed/dungeon/you/attack-S-7.png"
+    ],
+    "content": {
+      "left": 118,
+      "top": 73,
+      "width": 55,
+      "height": 85
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/attack-SE": {
+    "frames": [
+      "/art/trimmed/dungeon/you/attack-SE-0.png",
+      "/art/trimmed/dungeon/you/attack-SE-1.png",
+      "/art/trimmed/dungeon/you/attack-SE-2.png",
+      "/art/trimmed/dungeon/you/attack-SE-3.png",
+      "/art/trimmed/dungeon/you/attack-SE-4.png",
+      "/art/trimmed/dungeon/you/attack-SE-5.png",
+      "/art/trimmed/dungeon/you/attack-SE-6.png",
+      "/art/trimmed/dungeon/you/attack-SE-7.png"
+    ],
+    "content": {
+      "left": 111,
+      "top": 78,
+      "width": 72,
+      "height": 72
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/attack-SW": {
+    "frames": [
+      "/art/trimmed/dungeon/you/attack-SW-0.png",
+      "/art/trimmed/dungeon/you/attack-SW-1.png",
+      "/art/trimmed/dungeon/you/attack-SW-2.png",
+      "/art/trimmed/dungeon/you/attack-SW-3.png",
+      "/art/trimmed/dungeon/you/attack-SW-4.png",
+      "/art/trimmed/dungeon/you/attack-SW-5.png",
+      "/art/trimmed/dungeon/you/attack-SW-6.png",
+      "/art/trimmed/dungeon/you/attack-SW-7.png"
+    ],
+    "content": {
+      "left": 97,
+      "top": 77,
+      "width": 81,
+      "height": 72
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/attack-W": {
+    "frames": [
+      "/art/trimmed/dungeon/you/attack-W-0.png",
+      "/art/trimmed/dungeon/you/attack-W-1.png",
+      "/art/trimmed/dungeon/you/attack-W-2.png",
+      "/art/trimmed/dungeon/you/attack-W-3.png",
+      "/art/trimmed/dungeon/you/attack-W-4.png",
+      "/art/trimmed/dungeon/you/attack-W-5.png",
+      "/art/trimmed/dungeon/you/attack-W-6.png",
+      "/art/trimmed/dungeon/you/attack-W-7.png"
+    ],
+    "content": {
+      "left": 85,
+      "top": 84,
+      "width": 86,
+      "height": 50
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/death-E": {
+    "frames": [
+      "/art/trimmed/dungeon/you/death-E-0.png",
+      "/art/trimmed/dungeon/you/death-E-1.png",
+      "/art/trimmed/dungeon/you/death-E-2.png",
+      "/art/trimmed/dungeon/you/death-E-3.png",
+      "/art/trimmed/dungeon/you/death-E-4.png",
+      "/art/trimmed/dungeon/you/death-E-5.png",
+      "/art/trimmed/dungeon/you/death-E-6.png",
+      "/art/trimmed/dungeon/you/death-E-7.png"
+    ],
+    "content": {
+      "left": 120,
+      "top": 96,
+      "width": 62,
+      "height": 41
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/death-N": {
+    "frames": [
+      "/art/trimmed/dungeon/you/death-N-0.png",
+      "/art/trimmed/dungeon/you/death-N-1.png",
+      "/art/trimmed/dungeon/you/death-N-2.png",
+      "/art/trimmed/dungeon/you/death-N-3.png",
+      "/art/trimmed/dungeon/you/death-N-4.png",
+      "/art/trimmed/dungeon/you/death-N-5.png",
+      "/art/trimmed/dungeon/you/death-N-6.png",
+      "/art/trimmed/dungeon/you/death-N-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 87,
+      "width": 50,
+      "height": 47
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/death-NE": {
+    "frames": [
+      "/art/trimmed/dungeon/you/death-NE-0.png",
+      "/art/trimmed/dungeon/you/death-NE-1.png",
+      "/art/trimmed/dungeon/you/death-NE-2.png",
+      "/art/trimmed/dungeon/you/death-NE-3.png",
+      "/art/trimmed/dungeon/you/death-NE-4.png",
+      "/art/trimmed/dungeon/you/death-NE-5.png",
+      "/art/trimmed/dungeon/you/death-NE-6.png",
+      "/art/trimmed/dungeon/you/death-NE-7.png"
+    ],
+    "content": {
+      "left": 117,
+      "top": 93,
+      "width": 56,
+      "height": 43
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/death-NW": {
+    "frames": [
+      "/art/trimmed/dungeon/you/death-NW-0.png",
+      "/art/trimmed/dungeon/you/death-NW-1.png",
+      "/art/trimmed/dungeon/you/death-NW-2.png",
+      "/art/trimmed/dungeon/you/death-NW-3.png",
+      "/art/trimmed/dungeon/you/death-NW-4.png",
+      "/art/trimmed/dungeon/you/death-NW-5.png",
+      "/art/trimmed/dungeon/you/death-NW-6.png",
+      "/art/trimmed/dungeon/you/death-NW-7.png"
+    ],
+    "content": {
+      "left": 97,
+      "top": 93,
+      "width": 65,
+      "height": 43
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/death-S": {
+    "frames": [
+      "/art/trimmed/dungeon/you/death-S-0.png",
+      "/art/trimmed/dungeon/you/death-S-1.png",
+      "/art/trimmed/dungeon/you/death-S-2.png",
+      "/art/trimmed/dungeon/you/death-S-3.png",
+      "/art/trimmed/dungeon/you/death-S-4.png",
+      "/art/trimmed/dungeon/you/death-S-5.png",
+      "/art/trimmed/dungeon/you/death-S-6.png",
+      "/art/trimmed/dungeon/you/death-S-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 99,
+      "width": 49,
+      "height": 60
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/death-SE": {
+    "frames": [
+      "/art/trimmed/dungeon/you/death-SE-0.png",
+      "/art/trimmed/dungeon/you/death-SE-1.png",
+      "/art/trimmed/dungeon/you/death-SE-2.png",
+      "/art/trimmed/dungeon/you/death-SE-3.png",
+      "/art/trimmed/dungeon/you/death-SE-4.png",
+      "/art/trimmed/dungeon/you/death-SE-5.png",
+      "/art/trimmed/dungeon/you/death-SE-6.png",
+      "/art/trimmed/dungeon/you/death-SE-7.png"
+    ],
+    "content": {
+      "left": 117,
+      "top": 98,
+      "width": 55,
+      "height": 53
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/death-SW": {
+    "frames": [
+      "/art/trimmed/dungeon/you/death-SW-0.png",
+      "/art/trimmed/dungeon/you/death-SW-1.png",
+      "/art/trimmed/dungeon/you/death-SW-2.png",
+      "/art/trimmed/dungeon/you/death-SW-3.png",
+      "/art/trimmed/dungeon/you/death-SW-4.png",
+      "/art/trimmed/dungeon/you/death-SW-5.png",
+      "/art/trimmed/dungeon/you/death-SW-6.png",
+      "/art/trimmed/dungeon/you/death-SW-7.png"
+    ],
+    "content": {
+      "left": 95,
+      "top": 98,
+      "width": 66,
+      "height": 52
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/death-W": {
+    "frames": [
+      "/art/trimmed/dungeon/you/death-W-0.png",
+      "/art/trimmed/dungeon/you/death-W-1.png",
+      "/art/trimmed/dungeon/you/death-W-2.png",
+      "/art/trimmed/dungeon/you/death-W-3.png",
+      "/art/trimmed/dungeon/you/death-W-4.png",
+      "/art/trimmed/dungeon/you/death-W-5.png",
+      "/art/trimmed/dungeon/you/death-W-6.png",
+      "/art/trimmed/dungeon/you/death-W-7.png"
+    ],
+    "content": {
+      "left": 84,
+      "top": 96,
+      "width": 76,
+      "height": 41
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/walk-E": {
+    "frames": [
+      "/art/trimmed/dungeon/you/walk-E-0.png",
+      "/art/trimmed/dungeon/you/walk-E-1.png",
+      "/art/trimmed/dungeon/you/walk-E-2.png",
+      "/art/trimmed/dungeon/you/walk-E-3.png",
+      "/art/trimmed/dungeon/you/walk-E-4.png",
+      "/art/trimmed/dungeon/you/walk-E-5.png",
+      "/art/trimmed/dungeon/you/walk-E-6.png",
+      "/art/trimmed/dungeon/you/walk-E-7.png"
+    ],
+    "content": {
+      "left": 114,
+      "top": 88,
+      "width": 58,
+      "height": 47
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/walk-N": {
+    "frames": [
+      "/art/trimmed/dungeon/you/walk-N-0.png",
+      "/art/trimmed/dungeon/you/walk-N-1.png",
+      "/art/trimmed/dungeon/you/walk-N-2.png",
+      "/art/trimmed/dungeon/you/walk-N-3.png",
+      "/art/trimmed/dungeon/you/walk-N-4.png",
+      "/art/trimmed/dungeon/you/walk-N-5.png",
+      "/art/trimmed/dungeon/you/walk-N-6.png",
+      "/art/trimmed/dungeon/you/walk-N-7.png"
+    ],
+    "content": {
+      "left": 119,
+      "top": 79,
+      "width": 53,
+      "height": 58
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/walk-NE": {
+    "frames": [
+      "/art/trimmed/dungeon/you/walk-NE-0.png",
+      "/art/trimmed/dungeon/you/walk-NE-1.png",
+      "/art/trimmed/dungeon/you/walk-NE-2.png",
+      "/art/trimmed/dungeon/you/walk-NE-3.png",
+      "/art/trimmed/dungeon/you/walk-NE-4.png",
+      "/art/trimmed/dungeon/you/walk-NE-5.png",
+      "/art/trimmed/dungeon/you/walk-NE-6.png",
+      "/art/trimmed/dungeon/you/walk-NE-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 83,
+      "width": 61,
+      "height": 54
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/walk-NW": {
+    "frames": [
+      "/art/trimmed/dungeon/you/walk-NW-0.png",
+      "/art/trimmed/dungeon/you/walk-NW-1.png",
+      "/art/trimmed/dungeon/you/walk-NW-2.png",
+      "/art/trimmed/dungeon/you/walk-NW-3.png",
+      "/art/trimmed/dungeon/you/walk-NW-4.png",
+      "/art/trimmed/dungeon/you/walk-NW-5.png",
+      "/art/trimmed/dungeon/you/walk-NW-6.png",
+      "/art/trimmed/dungeon/you/walk-NW-7.png"
+    ],
+    "content": {
+      "left": 112,
+      "top": 80,
+      "width": 56,
+      "height": 56
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/walk-S": {
+    "frames": [
+      "/art/trimmed/dungeon/you/walk-S-0.png",
+      "/art/trimmed/dungeon/you/walk-S-1.png",
+      "/art/trimmed/dungeon/you/walk-S-2.png",
+      "/art/trimmed/dungeon/you/walk-S-3.png",
+      "/art/trimmed/dungeon/you/walk-S-4.png",
+      "/art/trimmed/dungeon/you/walk-S-5.png",
+      "/art/trimmed/dungeon/you/walk-S-6.png",
+      "/art/trimmed/dungeon/you/walk-S-7.png"
+    ],
+    "content": {
+      "left": 118,
+      "top": 93,
+      "width": 53,
+      "height": 48
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/walk-SE": {
+    "frames": [
+      "/art/trimmed/dungeon/you/walk-SE-0.png",
+      "/art/trimmed/dungeon/you/walk-SE-1.png",
+      "/art/trimmed/dungeon/you/walk-SE-2.png",
+      "/art/trimmed/dungeon/you/walk-SE-3.png",
+      "/art/trimmed/dungeon/you/walk-SE-4.png",
+      "/art/trimmed/dungeon/you/walk-SE-5.png",
+      "/art/trimmed/dungeon/you/walk-SE-6.png",
+      "/art/trimmed/dungeon/you/walk-SE-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 92,
+      "width": 56,
+      "height": 47
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/walk-SW": {
+    "frames": [
+      "/art/trimmed/dungeon/you/walk-SW-0.png",
+      "/art/trimmed/dungeon/you/walk-SW-1.png",
+      "/art/trimmed/dungeon/you/walk-SW-2.png",
+      "/art/trimmed/dungeon/you/walk-SW-3.png",
+      "/art/trimmed/dungeon/you/walk-SW-4.png",
+      "/art/trimmed/dungeon/you/walk-SW-5.png",
+      "/art/trimmed/dungeon/you/walk-SW-6.png",
+      "/art/trimmed/dungeon/you/walk-SW-7.png"
+    ],
+    "content": {
+      "left": 112,
+      "top": 90,
+      "width": 56,
+      "height": 49
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "dungeon/you/walk-W": {
+    "frames": [
+      "/art/trimmed/dungeon/you/walk-W-0.png",
+      "/art/trimmed/dungeon/you/walk-W-1.png",
+      "/art/trimmed/dungeon/you/walk-W-2.png",
+      "/art/trimmed/dungeon/you/walk-W-3.png",
+      "/art/trimmed/dungeon/you/walk-W-4.png",
+      "/art/trimmed/dungeon/you/walk-W-5.png",
+      "/art/trimmed/dungeon/you/walk-W-6.png",
+      "/art/trimmed/dungeon/you/walk-W-7.png"
+    ],
+    "content": {
+      "left": 110,
+      "top": 84,
+      "width": 58,
+      "height": 50
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "flame/flame": {
+    "frames": [
+      "/art/trimmed/flame/flame-0.png",
+      "/art/trimmed/flame/flame-1.png",
+      "/art/trimmed/flame/flame-2.png",
+      "/art/trimmed/flame/flame-3.png",
+      "/art/trimmed/flame/flame-4.png",
+      "/art/trimmed/flame/flame-5.png",
+      "/art/trimmed/flame/flame-6.png",
+      "/art/trimmed/flame/flame-7.png"
+    ],
+    "content": {
+      "left": 123,
+      "top": 108,
+      "width": 12,
+      "height": 20
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "ground/stone": {
+    "frames": [
+      "/art/trimmed/ground/stone.png"
+    ],
+    "content": {
+      "left": 0,
+      "top": 0,
+      "width": 256,
+      "height": 256
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "prop/coins": {
+    "frames": [
+      "/art/trimmed/prop/coins.png"
+    ],
+    "content": {
+      "left": 119,
+      "top": 117,
+      "width": 22,
+      "height": 17
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "raider/fighter": {
+    "frames": [
+      "/art/trimmed/raider/fighter-0.png",
+      "/art/trimmed/raider/fighter-1.png",
+      "/art/trimmed/raider/fighter-2.png",
+      "/art/trimmed/raider/fighter-3.png",
+      "/art/trimmed/raider/fighter-4.png",
+      "/art/trimmed/raider/fighter-5.png",
+      "/art/trimmed/raider/fighter-6.png",
+      "/art/trimmed/raider/fighter-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 102,
+      "width": 41,
+      "height": 37
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "raider/knight": {
+    "frames": [
+      "/art/trimmed/raider/knight-0.png",
+      "/art/trimmed/raider/knight-1.png",
+      "/art/trimmed/raider/knight-2.png",
+      "/art/trimmed/raider/knight-3.png",
+      "/art/trimmed/raider/knight-4.png",
+      "/art/trimmed/raider/knight-5.png",
+      "/art/trimmed/raider/knight-6.png",
+      "/art/trimmed/raider/knight-7.png"
+    ],
+    "content": {
+      "left": 118,
+      "top": 105,
+      "width": 42,
+      "height": 39
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "raider/warrior": {
+    "frames": [
+      "/art/trimmed/raider/warrior-0.png",
+      "/art/trimmed/raider/warrior-1.png",
+      "/art/trimmed/raider/warrior-2.png",
+      "/art/trimmed/raider/warrior-3.png",
+      "/art/trimmed/raider/warrior-4.png",
+      "/art/trimmed/raider/warrior-5.png",
+      "/art/trimmed/raider/warrior-6.png",
+      "/art/trimmed/raider/warrior-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 95,
+      "width": 53,
+      "height": 44
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "scatter/bones": {
+    "frames": [
+      "/art/trimmed/scatter/bones.png"
+    ],
+    "content": {
+      "left": 115,
+      "top": 106,
+      "width": 31,
+      "height": 45
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "scatter/rocks": {
+    "frames": [
+      "/art/trimmed/scatter/rocks.png"
+    ],
+    "content": {
+      "left": 40,
+      "top": 67,
+      "width": 186,
+      "height": 127
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "sparkle/glint": {
+    "frames": [
+      "/art/trimmed/sparkle/glint-0.png",
+      "/art/trimmed/sparkle/glint-1.png",
+      "/art/trimmed/sparkle/glint-2.png",
+      "/art/trimmed/sparkle/glint-3.png",
+      "/art/trimmed/sparkle/glint-4.png",
+      "/art/trimmed/sparkle/glint-5.png",
+      "/art/trimmed/sparkle/glint-6.png",
+      "/art/trimmed/sparkle/glint-7.png"
+    ],
+    "content": {
+      "left": 117,
+      "top": 118,
+      "width": 22,
+      "height": 17
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "sweep/sweep": {
+    "frames": [
+      "/art/trimmed/sweep/sweep-0.png",
+      "/art/trimmed/sweep/sweep-1.png",
+      "/art/trimmed/sweep/sweep-2.png",
+      "/art/trimmed/sweep/sweep-3.png",
+      "/art/trimmed/sweep/sweep-4.png",
+      "/art/trimmed/sweep/sweep-5.png",
+      "/art/trimmed/sweep/sweep-6.png",
+      "/art/trimmed/sweep/sweep-7.png"
+    ],
+    "content": {
+      "left": 159,
+      "top": 103,
+      "width": 28,
+      "height": 50
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "torch/lit": {
+    "frames": [
+      "/art/trimmed/torch/lit-0.png",
+      "/art/trimmed/torch/lit-1.png",
+      "/art/trimmed/torch/lit-2.png",
+      "/art/trimmed/torch/lit-3.png",
+      "/art/trimmed/torch/lit-4.png",
+      "/art/trimmed/torch/lit-5.png",
+      "/art/trimmed/torch/lit-6.png",
+      "/art/trimmed/torch/lit-7.png"
+    ],
+    "content": {
+      "left": 116,
+      "top": 106,
+      "width": 39,
+      "height": 29
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "ui/marker-red": {
+    "frames": [
+      "/art/trimmed/ui/marker-red.png"
+    ],
+    "content": {
+      "left": 127,
+      "top": 31,
+      "width": 2,
+      "height": 97
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "ui/pointer-blue": {
+    "frames": [
+      "/art/trimmed/ui/pointer-blue.png"
+    ],
+    "content": {
+      "left": 52,
+      "top": 52,
+      "width": 23,
+      "height": 25
+    },
+    "wholeFrame": {
+      "width": 128,
+      "height": 128
+    }
+  },
+  "ui/pointer-green": {
+    "frames": [
+      "/art/trimmed/ui/pointer-green.png"
+    ],
+    "content": {
+      "left": 52,
+      "top": 52,
+      "width": 23,
+      "height": 25
+    },
+    "wholeFrame": {
+      "width": 128,
+      "height": 128
+    }
+  },
+  "ui/pointer-red": {
+    "frames": [
+      "/art/trimmed/ui/pointer-red.png"
+    ],
+    "content": {
+      "left": 52,
+      "top": 52,
+      "width": 23,
+      "height": 25
+    },
+    "wholeFrame": {
+      "width": 128,
+      "height": 128
+    }
+  },
+  "ui/pointer-white": {
+    "frames": [
+      "/art/trimmed/ui/pointer-white.png"
+    ],
+    "content": {
+      "left": 52,
+      "top": 52,
+      "width": 23,
+      "height": 25
+    },
+    "wholeFrame": {
+      "width": 128,
+      "height": 128
+    }
+  },
+  "ui/pointer-yellow": {
+    "frames": [
+      "/art/trimmed/ui/pointer-yellow.png"
+    ],
+    "content": {
+      "left": 52,
+      "top": 52,
+      "width": 23,
+      "height": 25
+    },
+    "wholeFrame": {
+      "width": 128,
+      "height": 128
+    }
+  },
+  "ui/ring-red": {
+    "frames": [
+      "/art/trimmed/ui/ring-red.png"
+    ],
+    "content": {
+      "left": 2,
+      "top": 28,
+      "width": 250,
+      "height": 133
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  },
+  "ui/vignette": {
+    "frames": [
+      "/art/trimmed/ui/vignette.png"
+    ],
+    "content": {
+      "left": 0,
+      "top": 0,
+      "width": 1920,
+      "height": 1080
+    },
+    "wholeFrame": {
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  "watcher/idle": {
+    "frames": [
+      "/art/trimmed/watcher/idle.png"
+    ],
+    "content": {
+      "left": 95,
+      "top": 74,
+      "width": 103,
+      "height": 80
+    },
+    "wholeFrame": {
+      "width": 256,
+      "height": 256
+    }
+  }
+}
