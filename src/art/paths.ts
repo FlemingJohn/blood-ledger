@@ -13,7 +13,6 @@ export const gauntlets = {
   wayOut: `${artRoot}/ui/pointer-green.png`,
   patron: `${artRoot}/ui/pointer-blue.png`
 }
-export const sleepingWatcher = `${artRoot}/watcher/idle.png`
 export const hoodedSkull = `${artRoot}/landing/hero.webp`
 export const redSmoke = `${artRoot}/landing/smoke.webp`
 export const carvedSkull = `${artRoot}/landing/skull.glb`
