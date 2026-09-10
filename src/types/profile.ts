@@ -1,4 +1,4 @@
-import type { RaidOutcome } from './ledger'
+import type { RaidEnding } from './raid'
 import type { RaiderClass, Standing } from './raider'
 
 export interface RaiderRecord {
@@ -19,7 +19,7 @@ export type DeedSide = 'raider' | 'patron'
 
 export interface Deed {
   side: DeedSide
-  outcome: RaidOutcome
+  outcome: RaidEnding
   floorReached: number
   coinChange: number
   otherSide: string
