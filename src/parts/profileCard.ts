@@ -105,11 +105,13 @@ function deedLine(deed: Deed): HTMLElement {
 
   const said = document.createElement('span')
   said.className = 'profile__deedSaid'
+  const onFloor = deed.floorReached === null ? '' : ` floor ${deed.floorReached}`
+
   said.textContent =
     deed.side === 'raider'
       ? deed.outcome === 'fell'
-        ? `fell on floor ${deed.floorReached}`
-        : `walked out of floor ${deed.floorReached}`
+        ? `fell${onFloor ? ` on${onFloor}` : ''}, owing ${shortAddress(deed.otherSide)}`
+        : `walked out${onFloor ? ` of${onFloor}` : ''}, paid ${shortAddress(deed.otherSide)}`
       : deed.outcome === 'fell'
         ? `backed ${shortAddress(deed.otherSide)}, they fell`
         : `backed ${shortAddress(deed.otherSide)}, they returned`
