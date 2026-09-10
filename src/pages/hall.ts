@@ -13,10 +13,11 @@ import { openTheProfile } from '../parts/profileCard'
 import { drawChain } from '../parts/hallMarks'
 import { prepareTheRite } from '../parts/sealingRite'
 import { askBeforeYouSign } from '../parts/askFirst'
-import { unrollTheLedger } from '../parts/ledgerFeed'
+import { watchWhatIsHappening } from '../parts/goingsOn'
 import { layOutPowers } from '../parts/powerSlots'
 import { showTheBond } from '../parts/bondSlip'
-import { gradeReaches, readLedger, readOffers, readRaider, sealPact } from '../chain/theLedger'
+import { gradeReaches, readOffers, readRaider, sealPact } from '../chain/theLedger'
+import { asAnOfferToYou, readTheBoard } from '../chain/whatIsOnTheBoard'
 import { readSeekers } from '../chain/seekers'
 import { askTheHouse, askTheHouseToBackYou, theHouseAnswered } from '../chain/house'
 import { asAnOffer, houseOfferId } from '../chain/houseOffer'
@@ -181,6 +182,26 @@ export function buildHall(order: HallOrder): Part {
     }
   })
 
+  void readTheBoard(order.address).then((standing) => {
+    if (!standing) {
+      board.sayWhenBare('No vault is deployed, so no coin can be put up yet.')
+      goingsOn.showTrouble('No vault is deployed yet.')
+      return
+    }
+
+    standing.inYourName.forEach((putUp) => {
+      const named = asAnOfferToYou(putUp)
+      board.addOffer(named, 'offer--named')
+      offersHere.push(named)
+      openToYou += 1
+    })
+
+    board.sayWhenBare('Nobody has named you yet. Ask the House and it will put up coin for you.')
+    goingsOn.show(standing.below)
+    showWhatAPactWouldCost()
+    tellTheSeats()
+  })
+
   void askTheHouse(order.address).then((answer) => {
     if (!theHouseAnswered(answer) || !answer.held.patron.canBack) {
       return
@@ -196,11 +217,11 @@ export function buildHall(order: HallOrder): Part {
 
   body.append(board.element, middle, rail)
 
-  const ledger = unrollTheLedger(readLedger().slice(0, 3))
+  const goingsOn = watchWhatIsHappening()
 
   const foot = document.createElement('div')
   foot.className = 'hallpage__foot'
-  foot.append(ledger.element, descent.element)
+  foot.append(goingsOn.element, descent.element)
 
   hall.append(dressing.element, tally.element, body, foot, rite.element, asking.element, profile.element)
 
@@ -261,7 +282,7 @@ export function buildHall(order: HallOrder): Part {
       board.teardown()
       bond.teardown()
       powers.teardown()
-      ledger.teardown()
+      goingsOn.teardown()
       profile.teardown()
       asking.teardown()
       rite.teardown()
