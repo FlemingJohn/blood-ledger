@@ -1,5 +1,5 @@
 const liftsAfter = 620
-const waitsAtMost = 9000
+const waitsAtMost = 22000
 
 let lifted = false
 
@@ -32,8 +32,29 @@ export function liftTheBoot(): void {
   window.setTimeout(() => boot.remove(), liftsAfter)
 }
 
-export function liftWhenReady(whatIsComing: Promise<unknown>): void {
+const stillWaitingOn = new Set<string>()
+let started = false
+
+export function holdTheBootFor(what: string): void {
+  if (lifted) {
+    return
+  }
+  stillWaitingOn.add(what)
+}
+
+export function doneWaitingOn(what: string): void {
+  stillWaitingOn.delete(what)
+
+  if (started && stillWaitingOn.size === 0) {
+    liftTheBoot()
+  }
+}
+
+export function liftWhenNothingIsLeft(): void {
+  started = true
   window.setTimeout(liftTheBoot, waitsAtMost)
 
-  void whatIsComing.then(liftTheBoot).catch(liftTheBoot)
+  if (stillWaitingOn.size === 0) {
+    liftTheBoot()
+  }
 }
