@@ -2,6 +2,7 @@ import type { Part } from '../types/parts'
 import type { SoundSettings } from '../types/sound'
 import { bladeLands } from '../sound/blows'
 import { openTheBox, readSound, setSound } from '../sound/theBox'
+import { closeWhenAsked } from './dismiss'
 import '../styles/sound.css'
 
 type Knob = keyof SoundSettings
@@ -87,8 +88,11 @@ export function hangTheSoundSlip(): SoundSlipPart {
 
   slip.append(head, rows, aside)
 
+  let letting: ReturnType<typeof closeWhenAsked> | null = null
+
   function close(): void {
     slip.hidden = true
+    letting?.restAgain()
   }
 
   shut.addEventListener('click', close)
@@ -99,6 +103,12 @@ export function hangTheSoundSlip(): SoundSlipPart {
     open(near: HTMLElement): void {
       openTheBox()
       slip.hidden = false
+
+      if (!letting) {
+        letting = closeWhenAsked(slip, near, close)
+      }
+
+      letting.watch()
 
       const box = near.getBoundingClientRect()
       const wide = slip.offsetWidth
@@ -121,6 +131,7 @@ export function hangTheSoundSlip(): SoundSlipPart {
     },
 
     teardown(): void {
+      letting?.teardown()
       slip.remove()
     }
   }
