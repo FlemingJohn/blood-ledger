@@ -1,6 +1,7 @@
 import type { Part } from '../types/parts'
 import type { PurseKeeper, PurseReading } from '../types/purse'
 import { buildDoor } from '../parts/door'
+import { cutAnOrnament, raiseTheHero } from '../parts/hero'
 import { buildScroll } from '../parts/scroll'
 import { dressTheHall } from '../parts/hallDressing'
 import { homeRealm, realmWherePatronsPay } from '../chain/realms'
@@ -31,13 +32,6 @@ const becomeAPatron = {
     'They live, you profit. They die, you lose the lot.'
   ],
   note: 'Standing is earned in blood, not promises. Read the ledger before you fund anyone.'
-}
-
-function makeTitle(): HTMLHeadingElement {
-  const title = document.createElement('h1')
-  title.className = 'title'
-  title.textContent = 'Blood Ledger'
-  return title
 }
 
 function makePromise(): HTMLParagraphElement {
@@ -91,6 +85,7 @@ export function buildLanding(order: LandingOrder): Part {
   const centre = document.createElement('div')
   centre.className = 'centre'
 
+  const hero = raiseTheHero()
   const door = buildDoor()
 
   const scrolls = document.createElement('div')
@@ -99,7 +94,7 @@ export function buildLanding(order: LandingOrder): Part {
   const secondScroll = buildScroll(becomeAPatron)
   scrolls.append(firstScroll.element, secondScroll.element)
 
-  centre.append(makeTitle(), makePromise(), door.element, scrolls)
+  centre.append(hero.element, cutAnOrnament(), makePromise(), door.element, scrolls)
   hall.append(centre)
   const switches = hangTheSoundSwitches()
   switches.element.classList.add('soundrail--afloat')
@@ -155,6 +150,7 @@ export function buildLanding(order: LandingOrder): Part {
     element: landing,
     teardown(): void {
       switches.teardown()
+      hero.teardown()
       stopWatching()
       firstScroll.teardown()
       secondScroll.teardown()
