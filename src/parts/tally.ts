@@ -1,5 +1,5 @@
 import type { Part } from '../types/parts'
-import type { Raider } from '../types/raider'
+import type { Raider, RaiderClass } from '../types/raider'
 import { paintBust } from '../art/championPaint'
 import { contractsAreLive, gradeFloors, readTheUnderwriter } from '../chain/theLedger'
 import { readTheWitnesses } from '../chain/witnesses'
@@ -18,7 +18,7 @@ const highestScore = 1000
 export interface TallyPart extends Part {
   middleSeat: HTMLElement
   whenNameAsked(listener: () => void): void
-  showBust(): void
+  showClass(chosen: RaiderClass): void
 }
 
 function nextRungAbove(score: number): { grade: string; from: number } | null {
@@ -199,8 +199,10 @@ export function hangTheTally(raider: Raider): TallyPart {
   plate.append(faceBay, standingBay, underwriter.element, witnesses.element, roleBay, purseBay)
   tally.append(plate)
 
+  let showing = raider.chosenClass
+
   function showBust(): void {
-    frame.replaceChildren(paintBust(raider.chosenClass, 66))
+    frame.replaceChildren(paintBust(showing, 66))
   }
 
   showBust()
@@ -208,7 +210,14 @@ export function hangTheTally(raider: Raider): TallyPart {
   return {
     element: tally,
     middleSeat,
-    showBust,
+
+    showClass(chosen: RaiderClass): void {
+      if (chosen === showing) {
+        return
+      }
+      showing = chosen
+      showBust()
+    },
 
     whenNameAsked(listener: () => void): void {
       asking.add(listener)
