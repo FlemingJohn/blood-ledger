@@ -7,6 +7,7 @@
   "scripts": {
     "gather-art": "node scripts/gather-art.mjs",
     "start": "vite",
+    "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "trim-art": "node scripts/trim-art.mjs",
