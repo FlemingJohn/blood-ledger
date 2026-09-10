@@ -1,5 +1,5 @@
 import type { Part } from '../types/parts'
-import { darkenedEdges, redSmoke, stoneFloor } from '../art/paths'
+import { darkenedEdges, gothicHall, redSmoke } from '../art/paths'
 import { lightTheBackdrop } from './flames'
 
 export type Mood = 'landing' | 'working'
@@ -16,7 +16,7 @@ export function dressTheHall(mood: Mood): Part {
     const room = document.createElement('div')
     room.className = 'backdrop backdrop--room'
     room.setAttribute('aria-hidden', 'true')
-    room.style.backgroundImage = `url(${stoneFloor})`
+    room.style.backgroundImage = `url(${gothicHall})`
 
     holder.append(room, edges)
 
