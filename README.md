@@ -6,6 +6,19 @@
   <strong>An isometric dungeon crawler where somebody else paid for your sword.</strong>
 </p>
 
+<p align="center">
+  <strong>Gaming track · BUIDL CTC 2026</strong>
+</p>
+
+<p align="center">
+  <a href="#the-six-pages">The game</a> ·
+  <a href="#how-we-used-attestcoin">Attestcoin</a> ·
+  <a href="#one-raid-end-to-end">One raid</a> ·
+  <a href="#what-is-real-and-what-is-not">What is real</a> ·
+  <a href="#running-it">Running it</a> ·
+  <a href="#the-contracts">The contracts</a>
+</p>
+
 ---
 
 ## The short version
@@ -19,6 +32,32 @@ moves, and you decide when to turn back.
 Walk out alive and you split the haul. Fall on the stair and their coin dies with you, and
 the ledger writes your name next to the loss. Everyone can read it. Nobody funds a raider
 who does not come back.
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'primaryColor':'#1b0a10','primaryTextColor':'#e0d5c4','primaryBorderColor':'#8b0b2e','lineColor':'#8b0b2e','fontFamily':'Georgia, serif','fontSize':'15px'}}}%%
+flowchart TD
+    P["A patron stakes coin<br/>on Ethereum"] --> A["Attestcoin proves<br/>the payment happened"]
+    A --> L["Creditcoin writes the pact,<br/>the debt and the bond"]
+    L --> D["You go down"]
+    D --> C{"How much of their<br/>money are you carrying?"}
+    C -->|"more"| H["The dark sends<br/>faster and harder"]
+    H --> C
+    C --> W["Walk out"]
+    C --> F["Fall"]
+    W --> S["Split the haul.<br/>Standing rises."]
+    F --> X["Their coin is gone.<br/>Standing falls 86."]
+
+    style P fill:#1b0a10,stroke:#c9a227,color:#c9a227
+    style A fill:#1b0a10,stroke:#ff3d78,color:#ff3d78
+    style L fill:#1b0a10,stroke:#ff3d78,color:#ff3d78
+    style S fill:#1b0a10,stroke:#c9a227,color:#c9a227
+    style X fill:#1b0a10,stroke:#8b0b2e,color:#ff3d78
+```
+
+**The money you borrowed is what makes the dungeon harder.** That loop in the middle is the
+whole game: the more of their coin you are holding, the less time you have between arrivals.
+The blockchain is not a shop bolted onto a dungeon crawler. It is the thing setting the
+difficulty.
 
 ---
 
@@ -206,6 +245,32 @@ carries a proof rather than a message.
 **The house** is a convenience, not part of the rules. Turn it off and the game still
 works; you just have to go and find a faucet.
 
+### Why it needs two chains
+
+Each one has a job the other cannot do.
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'primaryColor':'#1b0a10','primaryTextColor':'#e0d5c4','primaryBorderColor':'#8b0b2e','lineColor':'#8b0b2e','fontFamily':'Georgia, serif','fontSize':'15px'}}}%%
+flowchart LR
+    E["<b>ETHEREUM</b><br/>the money goes in"] --> A["<b>ATTESTCOIN</b><br/>the payment<br/>becomes provable"]
+    A --> C["<b>CREDITCOIN</b><br/>the pact and the name<br/>outlive the raid"]
+    C --> G["<b>THE GAME</b><br/>you live with<br/>the consequences"]
+
+    style E fill:#1b0a10,stroke:#c9a227,color:#c9a227
+    style A fill:#1b0a10,stroke:#ff3d78,color:#ff3d78
+    style C fill:#1b0a10,stroke:#ff3d78,color:#ff3d78
+    style G fill:#1b0a10,stroke:#e0d5c4,color:#e0d5c4
+```
+
+The patron's capital already lives on Ethereum, and asking them to bridge it somewhere
+first would be a worse game and a worse idea. But a debt and a reputation have to survive
+the raid, be cheap to write to, and be readable by anyone — which is Creditcoin's job, not
+Ethereum's.
+
+That leaves one problem: Creditcoin has no way of knowing what happened on Ethereum.
+Attestcoin is the only honest answer to that, and the whole game hangs off it. This is not
+two chains for the sake of saying two chains.
+
 ---
 
 ## How we used Attestcoin
@@ -287,9 +352,29 @@ contracts directly and joins the answers.
 
 The board is the clearest case. One read goes to Sepolia for the money, one goes to
 Creditcoin for what happened to it, and the row you see is the two answers put together.
-A stake that has left Ethereum but not yet cleared the witnesses shows as **waiting on the
-witnesses** — which is Attestcoin's nine minute agreement window, rendered as a line of
-text in a game.
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'primaryColor':'#1b0a10','primaryTextColor':'#e0d5c4','primaryBorderColor':'#8b0b2e','lineColor':'#8b0b2e','fontFamily':'Georgia, serif','fontSize':'15px'}}}%%
+flowchart TD
+    S["<b>stakes(id)</b> on Ethereum<br/>who paid, how much, for whom"] --> R{"taken back?"}
+    R -->|"yes"| B["<b>taken back</b><br/>nobody ever descended"]
+    R -->|"no"| P["<b>pacts(id)</b> on Creditcoin"]
+    P --> Q{"has it sealed?"}
+    Q -->|"not yet"| W["<b>waiting on the witnesses</b><br/>the coin has left Ethereum,<br/>the proof has not arrived"]
+    Q -->|"sealed"| T{"settled?"}
+    T -->|"no"| O["<b>open</b><br/>a raider owes on this"]
+    T -->|"yes"| V["<b>over</b><br/>they walked out, or they did not"]
+
+    style S fill:#1b0a10,stroke:#c9a227,color:#c9a227
+    style P fill:#1b0a10,stroke:#ff3d78,color:#ff3d78
+    style W fill:#1b0a10,stroke:#ff3d78,color:#ff3d78
+    style O fill:#1b0a10,stroke:#c9a227,color:#c9a227
+    style B fill:#1b0a10,stroke:#8b0b2e,color:#7d6a70
+```
+
+Every row on the board and every line in the feed is one pass through that. **Waiting on
+the witnesses** is Attestcoin's agreement window — about nine minutes — rendered as a line
+of text in a game.
 
 Every number on that page can be checked on either explorer. We would rather you did.
 
@@ -388,7 +473,30 @@ There is a language model in here, and it decides nothing. It is the voice, neve
 judgement.
 
 **The Underwriter** is a lender who reads a raider and says yes or no. Two separate things
-happen when it does.
+happen when it does, and only the second one involves a model.
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'primaryColor':'#1b0a10','primaryTextColor':'#e0d5c4','primaryBorderColor':'#8b0b2e','lineColor':'#8b0b2e','fontFamily':'Georgia, serif','fontSize':'15px'}}}%%
+flowchart TD
+    F["what the chain says<br/>about this raider"] --> J["<b>judge()</b><br/>plain arithmetic<br/>no model"]
+    J --> D["the decision:<br/>lend or refuse, how much,<br/>what share, what risk"]
+    D --> M["<b>handleFor()</b><br/>0x7a3f becomes Ashfoot"]
+    M --> AI["the model writes<br/>two sentences"]
+    AI --> K{"empty, too long,<br/>cut off, or carrying<br/>a link or an address?"}
+    K -->|"any of those"| OW["<b>ourOwnWords()</b><br/>we write it instead"]
+    K -->|"clean"| SC["<b>scrubbed()</b><br/>one last pass"]
+    OW --> OUT["what the player reads"]
+    SC --> OUT
+
+    style J fill:#1b0a10,stroke:#c9a227,color:#c9a227
+    style D fill:#1b0a10,stroke:#c9a227,color:#c9a227
+    style AI fill:#1b0a10,stroke:#ff3d78,color:#ff3d78
+    style OW fill:#1b0a10,stroke:#8b0b2e,color:#7d6a70
+    style OUT fill:#1b0a10,stroke:#e0d5c4,color:#e0d5c4
+```
+
+The gold path is the money. The model sits off to one side of it and can only ever change
+the wording.
 
 **First, arithmetic decides.** `judge()` in `src/chain/underwriting.ts` is plain rules with
 no model anywhere near them. It counts eight things that should worry a lender — never been
@@ -485,6 +593,43 @@ names the raider; the raider is never asked. We left the list rather than preten
 resolves to something on chain.
 
 Everything above those two lines can be checked on an explorer.
+
+### What you can check without us
+
+You do not have to believe any of this. Both contracts are public, and everything the game
+shows you is read from them at the moment you look.
+
+**On Ethereum Sepolia** — who paid, how much, which raider they named, what share they
+asked for, and the funding event itself. Call `stakes(1)` on the vault.
+
+**On Creditcoin CC3** — whether that pact sealed, the raider's standing, the bond it asks
+of them, how many times that pair have dealt, and how the raid settled. Call `pacts(1)` on
+the ledger.
+
+The browser fetches both and joins them in front of you. There is no database of ours in
+the middle, which means there is nothing of ours you have to trust. If our server vanished
+tonight the record would be exactly where it is now.
+
+### What is deliberately off-chain
+
+Not everything belongs on a chain, and we would rather say which parts and why.
+
+**The fight.** Every swing, every enemy, every coin picked up happens in your browser. No
+transaction runs while you are swinging a sword. Putting combat on a chain would make it
+slow, expensive and worse to play, and would prove nothing anyone needs proved.
+
+**The floor plan.** Generated locally — but from a seed nobody chose, taken from the last
+Ethereum block the witnesses agreed on. The map is not on a chain; the thing that decides
+it is.
+
+**The Underwriter's prose.** Written by a model, checked, and thrown away if it misbehaves.
+It never touches a number that matters.
+
+**The House.** A convenience that hands out testnet coin so nobody has to go hunting for a
+faucet. Switch it off and the rules are unchanged.
+
+What is on a chain is the part where somebody can lose money: who funded whom, whether the
+payment really happened, what was owed, and what it did to a name.
 
 ---
 
@@ -671,6 +816,29 @@ One thing to plan a demo around: **the attestation wait is around eight minutes,
 twenty.** That is the witnesses reaching agreement about the Sepolia block your funding
 landed in, and it is not something the worker can hurry. It is also the thing that makes the
 proof worth having.
+
+---
+
+## Five things we held to
+
+**The game has to be worth playing with the chain switched off.** If the dungeon is not
+fun on its own, no amount of proof makes it fun. Everything below the surface was built
+second.
+
+**The chain has to change how it plays.** Not a shop, not a leaderboard, not a badge. Your
+standing sets your bond, and the money you are carrying sets how fast the dark comes. Take
+the chain out and the difficulty curve goes with it.
+
+**The model never touches money.** Arithmetic decides, the model narrates, and what it
+writes is checked before anyone reads it. Every path ends in a sentence even when the model
+does not answer.
+
+**Risk has to be visible before you take it.** What you would owe, what the bond would
+cost, what a patron would keep, whether this raider has ever repaid anyone — all of it is
+shown before the button, not after.
+
+**Say what is not real.** Two things in here are stand-ins and both are named on this page.
+We would rather tell you than have you find them.
 
 ---
 
