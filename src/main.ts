@@ -16,6 +16,8 @@ import { loadWhatYouCan } from './art/pictures'
 import type { Role } from './types/role'
 import { seedForTheDescent } from './chain/attestedSeed'
 import { writeUpTheRaid } from './chain/whatYouHaveDone'
+import { rememberHowItWent } from './chain/yourOwnMemory'
+import { forgetWhatWeRead } from './chain/whatTheChainRemembers'
 import { letTheDarkIn } from './sound/theDark'
 import { whenTheBoxOpens } from './sound/theBox'
 import { goFullSight } from './parts/fullSight'
@@ -161,6 +163,8 @@ async function showDescent(pact: Pact, chosenClass: RaiderClass): Promise<void> 
       whenSettled(takings) {
         if (heldAddress) {
           writeUpTheRaid(heldAddress, takings, pact)
+          rememberHowItWent(heldAddress, takings.floorReached, takings.coinsCarried)
+          forgetWhatWeRead()
           showHall(heldAddress)
         } else {
           showLanding()
