@@ -23,13 +23,16 @@
   },
   "dependencies": {
     "ethers": "^6.13.4",
-    "phaser": "^3.87.0"
+    "phaser": "^3.87.0",
+    "three": "^0.186.0"
   },
   "devDependencies": {
     "@gluwa/asc-contracts": "^0.2.1",
     "@gluwa/usc-sdk": "^0.18.0",
     "@openzeppelin/contracts": "^5.4.0",
+    "@types/three": "^0.185.4",
     "dotenv": "^17.4.2",
+    "playwright": "^1.63.0",
     "pngjs": "^7.0.0",
     "solc": "^0.8.30",
     "tsx": "^4.23.13",
