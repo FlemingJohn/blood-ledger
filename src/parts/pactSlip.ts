@@ -1,10 +1,12 @@
-import type { Pact } from '../types/pact'
+import type { Offer, Pact } from '../types/pact'
 import type { Part } from '../types/parts'
 import { countCoins, shortAddress } from '../chain/addresses'
+import { sayTheBond } from '../chain/bonds'
 import { drawEmptyHook, drawWaxSeal } from './hallMarks'
 
 export interface PactSlipPart extends Part {
   showPact(pact: Pact | null): void
+  showWhatItWouldCost(offer: Offer | null, score: number): void
 }
 
 export function pinUpThePact(): PactSlipPart {
@@ -32,18 +34,63 @@ export function pinUpThePact(): PactSlipPart {
 
   slip.append(head, body, seal)
 
+  let bestOffer: Offer | null = null
+  let yourScore = 0
+
+  function line(said: string, worth: string, tone?: string): HTMLElement {
+    const row = document.createElement('div')
+    row.className = 'pactahead__line'
+
+    const name = document.createElement('span')
+    name.textContent = said
+
+    const figure = document.createElement('b')
+    figure.textContent = worth
+
+    if (tone) {
+      figure.classList.add(tone)
+    }
+
+    row.append(name, figure)
+    return row
+  }
+
   function showNone(): void {
     seal.setAttribute('hidden', 'true')
     who.replaceChildren()
 
-    const hook = drawEmptyHook()
-    hook.classList.add('panel__hook')
+    if (!bestOffer) {
+      const hook = drawEmptyHook()
+      hook.classList.add('panel__hook')
 
-    const said = document.createElement('span')
-    said.textContent = 'None yet. Take an offer to go down.'
+      const said = document.createElement('span')
+      said.textContent = 'None yet. Nothing on the board reaches you.'
 
-    body.replaceChildren(hook, said)
-    body.className = 'panel__empty'
+      body.replaceChildren(hook, said)
+      body.className = 'panel__empty'
+      return
+    }
+
+    const named = document.createElement('span')
+    named.className = 'pactahead__from'
+    named.textContent = bestOffer.patronName ?? shortAddress(bestOffer.patronAddress)
+    who.replaceChildren(named)
+
+    const ahead = document.createElement('div')
+    ahead.className = 'pactahead'
+
+    ahead.append(
+      line('they would lend', countCoins(bestOffer.coinsStaked), 'pactahead__good'),
+      line('they would keep', `${bestOffer.patronShare}%`),
+      line('your bond', `${sayTheBond(yourScore)} tCTC`)
+    )
+
+    const aside = document.createElement('p')
+    aside.className = 'pactahead__aside'
+    aside.textContent = 'The kindest terms open to you. Take it and the stair unbars.'
+
+    body.replaceChildren(ahead, aside)
+    body.className = 'panel__ahead'
   }
 
   function showSealed(pact: Pact): void {
@@ -67,6 +114,12 @@ export function pinUpThePact(): PactSlipPart {
 
   return {
     element: slip,
+
+    showWhatItWouldCost(offer: Offer | null, score: number): void {
+      bestOffer = offer
+      yourScore = score
+      showNone()
+    },
 
     showPact(pact: Pact | null): void {
       if (pact) {
