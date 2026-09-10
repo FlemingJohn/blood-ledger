@@ -1,0 +1,82 @@
+.whois {
+  display: grid;
+  gap: 6px;
+  margin: 2px 0 14px;
+  padding: 13px 14px 12px;
+  border: 1px solid var(--ruleDeep);
+  border-radius: 8px;
+  background:
+    radial-gradient(ellipse 90% 140% at 50% 0%, rgba(52, 8, 22, 0.42), transparent 72%),
+    rgba(8, 3, 4, 0.72);
+}
+
+.whois__head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 4px;
+  font-family: var(--counted);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.whois__head--good {
+  color: var(--gold);
+}
+
+.whois__head--bad {
+  color: var(--blood);
+}
+
+.whois__head--quiet {
+  color: var(--ash);
+}
+
+.whois__line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: var(--counted);
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ash);
+}
+
+.whois__line b {
+  font-weight: 600;
+  font-size: 0.68rem;
+  text-transform: none;
+  color: var(--bone);
+  font-variant-numeric: tabular-nums;
+}
+
+.whois__good {
+  color: var(--gold) !important;
+}
+
+.whois__bad {
+  color: var(--blood) !important;
+}
+
+.whois__note {
+  margin: 6px 0 0;
+  font-family: var(--spoken);
+  font-style: italic;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.whois__note--quiet {
+  color: var(--ash);
+}
+
+.whois__note--warn {
+  color: var(--flare);
+}
+
+.whois__note--bad {
+  color: var(--blood);
+}
