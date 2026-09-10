@@ -16,6 +16,7 @@ export interface Offer {
 
 export interface Pact {
   offerId: string
+  pactId: number | null
   patronAddress: string
   coinsStaked: number
   patronShare: number
