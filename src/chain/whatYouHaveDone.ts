@@ -63,6 +63,15 @@ function writeDown(done: WhatYouHaveDone, deed: Omit<Written, 'minutesAgo' | 'at
   done.deeds.length = Math.min(done.deeds.length, deedsKept)
 }
 
+export function takeTheChainsWord(address: string, told: Standing): void {
+  const done = forWhoever(address)
+
+  done.score = told.score
+  done.raids = told.raids
+  done.repaid = told.repaid
+  done.lost = told.lost
+}
+
 export function standingOf(address: string): Standing {
   const done = forWhoever(address)
 
