@@ -1,6 +1,6 @@
 import type { StandingGrade } from './raider'
 
-export type OfferState = 'open' | 'rich' | 'shut' | 'claimed'
+export type OfferState = 'open' | 'rich' | 'shut' | 'claimed' | 'held'
 
 export interface Offer {
   id: string
