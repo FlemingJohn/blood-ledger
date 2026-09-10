@@ -20,7 +20,7 @@ export type DeedSide = 'raider' | 'patron'
 export interface Deed {
   side: DeedSide
   outcome: RaidEnding
-  floorReached: number
+  floorReached: number | null
   coinChange: number
   otherSide: string
   minutesAgo: number
