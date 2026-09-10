@@ -1,0 +1,111 @@
+.goingson {
+  border-radius: 10px;
+  border: 1px solid rgba(96, 1, 16, 0.45);
+  background: linear-gradient(180deg, rgba(28, 8, 15, 0.8), rgba(10, 3, 7, 0.9));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 138, 120, 0.06),
+    0 10px 26px rgba(0, 0, 0, 0.5);
+  padding: 12px var(--rest) 14px;
+}
+
+.goingson .panel__label {
+  width: 100%;
+  margin: 0 auto 6px;
+}
+
+.goingson__rows {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.goingson__row {
+  display: grid;
+  grid-template-columns: 20px 96px minmax(0, 1fr) 170px 78px;
+  gap: var(--pause);
+  align-items: baseline;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(44, 13, 22, 0.7);
+  font-family: var(--counted);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--ash);
+  font-variant-numeric: tabular-nums;
+}
+
+.goingson__row:last-child {
+  border-bottom: 0;
+}
+
+.goingson__mark {
+  text-align: center;
+  font-weight: 600;
+}
+
+.goingson__row--open .goingson__mark,
+.goingson__row--open .goingson__stands {
+  color: var(--gold);
+}
+
+.goingson__row--waiting .goingson__mark,
+.goingson__row--waiting .goingson__stands {
+  color: var(--flare);
+}
+
+.goingson__row--back .goingson__mark,
+.goingson__row--back .goingson__stands {
+  color: var(--blood);
+}
+
+.goingson__patron {
+  color: var(--bone);
+}
+
+.goingson__what {
+  color: var(--ash);
+}
+
+.goingson__stands {
+  text-align: right;
+  opacity: 0.86;
+}
+
+.goingson__when {
+  text-align: right;
+  opacity: 0.72;
+}
+
+.goingson__word {
+  margin: 6px 0 0;
+  font-family: var(--spoken);
+  font-style: italic;
+  font-size: 0.86rem;
+  color: var(--ash);
+}
+
+@media (max-width: 940px) {
+  .goingson {
+    padding: var(--pause);
+  }
+
+  .goingson__row {
+    grid-template-columns: 18px minmax(0, 1fr) auto;
+    row-gap: 2px;
+  }
+
+  .goingson__what {
+    grid-column: 2 / -1;
+  }
+
+  .goingson__stands {
+    grid-column: 2 / 3;
+    text-align: left;
+  }
+
+  .goingson__when {
+    grid-column: 3 / 4;
+  }
+}
