@@ -1,5 +1,5 @@
+import type { BeenDown } from '../types/board'
 import type { Part } from '../types/parts'
-import type { Raider } from '../types/raider'
 import { drawMark } from './marks'
 import { shortAddress } from '../chain/addresses'
 import { drawCrest } from './hallMarks'
@@ -7,42 +7,45 @@ import { coinPoured } from '../sound/blows'
 import '../styles/patron.css'
 
 export interface SeekerCardPart extends Part {
-  whenBacked(listener: (raider: Raider) => void): void
+  whenBacked(listener: (who: BeenDown) => void): void
 }
 
-export function layOutSeeker(
-  raider: Raider,
-  note: string | null,
-  isYou: boolean
-): SeekerCardPart {
+export function layOutSeeker(who: BeenDown, isYou: boolean): SeekerCardPart {
   const card = document.createElement('article')
   card.className = `seeker framed${isYou ? ' seeker--yourself' : ''}`
 
   const line = document.createElement('div')
   line.className = 'seeker__line'
 
-  const who = document.createElement('span')
-  who.className = 'seeker__who'
+  const naming = document.createElement('span')
+  naming.className = 'seeker__who'
 
-  const crest = drawCrest(raider.address, 17)
+  const crest = drawCrest(who.address, 17)
   crest.classList.add('seeker__crest')
-  who.append(crest)
+  naming.append(crest)
 
   const named = document.createElement('span')
-  named.textContent = shortAddress(raider.address)
-  who.append(named)
+  named.textContent = shortAddress(who.address)
+  naming.append(named)
 
   const grade = document.createElement('span')
   grade.className = 'seeker__grade'
-  grade.textContent = `${raider.standing.grade} ${raider.standing.score}`
+  grade.textContent = `${who.standing.grade} ${who.standing.score}`
 
-  line.append(who, grade)
+  line.append(naming, grade)
+
+  const listeners = new Set<(who: BeenDown) => void>()
 
   if (isYou) {
     const yourself = document.createElement('span')
     yourself.className = 'seeker__yourself'
     yourself.textContent = 'that is you'
     line.append(yourself)
+  } else if (who.holdsAPact) {
+    const owing = document.createElement('span')
+    owing.className = 'seeker__yourself'
+    owing.textContent = 'already owes'
+    line.append(owing)
   } else {
     const back = document.createElement('button')
     back.type = 'button'
@@ -57,7 +60,7 @@ export function layOutSeeker(
 
     back.addEventListener('click', () => {
       coinPoured()
-      listeners.forEach((listener) => listener(raider))
+      listeners.forEach((listener) => listener(who))
     })
   }
 
@@ -65,34 +68,32 @@ export function layOutSeeker(
   tally.className = 'seeker__tally'
 
   const raids = document.createElement('span')
-  raids.textContent = `${raider.standing.raids} raids`
+  raids.textContent = `${who.standing.raids} raids`
 
   const repaid = document.createElement('span')
   repaid.className = 'panel__good'
-  repaid.textContent = `${raider.standing.repaid} repaid`
+  repaid.textContent = `${who.standing.repaid} repaid`
 
   const lost = document.createElement('span')
   lost.className = 'panel__bad'
   lost.append(drawMark({ name: 'skull', size: 12 }))
-  lost.append(document.createTextNode(` ${raider.standing.lost} lost`))
+  lost.append(document.createTextNode(` ${who.standing.lost} lost`))
 
   tally.append(raids, repaid, lost)
   card.append(line, tally)
 
-  if (note) {
+  if (who.note) {
     const warned = document.createElement('p')
     warned.className = 'seeker__warned'
     warned.append(drawMark({ name: 'warning', size: 13 }))
-    warned.append(document.createTextNode(` ${note}`))
+    warned.append(document.createTextNode(` ${who.note}`))
     card.append(warned)
   }
-
-  const listeners = new Set<(raider: Raider) => void>()
 
   return {
     element: card,
 
-    whenBacked(listener: (raider: Raider) => void): void {
+    whenBacked(listener: (who: BeenDown) => void): void {
       listeners.add(listener)
     },
 
