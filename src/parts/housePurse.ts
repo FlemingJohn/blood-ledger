@@ -3,6 +3,7 @@ import type { HandedOver, HouseReading } from '../types/house'
 import { askForAPurse, askTheHouse, theHouseAnswered } from '../chain/house'
 import { coinPoured, doorWontBudge, latchClicks } from '../sound/blows'
 import { drawMark } from './marks'
+import { closeWhenAsked } from './dismiss'
 import '../styles/house.css'
 
 function countCoin(coins: string): string {
@@ -161,7 +162,10 @@ export function hangTheHousePurse(address: string | null): Part {
 
   function close(): void {
     slip.hidden = true
+    letting.restAgain()
   }
+
+  const letting = closeWhenAsked(slip, call, () => close())
 
   shut.addEventListener('click', close)
 
@@ -173,6 +177,7 @@ export function hangTheHousePurse(address: string | null): Part {
 
     slip.hidden = false
     place()
+    letting.watch()
     latchClicks()
     void lookAtTheHouse()
   })
@@ -209,6 +214,7 @@ export function hangTheHousePurse(address: string | null): Part {
     element: call,
 
     teardown(): void {
+      letting.teardown()
       slip.remove()
       call.remove()
     }
