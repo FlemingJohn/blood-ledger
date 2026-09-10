@@ -5,6 +5,8 @@ import type { Takings } from '../types/raid'
 import { gradeFromScore } from './theLedger'
 
 const highestStanding = 1000
+const startsAt = 500
+const startingPurse = 0
 const deedsKept = 12
 
 interface Written extends Deed {
@@ -25,21 +27,15 @@ interface WhatYouHaveDone {
 
 function fresh(): WhatYouHaveDone {
   return {
-    score: 780,
-    raids: 12,
-    repaid: 9,
-    lost: 3,
-    coins: 1240,
+    score: startsAt,
+    raids: 0,
+    repaid: 0,
+    lost: 0,
+    coins: startingPurse,
     chosenClass: 'warrior',
-    asRaider: { deepestFloor: 5, bestHaul: 1850, coinKept: 4210, defaults: 1 },
-    asPatron: { backed: 7, returned: 5, lost: 2, profit: 1340 },
-    deeds: [
-      { side: 'raider', outcome: 'walked out', floorReached: 3, coinChange: 1110, otherSide: '0x44AB000000000000000000000000000000000009', minutesAgo: 0, at: Date.now() - 11 * 60_000 },
-      { side: 'patron', outcome: 'walked out', floorReached: 4, coinChange: 420, otherSide: '0x2F88000000000000000000000000000000000012', minutesAgo: 0, at: Date.now() - 23 * 60_000 },
-      { side: 'raider', outcome: 'fell', floorReached: 2, coinChange: -300, otherSide: '0xBEEF00000000000000000000000000000000CA12', minutesAgo: 0, at: Date.now() - 46 * 60_000 },
-      { side: 'patron', outcome: 'fell', floorReached: 1, coinChange: -260, otherSide: '0x91C2000000000000000000000000000000000004', minutesAgo: 0, at: Date.now() - 90 * 60_000 },
-      { side: 'raider', outcome: 'walked out', floorReached: 5, coinChange: 1850, otherSide: '0x7E11000000000000000000000000000000000031', minutesAgo: 0, at: Date.now() - 132 * 60_000 }
-    ]
+    asRaider: { deepestFloor: 0, bestHaul: 0, coinKept: 0, defaults: 0 },
+    asPatron: { backed: 0, returned: 0, lost: 0, profit: 0 },
+    deeds: []
   }
 }
 
