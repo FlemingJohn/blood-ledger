@@ -16,6 +16,7 @@ import { readSeekers } from '../chain/seekers'
 import { stakeOnARaider } from '../chain/patronVault'
 import { writeUpTheStake } from '../chain/whatYouHaveDone'
 import { gradeReaches, readOffers, readRaider } from '../chain/theLedger'
+import { readTheBoard } from '../chain/whatIsOnTheBoard'
 import '../styles/hallMarks.css'
 import '../styles/patron.css'
 
@@ -37,7 +38,7 @@ export function buildPatronTable(order: PatronTableOrder): Part {
 
   tally.whenNameAsked(() => profile.showProfile(readProfile(order.address)))
 
-  const offersOpenToYou = readOffers(youAsRaider).filter(
+  let offersOpenToYou = readOffers(youAsRaider).filter(
     (offer) => !offer.claimed && gradeReaches(youAsRaider.standing.grade, offer.needsGrade)
   ).length
   const seekingCoin = readSeekers().filter(
@@ -68,6 +69,15 @@ export function buildPatronTable(order: PatronTableOrder): Part {
 
   tellTheSeats()
   roleSwitch.whenAsked(order.whenRoleAsked)
+
+  void readTheBoard(order.address).then((standing) => {
+    if (!standing || standing.inYourName.length === 0) {
+      return
+    }
+
+    offersOpenToYou += standing.inYourName.length
+    tellTheSeats()
+  })
 
   tally.middleSeat.append(roleSwitch.element)
 
