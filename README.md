@@ -22,7 +22,7 @@ who does not come back.
 
 ---
 
-## The five pages
+## The six pages
 
 ### One. The landing
 
@@ -30,13 +30,13 @@ who does not come back.
   <img src="docs/shots/landing.png" alt="The wordmark bleeding over red smoke, above a door that opens your purse" width="100%">
 </p>
 
-The pitch and a door. Press it and the game asks for your purse, and moves it to Creditcoin
-if it is sitting somewhere else. Two scrolls unroll in place: one for raiders, one for
-people who would rather put up the coin than carry the sword. The footing names both chains
-and says who proved the payment.
+A hooded skull and a wordmark of running fire, both real models turning slowly in the
+dark. They lean toward your pointer. Below them the pitch, and a door: press it and the
+game asks for your purse, and moves it to Creditcoin if it is sitting somewhere else.
 
-Nothing here needs a wallet to read. Bottom right are the two switches for the fighting and
-the music, and they are remembered on your machine.
+Two scrolls unroll in place, one for raiders and one for people who would rather put up
+the coin than carry the sword. Nothing here needs a wallet to read. Bottom right are the
+two switches for the fighting and the music, remembered on your machine.
 
 ---
 
@@ -55,9 +55,13 @@ percent. The witnesses have reached Sepolia block 11,660,240 and sit 38 blocks b
 payment made right now proves in about eight minutes.
 
 The board holds every offer open to you, greyed out where your standing is too low. Your
-raider turns on the plinth while you pick between Warrior, Knight and Fighter, and the rail
-on the right shows the two powers that class brings and the bond it will cost you. Take an
-offer and the sealing rite runs its four steps. Only then does the stair unbar.
+raider stands in the hall itself and turns while you pick between Warrior, Knight and
+Fighter — three real models, lit by the braziers behind them.
+
+The rail on the right reads before you commit as well as after. With no pact it shows what
+the kindest offer open to you would lend, what they would keep, and the bond you would have
+to lock up. Below it the two powers that class brings. Take an offer and the sealing rite
+runs its four steps. Only then does the stair unbar.
 
 ---
 
@@ -109,7 +113,25 @@ extra moment spent looting is a moment spent being hunted.
 
 ---
 
-### Five. The reckoning
+### Five. Your record
+
+<p align="center">
+  <img src="docs/shots/profile.png" alt="The profile card: standing, what you have done as a raider and as a patron, and the last five deeds" width="100%">
+</p>
+
+Click your face in the header. Everything the ledger knows about you, in one slab.
+
+Left, what you have done as a raider — how deep you went, the best haul you carried out,
+the coin you kept, how many patrons you cost. Right, the same from the other side: how many
+raiders you backed, how many came home, what you made. Below, your last deeds with the
+figures and how long ago.
+
+It moves. Walk out of a raid and the numbers here change with it — standing, coin, deepest
+floor, and a new line at the top of the list.
+
+---
+
+### Six. The reckoning
 
 <p align="center">
   <img src="docs/shots/reckoning.png" alt="1,850 carried out, 740 to the patron, 1,110 kept, the debt cleared" width="100%">
@@ -332,6 +354,7 @@ We would rather say this ourselves than have it found.
 | Attestcoin reads, in the browser | **Live.** Real heights, real hashes, every refresh |
 | Floors seeded from an attested block | **Live** |
 | The dungeon, start to finish | **Playable** |
+| The landing hero and the three champions | **Live**, real models |
 | `PatronVault` and `TheLedger` | **Written, compiling, 16 tests passing.** Not deployed |
 | The patron board, standing, ledger feed | **Stand-in data**, and the page says so on its face |
 | The four step sealing rite | **A rehearsal clock**, not real block times |
@@ -349,7 +372,7 @@ code.
 | --- | --- |
 | Front end | TypeScript and Vite, no framework. Plain DOM parts |
 | The dungeon | Canvas 2D, a trimmed sprite atlas, `sort by y` |
-| Character art | Canvas `Path2D` over SVG path data, drawn at device resolution |
+| The landing and the plinth | three.js. Five models, Draco compressed |
 | Sound | Web Audio. 27 effects, synthesised, no files. One streamed track |
 | Talking to purses | ethers v6 |
 | Reading Attestcoin | `@gluwa/usc-sdk` |
