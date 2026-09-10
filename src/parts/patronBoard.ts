@@ -16,6 +16,7 @@ export interface BoardOrder {
 export interface PatronBoardPart extends Part {
   addOffer(offer: Offer, className?: string): void
   barTheBoard(barred: boolean): void
+  sayWhenBare(said: string): void
 }
 
 export function openThePatronBoard(order: BoardOrder): PatronBoardPart {
@@ -43,7 +44,11 @@ export function openThePatronBoard(order: BoardOrder): PatronBoardPart {
   const list = document.createElement('div')
   list.className = 'board__list'
 
-  board.append(head, list)
+  const bare = document.createElement('p')
+  bare.className = 'board__bare'
+  bare.textContent = 'Reading both chains for coin put up in your name.'
+
+  board.append(head, list, bare)
 
   const cards: OfferCardPart[] = []
   const openOnes: OfferCardPart[] = []
@@ -53,6 +58,7 @@ export function openThePatronBoard(order: BoardOrder): PatronBoardPart {
 
   function tellTheCount(): void {
     count.textContent = `${openToYou} open to you of ${onTheBoard}`
+    bare.hidden = onTheBoard > 0
   }
 
   function lay(offer: Offer, className?: string, atTheTop = false): void {
@@ -86,9 +92,14 @@ export function openThePatronBoard(order: BoardOrder): PatronBoardPart {
   }
 
   order.offers.forEach((offer) => lay(offer))
+  tellTheCount()
 
   return {
     element: board,
+
+    sayWhenBare(said: string): void {
+      bare.textContent = said
+    },
 
     addOffer(offer: Offer, className?: string): void {
       lay(offer, className, true)
