@@ -19,6 +19,7 @@ import { writeUpTheRaid } from './chain/whatYouHaveDone'
 import { letTheDarkIn } from './sound/theDark'
 import { whenTheBoxOpens } from './sound/theBox'
 import { goFullSight } from './parts/fullSight'
+import { liftWhenReady, sayWhileBooting } from './parts/theBoot'
 import { homeRealm, realmWherePatronsPay } from './chain/realms'
 
 type PageName = 'landing' | 'hall' | 'descent' | 'patron'
@@ -182,4 +183,10 @@ raiderPurse.watch((reading) => {
   }
 })
 
-void loadWhatYouCan(everyPieceOfArt)
+sayWhileBooting('Gathering the art')
+
+liftWhenReady(
+  loadWhatYouCan(everyPieceOfArt).then(() => {
+    sayWhileBooting('The hall is open')
+  })
+)
