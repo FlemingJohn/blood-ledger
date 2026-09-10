@@ -1,29 +1,9 @@
 import type { Part } from '../types/parts'
 import type { Standing } from '../types/raider'
 import { titleFor } from '../chain/ranks'
+import { bondFor, bondShareFor } from '../chain/bonds'
 import { drawMark } from './marks'
 import '../styles/rail.css'
-
-const fullBond = 0.1
-
-function bondShareFor(score: number): number {
-  if (score >= 900) {
-    return 0
-  }
-  if (score >= 750) {
-    return 10
-  }
-  if (score >= 600) {
-    return 30
-  }
-  if (score >= 450) {
-    return 60
-  }
-  if (score >= 300) {
-    return 80
-  }
-  return 100
-}
 
 export function showTheBond(standing: Standing): Part {
   const block = document.createElement('section')
@@ -35,7 +15,7 @@ export function showTheBond(standing: Standing): Part {
   label.append(document.createTextNode(' The Bond'))
 
   const share = bondShareFor(standing.score)
-  const owed = (fullBond * share) / 100
+  const owed = bondFor(standing.score)
 
   const asked = document.createElement('p')
   asked.className = 'bond__asked'
