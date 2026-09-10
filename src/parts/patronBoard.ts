@@ -15,6 +15,7 @@ export interface BoardOrder {
 
 export interface PatronBoardPart extends Part {
   addOffer(offer: Offer, className?: string): void
+  barTheBoard(barred: boolean): void
 }
 
 export function openThePatronBoard(order: BoardOrder): PatronBoardPart {
@@ -45,8 +46,10 @@ export function openThePatronBoard(order: BoardOrder): PatronBoardPart {
   board.append(head, list)
 
   const cards: OfferCardPart[] = []
+  const openOnes: OfferCardPart[] = []
   let openToYou = 0
   let onTheBoard = 0
+  let held = false
 
   function tellTheCount(): void {
     count.textContent = `${openToYou} open to you of ${onTheBoard}`
@@ -65,7 +68,8 @@ export function openThePatronBoard(order: BoardOrder): PatronBoardPart {
       card.showState('shut')
     } else {
       openToYou += 1
-      card.showState(offer.coinsStaked >= richEnoughToGlint ? 'rich' : 'open')
+      openOnes.push(card)
+      card.showState(held ? 'held' : offer.coinsStaked >= richEnoughToGlint ? 'rich' : 'open')
       card.whenAccepted(order.whenAccepted)
     }
 
@@ -88,6 +92,15 @@ export function openThePatronBoard(order: BoardOrder): PatronBoardPart {
 
     addOffer(offer: Offer, className?: string): void {
       lay(offer, className, true)
+    },
+
+    barTheBoard(barring: boolean): void {
+      held = barring
+      openOnes.forEach((card) => {
+        card.showState(
+          barring ? 'held' : card.offer.coinsStaked >= richEnoughToGlint ? 'rich' : 'open'
+        )
+      })
     },
 
     teardown(): void {
