@@ -17,6 +17,11 @@ import { pinTheMinimap } from '../parts/minimap'
 import { buckleThePowerBelt } from '../parts/powerBelt'
 import { powersFor } from '../dungeon/powers'
 import { reckonTheRaid } from '../chain/settling'
+import {
+  lookUpOnCreditcoin,
+  theLedgerTakesWrites,
+  writeTheRaidToTheChain
+} from '../chain/tellTheLedger'
 import '../styles/descent.css'
 
 const facings = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
@@ -159,6 +164,36 @@ export function buildDescent(order: DescentOrder): Part {
 
     reckoning.showTakings(takings, order.pact.patronAddress, whatWasLeftBehind(world))
     reckoning.whenReturning(() => order.whenSettled(takings))
+
+    writeItDown(takings)
+  }
+
+  function writeItDown(takings: Takings): void {
+    const which = order.pact.pactId
+
+    if (which === null || !theLedgerTakesWrites) {
+      return
+    }
+
+    reckoning.showWriting('Your purse is being asked to write this to Creditcoin.', null, true)
+
+    void writeTheRaidToTheChain(which, takings.ending, takings.coinsCarried)
+      .then((written) => {
+        reckoning.showWriting(
+          takings.ending === 'walked out'
+            ? 'Written down. Your standing moved and your bond came back.'
+            : 'Written down. Your standing fell and your bond went to the patron.',
+          lookUpOnCreditcoin(written.txHash),
+          false
+        )
+      })
+      .catch((trouble: Error) => {
+        reckoning.showWriting(
+          `The chain did not take it — ${trouble.message}. Your standing has not moved.`,
+          null,
+          false
+        )
+      })
   }
 
   function goDeeper(): void {
