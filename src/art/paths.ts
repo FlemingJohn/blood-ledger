@@ -24,6 +24,12 @@ export const champions3d = {
   knight: `${artRoot}/champions/knight.glb`,
   fighter: `${artRoot}/champions/fighter.glb`
 }
+
+export const championHeads = {
+  warrior: `${artRoot}/champions/warrior-head.webp`,
+  knight: `${artRoot}/champions/knight-head.webp`,
+  fighter: `${artRoot}/champions/fighter-head.webp`
+}
 export const scatteredBones = `${artRoot}/scatter/bones.png`
 export const scatteredRocks = `${artRoot}/scatter/rocks.png`
 
