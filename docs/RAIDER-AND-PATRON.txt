@@ -1,0 +1,257 @@
+================================================================================
+  BLOOD LEDGER - THE RAIDER AND PATRON PAGES, REDRAWN
+================================================================================
+
+  Measured against Enhancement/Raider page.png and Enhancement/Patron page.png.
+
+  The short of it: these are RE-SKINS, not redesigns. Every number in both
+  mockups matches what the pages already show - 827 at 26 percent, Sepolia
+  11,660,240, 58 behind, the same six offers, the same warning about coin
+  going in a circle. Whoever drew them worked from the running game.
+
+  So the layout stays. What changes is the ground it sits on.
+
+
+================================================================================
+  PAGE TWO - THE HALL
+================================================================================
+
+  +----------------------------------------------------------------------+
+  | /\  THE PROVEN   | (+) READS YOU  | THE WITNESSES  |PATRON 5| RAIDER  |
+  | \/  UNDERWRITER  | risk       8%  | Sepolia        |5 raid- |4 patrons|
+  |  ^^ NEW          | ####------     |   11,660,240   |ers want| will    |
+  |                  | 12 RAIDS       | 58 behind      | coin   | fund you|
+  |                  |  9 REPAID      | proves in ~8m  |        |         |
+  |                  |  3 LOST        | Ethereum       |    1,240 tCTC    |
+  |                  |                | 25,931,770     |    (bell) (cal)  |
+  +----------------------------------------------------------------------+
+  |      |                     |                    |                     |
+  | [/\] | +-----------------+ |  ##################| +-----------------+ |
+  | Home | | THE PATRON BOARD| |  #  GOTHIC HALL   #| | (o) PACT        | |
+  |  <-- | | 4 OPEN TO YOU   | |  #  pillars       #| | None yet. Take  | |
+  | red  | |        OF 6     | |  #  banners       #| | an offer to go  | |
+  | bar  | +-----------------+ |  #  braziers      #| | down.           | |
+  |      | | (o) UNDERWRITER | |  #                #| +-----------------+ |
+  | [==] | |  827   26%      | |  #      ,---.     #| +-----------------+ |
+  | Board| |        [ TAKE ] | |  #     | /\  |    #| | /\ YOUR POWERS  | |
+  |      | +-----------------+ |  #     |KNIGHT|   #| | +-----+ +-----+ | |
+  | [/]  | | (o) 0xBEEF.CA12 | |  #     | cape |   #| | |  Q  | |  E  | | |
+  | Raids| |  500   48%      | |  #     '-----'    #| | |CLEAV| |BULWA| | |
+  |      | |        [ TAKE ] | |  #   reflected    #| | | 4s  | | 9s  | | |
+  | [*]  | +-----------------+ |  ##################| | +-----+ +-----+ | |
+  |Powers| | (o) 0x44AB.009F | |                    | +-----------------+ |
+  |      | |  120   25%      | | /==================\| +-----------------+ |
+  | [==] | |        [ TAKE ] | | <    W A R R I O R >| | [] THE BOND     | |
+  |Ledger| +-----------------+ | \==================/| | 0.010 tCTC      | |
+  |      | | (o) 0x0BDD.0377 | |                    | | ###-------      | |
+  | [@]  | |  2,000  70%     | | Balanced. Cleaves  | | The Proven locks| |
+  | Set  | |        NEEDS A  | | wide and holds the | | up 10 percent.  | |
+  |      | +-----------------+ | ground.            | | It comes back if| |
+  | ALL  | | (o) 0x7E11.0031 | |                    | | you walk out.   | |
+  | NEW  | |  800   50%      | |                    | +-----------------+ |
+  |      | |        [ TAKE ] | |                    |                     |
+  |      | +-----------------+ |                    |                     |
+  |      | | (o) 0xC0DE.9CAA | |                    |                     |
+  |      | |  300   35%      | |                    |                     |
+  |      | |         TAKEN   | |                    |                     |
+  |      | +-----------------+ |                    |                     |
+  +------+---------------------+--------------------+---------------------+
+  | +--------------------------------------+ | +------------------------+ |
+  | | [] THE LEDGER                        | | |                        | |
+  | | X 0x91c2.0004 fell on floor 2        | | |  []  D E S C E N D  >  | |
+  | |                   patron -300   4m   | | |                        | |
+  | | X 0x44AB.009F walked out with 1,850  | | +------------------------+ |
+  | |                   patron +420  11m   | | |   red glow, was flat   | |
+  | | X 0x7E11.0031 fell on floor 5        | | |                        | |
+  | |                   patron -900  23m   | | | accept an offer before | |
+  | +--------------------------------------+ | | you go down            | |
+  +-------------------------------------------+------------------------- +
+
+
+  WHAT CHANGES, PIECE BY PIECE
+  ----------------------------
+
+    +------------------+------------------------------+------+-----------+
+    | PIECE            | WORK                         | COST | FILES     |
+    +------------------+------------------------------+------+-----------+
+    | header           | add an SVG crest, round the  |SMALL | tally.ts  |
+    |                  | bay corners, warm the rules  |      | tally.css |
+    +------------------+------------------------------+------+-----------+
+    | centre backdrop  | drop the gothic hall in       |TINY  | hall.css  |
+    |                  | behind the plinth            |      |           |
+    +------------------+------------------------------+------+-----------+
+    | the figure       | 3D knight replacing the      |BLOCK | plinth.ts |
+    |                  | canvas champion              | -ED  |           |
+    +------------------+------------------------------+------+-----------+
+    | patron board     | round the cards, glow the    |SMALL | offerCard |
+    |                  | TAKE buttons                 |      | .css      |
+    +------------------+------------------------------+------+-----------+
+    | class selector   | plain bar -> ornate frame    |TINY  | plinth.css|
+    |                  | with chevrons                |      |           |
+    +------------------+------------------------------+------+-----------+
+    | right rail       | round + inner glow, icons on |SMALL | hall.css  |
+    |                  | each card head               |      |           |
+    +------------------+------------------------------+------+-----------+
+    | the ledger       | same data, rounded frame     |TINY  | ledgerFeed|
+    +------------------+------------------------------+------+-----------+
+    | descend          | flat outline -> glowing slab |TINY  | door.css  |
+    +------------------+------------------------------+------+-----------+
+    | LEFT SIDEBAR     | six items, red bar marks the |MED   | new part  |
+    |                  | active one. DOES NOT EXIST   |      | + hall.ts |
+    +------------------+------------------------------+------+-----------+
+
+
+================================================================================
+  PAGE THREE - THE PATRON TABLE
+================================================================================
+
+  +----------------------------------------------------------------------+
+  |  SAME HEADER - but PATRON is the lit tab now, RAIDER dimmed           |
+  +----------------------------------------------------------------------+
+     gothic hall behind everything, braziers burning at the left edge
+
+  +---------------------------------+ +--------------------------------+
+  | (o) RAIDER                      | | RAIDERS SEEKING COIN           |
+  |     THE RAIDERS ARE SEEKING COIN| | 5 YOU MAY BACK OF 5            |
+  +---------------------------------+ +--------------------------------+
+  | (x) THE ADDRESS GOING DOWN      | | (o) 0x7A3F.9C2E    B 720       |
+  | +-----------------------------+ | |     12 RAIDS 9 REPAID 3 LOST   |
+  | | 0x...                       | | |            [ (o) BACK THIS ONE>]|
+  | +-----------------------------+ | +--------------------------------+
+  |                                 | | (o) 0x44AB.00F9    B 640       |
+  | (o) STAKE                       | |     7 RAIDS 5 REPAID 2 LOST    |
+  | +-----------------------------+ | |            [ (o) BACK THIS ONE>]|
+  | | 0.01                   tCTC | | +--------------------------------+
+  | +-----------------------------+ | | (o) 0x91C2.00A1    F 240       |
+  |                                 | |     4 RAIDS 1 REPAID 3 LOST    |
+  | <> ETH ON SEPOLIA               | |  /!\ has lost three patrons    |
+  |                                 | |      and repaid one            |
+  | YOU KEEP                        | |            [ (o) BACK THIS ONE>]|
+  | #####@---------------  40%      | +--------------------------------+
+  | of whatever they carry out      | | (o) 0xC0DE.0BAA    C 500       |
+  |                                 | |     6 RAIDS 4 REPAID 0 LOST    |
+  | +-----------------------------+ | |  /!\ every patron came from    |
+  | |    (lock)  NO VAULT YET     | | |      one purse, and the coin   |
+  | +-----------------------------+ | |      went in a circle          |
+  |                                 | |            [ (o) BACK THIS ONE>]|
+  | (o) WHAT YOU HAVE STAKED        | +--------------------------------+
+  |                                 | | (o) 0x2F8E.0D12    C 600       |
+  | Nothing yet. Fund a raider  (o) | |     8 RAIDS 6 REPAID 0 LOST    |
+  | and they can descend.       (o) | |  /!\ has never been down       |
+  |                                 | |            [ (o) BACK THIS ONE>]|
+  +---------------------------------+ +--------------------------------+
+
+
+  WHAT CHANGES, PIECE BY PIECE
+  ----------------------------
+
+    +------------------+------------------------------+------+-----------+
+    | PIECE            | WORK                         | COST | FILES     |
+    +------------------+------------------------------+------+-----------+
+    | backdrop         | same gothic hall             |TINY  | patron.css|
+    +------------------+------------------------------+------+-----------+
+    | stake slip       | round the inputs, gold-frame |SMALL | patron.css|
+    |                  | the slider, chunkier fields  |      |           |
+    +------------------+------------------------------+------+-----------+
+    | seeker rows      | round the rows, gold outline |SMALL | seekerCard|
+    |                  | on BACK THIS ONE             |      | .css      |
+    +------------------+------------------------------+------+-----------+
+    | warnings         | unchanged, they already read |NONE  |           |
+    |                  | exactly as the mockup shows  |      |           |
+    +------------------+------------------------------+------+-----------+
+    | SIDEBAR          | the mockup shows NONE here   |  ?   | decide    |
+    |                  | but one on the hall          |      |           |
+    +------------------+------------------------------+------+-----------+
+
+  The sidebar disagreement is the only place the two mockups contradict each
+  other. Either both pages get it or neither does. Half is worse than none.
+
+
+================================================================================
+  THE ONE BLOCKER - THE FIGURE ON THE PLINTH
+================================================================================
+
+  The knight in the Raider mockup is a RENDER. Two models were supplied:
+  the hooded skull and the fiery logo. Both are already live on the landing.
+  There is no knight, and there are three classes to cover.
+
+  WHY THE GAME SPRITES CANNOT STAND IN
+
+    public/art/raider/*.png     24 files, 256 x 256 each
+
+      warrior-6.png    solid pixels   364   of 65,536
+      knight-6.png     solid pixels   435   of 65,536
+      fighter-6.png    solid pixels   280   of 65,536
+
+    +----------------------------+
+    | 256 x 256 frame            |   about 20 x 20 worth of real
+    |                            |   pixels. the rest is empty or
+    |             .              |   81 percent transparent. these
+    |                            |   are downsampled renders from
+    +----------------------------+   another pipeline.
+
+  WHAT WAS PREPARED INSTEAD
+
+    Enhancement/for-modelling/
+
+      warrior-render.png      1080 x 2100   the mockup render, cropped
+                                            head to feet. best input.
+      knight-from-mockup.png  1020 x 1410   wider, with plinth and floor.
+                                            keep as a style reference.
+      warrior-ingame.png      1080 x 1500   the three classes as the game
+      knight-ingame.png       1080 x 1500   actually draws them. flat grey
+      fighter-ingame.png      1080 x 1500   ground, front on, whole figure.
+
+  WHAT TO ASK A CONVERTER FOR
+
+    format        .glb
+    pose          as shown, arms down, front on
+    scale         does not matter, it is normalised by bounding box
+    polycount     do not worry
+    textures      baked colour is fine
+    size          send whatever comes out, 50 to 100 MB is fine
+
+  DO NOT OPTIMISE BEFORE SENDING. The pipeline is already proven:
+
+      demonic skull mask    53.5 MB  ->  0.38 MB    99.3 percent off
+      fiery logo            55.2 MB  ->  0.63 MB    98.9 percent off
+
+      decimate (meshopt) -> Draco compress -> WebP textures
+
+  WHEN THE MODELS COME BACK
+
+    1  compress each the same way, about 0.4 MB each
+    2  drop into public/art/champions/
+    3  swap the plinth's canvas champion for a 3D one, lit by the SAME
+       rig built for the skull on the landing:
+
+           key from below-front    #ff6a55
+           cheek fill right        #b44e4c
+           rim behind              #600110
+
+       so the plinth and the landing agree
+    4  gothic hall goes in behind it
+    5  the class switcher rotates between the three
+
+
+================================================================================
+  ORDER OF WORK
+================================================================================
+
+    1  gothic background on both pages          TINY    biggest single jump
+    2  cards: rounded + inner glow              SMALL   the whole app feels it
+    3  buttons: reuse the landing's frame       TINY    already written
+    4  header crest and warmer rules            SMALL
+    5  descend / back this one glow             TINY
+    -----------------------------------------------------------------------
+    6  the sidebar                              MED     new nav, 4 screens
+    7  the figure on the plinth                 BLOCKED waiting on models
+
+  One to five touch CSS plus one background swap and get most of the way.
+
+  Six is worth arguing about. It is new navigation for a game with four
+  screens and a role switch that already works, and the two mockups do not
+  agree that it exists. New navigation close to a deadline is where demos
+  break.
+
+  Seven needs the three models.
