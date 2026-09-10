@@ -3,11 +3,11 @@ precision highp float;
 uniform vec2 uSize;
 uniform float uTime;
 
-const vec3 voidBlack = vec3(0.039, 0.012, 0.027);
-const vec3 bloodDeep = vec3(0.545, 0.043, 0.180);
-const vec3 emberMid = vec3(0.839, 0.082, 0.306);
-const vec3 flareHot = vec3(1.000, 0.239, 0.471);
-const vec3 whiteCore = vec3(1.000, 0.851, 0.894);
+const vec3 voidBlack = vec3(0.012, 0.004, 0.004);
+const vec3 bloodDeep = vec3(0.169, 0.000, 0.020);
+const vec3 emberMid = vec3(0.376, 0.004, 0.063);
+const vec3 flareHot = vec3(0.706, 0.078, 0.118);
+const vec3 whiteCore = vec3(1.000, 0.745, 0.706);
 
 float hash(vec2 seed) {
   vec2 wrapped = fract(seed * vec2(123.34, 456.21));
@@ -69,16 +69,16 @@ void main() {
   float footFade = smoothstep(-0.10, 0.22, screen.y);
 
   float heat = fire * edgeMask * topFade * footFade;
-  heat = pow(heat, 1.45) * 1.95;
+  heat = pow(heat, 1.62) * 1.40;
 
   float smoke = layeredNoise(wide * 1.15 + vec2(rise * 0.32, rise * 0.52));
-  heat += smoke * 0.11 * edgeMask;
+  heat += smoke * 0.07 * edgeMask;
 
-  float bloom = 1.0 - smoothstep(0.0, 0.62, distance(screen, vec2(0.5, 0.70)));
-  heat += bloom * bloom * 0.38;
+  float bloom = 1.0 - smoothstep(0.0, 0.62, distance(screen, vec2(0.5, 0.72)));
+  heat += bloom * bloom * 0.10;
 
   vec3 shade = heatToColour(clamp(heat, 0.0, 1.0));
-  shade = mix(shade, voidBlack, smoothstep(0.30, -0.05, screen.y) * 0.85);
+  shade = mix(shade, voidBlack, smoothstep(0.34, -0.05, screen.y) * 0.90);
 
   gl_FragColor = vec4(shade, 1.0);
 }
