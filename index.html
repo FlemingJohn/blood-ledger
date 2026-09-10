@@ -31,9 +31,17 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 18px;
-        background: radial-gradient(ellipse 70% 60% at 50% 46%, #1c0710, #050103 70%, #030101);
-        transition: opacity 620ms ease;
+        gap: 26px;
+        background: #030101;
+        transition: opacity 700ms ease;
+      }
+
+      .boot::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 46% 34% at 50% 48%, rgba(96, 1, 16, 0.5), transparent 72%);
+        animation: bootBreathes 5.2s ease-in-out infinite;
       }
 
       .boot--lifting {
@@ -41,59 +49,56 @@
         pointer-events: none;
       }
 
-      .boot__mark {
-        width: 46px;
-        height: 46px;
-        animation: bootBreathes 2.2s ease-in-out infinite;
-      }
-
       .boot__word {
+        position: relative;
         margin: 0;
-        font-family: Cinzel, Georgia, serif;
-        font-size: 1.24rem;
-        font-weight: 700;
-        letter-spacing: 0.42em;
-        text-indent: 0.42em;
+        font-family: Cinzel, 'Trajan Pro', Georgia, serif;
+        font-size: clamp(1.5rem, 4.4vw, 2.5rem);
+        font-weight: 500;
+        letter-spacing: 0.5em;
+        text-indent: 0.5em;
         text-transform: uppercase;
-        color: #ece0d6;
+        color: #6e1626;
       }
 
       .boot__rail {
-        width: min(220px, 44vw);
-        height: 2px;
-        background: #1b0a10;
+        position: relative;
+        width: min(300px, 52vw);
+        height: 1px;
+        background: rgba(96, 1, 16, 0.32);
         overflow: hidden;
       }
 
       .boot__filled {
         display: block;
-        width: 34%;
+        width: 30%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, #d6154e, transparent);
-        animation: bootRuns 1.5s ease-in-out infinite;
+        background: linear-gradient(90deg, transparent, #c4123f, transparent);
+        animation: bootRuns 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
       }
 
       .boot__said {
+        position: relative;
         margin: 0;
         font-family: 'JetBrains Mono', Consolas, monospace;
-        font-size: 0.58rem;
-        letter-spacing: 0.24em;
+        font-size: 0.55rem;
+        letter-spacing: 0.3em;
         text-transform: uppercase;
-        color: #6b5a60;
+        color: #4a3138;
       }
 
       @keyframes bootBreathes {
-        0%, 100% { opacity: 0.5; }
+        0%, 100% { opacity: 0.45; }
         50% { opacity: 1; }
       }
 
       @keyframes bootRuns {
-        from { transform: translateX(-120%); }
-        to { transform: translateX(400%); }
+        from { transform: translateX(-110%); }
+        to { transform: translateX(440%); }
       }
 
       @media (prefers-reduced-motion: reduce) {
-        .boot__mark,
+        .boot::before,
         .boot__filled {
           animation: none;
         }
@@ -107,16 +112,6 @@
     <div id="game"></div>
 
     <div class="boot" id="boot" role="status" aria-live="polite">
-      <svg class="boot__mark" viewBox="0 0 32 32" aria-hidden="true">
-        <rect x="13.6" y="3" width="4.8" height="5.4" fill="#8c0f33" />
-        <rect x="12.2" y="2.2" width="7.6" height="1.8" fill="#c4123f" />
-        <rect x="6.4" y="8.4" width="19.2" height="3" fill="#b8912c" />
-        <rect x="6.4" y="8.4" width="19.2" height="1.2" fill="#f4e29b" />
-        <path d="M10.8 11.4 L21.2 11.4 L21.2 21 L16 28.8 L10.8 21 Z" fill="#7d6520" />
-        <path d="M11.9 11.4 L20.1 11.4 L20.1 20.6 L16 27.4 L11.9 20.6 Z" fill="#f0d98a" />
-        <path d="M16 11.4 L20.1 11.4 L20.1 20.6 L16 27.4 Z" fill="#c9a83f" />
-        <path d="M12.4 21.4 L19.6 21.4 L16 27.4 Z" fill="#c4123f" />
-      </svg>
       <p class="boot__word">Blood Ledger</p>
       <div class="boot__rail"><span class="boot__filled"></span></div>
       <p class="boot__said">Lighting the torches</p>
