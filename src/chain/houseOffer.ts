@@ -1,7 +1,6 @@
 import type { Offer } from '../types/pact'
 import type { HouseOffer } from '../types/house'
-
-const coinsPerEther = 100_000
+import { coinsPerEther } from './coinRate'
 
 export const houseOfferId = 'offer-the-house'
 
