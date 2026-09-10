@@ -14,7 +14,8 @@ import { dressTheHall } from '../parts/hallDressing'
 
 import { readSeekers } from '../chain/seekers'
 import { stakeOnARaider } from '../chain/patronVault'
-import { writeUpTheStake } from '../chain/whatYouHaveDone'
+import { takeTheChainsWord, writeUpTheStake } from '../chain/whatYouHaveDone'
+import { standingFromTheChain } from '../chain/askTheLedger'
 import { gradeReaches, readOffers, readRaider } from '../chain/theLedger'
 import { readTheBoard } from '../chain/whatIsOnTheBoard'
 import '../styles/hallMarks.css'
@@ -77,6 +78,15 @@ export function buildPatronTable(order: PatronTableOrder): Part {
 
     offersOpenToYou += standing.inYourName.length
     tellTheSeats()
+  })
+
+  void standingFromTheChain(order.address).then((told) => {
+    if (!told) {
+      return
+    }
+
+    takeTheChainsWord(order.address, told.standing)
+    tally.showStanding(told.standing)
   })
 
   tally.middleSeat.append(roleSwitch.element)
