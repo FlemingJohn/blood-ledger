@@ -141,6 +141,55 @@
   color: var(--ash);
 }
 
+.panel__ahead {
+  margin: 8px 0 0;
+}
+
+.pactahead {
+  display: grid;
+  gap: 5px;
+}
+
+.pactahead__line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  font-family: var(--counted);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ash);
+}
+
+.pactahead__line b {
+  font-weight: 600;
+  font-size: 0.72rem;
+  text-transform: none;
+  color: var(--bone);
+  font-variant-numeric: tabular-nums;
+}
+
+.pactahead__good {
+  color: var(--gold) !important;
+}
+
+.pactahead__from {
+  font-family: var(--counted);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+}
+
+.pactahead__aside {
+  margin: 10px 0 0;
+  font-family: var(--spoken);
+  font-style: italic;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: #6b5a60;
+}
+
 .meter {
   height: 11px;
   background: var(--void);
