@@ -676,5 +676,9 @@ proof worth having.
 
 ## Licence
 
-The code here is ours. The art is licensed, and the images are kept out of the repository
-by `.gitignore` rather than committed.
+The code is **MIT**. Read it, run it, fork it, ship it — see [LICENSE](LICENSE).
+
+That covers the source and nothing else. The artwork, the 3D models and the music are
+licensed separately, are not covered by the MIT grant, and are kept out of this repository
+by `.gitignore` rather than committed. `npm run gather-art` collects them from your own
+copy. The four typefaces come from Google Fonts under the SIL Open Font License.
