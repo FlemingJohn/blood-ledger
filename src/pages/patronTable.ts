@@ -4,6 +4,7 @@ import type { Role, RoleAnswer } from '../types/role'
 import type { StakeYouMade, WhatYouOffer } from '../types/patron'
 import { fillOutAStake } from '../parts/stakeSlip'
 import { askBeforeYouStake } from '../parts/askToStake'
+import type { SeekerCardPart } from '../parts/seekerCard'
 import { layOutSeeker } from '../parts/seekerCard'
 import { hangTheRoleSwitch } from '../parts/roleSwitch'
 import { hangTheTally } from '../parts/tally'
@@ -12,7 +13,7 @@ import { drawBinding, drawCoinStack, drawScales } from '../parts/hallMarks'
 import { readProfile } from '../chain/profiles'
 import { dressTheHall } from '../parts/hallDressing'
 
-import { readSeekers } from '../chain/seekers'
+import { readWhoHasBeenDown } from '../chain/whoHasBeenDown'
 import { stakeOnARaider } from '../chain/patronVault'
 import { takeTheChainsWord, writeUpTheStake } from '../chain/whatYouHaveDone'
 import { standingFromTheChain } from '../chain/askTheLedger'
@@ -42,9 +43,7 @@ export function buildPatronTable(order: PatronTableOrder): Part {
   let offersOpenToYou = readOffers(youAsRaider).filter(
     (offer) => !offer.claimed && gradeReaches(youAsRaider.standing.grade, offer.needsGrade)
   ).length
-  const seekingCoin = readSeekers().filter(
-    (seeker) => seeker.raider.address.toLowerCase() !== order.address.toLowerCase()
-  ).length
+  let seekingCoin = 0
 
   const roleSwitch = hangTheRoleSwitch()
   roleSwitch.showRole('patron')
@@ -54,8 +53,8 @@ export function buildPatronTable(order: PatronTableOrder): Part {
       patron: {
         count: seekingCoin,
         why: seekingCoin > 0
-          ? `You are here. ${seekingCoin} raiders want coin.`
-          : 'No one is asking for coin.',
+          ? `You are here. The ledger knows ${seekingCoin} raiders.`
+          : 'You are here. The ledger knows nobody yet.',
         state: 'here'
       },
       raider: {
@@ -105,7 +104,7 @@ export function buildPatronTable(order: PatronTableOrder): Part {
 
   const boardTitle = document.createElement('h2')
   boardTitle.className = 'board__title'
-  boardTitle.textContent = 'Raiders Seeking Coin'
+  boardTitle.textContent = 'Who Has Been Down'
 
   const boardCount = document.createElement('span')
   boardCount.className = 'board__count'
@@ -121,28 +120,47 @@ export function buildPatronTable(order: PatronTableOrder): Part {
   const spine = drawBinding()
   spine.classList.add('board__binding')
 
-  board.append(weighing, spine, boardHead, boardList)
+  const bare = document.createElement('p')
+  bare.className = 'board__bare'
+  bare.textContent = 'Reading the ledger for everyone who has been down.'
 
-  const seekers = readSeekers()
-  let openToYou = 0
+  board.append(weighing, spine, boardHead, boardList, bare)
 
-  const cards = seekers.map((seeker) => {
-    const isYou = seeker.raider.address.toLowerCase() === order.address.toLowerCase()
-    if (!isYou) {
-      openToYou += 1
+  const cards: SeekerCardPart[] = []
+
+  boardCount.textContent = 'reading the chain'
+
+  void readWhoHasBeenDown().then((everyone) => {
+    if (everyone.length === 0) {
+      boardCount.textContent = 'nobody yet'
+      bare.textContent = 'The ledger has never seen a raider. Put up coin and it will.'
+      return
     }
 
-    const card = layOutSeeker(seeker.raider, seeker.note, isYou)
+    let youMayBack = 0
 
-    card.whenBacked((raider) => {
-      slip.fillFor(raider.address)
+    everyone.forEach((who) => {
+      const isYou = who.address.toLowerCase() === order.address.toLowerCase()
+
+      if (!isYou && !who.holdsAPact) {
+        youMayBack += 1
+      }
+
+      const card = layOutSeeker(who, isYou)
+      card.whenBacked((backing) => slip.fillFor(backing.address))
+
+      boardList.append(card.element)
+      cards.push(card)
     })
 
-    boardList.append(card.element)
-    return card
-  })
+    bare.hidden = true
+    boardCount.textContent = `${youMayBack} you may back of ${everyone.length}`
 
-  boardCount.textContent = `${openToYou} you may back of ${seekers.length}`
+    seekingCoin = everyone.filter(
+      (one) => one.address.toLowerCase() !== order.address.toLowerCase()
+    ).length
+    tellTheSeats()
+  })
 
   const coins = drawCoinStack()
   coins.classList.add('stake__coins')
