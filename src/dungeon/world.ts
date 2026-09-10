@@ -65,6 +65,7 @@ export interface World {
   seenWide: number
   seenTall: number
   stairFound: boolean
+  garrison: Fighter[]
   finished: 'still going' | 'fell' | 'walked out'
   killedBy: string | null
 }
@@ -107,6 +108,7 @@ export function openWorld(order: WorldOrder): World {
     seenWide: 1280,
     seenTall: 720,
     stairFound: false,
+    garrison: enemies.slice(),
     finished: 'still going',
     killedBy: null
   }
@@ -539,8 +541,12 @@ export function everyoneStanding(world: World): boolean {
   return world.enemies.every((enemy) => isDown(enemy))
 }
 
+export function theGarrisonIsDown(world: World): boolean {
+  return world.garrison.every((enemy) => isDown(enemy))
+}
+
 export function theWayDownIsOpen(world: World): boolean {
-  if (!world.stairFound && everyoneStanding(world)) {
+  if (!world.stairFound && theGarrisonIsDown(world)) {
     world.stairFound = true
     theStairIsFound()
   }
