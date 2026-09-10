@@ -1,5 +1,6 @@
 import type { RaiderClass } from '../types/raider'
 import { champions, inkBands } from './champions'
+import { championHeads } from './paths'
 
 const frameWide = 200
 const frameTall = 320
@@ -112,7 +113,7 @@ const bustTop = 6
 const bustWide = 124
 const bustTall = 100
 
-export function paintBust(who: RaiderClass, size: number): HTMLCanvasElement {
+function paintFlatBust(who: RaiderClass, size: number): HTMLCanvasElement {
   const board = document.createElement('canvas')
   board.className = 'bust__face'
   board.setAttribute('role', 'img')
@@ -142,4 +143,26 @@ export function paintBust(who: RaiderClass, size: number): HTMLCanvasElement {
   })
 
   return board
+}
+
+export function paintBust(who: RaiderClass, size: number): HTMLElement {
+  const shot = document.createElement('img')
+
+  shot.className = 'bust__face'
+  shot.src = championHeads[who]
+  shot.width = size
+  shot.height = size
+  shot.decoding = 'async'
+  shot.setAttribute('role', 'img')
+  shot.setAttribute('aria-label', champions[who].said)
+  shot.style.width = `${size}px`
+  shot.style.height = `${size}px`
+
+  shot.addEventListener(
+    'error',
+    () => shot.replaceWith(paintFlatBust(who, size)),
+    { once: true }
+  )
+
+  return shot
 }
