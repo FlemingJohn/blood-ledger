@@ -2,13 +2,9 @@ import type { CoinPutUp, HowItStands, TheBoard } from '../types/board'
 import type { Offer } from '../types/pact'
 import { readTheLastStakes, theVaultIsDeployed } from './coinPutUp'
 import { whatBecameOfThese } from './askTheLedger'
+import { coinsFromEther } from './coinRate'
 
 const mostWeShow = 25
-const coinsPerEther = 100_000
-
-export function coinsFromEther(amount: string): number {
-  return Math.round(Number(amount) * coinsPerEther)
-}
 
 export async function readTheBoard(youAre: string): Promise<TheBoard | null> {
   if (!theVaultIsDeployed) {
