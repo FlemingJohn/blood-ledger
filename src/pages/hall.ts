@@ -204,6 +204,7 @@ export function buildHall(order: HallOrder): Part {
     chosenClass = chosen
     rememberTheClass(order.address, chosen)
     powers.showClass(chosen)
+    tally.showClass(chosen)
   })
 
   void loadWhatYouCan(everyPieceOfHallArt)
