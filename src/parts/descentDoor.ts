@@ -56,6 +56,16 @@ export function buildDescent(): DescentPart {
         : 'The stair is open. Nothing comes back for you.'
     },
 
+    sayWhatIsHappening(said: string | null, holding: boolean): void {
+      door.disabled = holding
+      door.classList.toggle('door--waiting', holding)
+      word.textContent = holding ? 'Locking Up Your Bond' : 'Descend'
+
+      if (said !== null) {
+        aside.textContent = said
+      }
+    },
+
     whenPushed(listener: () => void): void {
       listeners.add(listener)
     },
