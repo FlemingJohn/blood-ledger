@@ -58,10 +58,12 @@ export function carveTheHero(holder: HTMLElement, whenReady: () => void): HeroSt
       loader = new gltf.GLTFLoader()
       loader.setDRACOLoader(pulling)
     } catch {
+      whenReady()
       return
     }
 
     if (stopped) {
+      whenReady()
       return
     }
 
@@ -74,6 +76,7 @@ export function carveTheHero(holder: HTMLElement, whenReady: () => void): HeroSt
     try {
       painter = new three.WebGLRenderer({ canvas, antialias: true, alpha: true })
     } catch {
+      whenReady()
       return
     }
 
@@ -152,6 +155,7 @@ export function carveTheHero(holder: HTMLElement, whenReady: () => void): HeroSt
 
       if (stopped) {
         painter.dispose()
+        whenReady()
         return
       }
 
@@ -177,6 +181,7 @@ export function carveTheHero(holder: HTMLElement, whenReady: () => void): HeroSt
       })
     } catch {
       painter.dispose()
+      whenReady()
       return
     }
 
