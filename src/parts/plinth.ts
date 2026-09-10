@@ -1,7 +1,8 @@
 import type { PlinthPart } from '../types/parts'
 import type { RaiderClass } from '../types/raider'
 import { champions } from '../art/champions'
-import { drawAlcove, drawChampion } from './marks'
+import { gothicHall } from '../art/paths'
+import { drawChampion } from './marks'
 import { armourShifts } from '../sound/blows'
 import '../styles/plinth.css'
 
@@ -17,7 +18,11 @@ export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
   const stage = document.createElement('div')
   stage.className = 'plinth__stage'
 
-  stage.append(drawAlcove())
+  const room = document.createElement('div')
+  room.className = 'plinth__room'
+  room.setAttribute('aria-hidden', 'true')
+  room.style.backgroundImage = `url(${gothicHall})`
+  stage.append(room)
 
   const figure = document.createElement('div')
   figure.className = 'plinth__figure'
