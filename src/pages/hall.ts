@@ -18,7 +18,7 @@ import { layOutPowers } from '../parts/powerSlots'
 import { showTheBond } from '../parts/bondSlip'
 import { gradeReaches, readOffers, readRaider, sealPact } from '../chain/theLedger'
 import { asAnOfferToYou, readTheBoard } from '../chain/whatIsOnTheBoard'
-import { readSeekers } from '../chain/seekers'
+import { readWhoHasBeenDown } from '../chain/whoHasBeenDown'
 import { askTheHouse, askTheHouseToBackYou, theHouseAnswered } from '../chain/house'
 import { asAnOffer, houseOfferId } from '../chain/houseOffer'
 import { rememberTheClass, takeTheChainsWord } from '../chain/whatYouHaveDone'
@@ -53,7 +53,7 @@ export function buildHall(order: HallOrder): Part {
   let openToYou = offersHere.filter(
     (offer) => !offer.claimed && gradeReaches(raider.standing.grade, offer.needsGrade)
   ).length
-  const seekingCoin = readSeekers().length
+  let seekingCoin = 0
 
   function tellTheSeats(): void {
     const holding = heldPact !== null
@@ -74,7 +74,7 @@ export function buildHall(order: HallOrder): Part {
           ? 'A pact stands. Go down or settle it first.'
           : openToYou === 0
             ? 'Nothing to raid. Earn standing by funding someone instead.'
-            : `${seekingCoin} raiders want coin.`,
+            : `The ledger knows ${seekingCoin} raiders.`,
         state: holding ? 'barred' : seekingCoin > 0 ? 'open' : 'quiet'
       }
     })
@@ -200,6 +200,13 @@ export function buildHall(order: HallOrder): Part {
     board.sayWhenBare('Nobody has named you yet. Ask the House and it will put up coin for you.')
     goingsOn.show(standing.below)
     showWhatAPactWouldCost()
+    tellTheSeats()
+  })
+
+  void readWhoHasBeenDown().then((everyone) => {
+    seekingCoin = everyone.filter(
+      (one) => one.address.toLowerCase() !== order.address.toLowerCase()
+    ).length
     tellTheSeats()
   })
 
