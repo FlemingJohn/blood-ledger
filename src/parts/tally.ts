@@ -1,5 +1,5 @@
 import type { Part } from '../types/parts'
-import type { Raider, RaiderClass } from '../types/raider'
+import type { Raider, RaiderClass, Standing } from '../types/raider'
 import { paintBust } from '../art/championPaint'
 import { contractsAreLive, gradeFloors, readTheUnderwriter } from '../chain/theLedger'
 import { readTheWitnesses } from '../chain/witnesses'
@@ -19,6 +19,7 @@ export interface TallyPart extends Part {
   middleSeat: HTMLElement
   whenNameAsked(listener: () => void): void
   showClass(chosen: RaiderClass): void
+  showStanding(standing: Standing): void
 }
 
 function nextRungAbove(score: number): { grade: string; from: number } | null {
@@ -50,19 +51,12 @@ export function hangTheTally(raider: Raider): TallyPart {
 
   const rank = document.createElement('p')
   rank.className = 'tally__rank'
-  rank.textContent = titleFor(raider.standing.grade)
 
   const reading = document.createElement('p')
   reading.className = 'tally__reading'
 
   const grade = document.createElement('b')
-  grade.textContent = raider.standing.grade
-
   const target = document.createElement('span')
-  const above = nextRungAbove(raider.standing.score)
-  target.textContent = above
-    ? `${raider.standing.score} / ${above.from} to ${above.grade}`
-    : `${raider.standing.score} — highest rank held`
 
   reading.append(grade, target)
 
@@ -71,7 +65,6 @@ export function hangTheTally(raider: Raider): TallyPart {
 
   const filled = document.createElement('div')
   filled.className = 'meter__filled'
-  filled.style.width = `${Math.min(100, (raider.standing.score / highestScore) * 100)}%`
   bar.append(filled)
 
   const rungs = document.createElement('div')
@@ -97,17 +90,36 @@ export function hangTheTally(raider: Raider): TallyPart {
   counted.className = 'tally__counted'
 
   const raids = document.createElement('span')
-  raids.textContent = `${raider.standing.raids} raids`
 
   const repaid = document.createElement('span')
   repaid.className = 'panel__good'
-  repaid.textContent = `${raider.standing.repaid} repaid`
 
   const lost = document.createElement('span')
   lost.className = 'panel__bad'
-  lost.textContent = `${raider.standing.lost} lost`
 
   counted.append(raids, repaid, lost)
+
+  function paintStanding(told: Standing): void {
+    rank.textContent = titleFor(told.grade)
+    grade.textContent = told.grade
+
+    const above = nextRungAbove(told.score)
+    target.textContent = above
+      ? `${told.score} / ${above.from} to ${above.grade}`
+      : `${told.score} — highest rank held`
+
+    filled.style.width = `${Math.min(100, (told.score / highestScore) * 100)}%`
+    raids.textContent = `${told.raids} raids`
+    repaid.textContent = `${told.repaid} repaid`
+    lost.textContent = `${told.lost} lost`
+
+    rungs.querySelectorAll('.meter__notch').forEach((notch, at) => {
+      const step = gradeFloors.slice().reverse().filter((one) => one.from > 0)[at]
+      notch.className = step && told.score >= step.from ? 'meter__notch meter__notch--past' : 'meter__notch'
+    })
+  }
+
+  paintStanding(raider.standing)
 
   standingBay.append(rank, reading, bar, counted)
 
@@ -210,6 +222,10 @@ export function hangTheTally(raider: Raider): TallyPart {
   return {
     element: tally,
     middleSeat,
+
+    showStanding(told: Standing): void {
+      paintStanding(told)
+    },
 
     showClass(chosen: RaiderClass): void {
       if (chosen === showing) {
