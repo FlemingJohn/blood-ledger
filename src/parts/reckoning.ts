@@ -9,6 +9,7 @@ import '../styles/reckoning.css'
 
 export interface ReckoningPart extends Part {
   showTakings(takings: Takings, patronAddress: string, left: LeftBehind): void
+  showWriting(said: string, seenAt: string | null, holding: boolean): void
   whenReturning(listener: () => void): void
 }
 
@@ -46,7 +47,11 @@ export function prepareTheReckoning(): ReckoningPart {
   backWord.textContent = 'Back to the Hall'
   back.append(backWord)
 
-  slab.append(title, where, sums, missed, aside, back)
+  const writing = document.createElement('p')
+  writing.className = 'reckoning__writing'
+  writing.hidden = true
+
+  slab.append(title, where, sums, missed, aside, writing, back)
   shroud.append(slab)
 
   const returning = new Set<() => void>()
@@ -161,6 +166,24 @@ export function prepareTheReckoning(): ReckoningPart {
       aside.textContent = lived
         ? `${shortAddress(patronAddress)} was paid. The ledger will say so.`
         : `${shortAddress(patronAddress)} will see this.`
+    },
+
+    showWriting(said: string, seenAt: string | null, holding: boolean): void {
+      writing.hidden = false
+      writing.replaceChildren(document.createTextNode(said))
+
+      if (seenAt) {
+        const seen = document.createElement('a')
+        seen.className = 'reckoning__seen'
+        seen.href = seenAt
+        seen.target = '_blank'
+        seen.rel = 'noopener'
+        seen.textContent = 'on Creditcoin'
+        writing.append(document.createTextNode(' '), seen)
+      }
+
+      back.disabled = holding
+      backWord.textContent = holding ? 'Writing It Down' : 'Back to the Hall'
     },
 
     whenReturning(listener: () => void): void {
