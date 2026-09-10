@@ -12,6 +12,7 @@ import { openThePatronBoard } from '../parts/patronBoard'
 import { openTheProfile } from '../parts/profileCard'
 import { drawChain } from '../parts/hallMarks'
 import { prepareTheRite } from '../parts/sealingRite'
+import { askBeforeYouSign } from '../parts/askFirst'
 import { unrollTheLedger } from '../parts/ledgerFeed'
 import { layOutPowers } from '../parts/powerSlots'
 import { showTheBond } from '../parts/bondSlip'
@@ -100,6 +101,7 @@ export function buildHall(order: HallOrder): Part {
   rail.append(hanging, pactSlip.element, powers.element, bond.element)
 
   const rite = prepareTheRite()
+  const asking = askBeforeYouSign()
   const profile = openTheProfile()
 
   tally.whenNameAsked(() => profile.showProfile(readProfile(order.address)))
@@ -132,10 +134,40 @@ export function buildHall(order: HallOrder): Part {
     pactSeals()
     pactSlip.showPact(pact)
     descent.showBarred(false)
+    board.barTheBoard(true)
     roleSwitch.showBarred(true, 'you hold a pact — go down or it stands')
     tellTheSeats()
     window.setTimeout(() => rite.close(), 900)
   }
+
+  function signFor(offer: Offer): void {
+    if (sealing || heldPact) {
+      return
+    }
+
+    sealing = true
+    waxPressed()
+    rite.open()
+
+    const staked =
+      offer.id === houseOfferId
+        ? askTheHouseToBackYou(order.address).then((answer) => {
+            if (!theHouseAnswered(answer)) {
+              throw new Error(answer.trouble)
+            }
+          })
+        : Promise.resolve()
+
+    void staked
+      .then(() => sealPact(offer, (progress) => rite.showProgress(progress)))
+      .then(holdThePact)
+      .catch((trouble: Error) => {
+        sealing = false
+        rite.showProgress({ steps: [], finished: false, trouble: trouble.message })
+      })
+  }
+
+  asking.whenTaken(signFor)
 
   const board = openThePatronBoard({
     offers: offersHere,
@@ -144,26 +176,7 @@ export function buildHall(order: HallOrder): Part {
       if (sealing || heldPact) {
         return
       }
-      sealing = true
-      waxPressed()
-      rite.open()
-
-      const staked =
-        offer.id === houseOfferId
-          ? askTheHouseToBackYou(order.address).then((answer) => {
-              if (!theHouseAnswered(answer)) {
-                throw new Error(answer.trouble)
-              }
-            })
-          : Promise.resolve()
-
-      void staked
-        .then(() => sealPact(offer, (progress) => rite.showProgress(progress)))
-        .then(holdThePact)
-        .catch((trouble: Error) => {
-          sealing = false
-          rite.showProgress({ steps: [], finished: false, trouble: trouble.message })
-        })
+      asking.ask(offer, raider.standing.score)
     }
   })
 
@@ -188,7 +201,7 @@ export function buildHall(order: HallOrder): Part {
   foot.className = 'hallpage__foot'
   foot.append(ledger.element, descent.element)
 
-  hall.append(dressing.element, tally.element, body, foot, rite.element, profile.element)
+  hall.append(dressing.element, tally.element, body, foot, rite.element, asking.element, profile.element)
 
   descent.showBarred(true)
   showWhatAPactWouldCost()
@@ -217,6 +230,7 @@ export function buildHall(order: HallOrder): Part {
       powers.teardown()
       ledger.teardown()
       profile.teardown()
+      asking.teardown()
       rite.teardown()
       descent.teardown()
       pactSlip.teardown()
