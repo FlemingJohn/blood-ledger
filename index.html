@@ -15,9 +15,112 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Nosifer&family=Cinzel:wght@500;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap"
     />
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: #030101;
+        color: #ece0d6;
+      }
+
+      .boot {
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        background: radial-gradient(ellipse 70% 60% at 50% 46%, #1c0710, #050103 70%, #030101);
+        transition: opacity 620ms ease;
+      }
+
+      .boot--lifting {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .boot__mark {
+        width: 46px;
+        height: 46px;
+        animation: bootBreathes 2.2s ease-in-out infinite;
+      }
+
+      .boot__word {
+        margin: 0;
+        font-family: Cinzel, Georgia, serif;
+        font-size: 1.24rem;
+        font-weight: 700;
+        letter-spacing: 0.42em;
+        text-indent: 0.42em;
+        text-transform: uppercase;
+        color: #ece0d6;
+      }
+
+      .boot__rail {
+        width: min(220px, 44vw);
+        height: 2px;
+        background: #1b0a10;
+        overflow: hidden;
+      }
+
+      .boot__filled {
+        display: block;
+        width: 34%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, #d6154e, transparent);
+        animation: bootRuns 1.5s ease-in-out infinite;
+      }
+
+      .boot__said {
+        margin: 0;
+        font-family: 'JetBrains Mono', Consolas, monospace;
+        font-size: 0.58rem;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: #6b5a60;
+      }
+
+      @keyframes bootBreathes {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
+      }
+
+      @keyframes bootRuns {
+        from { transform: translateX(-120%); }
+        to { transform: translateX(400%); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .boot__mark,
+        .boot__filled {
+          animation: none;
+        }
+        .boot__filled {
+          width: 100%;
+        }
+      }
+    </style>
   </head>
   <body>
     <div id="game"></div>
+
+    <div class="boot" id="boot" role="status" aria-live="polite">
+      <svg class="boot__mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect x="13.6" y="3" width="4.8" height="5.4" fill="#8c0f33" />
+        <rect x="12.2" y="2.2" width="7.6" height="1.8" fill="#c4123f" />
+        <rect x="6.4" y="8.4" width="19.2" height="3" fill="#b8912c" />
+        <rect x="6.4" y="8.4" width="19.2" height="1.2" fill="#f4e29b" />
+        <path d="M10.8 11.4 L21.2 11.4 L21.2 21 L16 28.8 L10.8 21 Z" fill="#7d6520" />
+        <path d="M11.9 11.4 L20.1 11.4 L20.1 20.6 L16 27.4 L11.9 20.6 Z" fill="#f0d98a" />
+        <path d="M16 11.4 L20.1 11.4 L20.1 20.6 L16 27.4 Z" fill="#c9a83f" />
+        <path d="M12.4 21.4 L19.6 21.4 L16 27.4 Z" fill="#c4123f" />
+      </svg>
+      <p class="boot__word">Blood Ledger</p>
+      <div class="boot__rail"><span class="boot__filled"></span></div>
+      <p class="boot__said">Lighting the torches</p>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
