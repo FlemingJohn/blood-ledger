@@ -1,5 +1,5 @@
 import type { Part } from '../types/parts'
-import { darkenedEdges, sleepingWatcher, stoneFloor } from '../art/paths'
+import { darkenedEdges, redSmoke, stoneFloor } from '../art/paths'
 import { lightTheBackdrop } from './flames'
 
 export type Mood = 'landing' | 'working'
@@ -35,20 +35,19 @@ export function dressTheHall(mood: Mood): Part {
   fallback.className = 'backdrop backdrop--still'
   fallback.setAttribute('aria-hidden', 'true')
 
-  const watcher = document.createElement('img')
-  watcher.className = 'watcher'
-  watcher.src = sleepingWatcher
-  watcher.alt = ''
-  watcher.setAttribute('aria-hidden', 'true')
+  const smoke = document.createElement('div')
+  smoke.className = 'backdrop backdrop--smoke'
+  smoke.setAttribute('aria-hidden', 'true')
+  smoke.style.backgroundImage = `url(${redSmoke})`
 
-  holder.append(backdrop ? backdrop.canvas : fallback, watcher, edges)
+  holder.append(backdrop ? backdrop.canvas : fallback, smoke, edges)
 
   return {
     element: holder,
     teardown(): void {
       backdrop?.stop()
       fallback.remove()
-      watcher.remove()
+      smoke.remove()
       edges.remove()
     }
   }
