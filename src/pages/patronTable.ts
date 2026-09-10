@@ -10,7 +10,7 @@ import { hangTheRoleSwitch } from '../parts/roleSwitch'
 import { hangTheTally } from '../parts/tally'
 import { openTheProfile } from '../parts/profileCard'
 import { drawBinding, drawCoinStack, drawScales } from '../parts/hallMarks'
-import { readProfile } from '../chain/profiles'
+import { readProfile, readProfileFromTheChain } from '../chain/profiles'
 import { dressTheHall } from '../parts/hallDressing'
 
 import { readWhoHasBeenDown } from '../chain/whoHasBeenDown'
@@ -38,7 +38,14 @@ export function buildPatronTable(order: PatronTableOrder): Part {
   const tally = hangTheTally(youAsRaider)
   const profile = openTheProfile()
 
-  tally.whenNameAsked(() => profile.showProfile(readProfile(order.address)))
+  tally.whenNameAsked(() => {
+    profile.showProfile(readProfile(order.address))
+    void readProfileFromTheChain(order.address).then((told) => {
+      if (told) {
+        profile.showProfile(told)
+      }
+    })
+  })
 
   let offersOpenToYou = readOffers(youAsRaider).filter(
     (offer) => !offer.claimed && gradeReaches(youAsRaider.standing.grade, offer.needsGrade)
