@@ -3,6 +3,7 @@ import type { PurseKeeper } from '../types/purse'
 import type { Role, RoleAnswer } from '../types/role'
 import type { StakeYouMade, WhatYouOffer } from '../types/patron'
 import { fillOutAStake } from '../parts/stakeSlip'
+import { askBeforeYouStake } from '../parts/askToStake'
 import { layOutSeeker } from '../parts/seekerCard'
 import { hangTheRoleSwitch } from '../parts/roleSwitch'
 import { hangTheTally } from '../parts/tally'
@@ -73,7 +74,8 @@ export function buildPatronTable(order: PatronTableOrder): Part {
   const body = document.createElement('div')
   body.className = 'patronpage__body'
 
-  const slip = fillOutAStake()
+  const slip = fillOutAStake(order.address)
+  const confirming = askBeforeYouStake()
 
   const board = document.createElement('section')
   board.className = 'board'
@@ -127,7 +129,7 @@ export function buildPatronTable(order: PatronTableOrder): Part {
   slip.element.append(coins)
 
   body.append(slip.element, board)
-  page.append(dressing.element, tally.element, body, profile.element)
+  page.append(dressing.element, tally.element, body, confirming.element, profile.element)
 
   let staking = false
 
@@ -137,6 +139,15 @@ export function buildPatronTable(order: PatronTableOrder): Part {
     }
     if (offer.raider.toLowerCase() === order.address.toLowerCase()) {
       slip.showTrouble('You cannot put up coin for yourself.')
+      return
+    }
+
+    slip.showTrouble(null)
+    confirming.ask(offer, order.address)
+  })
+
+  confirming.whenPutUp((offer: WhatYouOffer) => {
+    if (staking) {
       return
     }
 
@@ -166,6 +177,7 @@ export function buildPatronTable(order: PatronTableOrder): Part {
     teardown(): void {
       cards.forEach((card) => card.teardown())
       profile.teardown()
+      confirming.teardown()
       slip.teardown()
       roleSwitch.teardown()
       tally.teardown()
