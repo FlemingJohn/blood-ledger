@@ -1,6 +1,7 @@
 import type { Part } from '../types/parts'
 import { hoodedSkull } from '../art/paths'
 import { carveTheHero } from '../art/heroStage'
+import { doneWaitingOn, holdTheBootFor, sayWhileBooting } from './theBoot'
 
 export function raiseTheHero(): Part {
   const hero = document.createElement('div')
@@ -19,8 +20,12 @@ export function raiseTheHero(): Part {
 
   hero.append(named, stillOne)
 
+  holdTheBootFor('hero')
+  sayWhileBooting('Waking the watcher')
+
   const carved = carveTheHero(hero, () => {
     stillOne.classList.add('hero__still--gone')
+    doneWaitingOn('hero')
   })
 
   return {
