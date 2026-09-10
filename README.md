@@ -118,7 +118,7 @@ typed by us.
 ### Three. The patron's table
 
 <p align="center">
-  <img src="docs/shots/patron.png" alt="The stake slip on the left, and five raiders seeking coin on the right, each with their record" width="100%">
+  <img src="docs/shots/patron.png" alt="The stake slip on the left, and the raiders the ledger knows on the right, each with their record" width="100%">
 </p>
 
 The same game from the other side. Switch to Patron in the header and your purse moves to
@@ -152,16 +152,22 @@ coin is gone. All of it.* It keeps reading the ledger while it sits there, so th
 the repeat warning fill in live. Escape or *Keep it* backs out. Nothing reaches your wallet
 until you press the second button.
 
-On the right, every raider who wants coin, with their record laid out plainly and the
-awkward parts said out loud:
+On the right, **Who Has Been Down** — everyone the ledger has ever heard of, sorted by
+standing. This is not a list of people asking for money, because nothing in either contract
+lets a raider ask. It is the vault's stakes walked for every distinct raider, each one's
+record fetched from Creditcoin, and the awkward parts said out loud:
 
 > has lost three patrons and repaid one
 >
-> every pact came from one purse, and the coin went in a circle
+> already owes on a pact, and cannot take another until it settles
 
-That second one is the game refusing to let two wallets pass the same coin back and forth to
-manufacture a reputation. The vault counts how many times each patron has funded each
-raider, and the ledger reads that count when it works out what the standing was worth.
+A raider who already owes gets no **Back This One** button, because the contract would
+refuse that pact anyway. Better to say so than to offer a button that fails.
+
+The repeat rule is the game refusing to let two wallets pass the same coin back and forth
+to manufacture a reputation. The vault counts how many times each patron has funded each
+raider, the ledger halves what that earns them each time, and the record card tells you the
+number before you spend.
 
 You cannot fund yourself, and the table says so if you try.
 
@@ -196,15 +202,32 @@ extra moment spent looting is a moment spent being hunted.
   <img src="docs/shots/profile.png" alt="The profile card: standing, what you have done as a raider and as a patron, and the last five deeds" width="100%">
 </p>
 
-Click your face in the header. Everything the ledger knows about you, in one slab.
+Click your face in the header. Everything the ledger knows about you, in one slab — and
+the page is careful about the difference between what a chain knows and what only your
+machine does.
 
-Left, what you have done as a raider — how deep you went, the best haul you carried out,
-the coin you kept, how many patrons you cost. Right, the same from the other side: how many
-raiders you backed, how many came home, what you made. Below, your last deeds with the
-figures and how long ago.
+**Read from the chain.** Your standing, raids, repaid and lost. The coin you kept across
+every raid. How many raiders you backed, how many came home, how many fell, and what you
+made. Every deed in the list, with the real address on the other side and the real amount.
 
-It moves. Walk out of a raid and the numbers here change with it — standing, coin, deepest
-floor, and a new line at the top of the list.
+All of that is built from the `RaidSettled` events the ledger emits, read in blocks from
+the ledger's first block, joined against the vault's stakes on Ethereum. Both sides of the
+same raid agree because both are reading the same event:
+
+> **raider** — walked out, kept 1,110, paid `0x505B…f3ab`
+>
+> **patron** — backed `0xCa05…257e`, they returned, +240
+
+Carried 1,850, the patron's 40% is 740, the raider keeps 1,110, and the patron who staked
+500 cleared 240. Nobody typed those numbers.
+
+**Kept on your machine.** Deepest floor and best haul. `settleRaid` records the ending and
+the coin carried but never which floor you reached — the contract has no field for it. So
+those two live in your browser under your address, and the page does not pretend
+otherwise. Your coin balance is game state and always was.
+
+A fresh wallet opens at 500 with nothing done, which is what Creditcoin says about an
+address it has never seen.
 
 ---
 
@@ -231,13 +254,16 @@ allowed. This is the page that tells you what it cost.
 
 Four places, and nothing hidden in a server you cannot see.
 
-**Your browser** draws every screen and runs the whole dungeon. There is no game server.
-The fight happens on your machine, and no transaction runs while you are swinging a sword.
+**Your browser** draws every screen, runs the whole dungeon, reads both chains and signs
+the two transactions that finish a raid. There is no game server and no database of ours
+anywhere. The fight happens on your machine, and no transaction runs while you are
+swinging a sword.
 
 **Ethereum** holds the patron's stake. That is the only thing it does.
 
-**Creditcoin** holds everything that outlives a raid: the pact, your standing, the
-settlement.
+**Creditcoin** holds everything that outlives a raid: the pact, the bond, your standing,
+the settlement. It is the only place any of that is kept — take our page away and the
+record is still there.
 
 **The worker** is the only thing on the stair between them, and it cannot cheat, because it
 carries a proof rather than a message.
@@ -377,6 +403,52 @@ the witnesses** is Attestcoin's agreement window — about nine minutes — rend
 of text in a game.
 
 Every number on that page can be checked on either explorer. We would rather you did.
+
+### The fourth part, where the game writes back
+
+Reading is half of it. The raid itself finishes on Creditcoin, in two transactions signed
+by the raider's own wallet.
+
+**Press Descend** and the bond goes down first — `postBond(pactId)`, with exactly the coin
+the ledger asks of you. The contract checks it is your pact, that it has not settled, and
+that the amount is right to the wei. A raider at 900 standing posts nothing, because their
+name is the collateral.
+
+**When the raid ends**, the reckoning writes it — `settleRaid(pactId, ending, coinsCarried)`.
+Everything after that is the contract's own work, not ours: it splits the haul by the
+patron's share, decides whether the debt cleared, moves the standing, adds to your raids
+and repaid or lost, hands the bond back if you walked out or gives it to the patron if you
+fell, and emits `RaidSettled` with every figure in it.
+
+Here is that happening, on the live testnet:
+
+```
+BEFORE   score 500  raids 0  repaid 0  lost 0
+         open pact 1   bond down 0.0   purse 9999.6985
+
+1. postBond(1) with 0.06 tCTC     0xf094c959…8f54
+2. settleRaid(1, walked out)      0x31545a98…a560   block 5464552
+
+AFTER    score 528  raids 1  repaid 1  lost 0
+         open pact 0   bond down 0.0   purse 9999.6984
+```
+
+**+28 for clearing the debt.** The pact closed, the raider was freed to take another, and
+the 0.06 bond went out and came back — the purse only lost gas. That settlement is
+[`0x31545a98…a560`](https://creditcoin-testnet.blockscout.com/tx/0x31545a9805a36359537ecb8b615335c47e112e19beb6653a60b5258be2e1a560)
+and it is also the event the record page reads back.
+
+The order is enforced by the contract, not by us. Try to settle without the bond and it
+reverts with `NoBondPosted`.
+
+| | Where |
+| --- | --- |
+| Locking up the bond | `src/chain/tellTheLedger.ts:63` |
+| Writing the raid down | `src/chain/tellTheLedger.ts:89` |
+| Reading it all back | `src/chain/whatTheChainRemembers.ts:89` |
+
+These are ordinary Creditcoin transactions, not Attestcoin writes — which matters, because
+of the next paragraph.
 
 ### One thing we will say plainly
 
@@ -575,24 +647,33 @@ We would rather say this ourselves than have it found.
 | Standing, grade and bond in the header | **Read from Creditcoin** |
 | The board, and coin put up in your name | **Read from both chains and joined** |
 | What is happening below | **Read from both chains and joined** |
+| Who Has Been Down, on the patron page | **Read from both chains and joined** |
 | Reading a raider before you back them | **Read from Creditcoin**, live as you type |
+| Locking up the bond | **Written to Creditcoin** by your own wallet |
+| Settling a raid, and moving your standing | **Written to Creditcoin** by your own wallet |
+| Your record — coin kept, backed, returned, profit, deeds | **Read from Creditcoin events** |
 | The house purse and house patron | **Running**, staking real coin on Sepolia |
+| Deepest floor and best haul | **Your browser only.** The contract has no field for a floor |
+| Your coin balance and chosen class | **Game state**, never chain state |
 | The four step sealing rite | **A stand-in clock.** Real sealing takes about nine minutes |
-| Raiders seeking coin, on the patron page | **Stand-in.** A raider never registers interest on chain |
 
-Two things on that list are still stand-ins, and both for the same honest reason.
+**One stand-in is left.** The sealing rite shows four steps in about seven seconds.
+Really sealing a pact means waiting for the witnesses to agree, which takes about nine
+minutes. The steps it shows are the real steps in the real order; only the clock is wrong.
+For a demo, seal one beforehand and show the finished pact.
 
-**The sealing rite** shows four steps in about seven seconds. Really sealing a pact means
-waiting for the witnesses to agree, which takes about nine minutes. The steps it shows are
-the real steps in the real order; only the clock is wrong. For a demo, seal one beforehand
-and show the finished pact.
+**Two things are honestly local.** Deepest floor and best haul cannot come from a chain —
+`settleRaid` records the ending and the coin carried, and there is no `floorReached`
+anywhere in the contract. They live in your browser under your address and the record page
+says so rather than dressing them up.
 
-**Raiders seeking coin** is the one list with no chain equivalent at all. A raider cannot
-announce that they want funding, because nothing in either contract lets them. The patron
-names the raider; the raider is never asked. We left the list rather than pretend it
-resolves to something on chain.
+**One limit worth naming.** The record page reads events in ten-thousand block windows
+from the ledger's first block. Today that is two calls. With a year of history it would
+want an indexer, and we would build one. For a testnet two days old, reading the chain
+directly is the honest answer and it keeps the promise that nothing sits between you and
+the record.
 
-Everything above those two lines can be checked on an explorer.
+Everything else can be checked on an explorer.
 
 ### What you can check without us
 
@@ -603,8 +684,9 @@ shows you is read from them at the moment you look.
 asked for, and the funding event itself. Call `stakes(1)` on the vault.
 
 **On Creditcoin CC3** — whether that pact sealed, the raider's standing, the bond it asks
-of them, how many times that pair have dealt, and how the raid settled. Call `pacts(1)` on
-the ledger.
+of them, how many times that pair have dealt, and how the raid settled. Call `pacts(1)` or
+`standingOf(0xCa053d3FBC1371557ecF34b08142E0E022E3257e)` on the ledger. That address
+should come back at **528, one raid, one repaid** — it walked out of pact 1.
 
 The browser fetches both and joins them in front of you. There is no database of ours in
 the middle, which means there is nothing of ours you have to trust. If our server vanished
@@ -753,17 +835,19 @@ deployment steps are still outstanding and why.
 
 ## The contracts
 
-Two contracts, one on each chain, and a worker between them. Both are deployed, and the
-game reads them live.
+Two contracts, one on each chain, and a worker between them. Both are deployed. The game
+reads them live and writes to the ledger when a raid ends.
 
 | | Chain | Address |
 | --- | --- | --- |
 | `PatronVault` | Ethereum Sepolia | [`0xcBB956Fa0358F53B9A83b78d6586a1fbB46fF64e`](https://sepolia.etherscan.io/address/0xcBB956Fa0358F53B9A83b78d6586a1fbB46fF64e) |
 | `TheLedger` | Creditcoin CC3 | [`0xe8608320bBEA393464f235ecBBBa8f820D7ecE10`](https://creditcoin-testnet.blockscout.com/address/0xe8608320bBEA393464f235ecBBBa8f820D7ecE10) |
 
-Pact 1 on that ledger was sealed from a real Sepolia payment, proved through Attestcoin.
-You can read it without our help: call `pacts(1)` on the ledger, or `stakes(1)` on the
-vault, and the two will agree.
+Pact 1 on that ledger was sealed from a real Sepolia payment, proved through Attestcoin,
+then really settled — bond posted, raid written down, standing moved to 528. You can read
+the whole thing without our help: call `pacts(1)` on the ledger, `stakes(1)` on the vault,
+and `standingOf(0xCa053d3FBC1371557ecF34b08142E0E022E3257e)` for what it did to a name.
+All three agree.
 
 **`PatronVault.sol`** sits on Ethereum and does one thing: hold a stake and shout
 `RaidFunded(raider, patron, pactId, coinsStaked, patronShare)`. It knows nothing about
@@ -792,6 +876,11 @@ It also holds the bond, which falls as you earn it:
 | 900 and up | nothing at all |
 
 Reputation is the only thing in this game worth real money.
+
+It holds that bond until the raid is settled, and then decides where it goes. Walk out and
+it comes back whole. Fall and it goes to the patron you cost — which is the only thing
+making a thrown raid cost the raider anything. The ledger will not settle a pact whose
+bond was never posted: try it and you get `NoBondPosted`.
 
 **The worker** watches the vault, waits for the block to be attested, asks the proof builder
 for a Merkle and continuity proof, and calls `execute` on the ledger.
@@ -837,8 +926,8 @@ does not answer.
 cost, what a patron would keep, whether this raider has ever repaid anyone — all of it is
 shown before the button, not after.
 
-**Say what is not real.** Two things in here are stand-ins and both are named on this page.
-We would rather tell you than have you find them.
+**Say what is not real.** One stand-in is left, two numbers are honestly local, and all
+three are named on this page. We would rather tell you than have you find them.
 
 ---
 
