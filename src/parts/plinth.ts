@@ -3,6 +3,8 @@ import type { RaiderClass } from '../types/raider'
 import { champions } from '../art/champions'
 import { gothicHall } from '../art/paths'
 import { drawChampion } from './marks'
+import { carveThePlinth } from '../art/plinthStage'
+import { doneWaitingOn, holdTheBootFor } from './theBoot'
 import { armourShifts } from '../sound/blows'
 import '../styles/plinth.css'
 
@@ -64,10 +66,18 @@ export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
     return Math.max(shortestChampion, Math.min(tallestChampion, Math.round(room)))
   }
 
+  let carved: ReturnType<typeof carveThePlinth> | null = null
+
   function paint(): void {
     const kit = champions[showing]
     name.textContent = kit.said
     line.textContent = kit.line
+
+    if (carved) {
+      carved.show(showing)
+      return
+    }
+
     figure.replaceChildren(drawChampion(showing, howTallHeMayStand()))
   }
 
@@ -91,6 +101,13 @@ export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
 
   paint()
 
+  holdTheBootFor('champions')
+
+  carved = carveThePlinth(stage, showing, () => {
+    figure.classList.add('plinth__figure--gone')
+    doneWaitingOn('champions')
+  })
+
   return {
     element: plinth,
 
@@ -107,6 +124,7 @@ export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
     },
 
     teardown(): void {
+      carved?.stop()
       watchTheStage.disconnect()
       listeners.clear()
       plinth.remove()
