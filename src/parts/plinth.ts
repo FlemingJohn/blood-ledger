@@ -2,16 +2,12 @@ import type { PlinthPart } from '../types/parts'
 import type { RaiderClass } from '../types/raider'
 import { champions } from '../art/champions'
 import { gothicHall } from '../art/paths'
-import { drawChampion } from './marks'
 import { carveThePlinth } from '../art/plinthStage'
 import { doneWaitingOn, holdTheBootFor } from './theBoot'
 import { armourShifts } from '../sound/blows'
 import '../styles/plinth.css'
 
 const everyClass: RaiderClass[] = ['warrior', 'knight', 'fighter']
-const shortestChampion = 132
-const tallestChampion = 248
-const roomBelowTheFeet = 34
 
 export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
   const plinth = document.createElement('div')
@@ -58,14 +54,6 @@ export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
   const listeners = new Set<(chosen: RaiderClass) => void>()
   let showing = startingClass
 
-  function howTallHeMayStand(): number {
-    const room = stage.clientHeight - roomBelowTheFeet
-    if (room <= 0) {
-      return shortestChampion
-    }
-    return Math.max(shortestChampion, Math.min(tallestChampion, Math.round(room)))
-  }
-
   let carved: ReturnType<typeof carveThePlinth> | null = null
 
   function paint(): void {
@@ -73,12 +61,7 @@ export function raiseThePlinth(startingClass: RaiderClass): PlinthPart {
     name.textContent = kit.said
     line.textContent = kit.line
 
-    if (carved) {
-      carved.show(showing)
-      return
-    }
-
-    figure.replaceChildren(drawChampion(showing, howTallHeMayStand()))
+    carved?.show(showing)
   }
 
   const watchTheStage = new ResizeObserver(() => paint())
