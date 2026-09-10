@@ -108,6 +108,24 @@ export function buildHall(order: HallOrder): Part {
   let sealing = false
   let chosenClass: RaiderClass = raider.chosenClass
 
+  function kindestOpenToYou(): Offer | null {
+    const reachable = offersHere.filter(
+      (offer) => !offer.claimed && gradeReaches(raider.standing.grade, offer.needsGrade)
+    )
+
+    if (reachable.length === 0) {
+      return null
+    }
+
+    return reachable.reduce((kindest, offer) =>
+      offer.patronShare < kindest.patronShare ? offer : kindest
+    )
+  }
+
+  function showWhatAPactWouldCost(): void {
+    pactSlip.showWhatItWouldCost(kindestOpenToYou(), raider.standing.score)
+  }
+
   function holdThePact(pact: Pact): void {
     heldPact = pact
     sealing = false
@@ -154,8 +172,11 @@ export function buildHall(order: HallOrder): Part {
       return
     }
 
-    board.addOffer(asAnOffer(answer.held.patron), 'offer--house')
+    const fromTheHouse = asAnOffer(answer.held.patron)
+    board.addOffer(fromTheHouse, 'offer--house')
+    offersHere.push(fromTheHouse)
     openToYou += 1
+    showWhatAPactWouldCost()
     tellTheSeats()
   })
 
@@ -170,6 +191,7 @@ export function buildHall(order: HallOrder): Part {
   hall.append(dressing.element, tally.element, body, foot, rite.element, profile.element)
 
   descent.showBarred(true)
+  showWhatAPactWouldCost()
   tellTheSeats()
   descent.whenPushed(() => {
     if (heldPact) {
