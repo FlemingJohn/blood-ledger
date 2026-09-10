@@ -127,3 +127,23 @@
 .reckoning__left .mark {
   color: var(--emberwood);
 }
+
+.reckoning__writing {
+  margin: var(--pause) 0 0;
+  padding: 10px 12px;
+  border: 1px solid var(--ruleDeep);
+  border-radius: 8px;
+  background: rgba(8, 3, 4, 0.6);
+  text-align: center;
+  font-family: var(--counted);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  line-height: 1.7;
+  color: var(--flare);
+}
+
+.reckoning__seen {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
