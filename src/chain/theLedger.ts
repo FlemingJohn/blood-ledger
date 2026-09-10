@@ -111,6 +111,11 @@ function progressAt(reached: number): SealingProgress {
   }
 }
 
+export function pactIdInside(offerId: string): number | null {
+  const found = /^pact-(\d+)$/.exec(offerId)
+  return found ? Number(found[1]) : null
+}
+
 export function sealPact(offer: Offer, watch: SealingWatcher): Promise<Pact> {
   return new Promise((settle) => {
     let reached = 0
@@ -121,6 +126,7 @@ export function sealPact(offer: Offer, watch: SealingWatcher): Promise<Pact> {
         watch(progressAt(everyStep.length))
         settle({
           offerId: offer.id,
+          pactId: pactIdInside(offer.id),
           patronAddress: offer.patronAddress,
           coinsStaked: offer.coinsStaked,
           patronShare: offer.patronShare,
