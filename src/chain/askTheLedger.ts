@@ -28,7 +28,8 @@ interface LedgerAnswers {
   openPactOf(raider: string): Promise<bigint>
   pactsBetween(patron: string, raider: string): Promise<bigint>
   earnedFromThisPair(patron: string, raider: string): Promise<bigint>
-  pacts(pactId: bigint): Promise<{
+  pacts(pactId: bigint | number): Promise<{
+    raider: string
     patron: string
     coinsStaked: bigint
     patronShare: bigint
@@ -142,6 +143,39 @@ export async function openPactFromTheChain(address: string): Promise<PactOnChain
   } catch {
     return null
   }
+}
+
+export interface FateOfAPact {
+  sealed: boolean
+  settled: boolean
+}
+
+const nobody = '0x0000000000000000000000000000000000000000'
+
+export async function whatBecameOfThese(pactIds: number[]): Promise<Map<number, FateOfAPact>> {
+  const fates = new Map<number, FateOfAPact>()
+  const ledger = await held()
+
+  if (!ledger) {
+    return fates
+  }
+
+  await Promise.all(
+    pactIds.map(async (pactId) => {
+      try {
+        const pact = await ledger.pacts(pactId)
+
+        fates.set(pactId, {
+          sealed: pact.raider !== nobody,
+          settled: pact.settled
+        })
+      } catch {
+        fates.set(pactId, { sealed: false, settled: false })
+      }
+    })
+  )
+
+  return fates
 }
 
 export interface HowOftenThisPair {
