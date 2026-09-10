@@ -1,3 +1,5 @@
+import type { Standing } from './raider'
+
 export type HowItStands = 'waiting on the witnesses' | 'open' | 'over' | 'taken back'
 
 export interface CoinPutUp {
@@ -13,4 +15,12 @@ export interface CoinPutUp {
 export interface TheBoard {
   inYourName: CoinPutUp[]
   below: CoinPutUp[]
+}
+
+export interface BeenDown {
+  address: string
+  standing: Standing
+  known: boolean
+  holdsAPact: boolean
+  note: string | null
 }
