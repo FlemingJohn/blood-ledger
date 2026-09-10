@@ -1,28 +1,43 @@
 .framed {
   position: relative;
+  border-radius: 10px;
   background:
-    linear-gradient(180deg, rgba(48, 16, 26, 0.94), rgba(20, 7, 12, 0.96));
-  border: 1px solid var(--rule);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-  clip-path: polygon(
-    7px 0,
-    calc(100% - 7px) 0,
-    100% 7px,
-    100% calc(100% - 7px),
-    calc(100% - 7px) 100%,
-    7px 100%,
-    0 calc(100% - 7px),
-    0 7px
-  );
+    linear-gradient(180deg, rgba(34, 10, 18, 0.82), rgba(12, 4, 8, 0.9));
+  border: 1px solid rgba(96, 1, 16, 0.55);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 138, 120, 0.07),
+    inset 0 0 34px rgba(96, 1, 16, 0.16),
+    0 10px 26px rgba(0, 0, 0, 0.55);
+}
+
+.framed::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(180deg, rgba(214, 21, 78, 0.3), transparent 46%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
 }
 
 .framed--sunk {
   background:
-    linear-gradient(180deg, rgba(14, 5, 9, 0.96), rgba(24, 9, 14, 0.94));
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.7);
+    linear-gradient(180deg, rgba(8, 2, 5, 0.9), rgba(18, 6, 11, 0.86));
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.75),
+    inset 0 0 26px rgba(96, 1, 16, 0.1);
 }
 
 .framed--lit {
-  border-color: var(--gold);
-  box-shadow: 0 0 22px rgba(201, 162, 39, 0.16), 0 6px 18px rgba(0, 0, 0, 0.4);
+  border-color: rgba(201, 162, 39, 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 214, 140, 0.12),
+    inset 0 0 34px rgba(201, 162, 39, 0.1),
+    0 0 26px rgba(201, 162, 39, 0.14),
+    0 10px 26px rgba(0, 0, 0, 0.55);
 }
