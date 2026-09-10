@@ -32,6 +32,7 @@ export interface OfferCardPart extends Part {
 
 export interface DescentPart extends Part {
   showBarred(barred: boolean): void
+  sayWhatIsHappening(said: string | null, holding: boolean): void
   whenPushed(listener: () => void): void
 }
 
