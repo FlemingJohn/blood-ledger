@@ -2,9 +2,12 @@ import type { Part } from '../types/parts'
 import type { StakeYouMade, WhatYouOffer } from '../types/patron'
 import { lookUpStake, mostAPatronMayKeep, vaultIsDeployed } from '../chain/patronVault'
 import { shortAddress } from '../chain/addresses'
+import { readTheRaider } from './whoIsThis'
 import { drawMark } from './marks'
 import '../styles/door.css'
 import '../styles/patron.css'
+
+const waitBeforeAsking = 420
 
 export interface StakeSlipPart extends Part {
   whenOffered(listener: (offer: WhatYouOffer) => void): void
@@ -15,7 +18,7 @@ export interface StakeSlipPart extends Part {
   addStake(stake: StakeYouMade): void
 }
 
-export function fillOutAStake(): StakeSlipPart {
+export function fillOutAStake(patronAddress: string): StakeSlipPart {
   const slip = document.createElement('form')
   slip.className = 'stake framed'
 
@@ -41,6 +44,23 @@ export function fillOutAStake(): StakeSlipPart {
   raider.placeholder = '0x…'
   raider.spellcheck = false
   raider.required = true
+
+  const record = readTheRaider()
+
+  let waiting = 0
+
+  function askTheLedgerAbout(address: string): void {
+    window.clearTimeout(waiting)
+
+    if (address.trim() === '') {
+      record.clear()
+      return
+    }
+
+    waiting = window.setTimeout(() => record.lookUp(address, patronAddress), waitBeforeAsking)
+  }
+
+  raider.addEventListener('input', () => askTheLedgerAbout(raider.value))
 
   const coins = document.createElement('input')
   coins.type = 'text'
@@ -100,6 +120,7 @@ export function fillOutAStake(): StakeSlipPart {
 
   slip.append(
     field('Raider', 'the address going down', raider),
+    record.element,
     field('Stake', `${'ETH'} on Sepolia`, coins),
     field('You keep', 'of whatever they carry out', shareRow),
     offerButton,
@@ -154,6 +175,7 @@ export function fillOutAStake(): StakeSlipPart {
     fillFor(raiderAddress: string): void {
       raider.value = raiderAddress
       raider.focus()
+      askTheLedgerAbout(raiderAddress)
     },
 
     showTrouble(said: string | null): void {
@@ -190,7 +212,9 @@ export function fillOutAStake(): StakeSlipPart {
     },
 
     teardown(): void {
+      window.clearTimeout(waiting)
       listeners.clear()
+      record.teardown()
       slip.remove()
     }
   }
