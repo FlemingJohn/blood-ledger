@@ -23,6 +23,7 @@ import { askTheHouse, askTheHouseToBackYou, theHouseAnswered } from '../chain/ho
 import { asAnOffer, houseOfferId } from '../chain/houseOffer'
 import { rememberTheClass, takeTheChainsWord } from '../chain/whatYouHaveDone'
 import { bondFromTheChain, openPactFromTheChain, standingFromTheChain } from '../chain/askTheLedger'
+import { lockUpYourBond, theLedgerTakesWrites } from '../chain/tellTheLedger'
 import { readProfile } from '../chain/profiles'
 import { pactSeals, stairOpens, waxPressed } from '../sound/blows'
 import { everyPieceOfHallArt } from '../art/paths'
@@ -228,11 +229,39 @@ export function buildHall(order: HallOrder): Part {
   descent.showBarred(true)
   showWhatAPactWouldCost()
   tellTheSeats()
+  let lockingUp = false
+
   descent.whenPushed(() => {
-    if (heldPact) {
-      stairOpens()
-      order.whenDescending(heldPact, chosenClass)
+    if (!heldPact || lockingUp) {
+      return
     }
+
+    const going = heldPact
+
+    if (going.pactId === null || !theLedgerTakesWrites) {
+      stairOpens()
+      order.whenDescending(going, chosenClass)
+      return
+    }
+
+    lockingUp = true
+    descent.sayWhatIsHappening('Your purse is being asked for the bond.', true)
+
+    void lockUpYourBond(going.pactId)
+      .then((locked) => {
+        descent.sayWhatIsHappening(
+          locked
+            ? `${locked.locked} tCTC locked up. Walk out and it comes back.`
+            : 'Your name is bond enough. Nothing to lock up.',
+          false
+        )
+        stairOpens()
+        order.whenDescending(going, chosenClass)
+      })
+      .catch((trouble: Error) => {
+        lockingUp = false
+        descent.sayWhatIsHappening(`The bond did not go down — ${trouble.message}`, false)
+      })
   })
 
   plinth.whenClassChanged((chosen) => {
@@ -243,7 +272,7 @@ export function buildHall(order: HallOrder): Part {
   })
 
   void standingFromTheChain(order.address).then((told) => {
-    if (!told || !told.known) {
+    if (!told) {
       return
     }
 
@@ -267,6 +296,7 @@ export function buildHall(order: HallOrder): Part {
 
     holdThePact({
       offerId: `pact-${standing.pactId}`,
+      pactId: standing.pactId,
       patronAddress: standing.patronAddress,
       coinsStaked: standing.coinsStaked,
       patronShare: standing.patronShare,
