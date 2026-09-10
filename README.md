@@ -43,25 +43,36 @@ two switches for the fighting and the music, remembered on your machine.
 ### Two. The hall of patrons
 
 <p align="center">
-  <img src="docs/shots/hall.png" alt="The header reading live Attestcoin heights, six offers on the board, your raider on the plinth" width="100%">
+  <img src="docs/shots/hall.png" alt="The header reading live Attestcoin heights, the board on the left, your raider on the plinth" width="100%">
 </p>
 
 Where you take on debt. Six bays across the top: your face and standing, what the
 underwriter thinks of you, what the witnesses have agreed, which side you are playing, and
 your purse.
 
-**That header is live.** The underwriter has read this raider and will lend 827 at 26
-percent. The witnesses have reached Sepolia block 11,660,240 and sit 38 blocks behind, so a
-payment made right now proves in about eight minutes.
+**That header is live.** Your standing, your grade and your bond are read from the ledger
+deployed on Creditcoin — not from anything this page invented. The witnesses have reached
+Sepolia block 11,660,240 and sit 38 blocks behind, so a payment made right now proves in
+about eight minutes.
 
-The board holds every offer open to you, greyed out where your standing is too low. Your
-raider stands in the hall itself and turns while you pick between Warrior, Knight and
+**So is the board.** It is not a list we wrote. The page walks the vault on Ethereum for
+every stake ever made, asks Creditcoin what became of each one, and shows you the ones
+pointed at your address. There is no such thing as an unclaimed offer in this protocol: a
+patron names the raider in the same breath as they pay. So the board does not say *here are
+some strangers with money.* It says **someone put up coin in your name** — and if nobody
+has, it says that too, and points you at the House.
+
+Your raider stands in the hall itself and turns while you pick between Warrior, Knight and
 Fighter — three real models, lit by the braziers behind them.
 
 The rail on the right reads before you commit as well as after. With no pact it shows what
 the kindest offer open to you would lend, what they would keep, and the bond you would have
-to lock up. Below it the two powers that class brings. Take an offer and the sealing rite
-runs its four steps. Only then does the stair unbar.
+to lock up. Below it the two powers that class brings.
+
+Along the bottom runs **what is happening below** — every stake anyone has made, most
+recent first, with where it stands: *waiting on the witnesses*, *open*, *over*, or *taken
+back*. Four states, each one worked out from the two contracts. Nothing on that strip was
+typed by us.
 
 ---
 
@@ -75,8 +86,35 @@ The same game from the other side. Switch to Patron in the header and your purse
 Sepolia, because that is where the money is.
 
 On the left you write a stake: whose address is going down, how much, and what share you
-keep of whatever they carry out. On the right, every raider who wants coin, with their
-record laid out plainly and the awkward parts said out loud:
+keep of whatever they carry out.
+
+**Type an address and the ledger answers.** Stop typing, and a moment later a card appears
+under the field holding what Creditcoin actually knows about that person — their title,
+their score, how many raids, how many repaid, how many lost. Four things it will tell you
+that no amount of staring at an address would:
+
+> **Nobody by that name.** Has never been down. No record, no standing. You would be the
+> first to trust them.
+
+> **Already holds a pact from 0x505B…f3ab.** They must settle it before another.
+
+> **You have backed this raider 1 time.** Another earns them 3 standing instead of 28.
+
+> **That is you.** You cannot put up coin for yourself.
+
+That third one is the anti-farming rule showing its face before you spend rather than
+after. The ledger halves what a raider earns each time the same patron backs them again,
+and stops paying out entirely after five. The page reads that number off the chain and
+tells you what your next stake would actually be worth to them.
+
+**Then it asks before the money moves.** Pressing *Put Up The Coin* opens a slab first: who
+they are, what you lend, what you keep, and the line that matters — *if they fall, your
+coin is gone. All of it.* It keeps reading the ledger while it sits there, so the title and
+the repeat warning fill in live. Escape or *Keep it* backs out. Nothing reaches your wallet
+until you press the second button.
+
+On the right, every raider who wants coin, with their record laid out plainly and the
+awkward parts said out loud:
 
 > has lost three patrons and repaid one
 >
@@ -231,6 +269,30 @@ contract that happens to shout a similar thing, prove it, and get a free pact.
 | Reading the payment out of the proof | `contracts/sol/TheLedger.sol:267` |
 | The one vault it will believe | `contracts/sol/TheLedger.sol:126` |
 
+### The third question, asked back in the browser
+
+Once the ledger has sealed a pact, everything it learned is public and the game reads it
+back. No indexer, no database, no server of ours in between — the browser asks the two
+contracts directly and joins the answers.
+
+| What the page asks | Which chain | Where |
+| --- | --- | --- |
+| What is this raider's standing | Creditcoin | `src/chain/askTheLedger.ts:70` |
+| What bond must they lock up | Creditcoin | `src/chain/askTheLedger.ts:97` |
+| Do they already hold a pact | Creditcoin | `src/chain/askTheLedger.ts:120` |
+| What became of these pacts | Creditcoin | `src/chain/askTheLedger.ts:155` |
+| How often has this pair dealt | Creditcoin | `src/chain/askTheLedger.ts:186` |
+| Every stake ever made | Ethereum | `src/chain/coinPutUp.ts:60` |
+| The two joined into one board | both | `src/chain/whatIsOnTheBoard.ts:13` |
+
+The board is the clearest case. One read goes to Sepolia for the money, one goes to
+Creditcoin for what happened to it, and the row you see is the two answers put together.
+A stake that has left Ethereum but not yet cleared the witnesses shows as **waiting on the
+witnesses** — which is Attestcoin's nine minute agreement window, rendered as a line of
+text in a game.
+
+Every number on that page can be checked on either explorer. We would rather you did.
+
 ### One thing we will say plainly
 
 Attestcoin can prove things **to** Creditcoin today, but not back the other way. So coin
@@ -322,22 +384,67 @@ stake. Standing moves by **+28** for clearing your debt, **−12** for walking o
 
 ## The underwriter, and what the model is allowed to do
 
-There is a language model in here, and it decides nothing.
+There is a language model in here, and it decides nothing. It is the voice, never the
+judgement.
+
+**The Underwriter** is a lender who reads a raider and says yes or no. Two separate things
+happen when it does.
+
+**First, arithmetic decides.** `judge()` in `src/chain/underwriting.ts` is plain rules with
+no model anywhere near them. It counts eight things that should worry a lender — never been
+down, never repaid anyone, lost more than repaid, standing under the floor, only ever
+funded by one purse, funded by a wallet made the same day, money that went in a circle, a
+pair that has already dealt five times.
+
+Four of those refuse outright. The rest feed a sum that weighs the repayment record at half
+and standing at three tenths, subtracts a little for a raider who goes deep or spreads
+their patrons, and adds seven points for every flag raised. Out of that comes one number
+between 0.02 and 0.98: the risk of default. Above 0.62 the answer is no. Below it, the
+share the patron keeps is priced straight off the risk — twenty percent plus seventy times
+it — and what the Underwriter will lend is the ceiling times the trust left over.
+
+Run the same raider through it twice and you get the same answer twice. It is a
+calculation, not an opinion.
+
+**Then the model writes it up.** `putItInWords()` in `underwriter/explain.ts` is handed a
+decision that has already been made and asked for two sentences: one spoken to the raider,
+one line for the board. That is the model's entire job.
+
+What it is given, and nothing more:
+
+| It sees | It never sees |
+| --- | --- |
+| A fantasy handle — *Ashfoot*, *Bonewright* | The wallet address |
+| Standing, grade, raids, repaid, lost | Any balance |
+| The verdict and terms, already fixed | Any key, or the `.env` |
+| The reasons the rules gave | Any other player's data |
+
+`handleFor()` swaps `0x7a3f…` for a name before anything leaves the machine. The system
+prompt tells it plainly that it is not being consulted, must never argue with the decision
+or suggest different terms, must invent no numbers, and must never invite anyone to follow
+a link or send anything anywhere. The answer comes back through a strict JSON schema with
+hard length caps.
+
+**Then we check its work.** An answer is thrown away if it is empty, too long, stops
+mid-sentence, or contains a link, an at-sign, or anything shaped like an address.
+`scrubbed()` makes a final pass and replaces any address or hash that survived. If the
+model is thrown away — or there is no API key, or the call takes longer than twelve
+seconds, or the endpoint errors — `ourOwnWords()` writes the sentence instead and the game
+carries on. Every path ends in a sentence, and a `camefrom` field records which one wrote
+it.
+
+The worst thing a compromised model can do here is get its prose thrown away.
 
 | | |
 | --- | --- |
 | `src/chain/underwriting.ts` | `judge()` — the decision. Plain rules. No model. |
 | `underwriter/masking.ts` | `handleFor()` — `0x7a3f…` becomes *Ashfoot* before anything leaves |
+| `underwriter/schema.ts` | `howToBehave` — what it may and may not do |
 | `underwriter/explain.ts` | `putItInWords()` — the model writes the reason, and nothing else |
+| `underwriter/explain.ts` | `willNotUse()` — what comes back is checked before it is shown |
 | `underwriter/masking.ts` | `scrubbed()` — a last pass on the way out |
 
-The rules work out the risk of default and what they will lend. Only then is a model handed
-a decision that has already been made, along with a fantasy handle, and asked to write two
-sentences of prose about it. It never sees an address, a balance or a key.
-
-If there is no API key, or the answer comes back malformed, or it takes longer than twelve
-seconds, the game uses hand written words instead and nothing breaks. There are tests for
-what it refuses to print.
+`tests/underwriter.test.mjs` covers what it refuses to print.
 
 ```
 npm run underwriter
@@ -355,14 +462,29 @@ We would rather say this ourselves than have it found.
 | Floors seeded from an attested block | **Live** |
 | The dungeon, start to finish | **Playable** |
 | The landing hero and the three champions | **Live**, real models |
-| `PatronVault` and `TheLedger` | **Written, compiling, 16 tests passing.** Not deployed |
-| The patron board, standing, ledger feed | **Stand-in data**, and the page says so on its face |
-| The four step sealing rite | **A rehearsal clock**, not real block times |
-| The house purse and house patron | **Written and running.** Waiting on faucet coin |
+| `PatronVault` on Sepolia | **Deployed.** `0xcBB956Fa0358F53B9A83b78d6586a1fbB46fF64e` |
+| `TheLedger` on Creditcoin | **Deployed**, holding two real sealed pacts |
+| Standing, grade and bond in the header | **Read from Creditcoin** |
+| The board, and coin put up in your name | **Read from both chains and joined** |
+| What is happening below | **Read from both chains and joined** |
+| Reading a raider before you back them | **Read from Creditcoin**, live as you type |
+| The house purse and house patron | **Running**, staking real coin on Sepolia |
+| The four step sealing rite | **A stand-in clock.** Real sealing takes about nine minutes |
+| Raiders seeking coin, on the patron page | **Stand-in.** A raider never registers interest on chain |
 
-`contractsAreLive` in `src/chain/theLedger.ts` is the one switch. Swapping that file for
-real reads is the only change the pages need. Deployment is blocked on faucet coin, not on
-code.
+Two things on that list are still stand-ins, and both for the same honest reason.
+
+**The sealing rite** shows four steps in about seven seconds. Really sealing a pact means
+waiting for the witnesses to agree, which takes about nine minutes. The steps it shows are
+the real steps in the real order; only the clock is wrong. For a demo, seal one beforehand
+and show the finished pact.
+
+**Raiders seeking coin** is the one list with no chain equivalent at all. A raider cannot
+announce that they want funding, because nothing in either contract lets them. The patron
+names the raider; the raider is never asked. We left the list rather than pretend it
+resolves to something on chain.
+
+Everything above those two lines can be checked on an explorer.
 
 ---
 
@@ -399,11 +521,12 @@ npm install
 npm run dev
 ```
 
-Press the door. Watch the witness bay count real Attestcoin heights. Take a pact from the
-board and go down.
+Press the door. Watch the witness bay count real Attestcoin heights, and the board read
+both chains for coin put up in your name.
 
-Want a wallet with something in it? Open the house and it will fill an empty one from
-inside the game, so nobody has to leave for a faucet:
+A fresh wallet has nobody backing it, so the board will say so. Open the house and it will
+both fill an empty purse and put up real coin for you, from inside the game, so nobody has
+to leave for a faucet:
 
 ```
 npm run house
@@ -485,7 +608,17 @@ deployment steps are still outstanding and why.
 
 ## The contracts
 
-Two contracts, one on each chain, and a worker between them.
+Two contracts, one on each chain, and a worker between them. Both are deployed, and the
+game reads them live.
+
+| | Chain | Address |
+| --- | --- | --- |
+| `PatronVault` | Ethereum Sepolia | [`0xcBB956Fa0358F53B9A83b78d6586a1fbB46fF64e`](https://sepolia.etherscan.io/address/0xcBB956Fa0358F53B9A83b78d6586a1fbB46fF64e) |
+| `TheLedger` | Creditcoin CC3 | [`0xe8608320bBEA393464f235ecBBBa8f820D7ecE10`](https://creditcoin-testnet.blockscout.com/address/0xe8608320bBEA393464f235ecBBBa8f820D7ecE10) |
+
+Pact 1 on that ledger was sealed from a real Sepolia payment, proved through Attestcoin.
+You can read it without our help: call `pacts(1)` on the ledger, or `stakes(1)` on the
+vault, and the two will agree.
 
 **`PatronVault.sol`** sits on Ethereum and does one thing: hold a stake and shout
 `RaidFunded(raider, patron, pactId, coinsStaked, patronShare)`. It knows nothing about
