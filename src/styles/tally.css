@@ -73,27 +73,23 @@
 
 .bust {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   width: 70px;
   height: 70px;
-  border: 1px solid var(--rule);
-  background: radial-gradient(120% 100% at 50% 30%, #2a0c14, #0d0407);
-  clip-path: polygon(
-    9px 0,
-    calc(100% - 9px) 0,
-    100% 9px,
-    100% calc(100% - 9px),
-    calc(100% - 9px) 100%,
-    9px 100%,
-    0 calc(100% - 9px),
-    0 9px
-  );
+  overflow: hidden;
+  border-radius: 9px;
+  border: 1px solid rgba(96, 1, 16, 0.55);
+  background: radial-gradient(120% 100% at 50% 24%, #2a0c14, #0a0307);
   transition: border-color 160ms ease;
 }
 
 .bust__face {
   display: block;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  object-position: center 12%;
 }
 
 .tally__bay--face:hover .bust,
