@@ -19,6 +19,11 @@ export const redSmoke = `${artRoot}/landing/smoke.webp`
 export const carvedSkull = `${artRoot}/landing/skull.glb`
 export const fieryLogo = `${artRoot}/landing/logo.glb`
 export const gothicHall = `${artRoot}/hall/room.webp`
+export const champions3d = {
+  warrior: `${artRoot}/champions/warrior.glb`,
+  knight: `${artRoot}/champions/knight.glb`,
+  fighter: `${artRoot}/champions/fighter.glb`
+}
 export const scatteredBones = `${artRoot}/scatter/bones.png`
 export const scatteredRocks = `${artRoot}/scatter/rocks.png`
 
