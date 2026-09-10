@@ -51,8 +51,18 @@
   display: grid;
   grid-template-columns: 46px minmax(0, 1fr) 46px;
   align-items: center;
-  min-width: 268px;
-  padding: 9px 6px;
+  min-width: 300px;
+  padding: 11px 10px;
+  border-color: rgba(201, 162, 39, 0.42);
+  background:
+    linear-gradient(180deg, rgba(44, 14, 22, 0.88), rgba(14, 4, 9, 0.92));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 214, 140, 0.12),
+    0 8px 22px rgba(0, 0, 0, 0.6);
+}
+
+.plinth__chooser::before {
+  background: linear-gradient(180deg, rgba(201, 162, 39, 0.34), transparent 52%);
 }
 
 .plinth__name {
@@ -63,7 +73,8 @@
   font-weight: 700;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: var(--bone);
+  color: #f4e6d8;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.8);
 }
 
 .plinth__step {
