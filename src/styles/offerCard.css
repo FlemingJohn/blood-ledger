@@ -190,3 +190,12 @@
   text-transform: uppercase;
   font-size: 0.62rem;
 }
+
+.offer--named {
+  border-color: rgba(214, 21, 78, 0.55);
+  box-shadow: inset 3px 0 0 var(--blood);
+}
+
+.offer--named .offer__who {
+  color: var(--flare);
+}
