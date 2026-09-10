@@ -24,7 +24,7 @@ import { asAnOffer, houseOfferId } from '../chain/houseOffer'
 import { rememberTheClass, takeTheChainsWord } from '../chain/whatYouHaveDone'
 import { bondFromTheChain, openPactFromTheChain, standingFromTheChain } from '../chain/askTheLedger'
 import { lockUpYourBond, theLedgerTakesWrites } from '../chain/tellTheLedger'
-import { readProfile } from '../chain/profiles'
+import { readProfile, readProfileFromTheChain } from '../chain/profiles'
 import { pactSeals, stairOpens, waxPressed } from '../sound/blows'
 import { everyPieceOfHallArt } from '../art/paths'
 import { loadWhatYouCan } from '../art/pictures'
@@ -107,7 +107,14 @@ export function buildHall(order: HallOrder): Part {
   const asking = askBeforeYouSign()
   const profile = openTheProfile()
 
-  tally.whenNameAsked(() => profile.showProfile(readProfile(order.address)))
+  tally.whenNameAsked(() => {
+    profile.showProfile(readProfile(order.address))
+    void readProfileFromTheChain(order.address).then((told) => {
+      if (told) {
+        profile.showProfile(told)
+      }
+    })
+  })
 
   let heldPact: Pact | null = null
   let sealing = false
