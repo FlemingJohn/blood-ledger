@@ -20,7 +20,8 @@ import { gradeReaches, readLedger, readOffers, readRaider, sealPact } from '../c
 import { readSeekers } from '../chain/seekers'
 import { askTheHouse, askTheHouseToBackYou, theHouseAnswered } from '../chain/house'
 import { asAnOffer, houseOfferId } from '../chain/houseOffer'
-import { rememberTheClass } from '../chain/whatYouHaveDone'
+import { rememberTheClass, takeTheChainsWord } from '../chain/whatYouHaveDone'
+import { bondFromTheChain, openPactFromTheChain, standingFromTheChain } from '../chain/askTheLedger'
 import { readProfile } from '../chain/profiles'
 import { pactSeals, stairOpens, waxPressed } from '../sound/blows'
 import { everyPieceOfHallArt } from '../art/paths'
@@ -218,6 +219,38 @@ export function buildHall(order: HallOrder): Part {
     rememberTheClass(order.address, chosen)
     powers.showClass(chosen)
     tally.showClass(chosen)
+  })
+
+  void standingFromTheChain(order.address).then((told) => {
+    if (!told || !told.known) {
+      return
+    }
+
+    takeTheChainsWord(order.address, told.standing)
+    tally.showStanding(told.standing)
+    bond.showStanding(told.standing)
+    showWhatAPactWouldCost()
+  })
+
+  void bondFromTheChain(order.address).then((owed) => {
+    if (owed === null) {
+      return
+    }
+    bond.showOwed(owed)
+  })
+
+  void openPactFromTheChain(order.address).then((standing) => {
+    if (!standing || standing.settled || heldPact) {
+      return
+    }
+
+    holdThePact({
+      offerId: `pact-${standing.pactId}`,
+      patronAddress: standing.patronAddress,
+      coinsStaked: standing.coinsStaked,
+      patronShare: standing.patronShare,
+      sealedAt: Date.now()
+    })
   })
 
   void loadWhatYouCan(everyPieceOfHallArt)
