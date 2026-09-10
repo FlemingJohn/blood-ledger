@@ -14,6 +14,10 @@ export const gauntlets = {
   patron: `${artRoot}/ui/pointer-blue.png`
 }
 export const sleepingWatcher = `${artRoot}/watcher/idle.png`
+export const hoodedSkull = `${artRoot}/landing/hero.webp`
+export const redSmoke = `${artRoot}/landing/smoke.webp`
+export const carvedSkull = `${artRoot}/landing/skull.glb`
+export const fieryLogo = `${artRoot}/landing/logo.glb`
 export const scatteredBones = `${artRoot}/scatter/bones.png`
 export const scatteredRocks = `${artRoot}/scatter/rocks.png`
 
@@ -30,7 +34,8 @@ export const everyPieceOfArt = [
   stoneFloor,
   darkenedEdges,
   ...Object.values(gauntlets),
-  sleepingWatcher,
+  hoodedSkull,
+  redSmoke,
   scatteredBones,
   scatteredRocks,
   ...bladeSweep
