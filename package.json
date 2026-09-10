@@ -2,6 +2,7 @@
   "name": "blood-ledger",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "gather-art": "node scripts/gather-art.mjs",
