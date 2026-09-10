@@ -1,5 +1,6 @@
 import type { RaidEnding } from '../types/raid'
 import { homeRealm } from './realms'
+import { weiFromCoins } from './coinRate'
 
 const ledgerLivesAt = import.meta.env.VITE_THE_LEDGER_ADDRESS ?? ''
 
@@ -95,7 +96,7 @@ export async function writeTheRaidToTheChain(
   const sent = await ledger.settleRaid(
     pactId,
     ending === 'walked out' ? walkedOut : fell,
-    BigInt(Math.max(0, Math.round(coinsCarried)))
+    weiFromCoins(coinsCarried)
   )
 
   await sent.wait()
