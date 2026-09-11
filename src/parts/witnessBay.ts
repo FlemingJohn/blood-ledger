@@ -12,7 +12,7 @@ export interface WitnessBayPart extends Part {
 
 export function watchTheWitnesses(): WitnessBayPart {
   const bay = document.createElement('div')
-  bay.className = 'tally__bay bay--reading'
+  bay.className = 'tally__bay bay--reading bay--witnesses'
 
   const label = document.createElement('p')
   label.className = 'bay__label'
