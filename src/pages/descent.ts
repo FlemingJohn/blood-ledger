@@ -163,6 +163,9 @@ export function buildDescent(order: DescentOrder): Part {
   let wasRunningBeforeTheTour = false
 
   function holdTheWorld(): void {
+    if (!running) {
+      return
+    }
     wasRunningBeforeTheTour = running
     running = false
   }
@@ -185,6 +188,7 @@ export function buildDescent(order: DescentOrder): Part {
   asking.whenWaved(() => {
     showingTheWay = false
     markAsShown(order.address, 'the dungeon')
+    letTheWorldGo()
   })
 
   function showTheArrival(): void {
@@ -403,6 +407,7 @@ export function buildDescent(order: DescentOrder): Part {
     pressure.showFloor(world.floor)
 
     if (!haveYouSeen(order.address, 'the dungeon')) {
+      holdTheWorld()
       asking.ask('First time down here?')
     }
     stair.done()
