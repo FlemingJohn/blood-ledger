@@ -19,6 +19,7 @@ import { powersFor } from '../dungeon/powers'
 import { reckonTheRaid } from '../chain/settling'
 import {
   lookUpOnCreditcoin,
+  plainly,
   theLedgerTakesWrites,
   writeTheRaidToTheChain
 } from '../chain/tellTheLedger'
@@ -187,9 +188,9 @@ export function buildDescent(order: DescentOrder): Part {
           false
         )
       })
-      .catch((trouble: Error) => {
+      .catch((trouble: unknown) => {
         reckoning.showWriting(
-          `The chain did not take it — ${trouble.message}. Your standing has not moved.`,
+          `The chain did not take it — ${plainly(trouble)}. Your standing has not moved.`,
           null,
           false
         )
