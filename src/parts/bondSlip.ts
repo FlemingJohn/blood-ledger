@@ -14,7 +14,7 @@ export function showTheBond(first: Standing): BondPart {
   let standing = first
 
   const block = document.createElement('section')
-  block.className = 'rail__block framed'
+  block.className = 'rail__block rail__block--bond framed'
 
   const label = document.createElement('p')
   label.className = 'panel__label'
