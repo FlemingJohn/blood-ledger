@@ -7,4 +7,5 @@ Screenshot*.png
 contracts/out
 .env
 worker/.env
+vercel.env
 contracts/cache

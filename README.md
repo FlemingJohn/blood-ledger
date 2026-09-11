@@ -424,22 +424,47 @@ Here is that happening, on the live testnet:
 
 ```
 BEFORE   score 500  raids 0  repaid 0  lost 0
-         open pact 1   bond down 0.0   purse 9999.6985
+         bond asked 0.06   purse 1.0
+         most that can come out 1.0
 
-1. postBond(1) with 0.06 tCTC     0xf094c959…8f54
-2. settleRaid(1, walked out)      0x31545a98…a560   block 5464552
+1. postBond(3) with 0.06 tCTC     0x40050f4c…86c5
+2. settleRaid(3, walked out)      0x53482ca5…8459   block 5469732
 
 AFTER    score 528  raids 1  repaid 1  lost 0
-         open pact 0   bond down 0.0   purse 9999.6984
+         open pact 0   bond down 0.0   purse 0.999836585
 ```
 
 **+28 for clearing the debt.** The pact closed, the raider was freed to take another, and
 the 0.06 bond went out and came back — the purse only lost gas. That settlement is
-[`0x31545a98…a560`](https://creditcoin-testnet.blockscout.com/tx/0x31545a9805a36359537ecb8b615335c47e112e19beb6653a60b5258be2e1a560)
+[`0x53482ca5…8459`](https://creditcoin-testnet.blockscout.com/tx/0x53482ca5c60adadf4ded3f7f155f6de79338f45dffda3b81a470535e89b88459)
 and it is also the event the record page reads back.
 
 The order is enforced by the contract, not by us. Try to settle without the bond and it
 reverts with `NoBondPosted`.
+
+### And here is the ledger refusing one
+
+The haul is reported by the raider's own browser, so the contract bounds what it will
+accept. Pact 4 was sealed and bonded exactly like the one above, then asked to record one
+wei more than its ceiling allows:
+
+```
+ceiling  1.0 tCTC (1000000000000000000 wei)
+claimed  1000000000000000001 wei
+
+tx      0x19d2b34a…c77d   block 5469923   status 0
+
+MoreThanTheDungeonHolds(pactId 4,
+                        claimed 1000000000000000001,
+                        most    1000000000000000000)
+```
+
+One wei under and it settles: carried 1.0, patron takes 0.4, raider keeps 0.6, debt
+cleared, standing 500 to 528. The boundary is exactly where `TheLedger.sol` says it is, and
+you can check it from both sides without asking us.
+
+The refusal costs the raider nothing but gas. Pact 4 is still open, still unsettled, and
+its 0.06 bond is still held — a rejected settlement strands nothing.
 
 | | Where |
 | --- | --- |
@@ -643,7 +668,7 @@ We would rather say this ourselves than have it found.
 | The dungeon, start to finish | **Playable** |
 | The landing hero and the three champions | **Live**, real models |
 | `PatronVault` on Sepolia | **Deployed.** `0xcBB956Fa0358F53B9A83b78d6586a1fbB46fF64e` |
-| `TheLedger` on Creditcoin | **Deployed**, holding two real sealed pacts |
+| `TheLedger` on Creditcoin | **Deployed.** `0xBd02a6a9f452217dE9d67B945CB995a6991D1cDD`, holding three real sealed pacts |
 | Standing, grade and bond in the header | **Read from Creditcoin** |
 | The board, and coin put up in your name | **Read from both chains and joined** |
 | What is happening below | **Read from both chains and joined** |
@@ -653,7 +678,7 @@ We would rather say this ourselves than have it found.
 | Settling a raid, and moving your standing | **Written to Creditcoin** by your own wallet |
 | Your record — coin kept, backed, returned, profit, deeds | **Read from Creditcoin events** |
 | The house purse and house patron | **Running**, staking real coin on Sepolia |
-| The coin you carried out | **Reported by your browser, bounded by the contract.** Not proved — see below |
+| The coin you carried out | **Reported by your browser, bounded by the contract.** Not proved — see below. The bound has been refused on chain: `0x19d2b34a…c77d` |
 | Deepest floor and best haul | **Your browser only.** The contract has no field for a floor |
 | Your coin balance and chosen class | **Game state**, never chain state |
 | The four step sealing rite | **A stand-in clock.** Real sealing takes about nine minutes |
@@ -671,7 +696,9 @@ section than leave it for somebody to find.
 What the ledger does about it is refuse an impossible one. `settleRaid` will not accept a
 haul above a hundred times the stake, and never below 100,000 coins whichever is larger, so
 no settlement and no line on the record page can hold a number the dungeon could not have
-produced. Call `mostThatCanComeOutOf(pactId)` and it will tell you the ceiling that applied.
+produced. Call `mostThatCanComeOutOf(pactId)` and it will tell you the ceiling that applied,
+and [`0x19d2b34a…c77d`](https://creditcoin-testnet.blockscout.com/tx/0x19d2b34ad5f11ca136cfb4c2fb4c50e70a35e6cca7875cdb6dc3c048762fc77d)
+is the ledger refusing one, on chain, one wei over the line.
 
 That bounds the lie; it does not end it. Clearing a debt needs only the stake itself, so a
 raider willing to lie can still claim a raid they did not run. What stops that being worth
@@ -705,12 +732,26 @@ You do not have to believe any of this. Both contracts are public, and everythin
 shows you is read from them at the moment you look.
 
 **On Ethereum Sepolia** — who paid, how much, which raider they named, what share they
-asked for, and the funding event itself. Call `stakes(1)` on the vault.
+asked for, and the funding event itself. Call `stakes(3)` on the vault.
 
 **On Creditcoin CC3** — whether that pact sealed, the raider's standing, the bond it asks
-of them, how many times that pair have dealt, and how the raid settled. Call `pacts(1)` or
-`standingOf(0xCa053d3FBC1371557ecF34b08142E0E022E3257e)` on the ledger. That address
-should come back at **528, one raid, one repaid** — it walked out of pact 1.
+of them, how many times that pair have dealt, and how the raid settled. Call `pacts(3)` or
+`standingOf(0xa0AC3b91b0FD736934262c7058DAd575b6A5c68c)` on the ledger. That address
+should come back at **528, one raid, one repaid** — it walked out of pact 3.
+
+Four transactions carry the whole of it, and every one can be looked up:
+
+| | |
+| --- | --- |
+| A patron staked on Ethereum | [`0x2ca92625…d640`](https://sepolia.etherscan.io/tx/0x2ca926253b19eb0aed10b8ad64794f98b2c17508a5e8ec2850f24a7ab88ed640) |
+| Attestcoin proved it and the pact sealed | [`0xc2e73a8c…df04`](https://creditcoin-testnet.blockscout.com/tx/0xc2e73a8ca6ea750c2a626c18d434556a362c9cb47cf437c049c481f118a2df04) |
+| The raid settled, standing moved to 528 | [`0x53482ca5…8459`](https://creditcoin-testnet.blockscout.com/tx/0x53482ca5c60adadf4ded3f7f155f6de79338f45dffda3b81a470535e89b88459) |
+| A haul above the ceiling, refused | [`0x19d2b34a…c77d`](https://creditcoin-testnet.blockscout.com/tx/0x19d2b34ad5f11ca136cfb4c2fb4c50e70a35e6cca7875cdb6dc3c048762fc77d) |
+
+**And one that was supposed to fail.** The worker was pointed at a funding it had already
+proved. `ASCBase` refused it, because a query id may only be spent once:
+[`0xeedd1d2f…58bb`](https://creditcoin-testnet.blockscout.com/tx/0xeedd1d2f22be6abaa08e4b94c237a0c4a67387e927cad38b5467fa29887458bb).
+A replay guard nobody has watched refuse anything is a claim rather than a guard.
 
 The browser fetches both and joins them in front of you. There is no database of ours in
 the middle, which means there is nothing of ours you have to trust. If our server vanished
@@ -882,13 +923,18 @@ reads them live and writes to the ledger when a raid ends.
 | | Chain | Address |
 | --- | --- | --- |
 | `PatronVault` | Ethereum Sepolia | [`0xcBB956Fa0358F53B9A83b78d6586a1fbB46fF64e`](https://sepolia.etherscan.io/address/0xcBB956Fa0358F53B9A83b78d6586a1fbB46fF64e) |
-| `TheLedger` | Creditcoin CC3 | [`0xe8608320bBEA393464f235ecBBBa8f820D7ecE10`](https://creditcoin-testnet.blockscout.com/address/0xe8608320bBEA393464f235ecBBBa8f820D7ecE10) |
+| `TheLedger` | Creditcoin CC3 | [`0xBd02a6a9f452217dE9d67B945CB995a6991D1cDD`](https://creditcoin-testnet.blockscout.com/address/0xBd02a6a9f452217dE9d67B945CB995a6991D1cDD) |
 
-Pact 1 on that ledger was sealed from a real Sepolia payment, proved through Attestcoin,
+Pact 3 on that ledger was sealed from a real Sepolia payment, proved through Attestcoin,
 then really settled — bond posted, raid written down, standing moved to 528. You can read
-the whole thing without our help: call `pacts(1)` on the ledger, `stakes(1)` on the vault,
-and `standingOf(0xCa053d3FBC1371557ecF34b08142E0E022E3257e)` for what it did to a name.
+the whole thing without our help: call `pacts(3)` on the ledger, `stakes(3)` on the vault,
+and `standingOf(0xa0AC3b91b0FD736934262c7058DAd575b6A5c68c)` for what it did to a name.
 All three agree.
+
+The vault is older than this ledger and was never redeployed, which is why the pact numbers
+start at 3. Pact 2 was carried onto the new ledger from a funding made days earlier —
+its Sepolia block was long attested, so the proof was built and sealed in seconds. A ledger
+can be replaced without losing the history sitting in the vault.
 
 **`PatronVault.sol`** sits on Ethereum and does one thing: hold a stake and shout
 `RaidFunded(raider, patron, pactId, coinsStaked, patronShare)`. It knows nothing about
