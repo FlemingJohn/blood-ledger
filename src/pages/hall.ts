@@ -25,6 +25,10 @@ import { rememberTheClass, takeTheChainsWord } from '../chain/whatYouHaveDone'
 import { bondFromTheChain, openPactFromTheChain, standingFromTheChain } from '../chain/askTheLedger'
 import { lockUpYourBond, plainly, theLedgerTakesWrites } from '../chain/tellTheLedger'
 import { readProfile, readProfileFromTheChain } from '../chain/profiles'
+import { guideTheWay } from '../parts/theTour'
+import { askIfTheyWantShowing } from '../parts/askToShow'
+import { haveYouSeen, markAsShown } from '../parts/whoHasBeenShown'
+import { aroundTheHall } from '../tour/inTheHall'
 import { pactSeals, stairOpens, waxPressed } from '../sound/blows'
 import { everyPieceOfHallArt } from '../art/paths'
 import { loadWhatYouCan } from '../art/pictures'
@@ -106,6 +110,28 @@ export function buildHall(order: HallOrder): Part {
   const rite = prepareTheRite()
   const asking = askBeforeYouSign()
   const profile = openTheProfile()
+
+  const tour = guideTheWay()
+  const wantShowing = askIfTheyWantShowing()
+
+  const tourCall = document.createElement('button')
+  tourCall.type = 'button'
+  tourCall.className = 'tourcall hallpage__tourcall'
+  tourCall.title = 'Show me round'
+  tourCall.setAttribute('aria-label', 'show me round')
+  tourCall.textContent = '?'
+  tourCall.addEventListener('click', () => tour.walk(aroundTheHall()))
+
+  wantShowing.whenWanted(() => {
+    markAsShown(order.address, 'the hall')
+    tour.walk(aroundTheHall())
+  })
+
+  wantShowing.whenWaved(() => markAsShown(order.address, 'the hall'))
+
+  if (!haveYouSeen(order.address, 'the hall')) {
+    window.setTimeout(() => wantShowing.ask('First time in the hall?'), 1400)
+  }
 
   tally.whenNameAsked(() => {
     profile.showProfile(readProfile(order.address))
@@ -238,7 +264,17 @@ export function buildHall(order: HallOrder): Part {
   foot.className = 'hallpage__foot'
   foot.append(goingsOn.element, descent.element)
 
-  hall.append(dressing.element, tally.element, body, foot, rite.element, asking.element, profile.element)
+  hall.append(
+    dressing.element,
+    tally.element,
+    body,
+    foot,
+    tourCall,
+    wantShowing.element,
+    rite.element,
+    asking.element,
+    profile.element
+  )
 
   descent.showBarred(true)
   showWhatAPactWouldCost()
@@ -323,6 +359,8 @@ export function buildHall(order: HallOrder): Part {
   return {
     element: hall,
     teardown(): void {
+      tour.teardown()
+      wantShowing.teardown()
       board.teardown()
       bond.teardown()
       powers.teardown()
