@@ -154,6 +154,7 @@ async function showDescent(pact: Pact, chosenClass: RaiderClass): Promise<void> 
     'descent',
     buildDescent({
       pact,
+      address: heldAddress ?? '',
       chosenClass,
       standing: 720,
       seed,
