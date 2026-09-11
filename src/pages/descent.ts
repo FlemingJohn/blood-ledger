@@ -408,7 +408,10 @@ export function buildDescent(order: DescentOrder): Part {
 
     if (!haveYouSeen(order.address, 'the dungeon')) {
       holdTheWorld()
-      asking.ask('First time down here?')
+      asking.ask(
+        'First time down here?',
+        'The floor is held while you decide. Say yes and the dungeon will teach you as it happens — the first coin, the first wound, the dark arriving, the stair.'
+      )
     }
     stair.done()
     void store.bring(bossNeeded)

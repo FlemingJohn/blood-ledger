@@ -130,7 +130,14 @@ export function buildHall(order: HallOrder): Part {
   wantShowing.whenWaved(() => markAsShown(order.address, 'the hall'))
 
   if (!haveYouSeen(order.address, 'the hall')) {
-    window.setTimeout(() => wantShowing.ask('First time in the hall?'), 1400)
+    window.setTimeout(
+      () =>
+        wantShowing.ask(
+          'First time in the hall?',
+          'Nine bays, a board read from two chains, and the debt you are about to take on. Six steps, about a minute.'
+        ),
+      1400
+    )
   }
 
   tally.whenNameAsked(() => {

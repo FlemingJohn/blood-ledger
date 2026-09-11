@@ -210,7 +210,14 @@ export function buildPatronTable(order: PatronTableOrder): Part {
   wantShowing.whenWaved(() => markAsShown(order.address, 'the table'))
 
   if (!haveYouSeen(order.address, 'the table')) {
-    window.setTimeout(() => wantShowing.ask('First time at the table?'), 1400)
+    window.setTimeout(
+      () =>
+        wantShowing.ask(
+          'First time at the table?',
+          'How to read a raider before you back them, and what the ledger will tell you that an address will not.'
+        ),
+      1400
+    )
   }
 
   const coins = drawCoinStack()
