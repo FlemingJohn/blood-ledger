@@ -47,7 +47,7 @@ export function guideTheWay(): TourPart {
     },
 
     walk(steps: TourStep[]): void {
-      if (onFoot || steps.length === 0) {
+      if (onFoot) {
         return
       }
 
@@ -56,6 +56,7 @@ export function guideTheWay(): TourPart {
       )
 
       if (standing.length === 0) {
+        listeners.forEach((listener) => listener())
         return
       }
 
