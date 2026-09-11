@@ -139,6 +139,11 @@ export function buildPatronTable(order: PatronTableOrder): Part {
 
   const cards: SeekerCardPart[] = []
 
+  const tour = guideTheWay()
+  const wantShowing = askIfTheyWantShowing()
+
+  let someoneToShow: string | null = null
+
   boardCount.textContent = 'reading the chain'
 
   void readWhoHasBeenDown().then((everyone) => {
@@ -174,16 +179,11 @@ export function buildPatronTable(order: PatronTableOrder): Part {
     seekingCoin = notYou.length
     someoneToShow = notYou[0]?.address ?? null
     tellTheSeats()
-
-    if (!haveYouSeen(order.address, 'the table')) {
-      wantShowing.ask('First time at the table?')
-    }
   })
-
-  const tour = guideTheWay()
-  const wantShowing = askIfTheyWantShowing()
-
-  let someoneToShow: string | null = null
+    .catch(() => {
+      boardCount.textContent = 'the chain did not answer'
+      bare.textContent = 'Could not reach the ledger. The board will fill when it answers.'
+    })
 
   function showThemRound(): void {
     if (someoneToShow) {
@@ -208,6 +208,10 @@ export function buildPatronTable(order: PatronTableOrder): Part {
   })
 
   wantShowing.whenWaved(() => markAsShown(order.address, 'the table'))
+
+  if (!haveYouSeen(order.address, 'the table')) {
+    window.setTimeout(() => wantShowing.ask('First time at the table?'), 1400)
+  }
 
   const coins = drawCoinStack()
   coins.classList.add('stake__coins')
