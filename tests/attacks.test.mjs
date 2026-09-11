@@ -92,6 +92,39 @@ console.log(`  a ring must run ${pairsNeeded} pairs, ${spentAfter} pacts each,`)
 console.log(`  at ${smallestStake} ETH a time: ${costToFarmTheTop.toFixed(3)} ETH of real coin,`)
 console.log('  every wallet visible on chain, before it can reach the top of the board.')
 
+console.log('\nan impossible haul is refused\n')
+
+has('the ledger has a ceiling', ledger, 'MOST_THAT_CAN_COME_OUT')
+has('and a floor under the ceiling', ledger, 'NO_CAP_TIGHTER_THAN')
+has('and names the refusal', ledger, 'MoreThanTheDungeonHolds')
+has('and settleRaid checks it', ledger, 'coinsCarried > most')
+
+const coinsPerEther = 100_000
+const timesTheStake = constantIn(ledger, 'MOST_THAT_CAN_COME_OUT')
+const neverBelow = constantIn(ledger, 'NO_CAP_TIGHTER_THAN') * coinsPerEther
+
+function mostThatCanComeOutOf(coinsStaked) {
+  return Math.max(coinsStaked * timesTheStake, neverBelow)
+}
+
+is('the ceiling is this many times the stake', timesTheStake, 100)
+is('and never tighter than', neverBelow, 100000)
+
+is('a 500 coin stake allows at most', mostThatCanComeOutOf(500), 100000)
+is('a 10,000 coin stake allows at most', mostThatCanComeOutOf(10000), 1000000)
+
+const honestHaul = 1850
+is('the worked example passes', honestHaul <= mostThatCanComeOutOf(500), true)
+is('a claim of 999,999 is refused', 999999 <= mostThatCanComeOutOf(500), false)
+
+console.log('')
+console.log('  the fight is off-chain, so the ledger cannot prove a haul.')
+console.log('  it refuses one no dungeon could produce, and that is all.')
+console.log('  what it does NOT do is stop standing being farmed: clearing a')
+console.log(`  debt needs only ${timesTheStake}x less than this — the stake itself. The`)
+console.log('  wash ring above is what prices that, and a replayable run is')
+console.log('  what would end it.')
+
 console.log('\nthe bond falls away as standing rises\n')
 
 function bondShareAt(score) {

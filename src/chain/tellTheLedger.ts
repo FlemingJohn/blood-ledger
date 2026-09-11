@@ -49,6 +49,9 @@ export function plainly(trouble: unknown): string {
   if (said.includes('NotYourPact')) {
     return 'that pact belongs to somebody else'
   }
+  if (said.includes('MoreThanTheDungeonHolds')) {
+    return 'the ledger will not write down a haul that large'
+  }
   if (said.includes('insufficient funds') || said.includes('estimateGas')) {
     return 'your purse cannot cover it'
   }

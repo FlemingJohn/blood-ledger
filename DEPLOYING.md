@@ -100,7 +100,7 @@ put PATRON_VAULT_ADDRESS=0xABC… in your .env
 
 Paste it into `.env`.
 
-`PatronVault` is 1,507 bytes and holds no logic worth attacking. Its only job is to take a
+`PatronVault` is 1,791 bytes and holds no logic worth attacking. Its only job is to take a
 stake and emit `RaidFunded`.
 
 ---
@@ -116,7 +116,7 @@ Same shape. Paste `THE_LEDGER_ADDRESS` into `.env`.
 The wallet that deploys becomes the **keeper**, which is the only address allowed to run
 step 5. It is fixed at construction and cannot be changed afterwards.
 
-`TheLedger` is 8,119 bytes and extends `ASCBase` from `@gluwa/asc-contracts`. That base
+`TheLedger` is 10,060 bytes and extends `ASCBase` from `@gluwa/asc-contracts`. That base
 holds the precompile call and the replay guard, so this contract is only the part that is
 ours.
 
@@ -355,6 +355,12 @@ working, not a fault. Fund a new raid.
 **`NotOurVault`**
 The funding log came from a contract the ledger was not told to believe. Check
 `PATRON_VAULT_ADDRESS` matches what you deployed.
+
+**`MoreThanTheDungeonHolds`**
+A settlement claimed a haul above what that pact allows — a hundred times the stake, or
+100,000 coins, whichever is larger. The fight is off-chain and the ledger cannot prove a
+haul, so it refuses an impossible one instead. Call `mostThatCanComeOutOf(pactId)` to read
+the ceiling that applies.
 
 **The worker sits at "waiting for attestation" for a long time**
 Normal. Around eight minutes is usual. It gives up after twenty.

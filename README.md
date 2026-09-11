@@ -653,6 +653,7 @@ We would rather say this ourselves than have it found.
 | Settling a raid, and moving your standing | **Written to Creditcoin** by your own wallet |
 | Your record — coin kept, backed, returned, profit, deeds | **Read from Creditcoin events** |
 | The house purse and house patron | **Running**, staking real coin on Sepolia |
+| The coin you carried out | **Reported by your browser, bounded by the contract.** Not proved — see below |
 | Deepest floor and best haul | **Your browser only.** The contract has no field for a floor |
 | Your coin balance and chosen class | **Game state**, never chain state |
 | The four step sealing rite | **A stand-in clock.** Real sealing takes about nine minutes |
@@ -661,6 +662,29 @@ We would rather say this ourselves than have it found.
 Really sealing a pact means waiting for the witnesses to agree, which takes about nine
 minutes. The steps it shows are the real steps in the real order; only the clock is wrong.
 For a demo, seal one beforehand and show the finished pact.
+
+**The haul is reported, not proved.** The fight happens in your browser, so when a raid
+ends, the number of coins you carried out is a number your own machine hands the contract.
+Nothing on Creditcoin watched you pick them up. We would rather put that at the top of this
+section than leave it for somebody to find.
+
+What the ledger does about it is refuse an impossible one. `settleRaid` will not accept a
+haul above a hundred times the stake, and never below 100,000 coins whichever is larger, so
+no settlement and no line on the record page can hold a number the dungeon could not have
+produced. Call `mostThatCanComeOutOf(pactId)` and it will tell you the ceiling that applied.
+
+That bounds the lie; it does not end it. Clearing a debt needs only the stake itself, so a
+raider willing to lie can still claim a raid they did not run. What stops that being worth
+doing is the pair rule — standing earned from one patron halves each time, so reaching the
+top of the board costs ten distinct funded wallets and real Sepolia coin, every one of them
+visible on chain. `tests/attacks.test.mjs` prices it out.
+
+The real answer is replay, and the architecture already allows it. **Floors are seeded from
+an attested Ethereum block, so a raid is deterministic** — same seed, same map, same
+enemies, same loot. A run submitted with its input trace can be re-simulated by anyone and
+the haul checked against it, with no trust in the player and no combat on a chain. That is
+the next contract rather than a patch to this one, and it is the reason the attested seed
+is worth more than a nice line in the header.
 
 **Two things are honestly local.** Deepest floor and best haul cannot come from a chain —
 `settleRaid` records the ending and the coin carried, and there is no `floorReached`
@@ -818,14 +842,31 @@ Testnet coin comes from the Creditcoin Discord, in the `token-faucet` channel:
 ```
 npm run check-setup      # reaches both chains, spends no gas, says what is still missing
 npm test                 # settlement, agreement, attacks, the underwriter, the dark
-npm run test-contracts   # 16 Foundry tests over PatronVault
+npm run test-contracts   # 29 Foundry tests over both contracts
 npm run test-testnet     # reaches the live Attestcoin testnet
 ```
+
+`test-contracts` needs [Foundry](https://getfoundry.sh) and the `forge-std` submodule. If
+you cloned without `--recursive`:
+
+```
+git submodule update --init --recursive
+```
+
+The other three need nothing but `npm install`.
 
 The settlement tests read the constants straight out of `TheLedger.sol`, so the contract
 cannot drift away from them quietly. The agreement test holds `src/chain/settling.ts`
 against the same constants, because a game that shows one number while the chain records
 another is worse than a game that shows nothing.
+
+Those two read the contract as text. The Foundry tests run it: 16 over `PatronVault` and 13
+over `TheLedger`, which deploy the contracts inside a test EVM and call them. The ledger's
+are mostly about the haul ceiling — that an impossible claim is refused rather than quietly
+trimmed, that the floor under the ceiling keeps an honest long raid on a small stake from
+being refused, and one named
+`test_theCeilingDoesNotStopStandingBeingFarmed`, because it does not, and a test is a
+better place to say so than a paragraph.
 
 Run `check-setup` first. It reads your `.env`, reaches both chains, reports the balance in
 each purse, and asks Attestcoin whether Sepolia is attested. It will tell you exactly which

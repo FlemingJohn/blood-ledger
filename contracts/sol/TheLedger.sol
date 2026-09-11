@@ -32,6 +32,21 @@ contract TheLedger is ASCBase {
     /// @notice A pair this familiar earns nothing further from each other.
     uint32 public constant PAIR_IS_SPENT_AFTER = 5;
 
+    /// @notice The most a raider may claim to have carried out, as a multiple of the stake.
+    /// @dev The fight happens in the player's browser, so this contract cannot prove a
+    ///      haul. It can refuse one no dungeon could produce. Deliberately generous: the
+    ///      ledger is never told how deep the raider went or how long they stayed, so it
+    ///      cannot price a raid, only bound it. The tight answer is a replayable run —
+    ///      floors are seeded from an attested Ethereum block and are therefore
+    ///      deterministic, which is what would make that possible.
+    uint256 public constant MOST_THAT_CAN_COME_OUT = 100;
+
+    /// @notice The ceiling never falls below this, whatever was staked.
+    /// @dev A hundred times the smallest stake would cap an honest long raid, because the
+    ///      dark keeps sending and a patient raider on a deep floor out-earns a small
+    ///      patron many times over. At the game's rate this is 100,000 coins.
+    uint256 public constant NO_CAP_TIGHTER_THAN = 1 ether;
+
     /// @notice What an unproven raider must lock up before they may descend.
     /// @dev Standing buys this down to nothing. A raider everyone trusts posts no coin,
     ///      because their name is already the collateral. A fresh wallet posts the lot,
@@ -106,6 +121,7 @@ contract TheLedger is ASCBase {
     error BondAlreadyPosted(uint256 pactId);
     error NoBondPosted(uint256 pactId);
     error CouldNotMoveTheBond();
+    error MoreThanTheDungeonHolds(uint256 pactId, uint256 claimed, uint256 most);
 
     constructor(address keeper) {
         KEEPER = keeper;
@@ -316,6 +332,13 @@ contract TheLedger is ASCBase {
      * @dev Called by the raider when they walk out or fall. The coin split is recorded
      *      here rather than paid back to Ethereum, because Attestcoin writability is not
      *      live yet and this ledger will not pretend otherwise.
+     *
+     *      `coinsCarried` is reported by the raider's own browser and cannot be proved
+     *      here — the fight is off-chain, and putting it on a chain would make it slow,
+     *      expensive and worse to play. What this contract can do is refuse an impossible
+     *      haul, so that nothing on the record is a number the dungeon could not have
+     *      produced. It bounds the claim; it does not verify it. See
+     *      MOST_THAT_CAN_COME_OUT.
      */
     function settleRaid(
         uint256 pactId,
@@ -336,6 +359,11 @@ contract TheLedger is ASCBase {
 
         if (bondOnPact[pactId] == 0 && bondFor(pact.raider) != 0) {
             revert NoBondPosted(pactId);
+        }
+
+        uint256 most = mostThatCanComeOutOf(pactId);
+        if (coinsCarried > most) {
+            revert MoreThanTheDungeonHolds(pactId, coinsCarried, most);
         }
 
         pact.settled = true;
@@ -424,6 +452,24 @@ contract TheLedger is ASCBase {
         }
 
         return earned;
+    }
+
+    /**
+     * @notice The most this pact will accept as a haul.
+     * @dev Public so the game can read its own ceiling rather than carry a second copy
+     *      of it, and so anyone reading the chain can check what a settlement was allowed
+     *      to claim. Zero for a pact that does not exist.
+     */
+    function mostThatCanComeOutOf(uint256 pactId) public view returns (uint256) {
+        Pact storage pact = pacts[pactId];
+
+        if (pact.raider == address(0)) {
+            return 0;
+        }
+
+        uint256 most = pact.coinsStaked * MOST_THAT_CAN_COME_OUT;
+
+        return most < NO_CAP_TIGHTER_THAN ? NO_CAP_TIGHTER_THAN : most;
     }
 
     function _reckon(

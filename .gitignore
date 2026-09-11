@@ -7,5 +7,4 @@ Screenshot*.png
 contracts/out
 .env
 worker/.env
-contracts/lib
 contracts/cache
