@@ -1,5 +1,7 @@
 import type * as Three from 'three'
 import { carvedSkull, fieryLogo } from './paths'
+import eyeVertex from './shaders/eye.vert.glsl?raw'
+import eyeFragment from './shaders/eye.frag.glsl?raw'
 
 const skullSits = { x: 0, y: 0.2, z: 0 }
 const logoSits = { x: 0, y: -0.92, z: 1.1 }
@@ -10,10 +12,10 @@ const logoTurns = 0.09
 const followsPointerBy = 0.19
 const eases = 0.055
 const eyesSitAt = [
-  { x: -0.33, y: 0.1, z: 0.4 },
-  { x: 0.33, y: 0.1, z: 0.4 }
+  { x: -0.34, y: 0.32, z: 0.4 },
+  { x: 0.34, y: 0.32, z: 0.4 }
 ]
-const eyeBurns = 0.072
+const eyeBurns = 0.098
 const decodersLiveAt = '/draco/'
 
 export interface HeroStage {
@@ -170,13 +172,29 @@ export function carveTheHero(holder: HTMLElement, whenReady: () => void): HeroSt
 
       stage.add(skull, logo)
 
+      skull.updateMatrixWorld(true)
+
       eyesSitAt.forEach((sits) => {
         const socket = new three.Mesh(
-          new three.SphereGeometry(eyeBurns, 16, 16),
-          new three.MeshBasicMaterial({ color: 0xff2a12, toneMapped: false })
+          new three.SphereGeometry(eyeBurns, 24, 24),
+          new three.ShaderMaterial({
+            vertexShader: eyeVertex,
+            fragmentShader: eyeFragment,
+            uniforms: {
+              uTime: { value: 0 },
+              uHeat: { value: 1 }
+            },
+            transparent: true,
+            depthWrite: false,
+            blending: three.AdditiveBlending
+          })
         )
-        socket.position.set(sits.x, sits.y, sits.z)
-        stage.add(socket)
+        const shrink = 1 / (skull.scale.x || 1)
+
+        socket.position.copy(skull.worldToLocal(new three.Vector3(sits.x, sits.y, sits.z)))
+        socket.scale.setScalar(shrink)
+
+        skull.add(socket)
         burning.push(socket)
       })
     } catch {
@@ -245,9 +263,15 @@ export function carveTheHero(holder: HTMLElement, whenReady: () => void): HeroSt
       behind.intensity = 9 + Math.sin(drifting * 2.1) * 2
 
       const flicker = 0.86 + Math.sin(drifting * 5.4) * 0.07 + Math.sin(drifting * 11.3) * 0.04
-      burning.forEach((socket) => {
-        socket.scale.setScalar(flicker)
-        socket.position.x = (socket.position.x < 0 ? -0.33 : 0.33) + atX * 0.02
+
+      burning.forEach((socket, which) => {
+        const skin = socket.material as Three.ShaderMaterial
+        const burns = skin.uniforms as {
+          uTime: { value: number }
+          uHeat: { value: number }
+        }
+        burns.uTime.value = drifting + which * 3.1
+        burns.uHeat.value = flicker
       })
 
       weave.render()
