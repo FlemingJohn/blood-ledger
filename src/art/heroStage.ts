@@ -176,7 +176,7 @@ export function carveTheHero(holder: HTMLElement, whenReady: () => void): HeroSt
 
       eyesSitAt.forEach((sits) => {
         const socket = new three.Mesh(
-          new three.SphereGeometry(eyeBurns, 24, 24),
+          new three.PlaneGeometry(eyeBurns * 8.4, eyeBurns * 13.0),
           new three.ShaderMaterial({
             vertexShader: eyeVertex,
             fragmentShader: eyeFragment,
@@ -186,13 +186,18 @@ export function carveTheHero(holder: HTMLElement, whenReady: () => void): HeroSt
             },
             transparent: true,
             depthWrite: false,
+            depthTest: false,
             blending: three.AdditiveBlending
           })
         )
         const shrink = 1 / (skull.scale.x || 1)
+        const standsAbove = eyeBurns * 13.0 * (0.5 - 0.11)
 
-        socket.position.copy(skull.worldToLocal(new three.Vector3(sits.x, sits.y, sits.z)))
+        socket.position.copy(
+          skull.worldToLocal(new three.Vector3(sits.x, sits.y + standsAbove, sits.z))
+        )
         socket.scale.setScalar(shrink)
+        socket.renderOrder = 4
 
         skull.add(socket)
         burning.push(socket)
