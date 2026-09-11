@@ -16,6 +16,19 @@ import { prepareTheReckoning } from '../parts/reckoning'
 import { pinTheMinimap } from '../parts/minimap'
 import { buckleThePowerBelt } from '../parts/powerBelt'
 import { powersFor } from '../dungeon/powers'
+import { guideTheWay } from '../parts/theTour'
+import { askIfTheyWantShowing } from '../parts/askToShow'
+import { markSomethingOnTheFloor } from '../parts/markOnTheFloor'
+import { haveYouSeen, markAsShown } from '../parts/whoHasBeenShown'
+import { watchForMoments, type MomentName } from '../tour/momentsBelow'
+import {
+  whenTheDarkArrives,
+  whenTheStairOpens,
+  whenYouAreHurt,
+  whenYouArrive,
+  whenYouFirstCarry
+} from '../tour/inTheDungeon'
+import { worldMagnify } from '../dungeon/draw'
 import { reckonTheRaid } from '../chain/settling'
 import {
   lookUpOnCreditcoin,
@@ -73,6 +86,7 @@ const soonestNeeded = [
 const bossNeeded = everyMoveOf('demonlord', ['walk', 'attack', 'death'])
 
 export interface DescentOrder extends RaidOrder {
+  address: string
   whenSettled(takings: Takings): void
   whenWayOutOpens(open: boolean): void
 }
@@ -94,6 +108,18 @@ export function buildDescent(order: DescentOrder): Part {
   const minimap = pinTheMinimap()
   const belt = buckleThePowerBelt(powersFor(order.chosenClass))
 
+  const tour = guideTheWay()
+  const asking = askIfTheyWantShowing()
+  const floorMark = markSomethingOnTheFloor()
+  const moments = watchForMoments()
+
+  const tourCall = document.createElement('button')
+  tourCall.type = 'button'
+  tourCall.className = 'tourcall descent__tourcall'
+  tourCall.title = 'Show me round again'
+  tourCall.setAttribute('aria-label', 'show me round again')
+  tourCall.textContent = '?'
+
   const hint = document.createElement('p')
   hint.className = 'descent__hint'
   hint.textContent = 'W A S D to move · click or space to swing · Q and E for powers'
@@ -110,6 +136,9 @@ export function buildDescent(order: DescentOrder): Part {
     hint,
     wayOut.element,
     horn.element,
+    tourCall,
+    floorMark.element,
+    asking.element,
     stair.element,
     reckoning.element
   )
@@ -129,6 +158,71 @@ export function buildDescent(order: DescentOrder): Part {
   let heartbeat = 0
 
   const surface = board.getContext('2d')
+
+  let showingTheWay = false
+  let wasRunningBeforeTheTour = false
+
+  function holdTheWorld(): void {
+    wasRunningBeforeTheTour = running
+    running = false
+  }
+
+  function letTheWorldGo(): void {
+    floorMark.hide()
+    if (!settled && wasRunningBeforeTheTour) {
+      running = true
+    }
+  }
+
+  tour.whenDone(letTheWorldGo)
+
+  asking.whenWanted(() => {
+    showingTheWay = true
+    markAsShown(order.address, 'the dungeon')
+    showTheArrival()
+  })
+
+  asking.whenWaved(() => {
+    showingTheWay = false
+    markAsShown(order.address, 'the dungeon')
+  })
+
+  function showTheArrival(): void {
+    holdTheWorld()
+    tour.walk(whenYouArrive())
+  }
+
+  tourCall.addEventListener('click', () => {
+    if (!tour.walking() && !settled) {
+      showTheArrival()
+    }
+  })
+
+  function stepsFor(which: MomentName): void {
+    if (which === 'the dark') {
+      const coming = moments.nearestComing(world)
+      if (!coming) {
+        return
+      }
+      floorMark.putItOver(
+        (coming.spot.x - eye.atX) * worldMagnify,
+        (coming.spot.y - eye.atY) * worldMagnify
+      )
+      holdTheWorld()
+      tour.walk(whenTheDarkArrives(floorMark.element))
+      return
+    }
+
+    holdTheWorld()
+
+    if (which === 'first coin') {
+      tour.walk(whenYouFirstCarry(order.pact.coinsStaked))
+    } else if (which === 'hurt') {
+      tour.walk(whenYouAreHurt())
+    } else {
+      tour.walk(whenTheStairOpens())
+    }
+  }
 
   function fitBoard(): void {
     const steps = Math.max(1, Math.round(window.devicePixelRatio || 1))
@@ -268,6 +362,15 @@ export function buildDescent(order: DescentOrder): Part {
       order.whenWayOutOpens(clear)
     }
 
+    if (showingTheWay && !tour.walking() && !settled) {
+      const moment = moments.lookAround({ world, stairIsOpen: clear, now })
+
+      if (moment) {
+        moments.markShown(moment, now)
+        stepsFor(moment)
+      }
+    }
+
     if (world.finished === 'fell' && world.you.gone) {
       settle('fell')
     }
@@ -298,6 +401,10 @@ export function buildDescent(order: DescentOrder): Part {
 
     fitBoard()
     pressure.showFloor(world.floor)
+
+    if (!haveYouSeen(order.address, 'the dungeon')) {
+      asking.ask('First time down here?')
+    }
     stair.done()
     void store.bring(bossNeeded)
   })()
@@ -312,6 +419,9 @@ export function buildDescent(order: DescentOrder): Part {
       window.cancelAnimationFrame(heartbeat)
       window.removeEventListener('resize', fitBoard)
       hands.letGo()
+      tour.teardown()
+      asking.teardown()
+      floorMark.teardown()
       stair.teardown()
       belt.teardown()
       minimap.teardown()
