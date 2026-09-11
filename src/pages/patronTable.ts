@@ -11,6 +11,10 @@ import { hangTheTally } from '../parts/tally'
 import { openTheProfile } from '../parts/profileCard'
 import { drawBinding, drawCoinStack, drawScales } from '../parts/hallMarks'
 import { readProfile, readProfileFromTheChain } from '../chain/profiles'
+import { guideTheWay } from '../parts/theTour'
+import { askIfTheyWantShowing } from '../parts/askToShow'
+import { haveYouSeen, markAsShown } from '../parts/whoHasBeenShown'
+import { aroundTheTable } from '../tour/atTheTable'
 import { dressTheHall } from '../parts/hallDressing'
 
 import { readWhoHasBeenDown } from '../chain/whoHasBeenDown'
@@ -163,18 +167,62 @@ export function buildPatronTable(order: PatronTableOrder): Part {
     bare.hidden = true
     boardCount.textContent = `${youMayBack} you may back of ${everyone.length}`
 
-    seekingCoin = everyone.filter(
+    const notYou = everyone.filter(
       (one) => one.address.toLowerCase() !== order.address.toLowerCase()
-    ).length
+    )
+
+    seekingCoin = notYou.length
+    someoneToShow = notYou[0]?.address ?? null
     tellTheSeats()
+
+    if (!haveYouSeen(order.address, 'the table')) {
+      wantShowing.ask('First time at the table?')
+    }
   })
+
+  const tour = guideTheWay()
+  const wantShowing = askIfTheyWantShowing()
+
+  let someoneToShow: string | null = null
+
+  function showThemRound(): void {
+    if (someoneToShow) {
+      slip.fillFor(someoneToShow)
+      window.setTimeout(() => tour.walk(aroundTheTable()), 1500)
+      return
+    }
+    tour.walk(aroundTheTable())
+  }
+
+  const tourCall = document.createElement('button')
+  tourCall.type = 'button'
+  tourCall.className = 'tourcall patronpage__tourcall'
+  tourCall.title = 'Show me round'
+  tourCall.setAttribute('aria-label', 'show me round')
+  tourCall.textContent = '?'
+  tourCall.addEventListener('click', showThemRound)
+
+  wantShowing.whenWanted(() => {
+    markAsShown(order.address, 'the table')
+    showThemRound()
+  })
+
+  wantShowing.whenWaved(() => markAsShown(order.address, 'the table'))
 
   const coins = drawCoinStack()
   coins.classList.add('stake__coins')
   slip.element.append(coins)
 
   body.append(slip.element, board)
-  page.append(dressing.element, tally.element, body, confirming.element, profile.element)
+  page.append(
+    dressing.element,
+    tally.element,
+    body,
+    tourCall,
+    wantShowing.element,
+    confirming.element,
+    profile.element
+  )
 
   let staking = false
 
@@ -221,6 +269,8 @@ export function buildPatronTable(order: PatronTableOrder): Part {
     element: page,
     teardown(): void {
       cards.forEach((card) => card.teardown())
+      tour.teardown()
+      wantShowing.teardown()
       profile.teardown()
       confirming.teardown()
       slip.teardown()
