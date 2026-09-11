@@ -23,7 +23,7 @@ import { askTheHouse, askTheHouseToBackYou, theHouseAnswered } from '../chain/ho
 import { asAnOffer, houseOfferId } from '../chain/houseOffer'
 import { rememberTheClass, takeTheChainsWord } from '../chain/whatYouHaveDone'
 import { bondFromTheChain, openPactFromTheChain, standingFromTheChain } from '../chain/askTheLedger'
-import { lockUpYourBond, theLedgerTakesWrites } from '../chain/tellTheLedger'
+import { lockUpYourBond, plainly, theLedgerTakesWrites } from '../chain/tellTheLedger'
 import { readProfile, readProfileFromTheChain } from '../chain/profiles'
 import { pactSeals, stairOpens, waxPressed } from '../sound/blows'
 import { everyPieceOfHallArt } from '../art/paths'
@@ -272,9 +272,9 @@ export function buildHall(order: HallOrder): Part {
         stairOpens()
         order.whenDescending(going, chosenClass)
       })
-      .catch((trouble: Error) => {
+      .catch((trouble: unknown) => {
         lockingUp = false
-        descent.sayWhatIsHappening(`The bond did not go down — ${trouble.message}`, false)
+        descent.sayWhatIsHappening(`The bond did not go down — ${plainly(trouble)}.`, false)
       })
   })
 
