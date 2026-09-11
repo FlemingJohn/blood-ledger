@@ -354,3 +354,10 @@
     padding: 6px 8px 8px;
   }
 }
+
+.descent__tourcall {
+  position: absolute;
+  right: 14px;
+  bottom: 48px;
+  z-index: 6;
+}
