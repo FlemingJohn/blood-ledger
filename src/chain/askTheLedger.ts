@@ -194,16 +194,32 @@ export async function timesThisPairHaveDealt(
   }
 
   try {
-    const [times, earning] = await Promise.all([
-      ledger.pactsBetween(patron, raider),
-      ledger.earnedFromThisPair(patron, raider)
-    ])
+    const times = Number(await ledger.pactsBetween(patron, raider))
 
     return {
-      times: Number(times),
-      wouldEarn: Number(earning)
+      times,
+      wouldEarn: whatTheNextOneEarns(times)
     }
   } catch {
     return null
   }
+}
+
+const earnedByClearing = 28
+const pairIsSpentAfter = 5
+
+export function whatTheNextOneEarns(timesAlready: number): number {
+  const next = timesAlready + 1
+
+  if (next > pairIsSpentAfter) {
+    return 0
+  }
+
+  let earned = earnedByClearing
+
+  for (let already = 1; already < next; already += 1) {
+    earned = Math.floor(earned / 2)
+  }
+
+  return earned
 }
