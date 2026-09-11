@@ -44,11 +44,21 @@ export function askIfTheyWantShowing(): AskToShowPart {
     wanted.forEach((listener) => listener())
   })
 
-  no.addEventListener('click', () => {
+  function wave(): void {
     latchClicks()
     close()
     waved.forEach((listener) => listener())
-  })
+  }
+
+  no.addEventListener('click', wave)
+
+  function onKey(blow: KeyboardEvent): void {
+    if (blow.key === 'Escape' && !strip.hidden) {
+      wave()
+    }
+  }
+
+  window.addEventListener('keydown', onKey)
 
   return {
     element: strip,
@@ -69,6 +79,7 @@ export function askIfTheyWantShowing(): AskToShowPart {
     },
 
     teardown(): void {
+      window.removeEventListener('keydown', onKey)
       wanted.clear()
       waved.clear()
       strip.remove()
