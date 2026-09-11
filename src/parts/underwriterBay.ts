@@ -31,7 +31,7 @@ function line(said: string, worth: string, tone: string): HTMLElement {
 
 export function readOutTheUnderwriter(decision: Decision): Part {
   const bay = document.createElement('div')
-  bay.className = 'tally__bay bay--reading'
+  bay.className = 'tally__bay bay--reading bay--underwriter'
 
   const label = document.createElement('p')
   label.className = 'bay__label'
