@@ -230,3 +230,11 @@
     flex-wrap: wrap;
   }
 }
+
+.hallpage__tourcall,
+.patronpage__tourcall {
+  position: fixed;
+  right: 14px;
+  bottom: 52px;
+  z-index: 40;
+}
