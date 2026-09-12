@@ -1,6 +1,13 @@
 import type { Part } from '../types/parts'
 import type { StakeYouMade, WhatYouOffer } from '../types/patron'
-import { lookUpStake, mostAPatronMayKeep, vaultIsDeployed } from '../chain/patronVault'
+import {
+  lookUpStake,
+  mostAPatronMayKeep,
+  roomForGas,
+  vaultIsDeployed,
+  whatYouHoldToStakeWith,
+  type WhatYouHold
+} from '../chain/patronVault'
 import { shortAddress } from '../chain/addresses'
 import { readTheRaider } from './whoIsThis'
 import { drawMark } from './marks'
@@ -20,6 +27,8 @@ export interface StakeSlipPart extends Part {
   showBusy(busy: boolean): void
   showStep(said: string): void
   showTrouble(said: string | null, mend?: MendIt | null): void
+  whenPurseIsShort(fill: () => Promise<string | null>): void
+  readThePurseAgain(): void
   fillFor(raiderAddress: string): void
   addStake(stake: StakeYouMade): void
 }
@@ -104,6 +113,92 @@ export function fillOutAStake(patronAddress: string): StakeSlipPart {
   offerWord.textContent = 'Put Up The Coin'
   offerButton.append(offerWord)
 
+  const short = document.createElement('p')
+  short.className = 'stake__short'
+  short.hidden = true
+
+  const fillUp = document.createElement('button')
+  fillUp.type = 'button'
+  fillUp.className = 'stake__mend'
+  fillUp.textContent = 'The house will fill your purse'
+  fillUp.hidden = true
+
+  let held: WhatYouHold | null = null
+  let weighing = 0
+
+  function inWei(said: string): bigint | null {
+    const worth = Number(said)
+    if (!Number.isFinite(worth) || worth < 0) {
+      return null
+    }
+    return BigInt(Math.round(worth * 1e9)) * 1_000_000_000n
+  }
+
+  function trimmed(said: string): string {
+    const worth = Number(said)
+    return Number.isFinite(worth) ? worth.toFixed(4) : said
+  }
+
+  function weighThePurse(): void {
+    const wanted = inWei(coins.value)
+    const gas = inWei(roomForGas) ?? 0n
+
+    if (!held || wanted === null) {
+      short.hidden = true
+      fillUp.hidden = true
+      offerButton.disabled = false
+      return
+    }
+
+    if (held.wei >= wanted + gas) {
+      short.hidden = true
+      fillUp.hidden = true
+      offerButton.disabled = false
+      return
+    }
+
+    short.hidden = false
+    short.textContent = `You hold ${trimmed(held.eth)} ETH. This stake needs ${trimmed(coins.value)} plus about ${roomForGas} for gas.`
+    fillUp.hidden = !fillUpDoes
+    offerButton.disabled = true
+  }
+
+  let fillUpDoes: (() => Promise<string | null>) | null = null
+
+  fillUp.addEventListener('click', () => {
+    if (!fillUpDoes) {
+      return
+    }
+
+    fillUp.disabled = true
+    fillUp.textContent = 'The house is counting'
+
+    void fillUpDoes()
+      .then((wentWrong) => {
+        if (wentWrong) {
+          short.textContent = wentWrong
+          return
+        }
+        return readThePurse()
+      })
+      .finally(() => {
+        fillUp.disabled = false
+        fillUp.textContent = 'The house will fill your purse'
+      })
+  })
+
+  async function readThePurse(): Promise<void> {
+    held = await whatYouHoldToStakeWith(patronAddress)
+    weighThePurse()
+  }
+
+  coins.addEventListener('input', () => {
+    window.clearTimeout(weighing)
+    weighing = window.setTimeout(weighThePurse, 250)
+  })
+
+  void readThePurse()
+
   const step = document.createElement('p')
   step.className = 'stake__step'
   step.hidden = true
@@ -134,6 +229,8 @@ export function fillOutAStake(patronAddress: string): StakeSlipPart {
     record.element,
     field('Stake', `${'ETH'} on Sepolia`, coins),
     field('You keep', 'of whatever they carry out', shareRow),
+    short,
+    fillUp,
     offerButton,
     step,
     trouble,
@@ -182,6 +279,15 @@ export function fillOutAStake(patronAddress: string): StakeSlipPart {
     showStep(said: string): void {
       step.hidden = false
       step.textContent = said
+    },
+
+    whenPurseIsShort(fill: () => Promise<string | null>): void {
+      fillUpDoes = fill
+      weighThePurse()
+    },
+
+    readThePurseAgain(): void {
+      void readThePurse()
     },
 
     fillFor(raiderAddress: string): void {

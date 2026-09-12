@@ -209,6 +209,18 @@ export function buildPatronTable(order: PatronTableOrder): Part {
     showThemRound()
   })
 
+  slip.whenPurseIsShort(async () => {
+    const answer = await askForAPurse(order.address)
+
+    if (!theHouseAnswered(answer)) {
+      return answer.trouble
+    }
+
+    const given = answer.held.given.map((one) => `${one.coins} ${one.coinSymbol}`).join(' and ')
+    slip.showStep(`the house poured you ${given}`)
+    return null
+  })
+
   wantShowing.whenWaved(() => markAsShown(order.address, 'the table'))
 
   if (!haveYouSeen(order.address, 'the table')) {
@@ -267,6 +279,7 @@ export function buildPatronTable(order: PatronTableOrder): Part {
       .then((made: StakeYouMade) => {
         slip.addStake(made)
         slip.showTrouble(null)
+        slip.readThePurseAgain()
         writeUpTheStake(order.address, made.raider, Number(made.coinsStaked))
       })
       .catch((trouble: unknown) => {

@@ -35,6 +35,35 @@ async function reachTheVault(): Promise<{ vault: unknown; signerAddress: string 
   return { vault, signerAddress: await signer.getAddress() }
 }
 
+export const roomForGas = '0.0015'
+
+export interface WhatYouHold {
+  wei: bigint
+  eth: string
+}
+
+export async function whatYouHoldToStakeWith(address: string): Promise<WhatYouHold | null> {
+  if (!window.ethereum) {
+    return null
+  }
+
+  try {
+    const { BrowserProvider, formatEther } = await import('ethers')
+    const provider = new BrowserProvider(window.ethereum)
+    const realm = await provider.getNetwork()
+
+    if (Number(realm.chainId) !== realmWherePatronsPay.chainNumber) {
+      return null
+    }
+
+    const wei = await provider.getBalance(address)
+
+    return { wei, eth: formatEther(wei) }
+  } catch {
+    return null
+  }
+}
+
 export async function stakeOnARaider(
   offer: WhatYouOffer,
   tell: (progress: StakingProgress) => void
