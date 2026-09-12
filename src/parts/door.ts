@@ -90,14 +90,14 @@ export function buildDoor(): DoorPart {
   return {
     element: doorway,
 
-    showStanding(standing: PurseStanding): void {
+    showStanding(standing: PurseStanding, trouble?: string | null): void {
       const chosen = wordsForStanding[standing]
       word.textContent = chosen.word
       door.disabled = chosen.waiting
       door.classList.toggle('door--wrong-realm', chosen.flavour === 'wrong-realm')
       door.classList.toggle('door--opened', chosen.flavour === 'opened')
-      aside.textContent = chosen.aside
-      aside.classList.remove('doorway__aside--trouble')
+      aside.textContent = trouble ? `${chosen.aside} — ${trouble}` : chosen.aside
+      aside.classList.toggle('doorway__aside--trouble', Boolean(trouble))
     },
 
     whenPushed(listener: () => void): void {

@@ -9,7 +9,7 @@ export interface Part {
 }
 
 export interface DoorPart extends Part {
-  showStanding(standing: PurseStanding): void
+  showStanding(standing: PurseStanding, trouble?: string | null): void
   whenPushed(listener: () => void): void
 }
 

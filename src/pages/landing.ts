@@ -102,7 +102,7 @@ export function buildLanding(order: LandingOrder): Part {
   landing.append(dressing.element, hall, makeFooting(), switches.element)
 
   const stopWatching = order.purse.watch((reading) => {
-    door.showStanding(reading.standing)
+    door.showStanding(reading.standing, reading.trouble)
   })
 
   function enterIfOpened(reading: PurseReading): void {

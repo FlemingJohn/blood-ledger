@@ -38,9 +38,19 @@ function errorCode(trouble: unknown): number | null {
   return null
 }
 
+const alreadyAsking = -32002
+
 function errorWords(trouble: unknown): string {
+  if (errorCode(trouble) === alreadyAsking) {
+    return 'your purse is already asking. Open MetaMask and answer it.'
+  }
+
   if (trouble instanceof Error) {
-    return trouble.message
+    const said = trouble.message
+    if (said.includes('locked') || said.includes('Unlock')) {
+      return 'your purse is locked. Unlock MetaMask and try again.'
+    }
+    return said.length > 110 ? 'the purse would not answer' : said
   }
   return 'The purse would not answer.'
 }

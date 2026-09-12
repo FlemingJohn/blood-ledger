@@ -133,7 +133,12 @@
 }
 
 .doorway__aside--trouble {
-  color: var(--blood);
+  color: var(--ember);
+  font-family: var(--spoken);
+  font-size: 0.92rem;
+  font-style: italic;
+  letter-spacing: 0.03em;
+  text-transform: none;
 }
 
 @keyframes door-sweep {
