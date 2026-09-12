@@ -13,6 +13,8 @@ import { drawBinding, drawCoinStack, drawScales } from '../parts/hallMarks'
 import { readProfile, readProfileFromTheChain } from '../chain/profiles'
 import { guideTheWay } from '../parts/theTour'
 import { askIfTheyWantShowing } from '../parts/askToShow'
+import { plainlyStaking, yourPurseIsEmpty } from '../chain/patronVault'
+import { askForAPurse, theHouseAnswered } from '../chain/house'
 import { haveYouSeen, markAsShown } from '../parts/whoHasBeenShown'
 import { aroundTheTable } from '../tour/atTheTable'
 import { dressTheHall } from '../parts/hallDressing'
@@ -267,8 +269,30 @@ export function buildPatronTable(order: PatronTableOrder): Part {
         slip.showTrouble(null)
         writeUpTheStake(order.address, made.raider, Number(made.coinsStaked))
       })
-      .catch((trouble: Error) => {
-        slip.showTrouble(trouble.message)
+      .catch((trouble: unknown) => {
+        if (!yourPurseIsEmpty(trouble)) {
+          slip.showTrouble(plainlyStaking(trouble))
+          return
+        }
+
+        slip.showTrouble(plainlyStaking(trouble), {
+          said: 'The house will fill your purse',
+          busySaid: 'The house is counting',
+          async doIt(): Promise<string | null> {
+            const answer = await askForAPurse(order.address)
+
+            if (!theHouseAnswered(answer)) {
+              return answer.trouble
+            }
+
+            const given = answer.held.given
+              .map((one) => `${one.coins} ${one.coinSymbol}`)
+              .join(' and ')
+
+            slip.showStep(`the house poured you ${given}. Put up the coin again.`)
+            return null
+          }
+        })
       })
       .finally(() => {
         staking = false

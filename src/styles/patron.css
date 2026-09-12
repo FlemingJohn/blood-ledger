@@ -130,6 +130,41 @@
 
 .stake__trouble {
   color: var(--blood);
+  text-transform: none;
+  letter-spacing: 0.04em;
+  font-family: var(--spoken);
+  font-size: 0.9rem;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.stake__mend {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+  padding: 9px 15px;
+  border: 1px solid rgba(214, 21, 78, 0.55);
+  border-radius: 7px;
+  background: linear-gradient(180deg, rgba(52, 8, 22, 0.92), rgba(16, 3, 9, 0.95));
+  color: var(--bone);
+  font-family: var(--counted);
+  font-size: 0.56rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: var(--gauntlet, pointer);
+}
+
+.stake__mend:hover:not(:disabled),
+.stake__mend:focus-visible:not(:disabled) {
+  border-color: var(--flare);
+  color: #fff2ec;
+}
+
+.stake__mend:disabled {
+  opacity: 0.55;
+  cursor: default;
 }
 
 .stake__made {

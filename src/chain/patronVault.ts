@@ -84,3 +84,44 @@ export async function stakeOnARaider(
     stakedAt: Date.now()
   }
 }
+
+const youTurnedItAway = 4001
+
+export function yourPurseIsEmpty(trouble: unknown): boolean {
+  const said = trouble instanceof Error ? trouble.message : String(trouble)
+  const code = (trouble as { code?: unknown } | null)?.code
+
+  return code === 'INSUFFICIENT_FUNDS' || said.includes('insufficient funds')
+}
+
+export function plainlyStaking(trouble: unknown): string {
+  const said = trouble instanceof Error ? trouble.message : String(trouble)
+  const code = (trouble as { code?: unknown } | null)?.code
+
+  if (code === youTurnedItAway || code === 'ACTION_REJECTED') {
+    return 'you turned the purse away'
+  }
+  if (yourPurseIsEmpty(trouble)) {
+    return 'your purse has not enough ETH on Sepolia to cover that stake and its gas'
+  }
+  if (said.includes('CannotFundYourself')) {
+    return 'you cannot put up coin for yourself'
+  }
+  if (said.includes('StakeTooSmall')) {
+    return 'that stake is too small to be worth anything'
+  }
+  if (said.includes('StakeIsEmpty')) {
+    return 'a stake of nothing buys nothing'
+  }
+  if (said.includes('ShareTooGreedy')) {
+    return `a patron may keep at most ${mostAPatronMayKeep} percent`
+  }
+  if (said.includes('RaiderIsNobody')) {
+    return 'that is not an address the vault will accept'
+  }
+  if (said.includes('could not coalesce') || said.includes('network changed')) {
+    return 'your purse moved chain while that was signing. Try again.'
+  }
+
+  return said.length > 90 ? 'the chain would not take it' : said
+}

@@ -9,11 +9,17 @@ import '../styles/patron.css'
 
 const waitBeforeAsking = 420
 
+export interface MendIt {
+  said: string
+  busySaid: string
+  doIt(): Promise<string | null>
+}
+
 export interface StakeSlipPart extends Part {
   whenOffered(listener: (offer: WhatYouOffer) => void): void
   showBusy(busy: boolean): void
   showStep(said: string): void
-  showTrouble(said: string | null): void
+  showTrouble(said: string | null, mend?: MendIt | null): void
   fillFor(raiderAddress: string): void
   addStake(stake: StakeYouMade): void
 }
@@ -106,6 +112,11 @@ export function fillOutAStake(patronAddress: string): StakeSlipPart {
   trouble.className = 'stake__trouble'
   trouble.hidden = true
 
+  const mending = document.createElement('button')
+  mending.type = 'button'
+  mending.className = 'stake__mend'
+  mending.hidden = true
+
   const madeLabel = document.createElement('p')
   madeLabel.className = 'panel__label'
   madeLabel.textContent = 'What you have staked'
@@ -126,6 +137,7 @@ export function fillOutAStake(patronAddress: string): StakeSlipPart {
     offerButton,
     step,
     trouble,
+    mending,
     madeLabel,
     made
   )
@@ -178,9 +190,41 @@ export function fillOutAStake(patronAddress: string): StakeSlipPart {
       askTheLedgerAbout(raiderAddress)
     },
 
-    showTrouble(said: string | null): void {
+    showTrouble(said: string | null, mend?: MendIt | null): void {
       trouble.hidden = said === null
       trouble.textContent = said ?? ''
+
+      mending.hidden = !mend
+      mending.onclick = null
+
+      if (!mend) {
+        return
+      }
+
+      mending.disabled = false
+      mending.textContent = mend.said
+
+      mending.onclick = (): void => {
+        mending.disabled = true
+        mending.textContent = mend.busySaid
+
+        void mend
+          .doIt()
+          .then((wentWrong) => {
+            if (wentWrong) {
+              trouble.textContent = wentWrong
+              mending.disabled = false
+              mending.textContent = mend.said
+              return
+            }
+            trouble.hidden = true
+            mending.hidden = true
+          })
+          .catch(() => {
+            mending.disabled = false
+            mending.textContent = mend.said
+          })
+      }
     },
 
     addStake(stake: StakeYouMade): void {
