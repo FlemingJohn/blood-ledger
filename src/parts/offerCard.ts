@@ -107,6 +107,10 @@ export function layOutOffer(offer: Offer): OfferCardPart {
       }
     },
 
+    sayBarred(said: string): void {
+      barred.textContent = said
+    },
+
     whenAccepted(listener: (offer: Offer) => void): void {
       listeners.add(listener)
     },

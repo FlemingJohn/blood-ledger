@@ -15,6 +15,7 @@ export interface BoardOrder {
 
 export interface PatronBoardPart extends Part {
   addOffer(offer: Offer, className?: string): void
+  sayHowLongTheyWait(offerId: string, said: string): void
   barTheBoard(barred: boolean): void
   sayWhenBare(said: string): void
 }
@@ -105,6 +106,11 @@ export function openThePatronBoard(order: BoardOrder): PatronBoardPart {
 
     addOffer(offer: Offer, className?: string): void {
       lay(offer, className, true)
+    },
+
+    sayHowLongTheyWait(offerId: string, said: string): void {
+      const found = cards.find((card) => card.offer.id === offerId)
+      found?.sayBarred(said)
     },
 
     barTheBoard(barring: boolean): void {

@@ -18,7 +18,7 @@ import { layOutPowers } from '../parts/powerSlots'
 import { showTheBond } from '../parts/bondSlip'
 import { gradeReaches, readOffers, readRaider, sealPact } from '../chain/theLedger'
 import { asAnOfferToYou, readTheBoard } from '../chain/whatIsOnTheBoard'
-import { keepCarrying } from '../chain/carryTheProofs'
+import { howLongUntilTheyAgree, keepCarrying } from '../chain/carryTheProofs'
 import { readWhoHasBeenDown } from '../chain/whoHasBeenDown'
 import { askForAPurse, askTheHouse, askTheHouseToBackYou, theHouseAnswered } from '../chain/house'
 import { asAnOffer, houseOfferId } from '../chain/houseOffer'
@@ -130,15 +130,30 @@ export function buildHall(order: HallOrder): Part {
 
   wantShowing.whenWaved(() => markAsShown(order.address, 'the hall'))
 
-  const stopCarrying = keepCarrying(60000, (carried) => {
-    const yours = carried.sealed.some(
-      (one) => one.raider.toLowerCase() === order.address.toLowerCase()
-    )
+  const stopCarrying = keepCarrying(
+    30000,
+    (carried) => {
+      const yours = carried.sealed.some(
+        (one) => one.raider.toLowerCase() === order.address.toLowerCase()
+      )
 
-    if (yours) {
-      window.location.reload()
+      if (yours) {
+        window.location.reload()
+      }
+    },
+    (carried) => {
+      carried.waiting.forEach((one) => {
+        if (one.raider?.toLowerCase() !== order.address.toLowerCase()) {
+          return
+        }
+        if (one.blocksToGo === undefined) {
+          return
+        }
+
+        board.sayHowLongTheyWait(`pact-${one.pactId}`, howLongUntilTheyAgree(one.blocksToGo))
+      })
     }
-  })
+  )
 
   if (!haveYouSeen(order.address, 'the hall')) {
     window.setTimeout(

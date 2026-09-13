@@ -86,6 +86,7 @@ export default async function door(ask: Asked, answer: Answered): Promise<void> 
         if (stillWaiting(held)) {
           waiting.push({
             pactId: Number(pactId),
+            raider,
             txHash: one.transactionHash,
             sitsAt: held.sitsAt,
             attestedHeight: held.attestedHeight,

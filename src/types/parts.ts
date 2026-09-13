@@ -27,6 +27,7 @@ export interface PlinthPart extends Part {
 export interface OfferCardPart extends Part {
   offer: Offer
   showState(state: OfferState): void
+  sayBarred(said: string): void
   whenAccepted(listener: (offer: Offer) => void): void
 }
 
