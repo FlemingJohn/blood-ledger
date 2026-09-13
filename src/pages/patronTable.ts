@@ -15,6 +15,7 @@ import { guideTheWay } from '../parts/theTour'
 import { askIfTheyWantShowing } from '../parts/askToShow'
 import { plainlyStaking, yourPurseIsEmpty } from '../chain/patronVault'
 import { askForAPurse, theHouseAnswered } from '../chain/house'
+import { keepCarrying } from '../chain/carryTheProofs'
 import { haveYouSeen, markAsShown } from '../parts/whoHasBeenShown'
 import { aroundTheTable } from '../tour/atTheTable'
 import { dressTheHall } from '../parts/hallDressing'
@@ -209,6 +210,12 @@ export function buildPatronTable(order: PatronTableOrder): Part {
     showThemRound()
   })
 
+  const stopCarrying = keepCarrying(60000, (carried) => {
+    carried.sealed.forEach((one) => {
+      slip.showStep(`pact ${one.pactId} sealed on Creditcoin`)
+    })
+  })
+
   slip.whenPurseIsShort(async () => {
     const answer = await askForAPurse(order.address)
 
@@ -316,6 +323,7 @@ export function buildPatronTable(order: PatronTableOrder): Part {
   return {
     element: page,
     teardown(): void {
+      stopCarrying()
       cards.forEach((card) => card.teardown())
       tour.teardown()
       wantShowing.teardown()
