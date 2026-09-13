@@ -1,8 +1,11 @@
 import { Contract, JsonRpcProvider, Wallet, formatEther, isAddress, parseEther } from 'ethers'
 
-import type { HouseSettings } from './settings'
-import type { HouseTrouble } from './purse'
-import patronVaultBuilt from '../contracts/out/PatronVault.json' with { type: 'json' }
+import type { HouseSettings } from './settings.js'
+import type { HouseTrouble } from './purse.js'
+
+const whatTheHouseAsksOfTheVault = [
+  'function fundRaid(address raider, uint16 patronShare) payable returns (uint256)'
+]
 
 export interface HouseOffer {
   patronAddress: string
@@ -100,7 +103,7 @@ export async function backARaider(
 
   try {
     const patron = reachSepolia(settings)
-    const vault = new Contract(settings.patronVault, patronVaultBuilt.abi, patron)
+    const vault = new Contract(settings.patronVault, whatTheHouseAsksOfTheVault, patron)
 
     const sent = await vault.fundRaid(raider, settings.share, {
       value: parseEther(settings.stake)

@@ -1,7 +1,7 @@
-import { JsonRpcProvider, Wallet, formatEther, isAddress, parseEther } from 'ethers'
+﻿import { JsonRpcProvider, Wallet, formatEther, isAddress, parseEther } from 'ethers'
 
-import type { HouseRealm, HouseSettings } from './settings'
-import { hadTheirFill, takeItBack, tooSoonFor, whatTheyHaveHad, writeItDown } from './ledgerOfGiving'
+import type { HouseRealm, HouseSettings } from './settings.js'
+import { hadTheirFill, takeItBack, tooSoonFor, whatTheyHaveHad, writeItDown } from './ledgerOfGiving.js'
 
 export interface PurseSide {
   realm: string

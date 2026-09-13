@@ -9,3 +9,5 @@ contracts/out
 worker/.env
 vercel.env
 contracts/cache
+.vercel
+.env*

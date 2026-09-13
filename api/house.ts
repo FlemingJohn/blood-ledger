@@ -1,7 +1,7 @@
-import { readHouseSettings } from '../house/settings'
-import { alreadyHasEnough, lookAtOneSide, whatTheyHold } from '../house/purse'
-import { readTheHouseOffer } from '../house/patron'
-import { letThemIn, type Asked, type Answered } from './_door'
+﻿import { readHouseSettings } from '../house/settings.js'
+import { alreadyHasEnough, lookAtOneSide, whatTheyHold } from '../house/purse.js'
+import { readTheHouseOffer } from '../house/patron.js'
+import { letThemIn, type Asked, type Answered } from './_door.js'
 
 export default async function door(ask: Asked, answer: Answered): Promise<void> {
   if (!letThemIn(ask, answer)) {

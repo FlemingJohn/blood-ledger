@@ -1,6 +1,6 @@
-import { readHouseSettings } from '../../house/settings'
-import { fillAPurse } from '../../house/purse'
-import { codeFor, letThemIn, readBody, type Asked, type Answered } from '../_door'
+﻿import { readHouseSettings } from '../../house/settings.js'
+import { fillAPurse } from '../../house/purse.js'
+import { codeFor, letThemIn, readBody, type Asked, type Answered } from '../_door.js'
 
 export default async function door(ask: Asked, answer: Answered): Promise<void> {
   if (!letThemIn(ask, answer)) {

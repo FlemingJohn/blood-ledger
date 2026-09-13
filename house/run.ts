@@ -1,11 +1,11 @@
-import { createServer } from 'node:http'
+﻿import { createServer } from 'node:http'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 
-import { readHouseSettings } from './settings'
-import type { WhyRefused } from './purse'
-import { fillAPurse, lookAtOneSide, whatTheyHold } from './purse'
-import { backARaider, readTheHouseOffer } from './patron'
-import { whatTheyHaveHad } from './ledgerOfGiving'
+import { readHouseSettings } from './settings.js'
+import type { WhyRefused } from './purse.js'
+import { fillAPurse, lookAtOneSide, whatTheyHold } from './purse.js'
+import { backARaider, readTheHouseOffer } from './patron.js'
+import { whatTheyHaveHad } from './ledgerOfGiving.js'
 
 const settings = readHouseSettings()
 

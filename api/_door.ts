@@ -1,4 +1,4 @@
-import type { WhyRefused } from '../house/purse'
+﻿import type { WhyRefused } from '../house/purse.js'
 
 export interface Asked {
   method?: string
