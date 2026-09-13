@@ -8,6 +8,7 @@ import { watchTheWitnesses } from './witnessBay'
 import { countCoins } from '../chain/addresses'
 import { titleFor } from '../chain/ranks'
 import { homeRealm } from '../chain/realms'
+import { whatThePurseHolds } from '../chain/whatThePurseHolds'
 import { drawMark } from './marks'
 import { hangTheSoundHorn } from './soundHorn'
 import { hangTheHousePurse } from './housePurse'
@@ -188,19 +189,33 @@ export function hangTheTally(raider: Raider): TallyPart {
   realmName.className = 'tally__realmName'
   realm.append(realmName)
 
-  if (raider.coins <= 0) {
-    realm.classList.add('tally__realm--empty')
-    figure.classList.add('tally__coins--empty')
-    realmName.textContent = `${homeRealm.shortName} · empty`
-  } else if (contractsAreLive) {
-    realmName.textContent = homeRealm.name
-  } else {
-    realm.classList.add('tally__realm--warned')
-    realmName.append(drawMark({ name: 'warning', size: 10 }))
-    realmName.append(document.createTextNode(` ${homeRealm.shortName} · rehearsal`))
+  function sayWhatIsHeld(said: string | null): void {
+    const empty = said === null || said === '0'
+
+    figure.textContent = said ?? '—'
+    realm.classList.toggle('tally__realm--empty', empty)
+    figure.classList.toggle('tally__coins--empty', empty)
+
+    if (!contractsAreLive) {
+      realm.classList.add('tally__realm--warned')
+      realmName.replaceChildren(drawMark({ name: 'warning', size: 10 }))
+      realmName.append(document.createTextNode(` ${homeRealm.shortName} · rehearsal`))
+    } else if (said === null) {
+      realmName.textContent = 'no answer'
+    } else if (empty) {
+      realmName.textContent = 'empty'
+    } else {
+      realmName.textContent = homeRealm.shortName
+    }
+
+    realmName.title = realmName.textContent ?? ''
   }
 
-  realmName.title = realmName.textContent ?? ''
+  sayWhatIsHeld(null)
+
+  void whatThePurseHolds(homeRealm, raider.address).then((held) => {
+    sayWhatIsHeld(held ? held.said : null)
+  })
 
   const horn = hangTheSoundHorn()
   const houseCall = hangTheHousePurse(raider.address)

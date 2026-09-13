@@ -35,6 +35,11 @@ export function hangTheHousePurse(address: string | null): Part {
   call.setAttribute('aria-label', 'the house will stake you')
   call.append(drawMark({ name: 'purse', size: 15 }))
 
+  const callWord = document.createElement('span')
+  callWord.className = 'housecall__word'
+  callWord.textContent = 'House'
+  call.append(callWord)
+
   const slip = document.createElement('div')
   slip.className = 'housepurse framed'
   slip.hidden = true

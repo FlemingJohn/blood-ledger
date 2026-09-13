@@ -2,16 +2,24 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 5px;
   flex: none;
-  width: 26px;
   height: 22px;
-  padding: 0;
+  padding: 0 7px;
   border: 1px solid var(--ruleDeep);
   background: rgba(201, 162, 39, 0.08);
   color: var(--gold);
   vertical-align: middle;
   cursor: var(--gauntlet, pointer);
   transition: background 150ms ease, border-color 150ms ease;
+}
+
+.housecall__word {
+  font-family: var(--counted);
+  font-size: 0.5rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .housecall:hover,
