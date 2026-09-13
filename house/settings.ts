@@ -10,6 +10,7 @@ export interface HouseRealm {
   key: string
   drip: string
   keepsBack: string
+  fillsBelow: string
   explorer: string
 }
 
@@ -57,6 +58,7 @@ export function readHouseSettings(): HouseSettings {
       key: orElse('HOUSE_SEPOLIA_KEY', needed('SEPOLIA_WALLET_PRIVATE_KEY')),
       drip: orElse('HOUSE_DRIP_SEPOLIA', '0.02'),
       keepsBack: orElse('HOUSE_KEEPS_BACK_SEPOLIA', '0.01'),
+      fillsBelow: orElse('HOUSE_FILLS_BELOW_SEPOLIA', '0.012'),
       explorer: 'https://sepolia.etherscan.io'
     },
     creditcoin: {
@@ -67,6 +69,7 @@ export function readHouseSettings(): HouseSettings {
       key: orElse('HOUSE_CREDITCOIN_KEY', needed('CREDITCOIN_WALLET_PRIVATE_KEY')),
       drip: orElse('HOUSE_DRIP_CREDITCOIN', '0.15'),
       keepsBack: orElse('HOUSE_KEEPS_BACK_CREDITCOIN', '0.05'),
+      fillsBelow: orElse('HOUSE_FILLS_BELOW_CREDITCOIN', '0.09'),
       explorer: 'https://creditcoin-testnet.blockscout.com'
     },
     patronVault: orElse('PATRON_VAULT_ADDRESS', ''),
@@ -74,7 +77,7 @@ export function readHouseSettings(): HouseSettings {
     share: orElseNumber('HOUSE_SHARE', 35),
     mostPerAddress: orElseNumber('HOUSE_MOST_PER_ADDRESS', 3),
     waitBetween: orElseNumber('HOUSE_WAIT_BETWEEN_MS', 90_000),
-    port: orElseNumber('HOUSE_PORT', 8787),
+    port: orElseNumber('HOUSE_PORT', orElseNumber('PORT', 8787)),
     lettingIn: orElse('HOUSE_LETTING_IN', 'http://localhost:5173')
   }
 }

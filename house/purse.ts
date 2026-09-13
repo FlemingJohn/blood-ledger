@@ -86,6 +86,16 @@ export async function whatTheyHold(realm: HouseRealm, address: string): Promise<
   }
 }
 
+export async function alreadyHasEnough(realm: HouseRealm, address: string): Promise<boolean> {
+  try {
+    const { chain } = reach(realm)
+    const held = await chain.getBalance(address)
+    return held >= parseEther(realm.fillsBelow)
+  } catch {
+    return false
+  }
+}
+
 async function pourOneSide(realm: HouseRealm, toWhom: string): Promise<HandedOver> {
   const { purse } = reach(realm)
   const drip = parseEther(realm.drip)
@@ -93,6 +103,12 @@ async function pourOneSide(realm: HouseRealm, toWhom: string): Promise<HandedOve
 
   if (spare < drip) {
     throw new Error(`the house has no ${realm.coinSymbol} left to give`)
+  }
+
+  if (await alreadyHasEnough(realm, toWhom)) {
+    throw new Error(
+      `that purse already holds ${realm.fillsBelow} ${realm.coinSymbol} or more`
+    )
   }
 
   const sent = await purse.sendTransaction({ to: toWhom, value: drip })
