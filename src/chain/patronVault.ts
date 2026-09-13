@@ -35,7 +35,7 @@ async function reachTheVault(): Promise<{ vault: unknown; signerAddress: string 
   return { vault, signerAddress: await signer.getAddress() }
 }
 
-export const roomForGas = '0.0015'
+export const roomForGas = '0.0004'
 
 export interface WhatYouHold {
   wei: bigint

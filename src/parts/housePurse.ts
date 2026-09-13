@@ -140,10 +140,15 @@ export function hangTheHousePurse(address: string | null): HousePursePart {
     left.fig.textContent = `${reading.purse.pursesLeft} of ${reading.purse.mostPerAddress}`
 
     const dry = !reading.purse.sepolia.canGive && !reading.purse.creditcoin.canGive
+    const anySideDry = !reading.purse.sepolia.canGive || !reading.purse.creditcoin.canGive
     const spent = reading.purse.pursesLeft <= 0
 
     take.disabled = dry || spent || !address
-    elsewhere.hidden = !dry
+    elsewhere.hidden = !anySideDry
+
+    elsewhereSaid.textContent = dry
+      ? 'The house is dry. These wells are not ours:'
+      : 'The house cannot pour everything. These wells are not ours:'
     showTrouble(
       !address
         ? 'Open a purse first and the house will find you.'
