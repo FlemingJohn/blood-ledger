@@ -80,7 +80,7 @@ export function fillOutAStake(patronAddress: string): StakeSlipPart {
   const coins = document.createElement('input')
   coins.type = 'text'
   coins.className = 'stake__input'
-  coins.value = '0.01'
+  coins.value = '0.005'
   coins.required = true
 
   const share = document.createElement('input')
