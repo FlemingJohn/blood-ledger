@@ -1,4 +1,4 @@
-import type { Offer, Pact } from '../types/pact'
+﻿import type { Offer, Pact } from '../types/pact'
 import type { RaiderClass } from '../types/raider'
 import type { Role, RoleAnswer } from '../types/role'
 import type { Part } from '../types/parts'
@@ -18,6 +18,7 @@ import { layOutPowers } from '../parts/powerSlots'
 import { showTheBond } from '../parts/bondSlip'
 import { gradeReaches, readOffers, readRaider, sealPact } from '../chain/theLedger'
 import { asAnOfferToYou, readTheBoard } from '../chain/whatIsOnTheBoard'
+import { keepCarrying } from '../chain/carryTheProofs'
 import { readWhoHasBeenDown } from '../chain/whoHasBeenDown'
 import { askTheHouse, askTheHouseToBackYou, theHouseAnswered } from '../chain/house'
 import { asAnOffer, houseOfferId } from '../chain/houseOffer'
@@ -128,6 +129,16 @@ export function buildHall(order: HallOrder): Part {
   })
 
   wantShowing.whenWaved(() => markAsShown(order.address, 'the hall'))
+
+  const stopCarrying = keepCarrying(60000, (carried) => {
+    const yours = carried.sealed.some(
+      (one) => one.raider.toLowerCase() === order.address.toLowerCase()
+    )
+
+    if (yours) {
+      window.location.reload()
+    }
+  })
 
   if (!haveYouSeen(order.address, 'the hall')) {
     window.setTimeout(
@@ -366,6 +377,7 @@ export function buildHall(order: HallOrder): Part {
   return {
     element: hall,
     teardown(): void {
+      stopCarrying()
       tour.teardown()
       wantShowing.teardown()
       board.teardown()

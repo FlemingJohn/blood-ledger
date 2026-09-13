@@ -52,6 +52,50 @@ export async function waitForProof(order: CarryOrder): Promise<proofProvider.Con
   return answer.data
 }
 
+export interface NotYet {
+  waiting: true
+  attestedHeight: number
+  sitsAt: number
+}
+
+export async function proofIfReady(
+  order: CarryOrder
+): Promise<proofProvider.ContinuityResponse | NotYet> {
+  const receipt = await order.sourceChain.getTransactionReceipt(order.txHash)
+
+  if (!receipt || receipt.blockNumber === null) {
+    return { waiting: true, attestedHeight: 0, sitsAt: 0 }
+  }
+
+  const info = new chainInfo.PrecompileChainInfoProvider(order.creditcoin)
+  const latest = await info.getLatestAttestedHeightAndHash(order.sourceChainKey)
+
+  const reached = Number(latest.height ?? 0)
+
+  if (!latest.exists || reached < receipt.blockNumber) {
+    return { waiting: true, attestedHeight: reached, sitsAt: receipt.blockNumber }
+  }
+
+  const builder = new proofProvider.service.ProofBuilder(
+    order.sourceChainKey,
+    order.proofBuilderUrl
+  )
+
+  const answer = await builder.getProof(order.txHash)
+
+  if (!answer.success || !answer.data) {
+    return { waiting: true, attestedHeight: reached, sitsAt: receipt.blockNumber }
+  }
+
+  return answer.data
+}
+
+export function stillWaiting(
+  held: proofProvider.ContinuityResponse | NotYet
+): held is NotYet {
+  return (held as NotYet).waiting === true
+}
+
 function partsOf(proof: proofProvider.ContinuityResponse): unknown[] {
   return [
     sealPactAction,
