@@ -179,6 +179,32 @@ export function buildDescent(order: DescentOrder): Part {
 
   tour.whenDone(letTheWorldGo)
 
+  const movingKeys = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'Space', 'KeyQ', 'KeyE']
+
+  function waveItAwayAndPlay(blow: KeyboardEvent): void {
+    if (asking.element.hidden || !movingKeys.includes(blow.code)) {
+      return
+    }
+
+    asking.close()
+    showingTheWay = false
+    markAsShown(order.address, 'the dungeon')
+    letTheWorldGo()
+  }
+
+  window.addEventListener('keydown', waveItAwayAndPlay)
+
+  const nothingShouldHoldIt = window.setInterval(() => {
+    if (settled || running) {
+      return
+    }
+    if (tour.walking() || !asking.element.hidden) {
+      return
+    }
+    wasRunningBeforeTheTour = true
+    letTheWorldGo()
+  }, 1200)
+
   asking.whenWanted(() => {
     showingTheWay = true
     markAsShown(order.address, 'the dungeon')
@@ -424,6 +450,8 @@ export function buildDescent(order: DescentOrder): Part {
     teardown(): void {
       running = false
       settled = true
+      window.clearInterval(nothingShouldHoldIt)
+      window.removeEventListener('keydown', waveItAwayAndPlay)
       window.cancelAnimationFrame(heartbeat)
       window.removeEventListener('resize', fitBoard)
       hands.letGo()
