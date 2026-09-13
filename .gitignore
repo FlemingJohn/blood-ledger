@@ -11,3 +11,5 @@ vercel.env
 contracts/cache
 .vercel
 .env*
+
+image.png
