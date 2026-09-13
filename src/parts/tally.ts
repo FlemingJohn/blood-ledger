@@ -187,8 +187,15 @@ export function hangTheTally(raider: Raider): TallyPart {
   realmName.className = 'tally__realmName'
   realm.append(realmName)
 
+  let offeredTheHouse = false
+
   function sayWhatIsHeld(said: string | null): void {
     const empty = said === null || said === '0'
+
+    if (empty && said !== null && !offeredTheHouse) {
+      offeredTheHouse = true
+      window.setTimeout(() => houseCall.openIfTheyHaveNothing(), 2600)
+    }
 
     figure.textContent = said ?? '—'
     realm.classList.toggle('tally__realm--empty', empty)

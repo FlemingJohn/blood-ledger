@@ -27,7 +27,11 @@ function makeRow(said: string): { row: HTMLElement; fig: HTMLElement } {
   return { row, fig }
 }
 
-export function hangTheHousePurse(address: string | null): Part {
+export interface HousePursePart extends Part {
+  openIfTheyHaveNothing(): void
+}
+
+export function hangTheHousePurse(address: string | null): HousePursePart {
   const call = document.createElement('button')
   call.type = 'button'
   call.className = 'housecall'
@@ -111,7 +115,10 @@ export function hangTheHousePurse(address: string | null): Part {
   aside.textContent = 'Testnet coin. Worth nothing anywhere.'
 
   slip.append(head, rows, take, trouble, elsewhere, poured, aside)
-  document.body.append(slip)
+
+  const together = document.createElement('span')
+  together.className = 'housecall__together'
+  together.append(call, slip)
 
   let asking = false
 
@@ -241,13 +248,27 @@ export function hangTheHousePurse(address: string | null): Part {
       })
   })
 
+  let hasOffered = false
+
   return {
-    element: call,
+    element: together,
+
+    openIfTheyHaveNothing(): void {
+      if (hasOffered || !address || !slip.hidden) {
+        return
+      }
+
+      hasOffered = true
+
+      slip.hidden = false
+      place()
+      letting.watch()
+      void lookAtTheHouse()
+    },
 
     teardown(): void {
       letting.teardown()
-      slip.remove()
-      call.remove()
+      together.remove()
     }
   }
 }
