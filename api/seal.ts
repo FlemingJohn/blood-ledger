@@ -43,7 +43,7 @@ export default async function door(ask: Asked, answer: Answered): Promise<void> 
     const upTo = await sourceChain.getBlockNumber()
     const from = Math.max(0, upTo - howFarBack)
 
-    const funded = await vault.queryFilter(vault.filters.RaidFunded(), from, upTo)
+    const funded = await vault.queryFilter(vault.getEvent('RaidFunded')(), from, upTo)
 
     const sealed: unknown[] = []
     const waiting: unknown[] = []
@@ -58,7 +58,11 @@ export default async function door(ask: Asked, answer: Answered): Promise<void> 
       const pactId = said?.args?.[2] as bigint
       const raider = String(said?.args?.[0] ?? '')
 
-      const already = await ledger.pacts(pactId)
+      const readPact = ledger.getFunction('pacts') as (
+        id: bigint
+      ) => Promise<{ raider: string }>
+
+      const already = await readPact(pactId)
 
       if (already.raider !== '0x0000000000000000000000000000000000000000') {
         continue
