@@ -20,7 +20,7 @@ import { gradeReaches, readOffers, readRaider, sealPact } from '../chain/theLedg
 import { asAnOfferToYou, readTheBoard } from '../chain/whatIsOnTheBoard'
 import { keepCarrying } from '../chain/carryTheProofs'
 import { readWhoHasBeenDown } from '../chain/whoHasBeenDown'
-import { askTheHouse, askTheHouseToBackYou, theHouseAnswered } from '../chain/house'
+import { askForAPurse, askTheHouse, askTheHouseToBackYou, theHouseAnswered } from '../chain/house'
 import { asAnOffer, houseOfferId } from '../chain/houseOffer'
 import { rememberTheClass, takeTheChainsWord } from '../chain/whatYouHaveDone'
 import { bondFromTheChain, openPactFromTheChain, standingFromTheChain } from '../chain/askTheLedger'
@@ -329,6 +329,25 @@ export function buildHall(order: HallOrder): Part {
       .catch((trouble: unknown) => {
         lockingUp = false
         descent.sayWhatIsHappening(`The bond did not go down — ${plainly(trouble)}.`, false)
+
+        const said = trouble instanceof Error ? trouble.message : String(trouble)
+
+        if (said.includes('the bond is') || said.includes('insufficient funds')) {
+          void askForAPurse(order.address).then((answer) => {
+            if (!theHouseAnswered(answer)) {
+              return
+            }
+
+            const given = answer.held.given
+              .map((one) => `${one.coins} ${one.coinSymbol}`)
+              .join(' and ')
+
+            descent.sayWhatIsHappening(
+              `The house poured you ${given}. Press again to go down.`,
+              false
+            )
+          })
+        }
       })
   })
 
