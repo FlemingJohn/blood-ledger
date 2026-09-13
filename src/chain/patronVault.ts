@@ -25,7 +25,7 @@ async function reachTheVault(): Promise<{ vault: unknown; signerAddress: string 
   const { BrowserProvider, Contract } = await import('ethers')
 
   if (!window.ethereum) {
-    throw new Error('no purse to sign with')
+    throw new Error('you have no purse to put a seal to this')
   }
 
   const provider = new BrowserProvider(window.ethereum)
@@ -69,7 +69,7 @@ export async function stakeOnARaider(
   tell: (progress: StakingProgress) => void
 ): Promise<StakeYouMade> {
   if (!vaultIsDeployed) {
-    throw new Error('no vault is deployed yet, so nothing can be staked')
+    throw new Error('there is nowhere to put up coin yet')
   }
 
   const { parseEther, isAddress } = await import('ethers')
@@ -149,8 +149,14 @@ export function plainlyStaking(trouble: unknown): string {
     return 'that is not an address the vault will accept'
   }
   if (said.includes('could not coalesce') || said.includes('network changed')) {
-    return 'your purse moved chain while that was signing. Try again.'
+    return `your purse wandered out of ${realmWherePatronsPay.name} while that was signing`
+  }
+  if (said.includes('nonce') || said.includes('replacement')) {
+    return 'the chain is still chewing your last deed. Wait a breath and try again.'
+  }
+  if (said.includes('timeout') || said.includes('TIMEOUT')) {
+    return 'the chain did not answer in time'
   }
 
-  return said.length > 90 ? 'the chain would not take it' : said
+  return 'the vault would not take it'
 }

@@ -30,6 +30,19 @@ interface LedgerWeCanWriteTo {
 
 const youTurnedItAway = 4001
 
+const inTheLedgersWords: [string, string][] = [
+  ['NoSuchPact', 'no pact stands in your name'],
+  ['NotYourPact', 'that pact belongs to another raider'],
+  ['PactAlreadySettled', 'that raid is already written down'],
+  ['RaiderAlreadyOwes', 'you already owe on a pact, and cannot take another until it settles'],
+  ['BondAlreadyPosted', 'your bond is already locked up'],
+  ['NoBondPosted', 'the bond was never locked up'],
+  ['BondIsWrong', 'the bond asked of you changed while you read. Look again.'],
+  ['CouldNotMoveTheBond', 'the bond would not move'],
+  ['MoreThanTheDungeonHolds', 'the ledger will not write down a haul that large'],
+  ['Query already processed', 'that proof has already been spent']
+]
+
 export function plainly(trouble: unknown): string {
   const said = trouble instanceof Error ? trouble.message : String(trouble)
   const code = (trouble as { code?: unknown } | null)?.code
@@ -37,26 +50,27 @@ export function plainly(trouble: unknown): string {
   if (code === youTurnedItAway || code === 'ACTION_REJECTED') {
     return 'you turned the purse away'
   }
-  if (said.includes('NoBondPosted')) {
-    return 'the bond was never locked up'
-  }
-  if (said.includes('BondIsWrong')) {
-    return 'the bond asked of you changed while you were reading. Try again.'
-  }
-  if (said.includes('PactAlreadySettled')) {
-    return 'this raid is already written down'
-  }
-  if (said.includes('NotYourPact')) {
-    return 'that pact belongs to somebody else'
-  }
-  if (said.includes('MoreThanTheDungeonHolds')) {
-    return 'the ledger will not write down a haul that large'
-  }
-  if (said.includes('insufficient funds') || said.includes('estimateGas')) {
-    return 'your purse cannot cover it'
+
+  for (const [named, plain] of inTheLedgersWords) {
+    if (said.includes(named)) {
+      return plain
+    }
   }
 
-  return said.length > 90 ? 'the chain would not take it' : said
+  if (said.includes('insufficient funds')) {
+    return `your purse has not enough ${homeRealm.coinSymbol} for the bond and its cost`
+  }
+  if (said.includes('network changed') || said.includes('could not coalesce')) {
+    return `your purse wandered out of ${homeRealm.name} while that was signing`
+  }
+  if (said.includes('nonce') || said.includes('replacement')) {
+    return 'the chain is still chewing your last deed. Wait a breath and try again.'
+  }
+  if (said.includes('timeout') || said.includes('TIMEOUT')) {
+    return 'the chain did not answer in time'
+  }
+
+  return 'the ledger would not take it'
 }
 
 async function reachTheLedgerWithYourPurse(): Promise<{
@@ -69,7 +83,7 @@ async function reachTheLedgerWithYourPurse(): Promise<{
   }
 
   if (!window.ethereum) {
-    throw new Error('no purse to sign with')
+    throw new Error('you have no purse to put a seal to this')
   }
 
   const { BrowserProvider, Contract } = await import('ethers')

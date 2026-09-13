@@ -42,17 +42,22 @@ const alreadyAsking = -32002
 
 function errorWords(trouble: unknown): string {
   if (errorCode(trouble) === alreadyAsking) {
-    return 'your purse is already asking. Open MetaMask and answer it.'
+    return 'it is already asking you. Answer it and press again.'
   }
 
-  if (trouble instanceof Error) {
-    const said = trouble.message
-    if (said.includes('locked') || said.includes('Unlock')) {
-      return 'your purse is locked. Unlock MetaMask and try again.'
-    }
-    return said.length > 110 ? 'the purse would not answer' : said
+  const said = trouble instanceof Error ? trouble.message : String(trouble)
+
+  if (said.includes('locked') || said.includes('Unlock')) {
+    return 'your purse is shut. Unlock it and try again.'
   }
-  return 'The purse would not answer.'
+  if (said.includes('rejected') || said.includes('denied')) {
+    return 'you turned it away'
+  }
+  if (said.includes('chain') || said.includes('network')) {
+    return 'it would not step into this realm'
+  }
+
+  return ''
 }
 
 export function keepPurse(wantedRealm: Realm = homeRealm): PurseKeeper {

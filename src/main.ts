@@ -95,7 +95,7 @@ function showHall(address: string): void {
 }
 
 const whyItFailed: Record<string, string> = {
-  'no purse found': 'no purse to sign with',
+  'no purse found': 'you carry no purse',
   'you refused': 'you turned the switch away',
   'wrong realm': 'your purse stayed where it was',
   'something broke': 'the purse would not answer'
