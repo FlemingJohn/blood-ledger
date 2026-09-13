@@ -1,5 +1,6 @@
 import type { Standing } from '../types/raider'
 import { gradeFromScore } from './theLedger'
+import { coinsFromWei } from './coinRate'
 
 const ledgerLivesAt = import.meta.env.VITE_THE_LEDGER_ADDRESS ?? ''
 const creditcoinAnswersAt =
@@ -136,7 +137,7 @@ export async function openPactFromTheChain(address: string): Promise<PactOnChain
     return {
       pactId: Number(which),
       patronAddress: pact.patron,
-      coinsStaked: Number(pact.coinsStaked),
+      coinsStaked: coinsFromWei(pact.coinsStaked),
       patronShare: Number(pact.patronShare),
       settled: pact.settled
     }
