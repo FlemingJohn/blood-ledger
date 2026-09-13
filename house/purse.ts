@@ -153,17 +153,33 @@ export async function fillAPurse(
 
   const poured: HandedOver[] = []
   const refused: string[] = []
+  let allHadPlenty = true
 
   for (const realm of [settings.sepolia, settings.creditcoin]) {
     try {
+      if (await alreadyHasEnough(realm, toWhom)) {
+        refused.push(`${realm.shortName}: that purse already holds enough`)
+        continue
+      }
+
+      allHadPlenty = false
       poured.push(await pourOneSide(realm, toWhom))
     } catch (trouble) {
+      allHadPlenty = false
       refused.push(`${realm.shortName}: ${(trouble as Error).message}`)
     }
   }
 
   if (poured.length === 0) {
     takeItBack(toWhom, wasAt)
+
+    if (allHadPlenty) {
+      return {
+        trouble: 'the house fills empty purses, and yours is not empty',
+        refused: 'had enough'
+      }
+    }
+
     return {
       trouble: refused.join(' · ') || 'the house could not pour anything',
       refused: 'house is dry'
