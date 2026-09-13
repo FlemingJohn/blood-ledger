@@ -82,11 +82,35 @@ export function hangTheHousePurse(address: string | null): Part {
   poured.className = 'housepurse__poured'
   poured.hidden = true
 
+  const elsewhere = document.createElement('div')
+  elsewhere.className = 'housepurse__elsewhere'
+  elsewhere.hidden = true
+
+  const elsewhereSaid = document.createElement('p')
+  elsewhereSaid.className = 'housepurse__elsewhereSaid'
+  elsewhereSaid.textContent = 'The house is dry. These wells are not ours:'
+
+  const sepoliaWell = document.createElement('a')
+  sepoliaWell.className = 'housepurse__well'
+  sepoliaWell.href = 'https://cloud.google.com/application/web3/faucet/ethereum/sepolia'
+  sepoliaWell.target = '_blank'
+  sepoliaWell.rel = 'noopener'
+  sepoliaWell.textContent = 'A well for Sepolia ETH →'
+
+  const creditcoinWell = document.createElement('a')
+  creditcoinWell.className = 'housepurse__well'
+  creditcoinWell.href = 'https://discord.gg/Gu43zTfmtc'
+  creditcoinWell.target = '_blank'
+  creditcoinWell.rel = 'noopener'
+  creditcoinWell.textContent = 'A well for tCTC, in the Creditcoin hall →'
+
+  elsewhere.append(elsewhereSaid, sepoliaWell, creditcoinWell)
+
   const aside = document.createElement('p')
   aside.className = 'housepurse__aside'
   aside.textContent = 'Testnet coin. Worth nothing anywhere.'
 
-  slip.append(head, rows, take, trouble, poured, aside)
+  slip.append(head, rows, take, trouble, elsewhere, poured, aside)
   document.body.append(slip)
 
   let asking = false
@@ -112,6 +136,7 @@ export function hangTheHousePurse(address: string | null): Part {
     const spent = reading.purse.pursesLeft <= 0
 
     take.disabled = dry || spent || !address
+    elsewhere.hidden = !dry
     showTrouble(
       !address
         ? 'Open a purse first and the house will find you.'
@@ -144,6 +169,7 @@ export function hangTheHousePurse(address: string | null): Part {
     if (!theHouseAnswered(answer)) {
       take.disabled = true
       showTrouble(answer.trouble)
+      elsewhere.hidden = false
       return
     }
 

@@ -14,6 +14,36 @@
   transition: background 150ms ease, border-color 150ms ease;
 }
 
+.housepurse__elsewhere {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--ruleDeep);
+}
+
+.housepurse__elsewhereSaid {
+  margin: 0 0 2px;
+  font-family: var(--spoken);
+  font-style: italic;
+  font-size: 0.86rem;
+  color: var(--ash);
+}
+
+.housepurse__well {
+  font-family: var(--counted);
+  font-size: 0.56rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.housepurse__well:hover {
+  color: var(--flare);
+}
+
 .housecall__word {
   font-family: var(--counted);
   font-size: 0.5rem;

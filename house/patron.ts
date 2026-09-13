@@ -105,7 +105,13 @@ export async function backARaider(
     const patron = reachSepolia(settings)
     const vault = new Contract(settings.patronVault, whatTheHouseAsksOfTheVault, patron)
 
-    const sent = await vault.fundRaid(raider, settings.share, {
+    const putUpTheCoin = vault.getFunction('fundRaid') as (
+      raider: string,
+      share: number,
+      opts: { value: bigint }
+    ) => Promise<{ hash: string; wait: () => Promise<unknown> }>
+
+    const sent = await putUpTheCoin(raider, settings.share, {
       value: parseEther(settings.stake)
     })
 
