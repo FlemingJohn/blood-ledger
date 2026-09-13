@@ -68,7 +68,9 @@ export function openThePatronBoard(order: BoardOrder): PatronBoardPart {
       card.element.classList.add(className)
     }
 
-    if (offer.claimed) {
+    if (offer.waitingOnWitnesses) {
+      card.showState('waiting')
+    } else if (offer.claimed) {
       card.showState('claimed')
     } else if (!gradeReaches(order.grade, offer.needsGrade)) {
       card.showState('shut')

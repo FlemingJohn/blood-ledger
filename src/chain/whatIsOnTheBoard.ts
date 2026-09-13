@@ -73,6 +73,7 @@ export function asAnOfferToYou(putUp: CoinPutUp): Offer {
       : `${putUp.coinsStaked} ETH is staked in your name on Ethereum.`,
     needsGrade: 'F',
     claimed: false,
-    reckoned: false
+    reckoned: false,
+    waitingOnWitnesses: waiting
   }
 }

@@ -199,6 +199,14 @@ export function buildHall(order: HallOrder): Part {
       return
     }
 
+    if (offer.waitingOnWitnesses) {
+      descent.sayWhatIsHappening(
+        'The witnesses have not agreed on that payment yet. It will open by itself.',
+        false
+      )
+      return
+    }
+
     sealing = true
     waxPressed()
     rite.open()
@@ -245,7 +253,10 @@ export function buildHall(order: HallOrder): Part {
       const named = asAnOfferToYou(putUp)
       board.addOffer(named, 'offer--named')
       offersHere.push(named)
-      openToYou += 1
+
+      if (!named.waitingOnWitnesses) {
+        openToYou += 1
+      }
     })
 
     board.sayWhenBare('Nobody has named you yet. Ask the House and it will put up coin for you.')

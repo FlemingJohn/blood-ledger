@@ -84,7 +84,8 @@ export function layOutOffer(offer: Offer): OfferCardPart {
     offer,
 
     showState(state: OfferState): void {
-      const closed = state === 'shut' || state === 'claimed' || state === 'held'
+      const closed =
+        state === 'shut' || state === 'claimed' || state === 'held' || state === 'waiting'
 
       card.classList.toggle('offer--rich', state === 'rich')
       card.classList.toggle('offer--closed', closed)
@@ -97,6 +98,9 @@ export function layOutOffer(offer: Offer): OfferCardPart {
       }
       if (state === 'claimed') {
         barred.textContent = 'taken'
+      }
+      if (state === 'waiting') {
+        barred.textContent = 'witnesses agreeing'
       }
       if (state === 'held') {
         barred.textContent = 'you hold a pact'

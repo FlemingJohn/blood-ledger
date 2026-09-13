@@ -1,6 +1,6 @@
 import type { StandingGrade } from './raider'
 
-export type OfferState = 'open' | 'rich' | 'shut' | 'claimed' | 'held'
+export type OfferState = 'open' | 'rich' | 'shut' | 'claimed' | 'held' | 'waiting'
 
 export interface Offer {
   id: string
@@ -12,6 +12,7 @@ export interface Offer {
   needsGrade: StandingGrade
   claimed: boolean
   reckoned: boolean
+  waitingOnWitnesses?: boolean
 }
 
 export interface Pact {
