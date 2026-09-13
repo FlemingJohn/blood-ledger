@@ -5,7 +5,6 @@ import { contractsAreLive, gradeFloors, readTheUnderwriter } from '../chain/theL
 import { readTheWitnesses } from '../chain/witnesses'
 import { readOutTheUnderwriter } from './underwriterBay'
 import { watchTheWitnesses } from './witnessBay'
-import { countCoins } from '../chain/addresses'
 import { titleFor } from '../chain/ranks'
 import { homeRealm } from '../chain/realms'
 import { whatThePurseHolds } from '../chain/whatThePurseHolds'
@@ -173,7 +172,6 @@ export function hangTheTally(raider: Raider): TallyPart {
   held.className = 'tally__coins'
 
   const figure = document.createElement('span')
-  figure.textContent = countCoins(raider.coins)
 
   const named = document.createElement('span')
   named.className = 'tally__coinName'
@@ -213,9 +211,15 @@ export function hangTheTally(raider: Raider): TallyPart {
 
   sayWhatIsHeld(null)
 
-  void whatThePurseHolds(homeRealm, raider.address).then((held) => {
-    sayWhatIsHeld(held ? held.said : null)
-  })
+  function lookInThePurse(): void {
+    void whatThePurseHolds(homeRealm, raider.address).then((held) => {
+      sayWhatIsHeld(held ? held.said : null)
+    })
+  }
+
+  lookInThePurse()
+
+  const watchingThePurse = window.setInterval(lookInThePurse, 15000)
 
   const horn = hangTheSoundHorn()
   const houseCall = hangTheHousePurse(raider.address)
@@ -259,6 +263,7 @@ export function hangTheTally(raider: Raider): TallyPart {
       horn.teardown()
       stillWatching = false
       window.clearInterval(witnessBeat)
+      window.clearInterval(watchingThePurse)
       witnesses.teardown()
       underwriter.teardown()
       asking.clear()
