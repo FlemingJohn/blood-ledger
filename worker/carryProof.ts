@@ -126,7 +126,8 @@ async function roomToRun(order: CarryOrder, proof: proofProvider.ContinuityRespo
     })
     return (guessed * BigInt(gasBufferPercent)) / 100n
   } catch {
-    return BigInt(21_000 + continuityBlocks * 5_000 + 20_000)
+    const roomForTheProof = 400_000 + continuityBlocks * 40_000
+    return BigInt(Math.min(4_000_000, Math.max(900_000, roomForTheProof)))
   }
 }
 
