@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Blood Ledger — Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void:#08040a; --deep:#12040a; --rule:#3a0d1c; --ruleDeep:#2a0912;
+    --blood:#8b0b2e; --ember:#d6154e; --flare:#ff3d78;
+    --gold:#c9a227; --bone:#e0d5c4; --ash:#7d6a70;
+    --chiselled:'Cinzel', Georgia, serif;
+    --spoken:'Crimson Pro', Georgia, serif;
+    --counted:'JetBrains Mono', Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { margin:0; padding:0; background:#000; }
+
+  .slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    padding: 62px 76px;
+    background:
+      radial-gradient(120% 90% at 50% 108%, rgba(139,11,46,0.30) 0%, rgba(60,6,22,0.16) 40%, rgba(8,2,4,1) 76%),
+      var(--void);
+    color: var(--bone);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    page-break-after: always;
+    break-after: page;
+  }
+  .slide:last-child { page-break-after: auto; break-after: auto; }
+
+  .tag {
+    font-family: var(--counted);
+    font-size: 15px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ash);
+    margin: 0 0 16px;
+  }
+  .tag b { color: var(--flare); font-weight: 500; }
+
+  h1 {
+    font-family: var(--chiselled);
+    font-size: 58px;
+    line-height: 1.08;
+    letter-spacing: 0.02em;
+    color: var(--bone);
+    margin: 0 0 18px;
+    font-weight: 600;
+  }
+  h2 {
+    font-family: var(--chiselled);
+    font-size: 40px;
+    line-height: 1.14;
+    color: var(--bone);
+    margin: 0 0 20px;
+    font-weight: 600;
+  }
+  p { font-family: var(--spoken); font-size: 25px; line-height: 1.48; margin: 0 0 16px; }
+  .lede { font-size: 29px; color: var(--bone); }
+  .dim { color: var(--ash); }
+  .gold { color: var(--gold); }
+  .flare { color: var(--flare); }
+  em { font-style: italic; }
+  strong { color: var(--bone); font-weight: 600; }
+
+  .num { font-family: var(--counted); }
+
+  .foot {
+    position: absolute;
+    left: 76px; right: 76px; bottom: 30px;
+    display: flex; justify-content: space-between;
+    font-family: var(--counted); font-size: 13px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: #4a3a40;
+    border-top: 1px solid var(--ruleDeep);
+    padding-top: 14px;
+  }
+
+  .grow { flex: 1; }
+
+  /* ---- title slide ---- */
+  .title { align-items: center; justify-content: center; text-align: center; }
+  .title h1 { font-size: 92px; letter-spacing: 0.14em; margin-bottom: 8px;
+              text-shadow: 0 0 70px rgba(139,11,46,0.9); }
+  .title .sub { font-family: var(--spoken); font-style: italic; font-size: 34px; color: var(--gold); margin: 12px 0 34px; }
+  .title .meta { font-family: var(--counted); font-size: 17px; letter-spacing: 0.24em;
+                 text-transform: uppercase; color: var(--ash); }
+  .rule { width: 380px; height: 1px; margin: 26px auto;
+          background: linear-gradient(90deg, transparent, var(--ember), transparent); }
+
+  /* ---- generic blocks ---- */
+  .cols { display: flex; gap: 30px; }
+  .cols > * { flex: 1; }
+
+  .card {
+    border: 1px solid var(--ruleDeep);
+    border-radius: 13px;
+    padding: 24px 26px;
+    background: linear-gradient(180deg, rgba(30,9,17,0.82), rgba(9,2,5,0.9));
+  }
+  .card.lit { border-color: var(--ember); box-shadow: 0 0 50px rgba(214,21,78,0.14); }
+  .card.gold { border-color: var(--gold); }
+  .card h3 {
+    font-family: var(--counted); font-size: 19px; letter-spacing: 0.18em;
+    text-transform: uppercase; margin: 0 0 12px; color: var(--flare); font-weight: 500;
+  }
+  .card.gold h3 { color: var(--gold); }
+  .card p { font-size: 22px; margin: 0 0 8px; }
+  .card p:last-child { margin-bottom: 0; }
+
+  table { border-collapse: collapse; width: 100%; font-family: var(--spoken); font-size: 23px; }
+  th {
+    font-family: var(--counted); font-size: 14px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--ash); text-align: left;
+    padding: 0 14px 12px 0; font-weight: 500; border-bottom: 1px solid var(--ruleDeep);
+  }
+  td { padding: 13px 14px 13px 0; border-bottom: 1px solid rgba(42,9,18,0.7); color: var(--bone); }
+  td.n { font-family: var(--counted); font-size: 21px; color: var(--gold); }
+  td.f { font-family: var(--counted); font-size: 21px; color: var(--flare); }
+  tr:last-child td { border-bottom: none; }
+
+  .bars { display: flex; align-items: flex-end; gap: 26px; height: 250px; margin: 26px 0 0; }
+  .bar { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+  .bar .v { font-family: var(--counted); font-size: 26px; color: var(--flare); margin-bottom: 9px; }
+  .bar .b { width: 100%; border-radius: 6px 6px 0 0;
+            background: linear-gradient(180deg, var(--flare), var(--blood)); }
+  .bar .k { font-family: var(--counted); font-size: 14px; letter-spacing: 0.12em;
+            color: var(--ash); margin-top: 11px; }
+  .bar.dead .v { color: var(--ash); }
+  .bar.dead .b { background: var(--ruleDeep); border: 1px dashed var(--rule); }
+
+  .flow { display: flex; align-items: stretch; gap: 18px; margin: 6px 0 26px; }
+  .flow .step { flex: 1; border: 1px solid var(--ruleDeep); border-radius: 11px;
+                padding: 20px 20px; background: rgba(18,4,10,0.7); }
+  .flow .step h4 { font-family: var(--counted); font-size: 17px; letter-spacing: 0.18em;
+                   margin: 0 0 10px; color: var(--gold); font-weight: 500; }
+  .flow .step.mid h4 { color: var(--flare); }
+  .flow .step.end h4 { color: var(--ember); }
+  .flow .step p { font-size: 20px; margin: 0; color: var(--ash); }
+  .flow .arrow { align-self: center; color: var(--ember); font-size: 26px; }
+
+  code, .mono { font-family: var(--counted); }
+  .addr { font-family: var(--counted); font-size: 20px; color: var(--bone); word-break: break-all; }
+  .hash { font-family: var(--counted); font-size: 19px; color: var(--flare); }
+
+  .shot { width: 100%; height: 288px; object-fit: cover; object-position: top left;
+          border: 1px solid var(--ruleDeep); border-radius: 10px; display: block; }
+
+  .kicker { font-family: var(--counted); font-size: 20px; letter-spacing: 0.2em;
+            text-transform: uppercase; color: var(--gold); margin: 22px 0 0; }
+
+  .big { font-family: var(--counted); font-size: 64px; color: var(--flare); line-height: 1; }
+  .biglabel { font-family: var(--counted); font-size: 15px; letter-spacing: 0.2em;
+              text-transform: uppercase; color: var(--ash); margin-top: 10px; }
+  .stat { text-align: center; }
+
+  pre { font-family: var(--counted); font-size: 19px; line-height: 1.6; color: var(--ash);
+        background: rgba(10,3,6,0.8); border: 1px solid var(--ruleDeep); border-radius: 10px;
+        padding: 20px 24px; margin: 0; white-space: pre-wrap; }
+  pre b { color: var(--flare); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<!-- 1 ─────────────────────────────────────────────── -->
+<section class="slide title">
+  <h1>BLOOD LEDGER</h1>
+  <div class="sub">Somebody else paid for your sword.</div>
+  <div class="rule"></div>
+  <div class="meta">Undercollateralized lending, as a dungeon crawler</div>
+  <div class="meta" style="margin-top:14px;color:#4a3a40">
+    Creditcoin&nbsp;CC3 &nbsp;·&nbsp; Ethereum&nbsp;Sepolia &nbsp;·&nbsp; Attestcoin&nbsp;Protocol
+  </div>
+  <div class="meta" style="margin-top:40px;color:var(--gold)">Fleming John &nbsp;·&nbsp; BUIDL CTC 2026</div>
+</section>
+
+<!-- 2 ─────────────────────────────────────────────── -->
+<section class="slide">
+  <p class="tag"><b>·</b> The problem</p>
+  <h1>To borrow $100,<br>you must first post $150.</h1>
+  <p class="lede" style="max-width:980px">
+    Onchain lending is stuck on overcollateralization. It works, but it only serves people
+    who <em>already have the money</em>. That is a liquidity tool, not credit.
+  </p>
+  <p class="lede dim" style="max-width:980px">
+    Real credit means being lent more than you can cover. That needs a reputation which is
+    portable, public, and expensive to fake.
+  </p>
+  <div class="grow"></div>
+  <div class="cols">
+    <div class="card">
+      <h3>Why it does not exist</h3>
+      <p class="dim">Credit scores live inside institutions, wallets are free to create, and
+      reputation you mint between your own addresses is worth nothing.</p>
+    </div>
+    <div class="card gold">
+      <h3>What is needed</h3>
+      <p class="dim">A record that costs real money to build, cannot be farmed with two
+      wallets, and survives without the app that wrote it.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Blood Ledger</span><span>The problem</span></div>
+</section>
+
+<!-- 3 ─────────────────────────────────────────────── -->
+<section class="slide">
+  <p class="tag"><b>·</b> The solution</p>
+  <h1>Make the reputation <span class="flare">the game.</span></h1>
+  <p class="lede" style="max-width:1000px">
+    A patron stakes coin on Ethereum to fund a raider they have never met. The raider goes
+    into a dungeon and decides when to turn back.
+  </p>
+  <div class="cols" style="margin-top:12px">
+    <div class="card gold">
+      <h3>Walks out</h3>
+      <p>They split the haul.</p>
+      <p class="gold">Standing <span class="mono">+28</span></p>
+    </div>
+    <div class="card lit">
+      <h3>Falls</h3>
+      <p>The patron's coin is gone. All of it.</p>
+      <p class="flare">Standing <span class="mono">−86</span>, and the ledger writes their name next to the loss.</p>
+    </div>
+  </div>
+  <div class="grow"></div>
+  <p class="lede">
+    <strong>The loan is also the difficulty curve.</strong> The more of the patron's coin you
+    are carrying, the faster the dungeon sends things at you. Take the chain out and the
+    difficulty goes with it — this is not a shop bolted onto a game.
+  </p>
+  <div class="foot"><span>Blood Ledger</span><span>The solution</span></div>
+</section>
+
+<!-- 4 ─────────────────────────────────────────────── -->
+<section class="slide">
+  <p class="tag"><b>·</b> The mechanic</p>
+  <h2>Standing prices the bond.<br>At 900 you post nothing at all.</h2>
+  <div class="cols" style="align-items:flex-start">
+    <div style="flex:1.15">
+      <table>
+        <tr><th>Standing</th><th>Must lock</th><th>of 0.1 tCTC</th></tr>
+        <tr><td>below 300</td><td class="f">100%</td><td class="n">0.100</td></tr>
+        <tr><td>300 and up</td><td class="f">80%</td><td class="n">0.080</td></tr>
+        <tr><td>450 and up</td><td class="f">60%</td><td class="n">0.060</td></tr>
+        <tr><td>600 and up</td><td class="f">30%</td><td class="n">0.030</td></tr>
+        <tr><td>750 and up</td><td class="f">10%</td><td class="n">0.010</td></tr>
+        <tr><td><strong>900 and up</strong></td><td class="f"><strong>nothing</strong></td><td class="n">—</td></tr>
+      </table>
+    </div>
+    <div style="flex:1">
+      <div class="card lit">
+        <h3>Undercollateralized, earned</h3>
+        <p class="dim">A fresh wallet opens at 500 and posts 60%. Reaching 900 means raids
+        actually run and debts actually cleared, every one of them on chain.</p>
+        <p class="gold" style="margin-top:14px">By then your name <em>is</em> the collateral.</p>
+      </div>
+      <div class="card" style="margin-top:22px">
+        <h3>Skin in the game</h3>
+        <p class="dim">Walk out and the bond returns whole. Fall and it goes to the patron
+        you cost — the only thing making a thrown raid cost the raider anything.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Blood Ledger</span><span>Reputation as collateral</span></div>
+</section>
+
+<!-- 5 ─────────────────────────────────────────────── -->
+<section class="slide">
+  <p class="tag"><b>·</b> Sybil resistance</p>
+  <h2>Two wallets cannot manufacture a reputation.</h2>
+  <p class="lede dim" style="max-width:1020px">
+    Standing earned from the <em>same patron</em> halves every time that pair deals again,
+    and stops entirely after five. Enforced in the contract, not the UI.
+  </p>
+  <div class="bars">
+    <div class="bar"><div class="v">+28</div><div class="b" style="height:180px"></div><div class="k">FIRST</div></div>
+    <div class="bar"><div class="v">+14</div><div class="b" style="height:90px"></div><div class="k">SECOND</div></div>
+    <div class="bar"><div class="v">+7</div><div class="b" style="height:45px"></div><div class="k">THIRD</div></div>
+    <div class="bar"><div class="v">+3</div><div class="b" style="height:20px"></div><div class="k">FOURTH</div></div>
+    <div class="bar"><div class="v">+1</div><div class="b" style="height:8px"></div><div class="k">FIFTH</div></div>
+    <div class="bar dead"><div class="v">—</div><div class="b" style="height:3px"></div><div class="k">SIXTH</div></div>
+  </div>
+  <div class="grow"></div>
+  <p class="lede">
+    Reaching the top of the board costs <strong>ten distinct funded wallets</strong> and real
+    Sepolia coin, every one of them visible on chain. A stake under 0.001 ETH buys no
+    standing at all.
+  </p>
+  <div class="foot"><span>Blood Ledger</span><span>Anti-farming</span></div>
+</section>
+
+<!-- 6 ─────────────────────────────────────────────── -->
+<section class="slide">
+  <p class="tag"><b>·</b> Architecture</p>
+  <h2>Why it needs two chains — and USC between them.</h2>
+  <div class="flow">
+    <div class="step">
+      <h4>ETHEREUM</h4>
+      <p>The vault holds the patron's coin and emits one event. It has never heard of Creditcoin.</p>
+    </div>
+    <div class="arrow">▶</div>
+    <div class="step mid">
+      <h4>ATTESTCOIN</h4>
+      <p>Witnesses attest the Sepolia block. Once enough agree — about nine minutes — a proof can be built.</p>
+    </div>
+    <div class="arrow">▶</div>
+    <div class="step end">
+      <h4>CREDITCOIN</h4>
+      <p>The precompile verifies the proof, refuses one already spent, and reads the payment out of it.</p>
+    </div>
+  </div>
+  <p class="lede" style="max-width:1040px">
+    The patron's capital <strong>already lives on Ethereum</strong>, and asking them to bridge
+    first would be a worse product. But a debt and a reputation must outlive the raid, be cheap
+    to write, and be readable by anyone — <strong>Creditcoin's job</strong>.
+  </p>
+  <p class="lede dim" style="max-width:1040px">
+    Creditcoin cannot see Ethereum. USC is the only honest answer to that, and the whole
+    credit system hangs off it.
+  </p>
+  <div class="kicker">The proof is the authority, not the messenger</div>
+  <div class="foot"><span>Blood Ledger</span><span>Two chains, one proof</span></div>
+</section>
+
+<!-- 7 ─────────────────────────────────────────────── -->
+<section class="slide">
+  <p class="tag"><b>·</b> USC integration</p>
+  <h2>Three places, and it breaks without any of them.</h2>
+  <div class="card gold" style="margin-bottom:16px">
+    <h3>1 — Reading attestation state, in the browser</h3>
+    <p class="dim" style="font-size:21px"><span class="mono">PrecompileChainInfoProvider</span> is
+    polled for which chains are watched and how far the witnesses have got.</p>
+  </div>
+  <div class="card lit" style="margin-bottom:16px">
+    <h3>2 — USC as the game's randomness</h3>
+    <p class="dim" style="font-size:21px">Every dungeon floor is seeded from the last attested
+    Ethereum block. Nobody chooses that number — not us, not the player. The HUD names it.</p>
+  </div>
+  <div class="card" style="border-color:var(--ember)">
+    <h3>3 — Proving the payment to the contract</h3>
+    <p class="dim" style="font-size:21px"><span class="mono">ProofBuilder</span> fetches the Merkle
+    and continuity proof. <span class="mono">TheLedger</span> extends <span class="mono">ASCBase</span>,
+    which calls the precompile at <span class="mono">0x…0FD2</span>, refuses a spent query id, and
+    reads the staked amount <strong>out of the proof</strong> — never from the messenger.</p>
+  </div>
+  <div class="foot"><span>Blood Ledger</span><span>@gluwa/usc-sdk · @gluwa/asc-contracts</span></div>
+</section>
+
+<!-- 8 ─────────────────────────────────────────────── -->
+<section class="slide">
+  <p class="tag"><b>·</b> The product</p>
+  <h2>Two seats at the same table.</h2>
+  <div class="cols" style="gap:24px">
+    <div>
+      <img class="shot" src="../shots/patron.png" alt="The patron's table">
+      <div class="card gold" style="margin-top:16px">
+        <h3>Gamer A · the patron</h3>
+        <p class="dim" style="font-size:21px">Types an address and <strong>the ledger
+        answers</strong> — score, raids, repaid, lost, read live from Creditcoin before a
+        single coin moves.</p>
+      </div>
+    </div>
+    <div>
+      <img class="shot" src="../shots/dungeon.png" alt="The dungeon">
+      <div class="card lit" style="margin-top:16px">
+        <h3>Gamer B · the raider</h3>
+        <p class="dim" style="font-size:21px">Locks the bond and decides when to turn back.
+        The HUD names the <strong>attested Ethereum block</strong> this floor was carved
+        from.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Blood Ledger</span><span>Both roles, one site</span></div>
+</section>
+
+<!-- 9 ─────────────────────────────────────────────── -->
+<section class="slide">
+  <p class="tag"><b>·</b> Honesty</p>
+  <h2>What the contract refuses.</h2>
+  <p class="lede dim" style="max-width:1060px">
+    The fight happens in the player's browser, so the haul is <em>reported</em>, not proved.
+    We would rather say that here than have it found. The ledger bounds it:
+  </p>
+  <pre style="font-size:18px">ceiling  <b>1.0 tCTC</b>  (100× the stake, never below 100,000 coins)
+claimed  1000000000000000001 wei
+
+<b>MoreThanTheDungeonHolds</b>(pactId 4, claimed 1000000000000000001,
+                                  most 1000000000000000000)</pre>
+  <p class="lede" style="margin-top:18px">
+    One wei over the line, refused on chain — <span class="hash">0x19d2b34a…c77d</span>.
+    It costs the raider nothing but gas and strands nothing.
+  </p>
+  <p class="lede dim" style="margin-bottom:0">
+    <strong>This bounds the lie; it does not end it.</strong> The real answer is replay —
+    floors are seeded from an attested block, so a raid is deterministic and anyone can
+    re-simulate it.
+  </p>
+  <div class="foot"><span>Blood Ledger</span><span>Said out loud, not found</span></div>
+</section>
+
+<!-- 10 ─────────────────────────────────────────────── -->
+<section class="slide">
+  <p class="tag"><b>·</b> Deployed, not mocked</p>
+  <h2>Both contracts are live and holding real state.</h2>
+  <div class="cols" style="margin-bottom:20px">
+    <div class="card gold">
+      <h3>PatronVault &nbsp;·&nbsp; Sepolia</h3>
+      <p class="addr" style="font-size:17px">0xcBB956Fa0358F53B9A83b78d6586a1fbB46fF64e</p>
+    </div>
+    <div class="card lit">
+      <h3>TheLedger &nbsp;·&nbsp; Creditcoin CC3</h3>
+      <p class="addr" style="font-size:17px">0xBd02a6a9f452217dE9d67B945CB995a6991D1cDD</p>
+    </div>
+  </div>
+  <table style="font-size:21px">
+    <tr><th>Every step, checkable without us</th><th>Transaction</th></tr>
+    <tr><td>A patron staked on Ethereum</td><td class="f">0x2ca92625…d640</td></tr>
+    <tr><td>Attestcoin proved it, the pact sealed</td><td class="f">0xc2e73a8c…df04</td></tr>
+    <tr><td>The raid settled, standing 500 → 528</td><td class="f">0x53482ca5…8459</td></tr>
+    <tr><td>A haul above the ceiling, refused</td><td class="f">0x19d2b34a…c77d</td></tr>
+    <tr><td>A replayed proof, refused by the query-id guard</td><td class="f">0xeedd1d2f…58bb</td></tr>
+  </table>
+  <div class="foot"><span>Blood Ledger</span><span>Call pacts(3) or standingOf(addr) yourself</span></div>
+</section>
+
+<!-- 11 ─────────────────────────────────────────────── -->
+<section class="slide">
+  <p class="tag"><b>·</b> Status</p>
+  <h2>Shipped, playable, and tested.</h2>
+  <div class="cols" style="margin-bottom:26px">
+    <div class="card stat"><div class="big">2</div><div class="biglabel">contracts deployed</div></div>
+    <div class="card stat"><div class="big">29</div><div class="biglabel">Foundry tests passing</div></div>
+    <div class="card stat"><div class="big">6</div><div class="biglabel">screens, all live</div></div>
+    <div class="card stat"><div class="big">3</div><div class="biglabel">USC integrations</div></div>
+  </div>
+  <div class="cols">
+    <div class="card">
+      <h3>Live now</h3>
+      <p class="dim">blood-ledger-rosy.vercel.app — both testnets, house running serverless
+      so an empty wallet can still get down the stairs.</p>
+    </div>
+    <div class="card">
+      <h3>Next</h3>
+      <p class="dim">Replay verification of the haul. Standing readable by any other Creditcoin
+      contract — the record is already public and portable.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Blood Ledger</span><span>Status</span></div>
+</section>
+
+<!-- 12 ─────────────────────────────────────────────── -->
+<section class="slide title">
+  <h1 style="font-size:70px">THE PROOF IS THE AUTHORITY</h1>
+  <div class="sub" style="font-size:30px">not the messenger</div>
+  <div class="rule"></div>
+  <div class="meta" style="color:var(--bone)">blood-ledger-rosy.vercel.app</div>
+  <div class="meta" style="margin-top:12px">youtu.be/6gM2qsTxUpg</div>
+  <div class="meta" style="margin-top:12px">github.com/FlemingJohn/blood-ledger</div>
+  <div class="meta" style="margin-top:44px;color:var(--gold)">Fleming John &nbsp;·&nbsp; BUIDL CTC 2026 &nbsp;·&nbsp; Gaming</div>
+</section>
+
+</body>
+</html>

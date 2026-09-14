@@ -11,6 +11,16 @@
 </p>
 
 <p align="center">
+  <a href="https://youtu.be/6gM2qsTxUpg"><strong>▶&nbsp;Watch the demo</strong></a>
+  &nbsp;·&nbsp;
+  <a href="https://blood-ledger-rosy.vercel.app"><strong>Play it now</strong></a>
+</p>
+
+<p align="center">
+  <em>Six minutes, both sides of a raid, on the live testnets. No wallet needed to watch.</em>
+</p>
+
+<p align="center">
   <a href="#the-six-pages">The game</a> ·
   <a href="#how-we-used-attestcoin">Attestcoin</a> ·
   <a href="#one-raid-end-to-end">One raid</a> ·
@@ -137,14 +147,14 @@ that no amount of staring at an address would:
 
 > **Already holds a pact from 0x505B…f3ab.** They must settle it before another.
 
-> **You have backed this raider 1 time.** Another earns them 3 standing instead of 28.
+> **You have backed this raider 1 time.** Another earns them 14 standing instead of 28.
 
 > **That is you.** You cannot put up coin for yourself.
 
 That third one is the anti-farming rule showing its face before you spend rather than
 after. The ledger halves what a raider earns each time the same patron backs them again,
-and stops paying out entirely after five. The page reads that number off the chain and
-tells you what your next stake would actually be worth to them.
+and stops paying out entirely after five — **28, 14, 7, 3, 1, then nothing**. The page reads
+that count off the chain and tells you what your next stake would actually be worth to them.
 
 **Then it asks before the money moves.** Pressing *Put Up The Coin* opens a slab first: who
 they are, what you lend, what you keep, and the line that matters — *if they fall, your
@@ -492,6 +502,32 @@ there.
 
 The chain waits at both doors and nowhere in between.
 
+### Watch it happen
+
+Both sides of one raid, played on two wallets — **Gamer A** puts up the coin, **Gamer B**
+goes down. Everything on screen is live testnet state.
+
+<p align="center">
+  <a href="https://youtu.be/6gM2qsTxUpg">
+    <strong>▶ blood ledger — the demo</strong>
+  </a>
+</p>
+
+| | |
+| --- | --- |
+| [0:19](https://youtu.be/6gM2qsTxUpg?t=19) | Two seats at the table — patron and raider |
+| [0:46](https://youtu.be/6gM2qsTxUpg?t=46) | The words this game uses |
+| [1:21](https://youtu.be/6gM2qsTxUpg?t=81) | The ledger answers — a raider's card, read live |
+| [1:38](https://youtu.be/6gM2qsTxUpg?t=98) | Why backing the same raider twice earns less |
+| [2:00](https://youtu.be/6gM2qsTxUpg?t=120) | Putting up the coin on Ethereum Sepolia |
+| [2:18](https://youtu.be/6gM2qsTxUpg?t=138) | The protocol — Ethereum, the witnesses, the proof |
+| [2:44](https://youtu.be/6gM2qsTxUpg?t=164) | The precompile, the replay guard, the seal |
+| [3:08](https://youtu.be/6gM2qsTxUpg?t=188) | Both contracts, deployed |
+| [3:29](https://youtu.be/6gM2qsTxUpg?t=209) | The bond is priced by the name |
+| [3:49](https://youtu.be/6gM2qsTxUpg?t=229) | The raid |
+| [5:25](https://youtu.be/6gM2qsTxUpg?t=325) | The reckoning, settled on Creditcoin |
+| [5:41](https://youtu.be/6gM2qsTxUpg?t=341) | Check it without us |
+
 ---
 
 ## How the game works
@@ -806,7 +842,13 @@ reading and JetBrains Mono for numbers, all four from Google Fonts.
 
 ## Running it
 
-### Five minutes, no coin needed
+### Nothing to install
+
+It is already up at **[blood-ledger-rosy.vercel.app](https://blood-ledger-rosy.vercel.app)**,
+pointed at both live testnets, with the house running serverless so an empty purse can still
+get down the stairs.
+
+### Five minutes, on your own machine
 
 ```
 npm install
